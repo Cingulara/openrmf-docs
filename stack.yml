@@ -48,8 +48,8 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8088
-      - mongoConnection=mongodb://openstig:openstig1234!@192.168.11.46
-      - mongodb=openstig
+      - mongoConnection=mongodb://openstigtemplate:openstig1234!@192.168.11.46
+      - mongodb=openstigtemplate
 #    depends_on:
 #      - mongo
 
