@@ -4,7 +4,7 @@ services:
   openstigapi-scoring:
     image: openstig-api-scoring:0.1
     ports:
-      - 8082:8082
+      - 8180:8180
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8180
@@ -29,7 +29,7 @@ services:
   openstigapi-save:
     image: openstig-api-save:0.1
     ports:
-      - 8180:8180
+      - 8082:8082
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8082
@@ -74,7 +74,7 @@ services:
       - 8084:8084
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://*:8086
+      - ASPNETCORE_URLS=http://*:8084
       - mongoConnection=mongodb://openstig:openstig1234!@192.168.11.46
       - mongodb=openstig
 #    depends_on:
