@@ -8,23 +8,23 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8180
-      - mongoConnection=mongodb://openstigscore:openstig1234!@192.168.11.46
+      - mongoConnection=mongodb://openstigscore:openstig1234!@mongo
       - mongodb=openstigscore
-      - natsserverurl=nats://192.168.11.46:4222
-#    depends_on:
-#      - mongo
-#      - nats
+      - natsserverurl=nats://nats:4222
+    depends_on:
+      - mongo
+      - nats
 
   openstigmsg-score:
     image: openstig-msg-score:0.1
     environment:
       - openstig-api-read-server=http://openstigapi-read:8084
-      - mongoConnection=mongodb://openstigscore:openstig1234!@192.168.11.46
+      - mongoConnection=mongodb://openstigscore:openstig1234!@mongo
       - mongodb=openstigscore
-      - natsserverurl=nats://192.168.11.46:4222
-#    depends_on:
-#      - mongo
-#      - nats
+      - natsserverurl=nats://nats:4222
+    depends_on:
+      - mongo
+      - nats
   
   openstigapi-save:
     image: openstig-api-save:0.1
@@ -33,13 +33,13 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8082
-      - mongoConnection=mongodb://openstig:openstig1234!@192.168.11.46
+      - mongoConnection=mongodb://openstig:openstig1234!@mongo
       - mongodb=openstig
-      - natsserverurl=nats://192.168.11.46:4222
+      - natsserverurl=nats://nats:4222
     depends_on:
-       - openstigmsg-score
-#      - mongo
-#      - nats
+      - openstigmsg-score
+      - mongo
+      - nats
 
   openstigapi-template:
     image: openstig-api-template:0.1
@@ -48,10 +48,10 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8088
-      - mongoConnection=mongodb://openstigtemplate:openstig1234!@192.168.11.46
+      - mongoConnection=mongodb://openstigtemplate:openstig1234!@mongo
       - mongodb=openstigtemplate
-#    depends_on:
-#      - mongo
+    depends_on:
+      - mongo
 
   openstigapi-upload:
     image: openstig-api-upload:0.1
@@ -60,13 +60,13 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8086
-      - mongoConnection=mongodb://openstig:openstig1234!@192.168.11.46
+      - mongoConnection=mongodb://openstig:openstig1234!@mongo
       - mongodb=openstig
-      - natsserverurl=nats://192.168.11.46:4222
+      - natsserverurl=nats://nats:4222
     depends_on:
-       - openstigmsg-score
-#      - mongo
-#      - nats
+      - openstigmsg-score
+      - mongo
+      - nats
 
   openstigapi-read:
     image: openstig-api-read:0.1
@@ -75,8 +75,25 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8084
-      - mongoConnection=mongodb://openstig:openstig1234!@192.168.11.46
+      - mongoConnection=mongodb://openstig:openstig1234!@mongo
       - mongodb=openstig
-#    depends_on:
-#      - mongo
-#      - nats
+    depends_on:
+      - mongo
+      - nats
+
+  mongo:
+    image: openstig-mongodb:0.1
+    restart: always
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: myp2ssw0rd
+
+  nats: 
+    image: nats
+    restart: always
+    ports:
+      - 4222
+      - 6222:6222
+      - 8222:8222
