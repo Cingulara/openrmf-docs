@@ -1,0 +1,82 @@
+version : '3'
+ 
+services:
+  openstigapi-scoring:
+    image: openstig-api-scoring:0.1
+    ports:
+      - 8082:8082
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://*:8180
+      - mongoConnection=mongodb://openstigscore:openstig1234!@192.168.11.46
+      - mongodb=openstigscore
+      - natsserverurl=nats://192.168.11.46:4222
+#    depends_on:
+#      - mongo
+#      - nats
+
+  openstigmsg-score:
+    image: openstig-msg-score:0.1
+    environment:
+      - openstig-api-read-server=http://openstigapi-read:8084
+      - mongoConnection=mongodb://openstigscore:openstig1234!@192.168.11.46
+      - mongodb=openstigscore
+      - natsserverurl=nats://192.168.11.46:4222
+#    depends_on:
+#      - mongo
+#      - nats
+  
+  openstigapi-save:
+    image: openstig-api-save:0.1
+    ports:
+      - 8180:8180
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://*:8082
+      - mongoConnection=mongodb://openstig:openstig1234!@192.168.11.46
+      - mongodb=openstig
+      - natsserverurl=nats://192.168.11.46:4222
+    depends_on:
+       - openstigmsg-score
+#      - mongo
+#      - nats
+
+  openstigapi-template:
+    image: openstig-api-template:0.1
+    ports:
+      - 8088:8088
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://*:8088
+      - mongoConnection=mongodb://openstig:openstig1234!@192.168.11.46
+      - mongodb=openstig
+#    depends_on:
+#      - mongo
+
+  openstigapi-upload:
+    image: openstig-api-upload:0.1
+    ports:
+      - 8086:8086
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://*:8086
+      - mongoConnection=mongodb://openstig:openstig1234!@192.168.11.46
+      - mongodb=openstig
+      - natsserverurl=nats://192.168.11.46:4222
+    depends_on:
+       - openstigmsg-score
+#      - mongo
+#      - nats
+
+  openstigapi-read:
+    image: openstig-api-read:0.1
+    ports:
+      - 8084:8084
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://*:8086
+      - mongoConnection=mongodb://openstig:openstig1234!@192.168.11.46
+      - mongodb=openstig
+#    depends_on:
+#      - mongo
+#      - nats
