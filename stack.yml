@@ -8,22 +8,22 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8180
-      - mongoConnection=mongodb://openstigscore:openstig1234!@mongo
+      - mongoConnection=mongodb://openstigscore:openstig1234!@scoredb/openstigscore?authSource=openstigscore
       - mongodb=openstigscore
       - natsserverurl=nats://nats:4222
     depends_on:
-      - mongo
+      - scoredb
       - nats
 
   openstigmsg-score:
     image: openstig-msg-score:0.1
     environment:
       - openstig-api-read-server=http://openstigapi-read:8084
-      - mongoConnection=mongodb://openstigscore:openstig1234!@mongo
+      - mongoConnection=mongodb://openstigscore:openstig1234!@scoredb/openstigscore?authSource=openstigscore
       - mongodb=openstigscore
       - natsserverurl=nats://nats:4222
     depends_on:
-      - mongo
+      - scoredb
       - nats
   
   openstigapi-save:
@@ -33,12 +33,12 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8082
-      - mongoConnection=mongodb://openstig:openstig1234!@mongo
+      - mongoConnection=mongodb://openstig:openstig1234!@checklistdb/openstig?authSource=openstig
       - mongodb=openstig
       - natsserverurl=nats://nats:4222
     depends_on:
       - openstigmsg-score
-      - mongo
+      - checklistdb
       - nats
 
   openstigapi-template:
@@ -48,10 +48,10 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8088
-      - mongoConnection=mongodb://openstigtemplate:openstig1234!@mongo
+      - mongoConnection=mongodb://openstigtemplate:openstig1234!@templatedb/openstigtemplate?authSource=openstigtemplate
       - mongodb=openstigtemplate
     depends_on:
-      - mongo
+      - templatedb
 
   openstigapi-upload:
     image: openstig-api-upload:0.1
@@ -60,12 +60,12 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8086
-      - mongoConnection=mongodb://openstig:openstig1234!@mongo
+      - mongoConnection=mongodb://openstig:openstig1234!@checklistdb/openstig?authSource=openstig
       - mongodb=openstig
       - natsserverurl=nats://nats:4222
     depends_on:
       - openstigmsg-score
-      - mongo
+      - checklistdb
       - nats
 
   openstigapi-read:
@@ -75,20 +75,41 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8084
-      - mongoConnection=mongodb://openstig:openstig1234!@mongo
+      - mongoConnection=mongodb://openstig:openstig1234!@checklistdb/openstig?authSource=openstig
       - mongodb=openstig
     depends_on:
-      - mongo
+      - checklistdb
       - nats
 
-  mongo:
-    image: openstig-mongodb:0.1
+  checklistdb:
+    image: openstig-checklistdb:0.1
     restart: always
     ports:
-      - 27017:27017
+      - 27017
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: myp2ssw0rd
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=myp2ssw0rd
+      - MONGO_INITDB_DATABASE=openstig
+
+  scoredb:
+    image: openstig-scoredb:0.1
+    restart: always
+    ports:
+      - 27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=myp2ssw0rd
+      - MONGO_INITDB_DATABASE=openstigscore
+
+  templatedb:
+    image: openstig-templatedb:0.1
+    restart: always
+    ports:
+      - 27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=myp2ssw0rd
+      - MONGO_INITDB_DATABASE=openstigtemplate
 
   nats: 
     image: nats

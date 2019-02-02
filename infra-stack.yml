@@ -1,15 +1,15 @@
 version : '3'
  
 services:
-  mongo:
-    image: openstig-checklistdb:0.1
+  scoredb:
+    image: openstig-scoredb:0.1
     restart: always
     ports:
       - 27017:27017
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: myp2ssw0rd
-      MONGO_INITDB_DATABASE: openstig
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=myp2ssw0rd
+      - MONGO_INITDB_DATABASE=openstigscore
 
   nats: 
     image: nats
@@ -25,5 +25,6 @@ services:
     ports:
       - 8081:8081
     environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: root
-      ME_CONFIG_MONGODB_ADMINPASSWORD: myp2ssw0rd
+      - ME_CONFIG_MONGODB_SERVER=scoredb
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=root
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=myp2ssw0rd
