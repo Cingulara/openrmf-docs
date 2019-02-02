@@ -4,3 +4,6 @@ This is the repo for all the docs as this project goes along.  Documentation on 
 
 Phase 1 Vision:
 ![Image](./architecture/phase1-architecture-whiteboard.jpg?raw=true)
+
+## Docker-compose file to run
+There is a stack.yml file in here to run the API .net core pieces, messaging subscriber for scoring, as well as local NATS and MongoDB. 
