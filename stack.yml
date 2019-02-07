@@ -4,10 +4,10 @@ services:
   openstigapi-scoring:
     image: openstig-api-scoring:0.2
     ports:
-      - 8180:8180
+      - 8090:8090
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://*:8180
+      - ASPNETCORE_URLS=http://*:8090
       - mongoConnection=mongodb://openstigscore:openstig1234!@scoredb/openstigscore?authSource=openstigscore
       - mongodb=openstigscore
       - natsserverurl=nats://nats:4222
