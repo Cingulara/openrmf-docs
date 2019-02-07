@@ -25,6 +25,7 @@ services:
     depends_on:
       - scoredb
       - nats
+      - openstigapi-read
   
   openstigapi-save:
     image: openstig-api-save:0.2
@@ -115,6 +116,6 @@ services:
     image: nats
     restart: always
     ports:
-      - 4222
+      - 4222:4222
       - 6222:6222
       - 8222:8222

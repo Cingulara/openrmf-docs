@@ -1,8 +1,8 @@
 version : '3'
  
 services:
-  scoredb:
-    image: openstig-scoredb:0.1
+  mongo:
+    image: mongo:4.0.5
     restart: always
     ports:
       - 27017:27017
@@ -25,6 +25,6 @@ services:
     ports:
       - 8081:8081
     environment:
-      - ME_CONFIG_MONGODB_SERVER=scoredb
+      - ME_CONFIG_MONGODB_SERVER=mongo
       - ME_CONFIG_MONGODB_ADMINUSERNAME=root
       - ME_CONFIG_MONGODB_ADMINPASSWORD=myp2ssw0rd
