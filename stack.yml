@@ -2,7 +2,7 @@ version : '3'
  
 services:
   openstigapi-scoring:
-    image: openstig-api-scoring:0.1
+    image: openstig-api-scoring:0.2
     ports:
       - 8180:8180
     environment:
@@ -16,7 +16,7 @@ services:
       - nats
 
   openstigmsg-score:
-    image: openstig-msg-score:0.1
+    image: openstig-msg-score:0.2
     environment:
       - openstig-api-read-server=http://openstigapi-read:8084
       - mongoConnection=mongodb://openstigscore:openstig1234!@scoredb/openstigscore?authSource=openstigscore
@@ -27,7 +27,7 @@ services:
       - nats
   
   openstigapi-save:
-    image: openstig-api-save:0.1
+    image: openstig-api-save:0.2
     ports:
       - 8082:8082
     environment:
@@ -42,7 +42,7 @@ services:
       - nats
 
   openstigapi-template:
-    image: openstig-api-template:0.1
+    image: openstig-api-template:0.2
     ports:
       - 8088:8088
     environment:
@@ -54,7 +54,7 @@ services:
       - templatedb
 
   openstigapi-upload:
-    image: openstig-api-upload:0.1
+    image: openstig-api-upload:0.2
     ports:
       - 8086:8086
     environment:
@@ -69,7 +69,7 @@ services:
       - nats
 
   openstigapi-read:
-    image: openstig-api-read:0.1
+    image: openstig-api-read:0.2
     ports:
       - 8084:8084
     environment:
