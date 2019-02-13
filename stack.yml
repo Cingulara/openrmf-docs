@@ -1,6 +1,17 @@
 version : '3'
  
 services:
+  openstigapi-web:
+    image: openstig-web:0.2
+    ports:
+      - 8080:8080
+    depends_on:
+      - openstigapi-scoring
+      - openstigapi-save
+      - openstigapi-template
+      - openstigapi-upload
+      - openstigapi-read
+
   openstigapi-scoring:
     image: openstig-api-scoring:0.2
     ports:
