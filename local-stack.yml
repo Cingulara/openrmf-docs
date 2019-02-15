@@ -1,0 +1,131 @@
+version : '3'
+ 
+services:
+  openstig-web:
+    image: openstig-web:0.3
+    ports:
+      - 8080:80
+    depends_on:
+      - openstigapi-scoring
+      - openstigapi-save
+      - openstigapi-template
+      - openstigapi-upload
+      - openstigapi-read
+
+  openstigapi-scoring:
+    image: openstig-api-scoring:0.2
+    ports:
+      - 8090:8080
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://*:8080
+      - mongoConnection=mongodb://openstigscore:openstig1234!@scoredb/openstigscore?authSource=openstigscore
+      - mongodb=openstigscore
+      - natsserverurl=nats://natsserver:4222
+    depends_on:
+      - scoredb
+      - natsserver
+
+  openstigmsg-score:
+    image: openstig-msg-score:0.2
+    environment:
+      - openstig-api-read-server=http://openstigapi-read:8080
+      - mongoConnection=mongodb://openstigscore:openstig1234!@scoredb/openstigscore?authSource=openstigscore
+      - mongodb=openstigscore
+      - natsserverurl=nats://natsserver:4222
+    depends_on:
+      - scoredb
+      - natsserver
+      - openstigapi-read
+  
+  openstigapi-save:
+    image: openstig-api-save:0.3
+    ports:
+      - 8082:8080
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://*:8080
+      - mongoConnection=mongodb://openstig:openstig1234!@checklistdb/openstig?authSource=openstig
+      - mongodb=openstig
+      - natsserverurl=nats://natsserver:4222
+    depends_on:
+      - openstigmsg-score
+      - checklistdb
+      - natsserver
+
+  openstigapi-template:
+    image: openstig-api-template:0.3
+    ports:
+      - 8088:8080
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://*:8080
+      - mongoConnection=mongodb://openstigtemplate:openstig1234!@templatedb/openstigtemplate?authSource=openstigtemplate
+      - mongodb=openstigtemplate
+    depends_on:
+      - templatedb
+
+  openstigapi-upload:
+    image: openstig-api-upload:0.3
+    ports:
+      - 8086:8080
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://*:8080
+      - mongoConnection=mongodb://openstig:openstig1234!@checklistdb/openstig?authSource=openstig
+      - mongodb=openstig
+      - natsserverurl=nats://natsserver:4222
+    depends_on:
+      - openstigmsg-score
+      - checklistdb
+      - natsserver
+
+  openstigapi-read:
+    image: openstig-api-read:0.3
+    ports:
+      - 8084:8080
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://*:8080
+      - mongoConnection=mongodb://openstig:openstig1234!@checklistdb/openstig?authSource=openstig
+      - mongodb=openstig
+    depends_on:
+      - checklistdb
+
+  checklistdb:
+    image: openstig-checklistdb:0.1
+    restart: always
+    ports:
+      - 27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=myp2ssw0rd
+      - MONGO_INITDB_DATABASE=openstig
+
+  scoredb:
+    image: openstig-scoredb:0.1
+    restart: always
+    ports:
+      - 27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=myp2ssw0rd
+      - MONGO_INITDB_DATABASE=openstigscore
+
+  templatedb:
+    image: openstig-templatedb:0.1
+    restart: always
+    ports:
+      - 27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=myp2ssw0rd
+      - MONGO_INITDB_DATABASE=openstigtemplate
+
+  natsserver: 
+    image: nats
+    restart: always
+    ports:
+      - 4222:4222
+      - 6222:6222
+      - 8222:8222
