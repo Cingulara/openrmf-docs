@@ -3,7 +3,7 @@
 This is the repo for all the docs as the openSTIG project goes along.  Documentation on the openSTIG application will be here in MD files and reference images and other documents as well as GH markdown. This application idea has been brewing in my head for well over a decade and specifically since July 4th weekend 2018 when I started to put down code. Then in January 2019 when I scrapped all that July stuff and went for web APIs, microservices, eventual consistency, CQRS (command query responsibility segregation to scale separately), using MongoDB and NATS.
 
 Phase 1 Vision / Concept as drawn on my whiteboard:
-![Image](./architecture/phase1-architecture-whiteboard.jpg?raw=true)
+![Image](./architecture/openSTIG-Tool-0.3-Architecture.png?raw=true)
 
 The architecture was setup to do a few things for this tool and for myself actually:
 * https://github.com/Cingulara/openstig-api-read is for listing, getting, and downloading a checklist and its metadata of title, description, type, and future user info
@@ -60,6 +60,10 @@ If you wish you can create a MongoDB setup just to persist your data and see wha
 
 ## connecting to the database collection straight (example)
 ~/mongodb/bin/mongo 'mongodb://openstig:openstig1234!@localhost/openstig?authSource=admin'
+
+## cleaning up the Docker volumes and such every so often
+* run `docker volume rm $(docker volume ls -qf dangling=true)` 
+* run `docker system prune` and then enter `y` and press Enter when asked
 
 ## Examples using Insomnia
 
