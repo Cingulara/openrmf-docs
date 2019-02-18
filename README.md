@@ -52,31 +52,7 @@ If you find something please add an issue to the correct repo. I know for now, I
 There is a stack.yml file in here to run the API .net core pieces, messaging subscriber for scoring, as well as local NATS and MongoDB. It uses 10+ images pulled from DockerHub, 1 being the NATS messaging. You can certainly pull down the individual git repos or even pull the individual images and run them. I just did this so it was easier later and so I could show myself I could get it all running. I also have a local-stack for those wanting to do development and use the local copies you build. And an infra-stack to just run a single instance of MongoDB and NATS to test interactively.
 
 ## Creating MongoDB Users by Hand
-If you wish you can create a MongoDB setup just to persist your data and see what it does. I am not doing that yet as this is more of an alpha or pre-alpha for now. 
-
-### creating the user for READ/SAVE/UPLOAD by hand
-* ~/mongodb/bin/mongo 'mongodb://root:myp2ssw0rd@localhost'
-* use admin
-* db.createUser({ user: "openstig" , pwd: "openstig1234!", roles: ["readWriteAnyDatabase"]});
-* use openstig
-* db.createCollection("Artifacts");
-
-### creating the user for TEMPLATES by hand
-* ~/mongodb/bin/mongo 'mongodb://root:myp2ssw0rd@localhost'
-* use admin
-* db.createUser({ user: "openstigtemplate" , pwd: "openstig1234!", roles: ["readWriteAnyDatabase"]});
-* use openstigtemplate
-* db.createCollection("Templates");
-
-### creating the database user SCORES by hand
-* ~/mongodb/bin/mongo 'mongodb://root:myp2ssw0rd@localhost'
-* use admin
-* db.createUser({ user: "openstigscore" , pwd: "openstig1234!", roles: ["readWriteAnyDatabase"]});
-* use openstigscore
-* db.createCollection("Scores");
-
-## connecting to the database collection straight (example)
-~/mongodb/bin/mongo 'mongodb://openstig:openstig1234!@localhost/openstig?authSource=admin'
+If you wish you can create a MongoDB setup just to persist your data and see what it does. I am not doing that yet as this is more of an alpha or pre-alpha for now. Checkout the [create users by hand](create-users-by-hand.md) readme for more on that. 
 
 ## cleaning up the Docker volumes and such every so often
 * run `docker volume rm $(docker volume ls -qf dangling=true)` 
@@ -84,4 +60,4 @@ If you wish you can create a MongoDB setup just to persist your data and see wha
 
 
 ## Examples using Insomnia
-[a link](Insomnia.md) has examples of calling the APIs straight
+The [Insomnia app readme](Insomnia.md) has examples of calling the APIs straight
