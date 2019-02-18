@@ -2,7 +2,7 @@ version : '3'
  
 services:
   openstig-web:
-    image: cingulara/openstig-web:0.2
+    image: cingulara/openstig-web:0.3
     ports:
       - 8080:80
     depends_on:
@@ -13,7 +13,7 @@ services:
       - openstigapi-read
 
   openstigapi-scoring:
-    image: cingulara/openstig-api-scoring:0.2
+    image: cingulara/openstig-api-scoring:0.3
     ports:
       - 8090:8080
     environment:
@@ -27,7 +27,7 @@ services:
       - natsserver
 
   openstigmsg-score:
-    image: cingulara/openstig-msg-score:0.2
+    image: cingulara/openstig-msg-score:0.3
     environment:
       - openstig-api-read-server=http://openstigapi-read:8080
       - mongoConnection=mongodb://openstigscore:openstig1234!@scoredb/openstigscore?authSource=openstigscore
@@ -39,7 +39,7 @@ services:
       - openstigapi-read
   
   openstigapi-save:
-    image: cingulara/openstig-api-save:0.2
+    image: cingulara/openstig-api-save:0.3
     ports:
       - 8082:8080
     environment:
@@ -54,7 +54,7 @@ services:
       - natsserver
 
   openstigapi-template:
-    image: cingulara/openstig-api-template:0.2
+    image: cingulara/openstig-api-template:0.3
     ports:
       - 8088:8080
     environment:
@@ -66,7 +66,7 @@ services:
       - templatedb
 
   openstigapi-upload:
-    image: cingulara/openstig-api-upload:0.2
+    image: cingulara/openstig-api-upload:0.3
     ports:
       - 8086:8080
     environment:
@@ -81,7 +81,7 @@ services:
       - natsserver
 
   openstigapi-read:
-    image: cingulara/openstig-api-read:0.2
+    image: cingulara/openstig-api-read:0.3
     ports:
       - 8084:8080
     environment:

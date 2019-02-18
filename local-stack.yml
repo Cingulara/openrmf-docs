@@ -13,7 +13,7 @@ services:
       - openstigapi-read
 
   openstigapi-scoring:
-    image: openstig-api-scoring:0.2
+    image: openstig-api-scoring:0.3
     ports:
       - 8090:8080
     environment:
@@ -27,7 +27,7 @@ services:
       - natsserver
 
   openstigmsg-score:
-    image: openstig-msg-score:0.2
+    image: openstig-msg-score:0.3
     environment:
       - openstig-api-read-server=http://openstigapi-read:8080
       - mongoConnection=mongodb://openstigscore:openstig1234!@scoredb/openstigscore?authSource=openstigscore
