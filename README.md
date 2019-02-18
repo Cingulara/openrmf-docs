@@ -1,5 +1,7 @@
 # openSTIG Documentation
 
+![Image](./img/UI-checklist-dashboard.png?raw=true)
+
 This is the repo for all the docs as the openSTIG project goes along.  Documentation on the openSTIG application will be here in MD files and reference images and other documents as well as GH markdown. This application idea has been brewing in my head for well over a decade and specifically since July 4th weekend 2018 when I started to put down code. Then in January 2019 when I scrapped all that July stuff and went for web APIs, microservices, eventual consistency, CQRS (command query responsibility segregation to scale separately), using MongoDB and NATS.
 
 Phase 1 Vision / Concept as drawn on my whiteboard:
@@ -58,6 +60,19 @@ If you wish you can create a MongoDB setup just to persist your data and see wha
 * run `docker volume rm $(docker volume ls -qf dangling=true)` 
 * run `docker system prune` and then enter `y` and press Enter when asked
 
-
 ## Examples using Insomnia
-The [Insomnia app readme](Insomnia.md) has examples of calling the APIs straight
+The [Insomnia](Insomnia.md) readme has examples of calling the APIs straight
+
+## Screenshots of the UI
+
+The Individual Checklist view
+![Image](./img/UI-checklist-scoring-vulns.png?raw=true)
+
+The UI Checklist Graphs
+![Image](./img/UI-checklist-graphs.png?raw=true)
+
+The checklist Upload page
+![Image](./img/UI-checklist-upload.png?raw=true)
+
+The UI Checklist Template view
+![Image](./img/UI-checklist-template.png?raw=true)
