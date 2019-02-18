@@ -76,3 +76,6 @@ The checklist Upload page
 
 The UI Checklist Template view
 ![Image](./img/UI-checklist-template.png?raw=true)
+
+Exporting the checklist to XLSX with color coding
+![Image](./img/checklist-export-xlsx.png?raw=true)
