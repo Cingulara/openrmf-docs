@@ -6,7 +6,7 @@ This is the repo for all the docs as the openSTIG project goes along.  Documenta
 
 Phase 1 Vision / Concept as drawn on my whiteboard:
 
-![Image](./architecture/openSTIG-Tool-0.3-Architecture.png?raw=true)
+![Image](./architecture/openSTIG-Tool-0.4-Architecture.png?raw=true)
 
 The architecture was setup to do a few things for this tool and for myself actually:
 * https://github.com/Cingulara/openstig-api-read is for listing, getting, and downloading a checklist and its metadata of title, description, type, and future user info. It also has an expor to Excel function that is color coded for status thanks to a request by a good IA/CS friend of mine that needed that.
