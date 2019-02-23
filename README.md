@@ -9,12 +9,14 @@ Phase 1 Vision / Concept as drawn on my whiteboard:
 ![Image](./architecture/openSTIG-Tool-0.4-Architecture.png?raw=true)
 
 The architecture was setup to do a few things for this tool and for myself actually:
-* https://github.com/Cingulara/openstig-api-read is for listing, getting, and downloading a checklist and its metadata of title, description, type, and future user info. It also has an expor to Excel function that is color coded for status thanks to a request by a good IA/CS friend of mine that needed that.
-* https://github.com/Cingulara/openstig-api-save is for saving checklist data by posting it ALL in a form, including the raw checklist data (not a file). This publishes a "openstig.save.xxxx" type of event.
-* https://github.com/Cingulara/openstig-api-template is for uploading, listing, and getting checklist file templates to start from
-* https://github.com/Cingulara/openstig-msg-score is a NATS messaging subscriber listening to "save" events from Save and Upload to score the checklist
-* https://github.com/Cingulara/openstig-api-scoring is for reading a score of a checklist as well as (future) scoring a checklist based on a file posted (at runtime)
-* https://github.com/Cingulara/openstig-api-upload is for uploading a .CKL checklist file with metadata and saving the result. This publishes a "openstig.save.xxxx" type of event.
+* https://github.com/Cingulara/openstig-web is the web UI pointing to all these APIs below to render checklists listings, data, vulnerabilities, reports, and allowing saving 
+of chart data and XLSX downloads.
+* https://github.com/Cingulara/openstig-api-read is for listing, getting, and downloading a checklist and its metadata of title, description, type, and future user info. It also has an export to Excel function that is color coded for status thanks to a request by a good IA/CS friend of mine that needed that.
+* https://github.com/Cingulara/openstig-api-save is for saving checklist data by posting it ALL in a form, including the raw checklist data (not a file). This publishes an "openstig.save.xxxx" type of event to NATS.
+* https://github.com/Cingulara/openstig-api-template is for uploading, listing, and getting checklist file templates to start from.
+* https://github.com/Cingulara/openstig-msg-score is a NATS messaging subscriber listening to "openstig.save.*" events from Save and Upload to score the checklist and putting that score into the Mongo DB for the scoring API
+* https://github.com/Cingulara/openstig-api-scoring is for reading a score of a checklist as well as scoring a checklist based on a file posted (at runtime).
+* https://github.com/Cingulara/openstig-api-upload is for uploading a .CKL checklist file with metadata and saving the result. This publishes an "openstig.save.xxxx" type of event.
 
 Future enhancements, since I did it with separate microservices all over including messaging, are to organically add publish / subscribe pieces such as compliance, auditing, logging, etc. to make this more user and enterprise ready. Along with all the error trapping, checking for NATS connection, etc. that a production 1.0 application would have. 
 
