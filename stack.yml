@@ -2,7 +2,7 @@ version : '3'
  
 services:
   openstig-web:
-    image: cingulara/openstig-web:0.3
+    image: cingulara/openstig-web:0.4
     ports:
       - 8080:80
     depends_on:
@@ -39,7 +39,7 @@ services:
       - openstigapi-read
   
   openstigapi-save:
-    image: cingulara/openstig-api-save:0.3
+    image: cingulara/openstig-api-save:0.4
     ports:
       - 8082:8080
     environment:
@@ -66,7 +66,7 @@ services:
       - templatedb
 
   openstigapi-upload:
-    image: cingulara/openstig-api-upload:0.3
+    image: cingulara/openstig-api-upload:0.4
     ports:
       - 8086:8080
     environment:
@@ -81,7 +81,7 @@ services:
       - natsserver
 
   openstigapi-read:
-    image: cingulara/openstig-api-read:0.3
+    image: cingulara/openstig-api-read:0.4
     ports:
       - 8084:8080
     environment:
@@ -93,7 +93,7 @@ services:
       - checklistdb
 
   checklistdb:
-    image: cingulara/openstig-checklistdb:0.1
+    image: cingulara/openstig-checklistdb:0.3
     restart: always
     ports:
       - 27017
@@ -103,7 +103,7 @@ services:
       - MONGO_INITDB_DATABASE=openstig
 
   scoredb:
-    image: cingulara/openstig-scoredb:0.1
+    image: cingulara/openstig-scoredb:0.3
     restart: always
     ports:
       - 27017
@@ -113,7 +113,7 @@ services:
       - MONGO_INITDB_DATABASE=openstigscore
 
   templatedb:
-    image: cingulara/openstig-templatedb:0.1
+    image: cingulara/openstig-templatedb:0.3
     restart: always
     ports:
       - 27017
