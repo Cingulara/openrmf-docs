@@ -64,6 +64,8 @@ All the checklist CKL files have the same structure. Right now I am testing main
 ## Known issues
 If you find something please add an issue to the correct repo. I know for now, I don't "D" yet to delete. It is ephemeral so I just power down the stack and power back up as I am testing. Eventually I will need to do that. 
 
+If you find any problem, have an idea or enhancement please do not hesitate to add to the (Issues)[https://github.com/Cingulara/openstig-docs/issues] area.
+
 ## Creating MongoDB Users by Hand
 If you wish you can create a MongoDB setup just to persist your data and see what it does. I am not doing that yet as this is more of an alpha or pre-alpha for now. Checkout the [create users by hand](create-users-by-hand.md) readme for more on that. 
 
