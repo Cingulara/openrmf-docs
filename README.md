@@ -4,6 +4,14 @@
 
 This is the repo for all the docs as the openSTIG project goes along.  Documentation on the openSTIG application will be here in MD files and reference images and other documents as well as GH markdown. This application idea has been brewing in my head for well over a decade and specifically since July 4th weekend 2018 when I started to put down code. Then in January 2019 when I scrapped all that July stuff and went for web APIs, microservices, eventual consistency, CQRS (command query responsibility segregation to scale separately), using MongoDB and NATS.
 
+
+## Docker-compose file to run
+There is a stack.yml file in here to run the API .net core pieces, messaging subscriber for scoring, as well as local NATS and MongoDB. It uses 10+ images pulled from DockerHub, 1 being the NATS messaging. You can certainly pull down the individual git repos or even pull the individual images and run them. I just did this so it was easier later and so I could show myself I could get it all running. I also have a local-stack for those wanting to do development and use the local copies you build. And an infra-stack to just run a single instance of MongoDB and NATS to test interactively.
+
+The data is ephemeral, it dies when the containers die. If you want persistence changed the connection strings to a persistent MongoDB, add volumes, etc. as you need.
+
+## Architecture explained
+
 Phase 1 Vision / Concept as drawn on my whiteboard:
 
 ![Image](./architecture/openSTIG-Tool-0.4-Architecture.png?raw=true)
@@ -51,9 +59,6 @@ All the checklist CKL files have the same structure. Right now I am testing main
 
 ## Known issues
 If you find something please add an issue to the correct repo. I know for now, I don't "D" yet to delete. It is ephemeral so I just power down the stack and power back up as I am testing. Eventually I will need to do that. 
-
-## Docker-compose file to run
-There is a stack.yml file in here to run the API .net core pieces, messaging subscriber for scoring, as well as local NATS and MongoDB. It uses 10+ images pulled from DockerHub, 1 being the NATS messaging. You can certainly pull down the individual git repos or even pull the individual images and run them. I just did this so it was easier later and so I could show myself I could get it all running. I also have a local-stack for those wanting to do development and use the local copies you build. And an infra-stack to just run a single instance of MongoDB and NATS to test interactively.
 
 ## Creating MongoDB Users by Hand
 If you wish you can create a MongoDB setup just to persist your data and see what it does. I am not doing that yet as this is more of an alpha or pre-alpha for now. Checkout the [create users by hand](create-users-by-hand.md) readme for more on that. 
