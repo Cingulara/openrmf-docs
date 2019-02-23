@@ -1,4 +1,4 @@
-# openSTIG Documentation
+# openSTIG Documentation (v 0.4)
 
 ![Image](./img/UI-checklist-dashboard.png?raw=true)
 
