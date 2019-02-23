@@ -12,6 +12,12 @@ There is a stack.yml file in here to run the API .net core pieces, messaging sub
 docker-compose -f stack.yml up
 ```
 
+or if you are brave...or don't care about pulling down locally
+
+```
+docker-compose -f https://raw.githubusercontent.com/Cingulara/openstig-docs/develop/stack.yml up
+```
+
 Then just open a local browser to http://localhost:8080/ and see what happens. If you want to change the ports just edit the stack.yml file locally.  
 
 > The data is ephemeral, it dies when the containers die. If you want persistence changed the connection strings to a persistent > MongoDB, add volumes, etc. as you need.
