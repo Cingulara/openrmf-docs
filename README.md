@@ -8,14 +8,10 @@ This is the repo for all the docs as the openSTIG project goes along.  Documenta
 ## Docker-compose file to run
 There is a stack.yml file in here to run the API .net core pieces, messaging subscriber for scoring, as well as local NATS and MongoDB. It uses 10+ images pulled from DockerHub, 1 being the NATS messaging. You can certainly pull down the individual git repos or even pull the individual images and run them. I just did this so it was easier later and so I could show myself I could get it all running. I also have a local-stack for those wanting to do development and use the local copies you build. And an infra-stack to just run a single instance of MongoDB and NATS to test interactively. To run it, do something like this below. Add the ` -d ` before the ` -f stack.yml ` to run as a server/service/daemon versus interactively (default). I usually run interactively so I can see the logs and what is happening.
 
+To run this clone the repo, go into the openstig-docs folder and run the below. Or just copy [this file](https://raw.githubusercontent.com/Cingulara/openstig-docs/master/stack.yml) down locally and run it. 
+
 ```
 docker-compose -f stack.yml up
-```
-
-or if you are brave...or don't care about pulling down locally
-
-```
-docker-compose -f https://raw.githubusercontent.com/Cingulara/openstig-docs/develop/stack.yml up
 ```
 
 Then just open a local browser to http://localhost:8080/ and see what happens. If you want to change the ports just edit the stack.yml file locally.  
