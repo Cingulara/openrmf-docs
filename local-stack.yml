@@ -2,7 +2,7 @@ version : '3'
  
 services:
   openstig-web:
-    image: openstig-web:0.4
+    image: openstig-web:0.5
     ports:
       - 8080:80
     depends_on:
@@ -91,6 +91,27 @@ services:
       - mongodb=openstig
     depends_on:
       - checklistdb
+
+  openstigapi-compliance:
+    image: openstig-api-compliance:0.5
+    ports:
+      - 8092:8080
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://*:8080
+      - openstig-api-read-server=http://openstigapi-read:8080
+      - openstig-api-controls-server=http://openstigapi-controls:8080
+    depends_on:
+      - openstigapi-read
+      - openstigapi-controls
+
+  openstigapi-controls:
+    image: openstig-api-controls:0.5
+    ports:
+      - 8094:8080
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://*:8080
 
   checklistdb:
     image: openstig-checklistdb:0.3
