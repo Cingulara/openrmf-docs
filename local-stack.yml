@@ -11,6 +11,7 @@ services:
       - openstigapi-template
       - openstigapi-upload
       - openstigapi-read
+      - openstigapi-compliance
 
   openstigapi-scoring:
     image: openstig-api-scoring:0.3
