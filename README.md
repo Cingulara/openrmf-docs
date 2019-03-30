@@ -1,4 +1,4 @@
-# openSTIG Documentation (v 0.4)
+# openSTIG Documentation (v 0.5)
 
 The openSTIG tool is a better alternative than the [DISA STIGViewer.jar](https://iase.disa.mil/stigs/Pages/stig-viewing-guidance.aspx) that is used for DoD STIG checklist files, RMF process information, and the like. It is necessary to capture and report on this information, please do not mistake what I say for not agreeing with securing services. However the DISA Java tool itself is horribly designed and not conducive to today's environment and use. Their Java tool has been like this for a loooooonnnnnngggg time and I have wanted to make something better (IMO) for almost as long. So this tool here is the start! It is a way (currently) to view, report on, dive into, manage, and export your STIG checklists no matter which checklist you are referring to. All the .CKL files have a common format and htis reads and displays/manages that in a web front end using .NET Core APIs, MongoDB and NATS messaging. [View the history](https://www.cingulara.com/opensource.html) of this tool on our website. 
 
@@ -10,13 +10,13 @@ This is the repo for all the docs as the openSTIG project goes along.  Documenta
 ## Docker-compose file to run
 There is a stack.yml file in here to run the API .net core pieces, messaging subscriber for scoring, as well as local NATS and MongoDB. It uses 10+ images pulled from DockerHub, 1 being the NATS messaging. You can certainly pull down the individual git repos or even pull the individual images and run them. I just did this so it was easier later and so I could show myself I could get it all running. I also have a local-stack for those wanting to do development and use the local copies you build. And an infra-stack to just run a single instance of MongoDB and NATS to test interactively. To run it, do something like this below. Add the ` -d ` before the ` -f stack.yml ` to run as a server/service/daemon versus interactively (default). I usually run interactively so I can see the logs and what is happening.
 
-To run this clone the repo, go into the openstig-docs folder and run the below. Or just copy [this file](https://raw.githubusercontent.com/Cingulara/openstig-docs/master/stack.yml) down locally and run it. 
+To run this clone the repo, go into the openstig-docs folder and run the below. Or copy [this file](https://raw.githubusercontent.com/Cingulara/openstig-docs/master/stack.yml) down locally and run it. 
 
 ```
 docker-compose -f stack.yml up
 ```
 
-Then just open a local browser to http://localhost:8080/ and see what happens. If you want to change the ports just edit the stack.yml file locally.  
+Then you can open a local browser to http://localhost:8080/ and see what happens. If you want to change the ports you only have to edit the stack.yml file locally.  
 
 > The data is ephemeral, it dies when the containers die. If you want persistence changed the connection strings to a persistent > MongoDB, add volumes, etc. as you need.
 
@@ -35,6 +35,8 @@ of chart data and XLSX downloads.
 * https://github.com/Cingulara/openstig-msg-score is a NATS messaging subscriber listening to "openstig.save.*" events from Save and Upload to score the checklist and putting that score into the Mongo DB for the scoring API
 * https://github.com/Cingulara/openstig-api-scoring is for reading a score of a checklist as well as scoring a checklist based on a file posted (at runtime).
 * https://github.com/Cingulara/openstig-api-upload is for uploading a .CKL checklist file with metadata and saving the result. This publishes an "openstig.save.xxxx" type of event.
+* https://github.com/Cingulara/openstig-api-controls is a read-only lookup of NIST controls to match to CCI for the compliance API and other pieces that need to pull the NIST control descriptions for 800-53.
+* https://github.com/Cingulara/openstig-api-compliance is for generating the compliance listing, matching NIST controls via CCI to 1 or more checklists in a System. This generates a table of controls and the checklists corresponding to the control from the system's group of checklists. The checklist is linked to the Checklist service and color coded by status.
 
 Future enhancements, since I did it with separate microservices all over including messaging, are to organically add publish / subscribe pieces such as compliance, auditing, logging, etc. to make this more user and enterprise ready. Along with all the error trapping, checking for NATS connection, etc. that a production 1.0 application would have. 
 
