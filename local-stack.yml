@@ -2,7 +2,7 @@ version : '3'
  
 services:
   openstig-web:
-    image: openstig-web:0.5
+    image: openstig-web:0.6
     ports:
       - 8080:80
     depends_on:
@@ -14,7 +14,7 @@ services:
       - openstigapi-compliance
 
   openstigapi-scoring:
-    image: openstig-api-scoring:0.3
+    image: openstig-api-scoring:0.6
     ports:
       - 8090:8080
     environment:
@@ -28,7 +28,7 @@ services:
       - natsserver
 
   openstigmsg-score:
-    image: openstig-msg-score:0.3
+    image: openstig-msg-score:0.6
     environment:
       - openstig-api-read-server=http://openstigapi-read:8080
       - mongoConnection=mongodb://openstigscore:openstig1234!@scoredb/openstigscore?authSource=openstigscore
@@ -39,6 +39,7 @@ services:
       - natsserver
       - openstigapi-read
   
+  # not needed now until we get to editing via the web of the checklist data
   openstigapi-save:
     image: openstig-api-save:0.4
     ports:
@@ -67,7 +68,7 @@ services:
       - templatedb
 
   openstigapi-upload:
-    image: openstig-api-upload:0.4
+    image: openstig-api-upload:0.6
     ports:
       - 8086:8080
     environment:
@@ -82,7 +83,7 @@ services:
       - natsserver
 
   openstigapi-read:
-    image: openstig-api-read:0.4
+    image: openstig-api-read:0.6
     ports:
       - 8084:8080
     environment:
@@ -90,8 +91,10 @@ services:
       - ASPNETCORE_URLS=http://*:8080
       - mongoConnection=mongodb://openstig:openstig1234!@checklistdb/openstig?authSource=openstig
       - mongodb=openstig
+      - openstig-api-score=http://openstigapi-scoring:8080
     depends_on:
       - checklistdb
+      - openstigapi-scoring
 
   openstigapi-compliance:
     image: openstig-api-compliance:0.5
@@ -107,7 +110,7 @@ services:
       - openstigapi-controls
 
   openstigapi-controls:
-    image: openstig-api-controls:0.5
+    image: openstig-api-controls:0.6
     ports:
       - 8094:8080
     environment:
