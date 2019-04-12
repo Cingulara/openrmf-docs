@@ -1,11 +1,47 @@
-# openSTIG Documentation (v 0.5)
+# openSTIG Documentation (v 0.6)
 
-The openSTIG tool is a better alternative than the [DISA STIGViewer.jar](https://iase.disa.mil/stigs/Pages/stig-viewing-guidance.aspx) that is used for DoD STIG checklist files, RMF process information, and the like. It is necessary to capture and report on this information, please do not mistake what I say for not agreeing with securing services. However the DISA Java tool itself is horribly designed and not conducive to today's environment and use. Their Java tool has been like this for a loooooonnnnnngggg time and I have wanted to make something better (IMO) for almost as long. So this tool here is the start! It is a way (currently) to view, report on, dive into, manage, and export your STIG checklists no matter which checklist you are referring to. All the .CKL files have a common format and htis reads and displays/manages that in a web front end using .NET Core APIs, MongoDB and NATS messaging. [View the history](https://www.cingulara.com/opensource.html) of this tool on our website. 
+## Introduction
+openSTIG is an open source tool for managing, viewing, and reporting of your DoD STIG checklists in one web-based interface using your browser. It also 
+
+Read more about its genesis <a href="https://www.cingulara.com/opensource.html" target="_blank">here</a>.
 
 ![Image](./img/UI-checklist-dashboard.png?raw=true)
 
+## Current Functionality
+[x] Save/Upload .CKL files for viewing and safekeeping
+[x] List and display active checklists
+[x] List and display templated checklists (starting points)
+[x] Group and list checklists and reports by System (a group of checklists for a single application, system, etc.)
+[x] Reporting or "scoring" on Open, N/A, "Closed" as well as "not yet reviewed" items in the checklists quickly
+[x] Exporting the .CKL file for quick loading into the STIG Viewer Java application
+[x] Exporting to MS Excel in seconds with color coded rows based on status (Open = RED, Not a Finding = GREEN, etc.)
+[x] Dashboard showing # of checklists, top 5 checklists based on activity
+[x] Exporting of charts for download to PNG
+[x] Generate a Compliance listing of NIST 800-53 Controls to all checklists within a system 
+[x] Filter Vulnerabilities on the Checklist page by status 
+[x] Filter vulnerabilities for your Compliance listing based on major controls
+[x] Exporting your list of checklists and their score by status and category to MS Excel 
+
+## ToDos
+[ ] Select the fields to export to MS Excel, autofilter enabled on the header row
+[ ] A wizard to ask questions and customize a starting checklist file for you with certain fields and comments filled in
+[ ] User login and auditing
+[ ] Central logging (ledger) for all CRUD and access usage based on NATS
+[ ] Import the Manual XML STIG to create a starting checklist
+[ ] Track changes / versions as you edit for a visual diff
+[ ] Track projects and due dates with notifications on timelines as well as anniversaries and required updates
+[ ] YAML to quickly setup this project in OpenShift or K8s natively
+
+## Description
+
+The openSTIG tool is a better alternative than the [DISA STIGViewer.jar](https://iase.disa.mil/stigs/Pages/stig-viewing-guidance.aspx) that is used for DoD STIG checklist files, RMF process information, and the like. It is necessary to capture and report on this information, please do not mistake what I say for not agreeing with securing services. However, the DISA Java tool itself is horribly designed and not conducive to today's environment and use. Their Java tool has been like this for a loooooonnnnnngggg time and I have wanted to make something better (IMO) for almost as long. So this tool here is the start! It is a way (currently) to view, report on, dive into, manage, and export your STIG checklists no matter which checklist you are referring to. All the .CKL files have a common format and htis reads and displays/manages that in a web front end using .NET Core APIs, MongoDB and NATS messaging. [View the history](https://www.cingulara.com/opensource.html) of this tool on our website. 
+
 This is the repo for all the docs as the openSTIG project goes along.  Documentation on the openSTIG application will be here in MD files and reference images and other documents as well as GH markdown. This application idea has been brewing in my head for well over a decade and specifically since July 4th weekend 2018 when I started to put down code. Then in January 2019 when I scrapped all that July stuff and went for web APIs, microservices, eventual consistency, CQRS (command query responsibility segregation to scale separately), using MongoDB and NATS.
 
+## What you need to run
+You need a web browser that is fairly current. And you need Docker installed on your desktop or server as this currently uses the Docker runtime to bring up all components with ` docker-compose `.
+
+* Docker is available at <a href="https://docs.docker.com/install/" target="_blank">https://docs.docker.com/install/</a>.
 
 ## Docker-compose file to run
 There is a stack.yml file in here to run the API .net core pieces, messaging subscriber for scoring, as well as local NATS and MongoDB. It uses 10+ images pulled from DockerHub, 1 being the NATS messaging. You can certainly pull down the individual git repos or even pull the individual images and run them. I just did this so it was easier later and so I could show myself I could get it all running. I also have a local-stack for those wanting to do development and use the local copies you build. And an infra-stack to just run a single instance of MongoDB and NATS to test interactively. To run it, do something like this below. Add the ` -d ` before the ` -f stack.yml ` to run as a server/service/daemon versus interactively (default). I usually run interactively so I can see the logs and what is happening.
@@ -18,13 +54,13 @@ docker-compose -f stack.yml up
 
 Then you can open a local browser to http://localhost:8080/ and see what happens. If you want to change the ports you only have to edit the stack.yml file locally.  
 
-> The data is ephemeral, it dies when the containers die. If you want persistence changed the connection strings to a persistent > MongoDB, add volumes, etc. as you need.
+> The data is currently mapped to internal Docker-managed volumes for persistenct. You can run the "docker volume rm" command below if you wish to remove and start over as you test.  If you want persistence you could change the connection strings to another MongoDB server and adjust the stack.yml accordingly.
 
 ## Architecture explained
 
 Phase 1 Vision / Concept as drawn on my whiteboard:
 
-![Image](./architecture/openSTIG-Tool-0.4-Architecture.png?raw=true)
+![Image](./architecture/openSTIG-Tool-0.6-Architecture.png?raw=true)
 
 The architecture was setup to do a few things for this tool and for myself actually:
 * https://github.com/Cingulara/openstig-web is the web UI pointing to all these APIs below to render checklists listings, data, vulnerabilities, reports, and allowing saving 
@@ -40,35 +76,6 @@ of chart data and XLSX downloads.
 
 Future enhancements, since I did it with separate microservices all over including messaging, are to organically add publish / subscribe pieces such as compliance, auditing, logging, etc. to make this more user and enterprise ready. Along with all the error trapping, checking for NATS connection, etc. that a production 1.0 application would have. 
 
-## STIG types
-All the checklist CKL files have the same structure. Right now I am testing mainly the SQL Server, .NET, Java, and other web server checklists however I have tested the OS and web browser ones as well. All of them work well. I have not included those checklists in here that are beind a PKI certificate login. https://iase.disa.mil/stigs/Pages/index.aspx has the info on STIGs and there are some on web servers, HBSS, Windows, Linux, Oracle, SQL Server, anti-virus, browsers, etc. More to come in this area for sure. There is an Upload page in the UI that lets you upload a CKL file and select the type, name and description to track and report.
-
-```
-        Other = 0, // those not listed here, those you need via PKI, etc.
-
-        /* Development Technologies */
-        ApplicationSecurityAndDevelopment = 10,
-        OracleJRE8UNIX = 101,
-        OracleJRE8Windows = 102,
-        MSDotNet4 = 105,
-
-        /* ANTI VIRUS */
-        McAfeeAntiVirusLocalClient = 201,
-        McAfeeAntiVirusManagedClient = 202,
-        McAfeeAntiVirusEnterpriseLinuxLocalClient = 203,
-        McAfeeAntiVirusEnterpriseLinuxManagedClient = 204,
-        McAfeeAntiVirusEnterpriseLinux = 200,
-        WindowsDefender = 205,
-
-        /* Application Servers */
-        ColdFusion = 301,
-        BromiumSecurePlatform4 = 305,
-        IBMMQAppliancev9AS = 310,
-        IBMMQAppliancev9NDM = 311,
-
-        ...there are more in the code
-```
-
 ## Known issues
 If you find something please add an issue to the correct repo. I know for now, I don't "D" yet to delete. It is ephemeral so I just power down the stack and power back up as I am testing. Eventually I will need to do that. 
 
@@ -81,9 +88,6 @@ If you wish you can create a MongoDB setup just to persist your data and see wha
 * run `docker volume rm $(docker volume ls -qf dangling=true)` 
 * run `docker system prune` and then enter `y` and press Enter when asked
 
-## Examples using Insomnia
-The [Insomnia](Insomnia.md) readme has examples of calling the APIs straight
-
 ## Screenshots of the UI
 
 The Individual Checklist view
@@ -94,9 +98,6 @@ The UI Checklist Graphs
 
 The checklist Upload page
 ![Image](./img/UI-checklist-upload.png?raw=true)
-
-The UI Checklist Template view
-![Image](./img/UI-checklist-template.png?raw=true)
 
 Exporting the checklist to XLSX with color coding
 ![Image](./img/checklist-export-xlsx.png?raw=true)
