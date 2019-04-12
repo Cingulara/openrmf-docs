@@ -1,36 +1,41 @@
 # openSTIG Documentation (v 0.6)
 
 ## Introduction
-openSTIG is an open source tool for managing, viewing, and reporting of your DoD STIG checklists in one web-based interface using your browser. It also 
+openSTIG is an open source tool for managing, viewing, and reporting of your DoD STIG checklists in one web-based interface using your browser. It also generates a compliance listing of all your checklists across a whole system based on NIST 800-53 for your Risk Management Framework (RMF) documentation and process. This tool helps you manage multiple systems going through the RMF process and allows you to structure your data in a clean interface all in one location for your group or program. It can save you weeks of manually checking vulnerability-to-CCI-to-NIST controls and generating reports manually, so you can get on to the value-added work for your cybersecurity hygiene.
 
 Read more about its genesis <a href="https://www.cingulara.com/opensource.html" target="_blank">here</a>.
 
 ![Image](./img/UI-checklist-dashboard.png?raw=true)
 
 ## Current Functionality
-[x] Save/Upload .CKL files for viewing and safekeeping
-[x] List and display active checklists
-[x] List and display templated checklists (starting points)
-[x] Group and list checklists and reports by System (a group of checklists for a single application, system, etc.)
-[x] Reporting or "scoring" on Open, N/A, "Closed" as well as "not yet reviewed" items in the checklists quickly
-[x] Exporting the .CKL file for quick loading into the STIG Viewer Java application
-[x] Exporting to MS Excel in seconds with color coded rows based on status (Open = RED, Not a Finding = GREEN, etc.)
-[x] Dashboard showing # of checklists, top 5 checklists based on activity
-[x] Exporting of charts for download to PNG
-[x] Generate a Compliance listing of NIST 800-53 Controls to all checklists within a system 
-[x] Filter Vulnerabilities on the Checklist page by status 
-[x] Filter vulnerabilities for your Compliance listing based on major controls
-[x] Exporting your list of checklists and their score by status and category to MS Excel 
+- [x] Save/Upload .CKL files for viewing and safekeeping
+- [x] List and display active checklists
+- [x] List and display templated checklists (starting points)
+- [x] Group and list checklists and reports by System (a group of checklists for a single application, system, etc.)
+- [x] Reporting or "scoring" on Open, N/A, "Closed" as well as "not yet reviewed" items in the checklists quickly
+- [x] Exporting the .CKL file for quick loading into the STIG Viewer Java application
+- [x] Exporting to MS Excel in seconds with color coded rows based on status (Open = RED, Not a Finding = GREEN, etc.)
+- [x] Dashboard showing # of checklists, top 5 checklists based on activity
+- [x] Exporting of charts for download to PNG
+- [x] Generate a Compliance listing of NIST 800-53 Controls to all checklists within a system 
+- [x] Filter Vulnerabilities on the Checklist page by status 
+- [x] Filter vulnerabilities for your Compliance listing based on major controls
+- [x] Exporting your list of checklists and their score by status and category to MS Excel 
 
 ## ToDos
-[ ] Select the fields to export to MS Excel, autofilter enabled on the header row
-[ ] A wizard to ask questions and customize a starting checklist file for you with certain fields and comments filled in
-[ ] User login and auditing
-[ ] Central logging (ledger) for all CRUD and access usage based on NATS
-[ ] Import the Manual XML STIG to create a starting checklist
-[ ] Track changes / versions as you edit for a visual diff
-[ ] Track projects and due dates with notifications on timelines as well as anniversaries and required updates
-[ ] YAML to quickly setup this project in OpenShift or K8s natively
+- [ ] Generate the RMF POA&M
+- [ ] Import ACAT scans for automatic checklist documentation
+- [ ] Import NESSUS scans for automatic checklist documentation
+- [ ] Select the fields to export to MS Excel, autofilter enabled on the header row
+- [ ] A wizard to ask questions and customize a starting checklist file for you with certain fields and comments filled in
+- [ ] User login and auditing
+- [ ] Central logging (ledger) for all CRUD and access usage based on NATS
+- [ ] Import the Manual XML STIG to create a starting checklist
+- [ ] Track changes / versions as you edit for a visual diff
+- [ ] Track projects and due dates with notifications on timelines as well as anniversaries and required updates
+- [ ] YAML to quickly setup this project in OpenShift or K8s natively
+
+If we are missing something you want, please add it on our main <a href="https://github.com/Cingulara/openstig-web/issues" target="_blank">GitHub Issues</a> page.
 
 ## Description
 
