@@ -57,6 +57,8 @@ To run this clone the repo, go into the openstig-docs folder and run the below. 
 docker-compose -f stack.yml up
 ```
 
+Alternatively, if you clone the openstig-docs repo you can run the ./start.sh (Linux / Mac OSX) or ./start.cmd (Windows) file to start all containers for the complete system. To stop run the corresponding ./stop.sh or ./stop.cmd respectively. 
+
 Then you can open a local browser to http://localhost:8080/ and see what happens. If you want to change the ports you only have to edit the stack.yml file locally.  
 
 > The data is currently mapped to internal Docker-managed volumes for persistenct. You can run the "docker volume rm" command below if you wish to remove and start over as you test.  If you want persistence you could change the connection strings to another MongoDB server and adjust the stack.yml accordingly.
