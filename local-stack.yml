@@ -166,4 +166,3 @@ volumes:
   template-data-volume:
   checklist-data-volume:
   score-data-volume:
-  
