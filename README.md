@@ -22,9 +22,9 @@ Read more about its genesis <a href="https://www.cingulara.com/opensource.html" 
 - [x] Filter vulnerabilities for your Compliance listing based on major controls
 - [x] Exporting your list of checklists and their score by status and category to MS Excel 
 
-## ToDos
+## ToDos (in no particular order)
 - [ ] Generate the RMF POA&M
-- [ ] Import ACAT scans for automatic checklist documentation
+- [ ] Import SCAP scans for automatic checklist documentation
 - [ ] Import NESSUS scans for automatic checklist documentation
 - [ ] Select the fields to export to MS Excel, autofilter enabled on the header row
 - [ ] A wizard to ask questions and customize a starting checklist file for you with certain fields and comments filled in
