@@ -21,7 +21,7 @@ version:
 	@echo ${VERSION}
 
 dockerhub:
-	docker login
+	docker login -u ${DOCKERHUB_ACCOUNT}
 	docker tag $(NAME)\:$(VERSION) ${DOCKERHUB_ACCOUNT}\/$(NAME)\:$(VERSION)
 	docker tag $(NAME)\:$(VERSION) ${DOCKERHUB_ACCOUNT}\/$(NAME)\:latest
 	docker push ${DOCKERHUB_ACCOUNT}\/$(NAME)\:$(VERSION)

@@ -2,7 +2,7 @@ version : '3'
  
 services:
   openstig-web:
-    image: openstig-web:0.5
+    image: openstig-web:0.6
     ports:
       - 8080:80
     depends_on:
@@ -14,7 +14,7 @@ services:
       - openstigapi-compliance
 
   openstigapi-scoring:
-    image: openstig-api-scoring:0.3
+    image: openstig-api-scoring:0.6
     ports:
       - 8090:8080
     environment:
@@ -28,7 +28,7 @@ services:
       - natsserver
 
   openstigmsg-score:
-    image: openstig-msg-score:0.3
+    image: openstig-msg-score:0.6
     environment:
       - openstig-api-read-server=http://openstigapi-read:8080
       - mongoConnection=mongodb://openstigscore:openstig1234!@scoredb/openstigscore?authSource=openstigscore
@@ -40,7 +40,7 @@ services:
       - openstigapi-read
   
   openstigapi-save:
-    image: openstig-api-save:0.4
+    image: openstig-api-save:0.6
     ports:
       - 8082:8080
     environment:
@@ -55,7 +55,7 @@ services:
       - natsserver
 
   openstigapi-template:
-    image: openstig-api-template:0.3
+    image: openstig-api-template:0.6
     ports:
       - 8088:8080
     environment:
@@ -67,7 +67,7 @@ services:
       - templatedb
 
   openstigapi-upload:
-    image: openstig-api-upload:0.4
+    image: openstig-api-upload:0.6
     ports:
       - 8086:8080
     environment:
@@ -82,7 +82,7 @@ services:
       - natsserver
 
   openstigapi-read:
-    image: openstig-api-read:0.4
+    image: openstig-api-read:0.6
     ports:
       - 8084:8080
     environment:
@@ -90,11 +90,14 @@ services:
       - ASPNETCORE_URLS=http://*:8080
       - mongoConnection=mongodb://openstig:openstig1234!@checklistdb/openstig?authSource=openstig
       - mongodb=openstig
+      - openstig-api-score-server=http://openstigapi-scoring:8080
+      - openstig-api-compliance-server=http://openstigapi-compliance:8080
     depends_on:
       - checklistdb
+      - openstigapi-scoring
 
   openstigapi-compliance:
-    image: openstig-api-compliance:0.5
+    image: openstig-api-compliance:0.6
     ports:
       - 8092:8080
     environment:
@@ -107,7 +110,7 @@ services:
       - openstigapi-controls
 
   openstigapi-controls:
-    image: openstig-api-controls:0.5
+    image: openstig-api-controls:0.6
     ports:
       - 8094:8080
     environment:
@@ -123,6 +126,8 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=myp2ssw0rd
       - MONGO_INITDB_DATABASE=openstig
+    volumes:
+      - checklist-data-volume:/data/db
 
   scoredb:
     image: openstig-scoredb:0.3
@@ -133,6 +138,8 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=myp2ssw0rd
       - MONGO_INITDB_DATABASE=openstigscore
+    volumes:
+      - score-data-volume:/data/db
 
   templatedb:
     image: openstig-templatedb:0.3
@@ -143,6 +150,8 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=myp2ssw0rd
       - MONGO_INITDB_DATABASE=openstigtemplate
+    volumes:
+      - template-data-volume:/data/db
 
   natsserver: 
     image: nats
@@ -151,3 +160,10 @@ services:
       - 4222:4222
       - 6222:6222
       - 8222:8222
+
+# put all the volume listings here for persistent data
+volumes:
+  template-data-volume:
+  checklist-data-volume:
+  score-data-volume:
+  
