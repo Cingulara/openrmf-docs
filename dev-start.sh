@@ -1,5 +1,5 @@
 # pull down the most recent :latest tags
-docker pull cingulara/openstig-web
+docker pull cingulara/openrmf-web
 docker pull cingulara/openstig-api-read
 docker pull cingulara/openstig-api-save
 docker pull cingulara/openstig-api-upload

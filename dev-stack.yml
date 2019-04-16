@@ -2,7 +2,7 @@ version : '3'
  
 services:
   openstig-web:
-    image: cingulara/openstig-web
+    image: cingulara/openrmf-web
     ports:
       - 9080:80
     depends_on:
