@@ -1,21 +1,22 @@
-VERSION ?= 0.3
-NAME ?= "openstig-scoredb"
+VERSION ?= 0.7
+NAME ?= "openrmf-scoredb"
 AUTHOR ?= "Dale Bingham"
 PORT_EXT ?= 27017
 PORT_INT ?= 27017
 NO_CACHE ?= true
 DOCKERHUB_ACCOUNT ?= cingulara
   
-.PHONY: run stop version dockerhub
+.PHONY: docker latest version dockerhub
 
 docker: 
 	docker build -f Dockerfile -t $(NAME)\:$(VERSION) --no-cache=$(NO_CACHE) .
 
-run:  
-	docker run --rm --name $(NAME) -d -p $(PORT_EXT):$(PORT_INT) $(NAME)\:$(VERSION) && docker ps -a --format "{{.ID}}\t{{.Names}}"|grep $(NAME)  
-
-stop:  
-	docker rm -f $(NAME)
+latest: 
+	docker build -f Dockerfile -t $(NAME)\:latest --no-cache=$(NO_CACHE) .
+	docker login -u ${DOCKERHUB_ACCOUNT}
+	docker tag $(NAME)\:latest ${DOCKERHUB_ACCOUNT}\/$(NAME)\:latest
+	docker push ${DOCKERHUB_ACCOUNT}\/$(NAME)\:latest
+	docker logout
   
 version:
 	@echo ${VERSION}

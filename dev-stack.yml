@@ -1,20 +1,20 @@
 version : '3'
  
 services:
-  openstig-web:
+  openrmf-web:
     image: cingulara/openrmf-web
     ports:
       - 9080:80
     depends_on:
-      - openstigapi-scoring
-      - openstigapi-save
-      - openstigapi-template
-      - openstigapi-upload
-      - openstigapi-read
-      - openstigapi-compliance
+      - openrmfapi-scoring
+      - openrmfapi-save
+      - openrmfapi-template
+      - openrmfapi-upload
+      - openrmfapi-read
+      - openrmfapi-compliance
 
-  openstigapi-scoring:
-    image: cingulara/openstig-api-scoring
+  openrmfapi-scoring:
+    image: cingulara/openrmf-api-scoring
     ports:
       - 9090:8080
     environment:
@@ -27,20 +27,20 @@ services:
       - scoredb
       - natsserver
 
-  openstigmsg-score:
-    image: cingulara/openstig-msg-score
+  openrmfmsg-score:
+    image: cingulara/openrmf-msg-score
     environment:
-      - openstig-api-read-server=http://openstigapi-read:8080
+      - openstig-api-read-server=http://openrmfapi-read:8080
       - mongoConnection=mongodb://openstigscore:openstig1234!@scoredb/openstigscore?authSource=openstigscore
       - mongodb=openstigscore
       - natsserverurl=nats://natsserver:4222
     depends_on:
       - scoredb
       - natsserver
-      - openstigapi-read
+      - openrmfapi-read
   
-  openstigapi-save:
-    image: cingulara/openstig-api-save
+  openrmfapi-save:
+    image: cingulara/openrmf-api-save
     ports:
       - 9082:8080
     environment:
@@ -50,12 +50,12 @@ services:
       - mongodb=openstig
       - natsserverurl=nats://natsserver:4222
     depends_on:
-      - openstigmsg-score
+      - openrmfmsg-score
       - checklistdb
       - natsserver
 
-  openstigapi-template:
-    image: cingulara/openstig-api-template
+  openrmfapi-template:
+    image: cingulara/openrmf-api-template
     ports:
       - 9088:8080
     environment:
@@ -66,8 +66,8 @@ services:
     depends_on:
       - templatedb
 
-  openstigapi-upload:
-    image: cingulara/openstig-api-upload
+  openrmfapi-upload:
+    image: cingulara/openrmf-api-upload
     ports:
       - 9086:8080
     environment:
@@ -77,12 +77,12 @@ services:
       - mongodb=openstig
       - natsserverurl=nats://natsserver:4222
     depends_on:
-      - openstigmsg-score
+      - openrmfmsg-score
       - checklistdb
       - natsserver
 
-  openstigapi-read:
-    image: cingulara/openstig-api-read
+  openrmfapi-read:
+    image: cingulara/openrmf-api-read
     ports:
       - 9084:8080
     environment:
@@ -90,27 +90,27 @@ services:
       - ASPNETCORE_URLS=http://*:8080
       - mongoConnection=mongodb://openstig:openstig1234!@checklistdb/openstig?authSource=openstig
       - mongodb=openstig
-      - openstig-api-score-server=http://openstigapi-scoring:8080
-      - openstig-api-compliance-server=http://openstigapi-compliance:8080
+      - openstig-api-score-server=http://openrmfapi-scoring:8080
+      - openstig-api-compliance-server=http://openrmfapi-compliance:8080
     depends_on:
       - checklistdb
-      - openstigapi-scoring
+      - openrmfapi-scoring
 
-  openstigapi-compliance:
-    image: cingulara/openstig-api-compliance
+  openrmfapi-compliance:
+    image: cingulara/openrmf-api-compliance
     ports:
       - 9092:8080
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8080
-      - openstig-api-read-server=http://openstigapi-read:8080
-      - openstig-api-controls-server=http://openstigapi-controls:8080
+      - openstig-api-read-server=http://openrmfapi-read:8080
+      - openstig-api-controls-server=http://openrmfapi-controls:8080
     depends_on:
-      - openstigapi-read
-      - openstigapi-controls
+      - openrmfapi-read
+      - openrmfapi-controls
 
-  openstigapi-controls:
-    image: cingulara/openstig-api-controls
+  openrmfapi-controls:
+    image: cingulara/openrmf-api-controls
     ports:
       - 9094:8080
     environment:
@@ -118,7 +118,7 @@ services:
       - ASPNETCORE_URLS=http://*:8080
 
   checklistdb:
-    image: cingulara/openstig-checklistdb
+    image: cingulara/openrmf-checklistdb
     restart: always
     ports:
       - 27017
@@ -130,7 +130,7 @@ services:
       - checklist-data-volume-dev:/data/db
 
   scoredb:
-    image: cingulara/openstig-scoredb
+    image: cingulara/openrmf-scoredb
     restart: always
     ports:
       - 27017
@@ -142,7 +142,7 @@ services:
       - score-data-volume-dev:/data/db
 
   templatedb:
-    image: cingulara/openstig-templatedb
+    image: cingulara/openrmf-templatedb
     restart: always
     ports:
       - 27017
