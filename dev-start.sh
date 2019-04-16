@@ -14,4 +14,4 @@ docker pull cingulara/openstig-api-controls
 docker pull nats
 
 # Now run the latest development openRMF stack
-docker-compose -f sdev-tack.yml up -d
+docker-compose -f dev-stack.yml up -d
