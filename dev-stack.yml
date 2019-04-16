@@ -4,7 +4,7 @@ services:
   openstig-web:
     image: cingulara/openstig-web
     ports:
-      - 8080:80
+      - 9080:80
     depends_on:
       - openstigapi-scoring
       - openstigapi-save
@@ -16,7 +16,7 @@ services:
   openstigapi-scoring:
     image: cingulara/openstig-api-scoring
     ports:
-      - 8090:8080
+      - 9090:8080
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8080
@@ -42,7 +42,7 @@ services:
   openstigapi-save:
     image: cingulara/openstig-api-save
     ports:
-      - 8082:8080
+      - 9082:8080
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8080
@@ -57,7 +57,7 @@ services:
   openstigapi-template:
     image: cingulara/openstig-api-template
     ports:
-      - 8088:8080
+      - 9088:8080
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8080
@@ -69,7 +69,7 @@ services:
   openstigapi-upload:
     image: cingulara/openstig-api-upload
     ports:
-      - 8086:8080
+      - 9086:8080
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8080
@@ -84,7 +84,7 @@ services:
   openstigapi-read:
     image: cingulara/openstig-api-read
     ports:
-      - 8084:8080
+      - 9084:8080
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8080
@@ -99,7 +99,7 @@ services:
   openstigapi-compliance:
     image: cingulara/openstig-api-compliance
     ports:
-      - 8092:8080
+      - 9092:8080
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8080
@@ -112,7 +112,7 @@ services:
   openstigapi-controls:
     image: cingulara/openstig-api-controls
     ports:
-      - 8094:8080
+      - 9094:8080
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8080
@@ -127,7 +127,7 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=myp2ssw0rd
       - MONGO_INITDB_DATABASE=openstig
     volumes:
-      - checklist-data-volume:/data/db
+      - checklist-data-volume-dev:/data/db
 
   scoredb:
     image: cingulara/openstig-scoredb
@@ -139,7 +139,7 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=myp2ssw0rd
       - MONGO_INITDB_DATABASE=openstigscore
     volumes:
-      - score-data-volume:/data/db
+      - score-data-volume-dev:/data/db
 
   templatedb:
     image: cingulara/openstig-templatedb
@@ -151,18 +151,18 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=myp2ssw0rd
       - MONGO_INITDB_DATABASE=openstigtemplate
     volumes:
-      - template-data-volume:/data/db
+      - template-data-volume-dev:/data/db
 
   natsserver: 
     image: nats
     restart: always
     ports:
-      - 4222:4222
-      - 6222:6222
-      - 8222:8222
+      - 4222
+      - 6222
+      - 8222
 
 # put all the volume listings here for persistent data
 volumes:
-  template-data-volume:
-  checklist-data-volume:
-  score-data-volume:
+  template-data-volume-dev:
+  checklist-data-volume-dev:
+  score-data-volume-dev:
