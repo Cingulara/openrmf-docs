@@ -20,8 +20,8 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8080
-      - mongoConnection=mongodb://openstigscore:openstig1234!@scoredb/openstigscore?authSource=openstigscore
-      - mongodb=openstigscore
+      - mongoConnection=mongodb://openrmfscore:openrmf1234!@scoredb/openrmfscore?authSource=openrmfscore
+      - mongodb=openrmfscore
       - natsserverurl=nats://natsserver:4222
     depends_on:
       - scoredb
@@ -30,9 +30,9 @@ services:
   openrmfmsg-score:
     image: cingulara/openrmf-msg-score
     environment:
-      - openstig-api-read-server=http://openrmfapi-read:8080
-      - mongoConnection=mongodb://openstigscore:openstig1234!@scoredb/openstigscore?authSource=openstigscore
-      - mongodb=openstigscore
+      - openrmf-api-read-server=http://openrmfapi-read:8080
+      - mongoConnection=mongodb://openrmfscore:openrmf1234!@scoredb/openrmfscore?authSource=openrmfscore
+      - mongodb=openrmfscore
       - natsserverurl=nats://natsserver:4222
     depends_on:
       - scoredb
@@ -46,8 +46,8 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8080
-      - mongoConnection=mongodb://openstig:openstig1234!@checklistdb/openstig?authSource=openstig
-      - mongodb=openstig
+      - mongoConnection=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
+      - mongodb=openrmf
       - natsserverurl=nats://natsserver:4222
     depends_on:
       - openrmfmsg-score
@@ -61,8 +61,8 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8080
-      - mongoConnection=mongodb://openstigtemplate:openstig1234!@templatedb/openstigtemplate?authSource=openstigtemplate
-      - mongodb=openstigtemplate
+      - mongoConnection=mongodb://openrmftemplate:openrmf1234!@templatedb/openrmftemplate?authSource=openrmftemplate
+      - mongodb=openrmftemplate
     depends_on:
       - templatedb
 
@@ -73,8 +73,8 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8080
-      - mongoConnection=mongodb://openstig:openstig1234!@checklistdb/openstig?authSource=openstig
-      - mongodb=openstig
+      - mongoConnection=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
+      - mongodb=openrmf
       - natsserverurl=nats://natsserver:4222
     depends_on:
       - openrmfmsg-score
@@ -88,10 +88,10 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8080
-      - mongoConnection=mongodb://openstig:openstig1234!@checklistdb/openstig?authSource=openstig
-      - mongodb=openstig
-      - openstig-api-score-server=http://openrmfapi-scoring:8080
-      - openstig-api-compliance-server=http://openrmfapi-compliance:8080
+      - mongoConnection=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
+      - mongodb=openrmf
+      - openrmf-api-score-server=http://openrmfapi-scoring:8080
+      - openrmf-api-compliance-server=http://openrmfapi-compliance:8080
     depends_on:
       - checklistdb
       - openrmfapi-scoring
@@ -103,8 +103,8 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8080
-      - openstig-api-read-server=http://openrmfapi-read:8080
-      - openstig-api-controls-server=http://openrmfapi-controls:8080
+      - openrmf-api-read-server=http://openrmfapi-read:8080
+      - openrmf-api-controls-server=http://openrmfapi-controls:8080
     depends_on:
       - openrmfapi-read
       - openrmfapi-controls
@@ -125,7 +125,7 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=myp2ssw0rd
-      - MONGO_INITDB_DATABASE=openstig
+      - MONGO_INITDB_DATABASE=openrmf
     volumes:
       - checklist-data-volume-dev:/data/db
 
@@ -137,7 +137,7 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=myp2ssw0rd
-      - MONGO_INITDB_DATABASE=openstigscore
+      - MONGO_INITDB_DATABASE=openrmfscore
     volumes:
       - score-data-volume-dev:/data/db
 
@@ -149,7 +149,7 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=myp2ssw0rd
-      - MONGO_INITDB_DATABASE=openstigtemplate
+      - MONGO_INITDB_DATABASE=openrmftemplate
     volumes:
       - template-data-volume-dev:/data/db
 
