@@ -1,16 +1,16 @@
 REM pull down the most recent :latest tags
-docker pull cingulara/openstig-web:0.6
-docker pull cingulara/openstig-api-read:0.6
-docker pull cingulara/openstig-api-save:0.6
-docker pull cingulara/openstig-api-upload:0.6
-docker pull cingulara/openstig-api-scoring:0.6
-docker pull cingulara/openstig-msg-score:0.6
-docker pull cingulara/openstig-templatedb:0.3
-docker pull cingulara/openstig-scoredb:0.3
-docker pull cingulara/openstig-checklistdb:0.3
-docker pull cingulara/openstig-api-template:0.6
-docker pull cingulara/openstig-api-compliance:0.6
-docker pull cingulara/openstig-api-controls:0.6
+docker pull cingulara/openrmf-web:0.7
+docker pull cingulara/openrmf-api-read:0.7
+docker pull cingulara/openrmf-api-save:0.7
+docker pull cingulara/openrmf-api-upload:0.7
+docker pull cingulara/openrmf-api-scoring:0.7
+docker pull cingulara/openrmf-msg-score:0.7
+docker pull cingulara/openrmf-templatedb:0.7
+docker pull cingulara/openrmf-scoredb:0.7
+docker pull cingulara/openrmf-checklistdb:0.7
+docker pull cingulara/openrmf-api-template:0.7
+docker pull cingulara/openrmf-api-compliance:0.7
+docker pull cingulara/openrmf-api-controls:0.7
 
 REM Now run the latest development openRMF stack
 docker-compose -f stack.yml up -d
