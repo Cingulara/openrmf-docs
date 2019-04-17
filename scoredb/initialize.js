@@ -1,2 +1,2 @@
-db.createUser({ user: "openstigscore" , pwd: "openstig1234!", roles: [{ "role": "readWrite", "db": "openstigscore"}]});
+db.createUser({ user: "openrmfscore" , pwd: "openrmf1234!", roles: [{ "role": "readWrite", "db": "openrmfscore"}]});
 db.createCollection("Scores");

@@ -2,9 +2,9 @@ version : '3'
  
 services:
   openrmf-web:
-    image: cingulara/openrmf-web:0.7
+    image: cingulara/openrmf-web
     ports:
-      - 8080:80
+      - 9080:80
     depends_on:
       - openrmfapi-scoring
       - openrmfapi-save
@@ -14,9 +14,9 @@ services:
       - openrmfapi-compliance
 
   openrmfapi-scoring:
-    image: cingulara/openrmf-api-scoring:0.7
+    image: cingulara/openrmf-api-scoring
     ports:
-      - 8090:8080
+      - 9090:8080
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8080
@@ -28,7 +28,7 @@ services:
       - natsserver
 
   openrmfmsg-score:
-    image: cingulara/openrmf-msg-score:0.7
+    image: cingulara/openrmf-msg-score
     environment:
       - openrmf-api-read-server=http://openrmfapi-read:8080
       - mongoConnection=mongodb://openrmfscore:openrmf1234!@scoredb/openrmfscore?authSource=openrmfscore
@@ -40,9 +40,9 @@ services:
       - openrmfapi-read
   
   openrmfapi-save:
-    image: cingulara/openrmf-api-save:0.7
+    image: cingulara/openrmf-api-save
     ports:
-      - 8082:8080
+      - 9082:8080
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8080
@@ -55,9 +55,9 @@ services:
       - natsserver
 
   openrmfapi-template:
-    image: cingulara/openrmf-api-template:0.7
+    image: cingulara/openrmf-api-template
     ports:
-      - 8088:8080
+      - 9088:8080
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8080
@@ -67,9 +67,9 @@ services:
       - templatedb
 
   openrmfapi-upload:
-    image: cingulara/openrmf-api-upload:0.7
+    image: cingulara/openrmf-api-upload
     ports:
-      - 8086:8080
+      - 9086:8080
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8080
@@ -82,9 +82,9 @@ services:
       - natsserver
 
   openrmfapi-read:
-    image: cingulara/openrmf-api-read:0.7
+    image: cingulara/openrmf-api-read
     ports:
-      - 8084:8080
+      - 9084:8080
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8080
@@ -97,9 +97,9 @@ services:
       - openrmfapi-scoring
 
   openrmfapi-compliance:
-    image: cingulara/openrmf-api-compliance:0.7
+    image: cingulara/openrmf-api-compliance
     ports:
-      - 8092:8080
+      - 9092:8080
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8080
@@ -110,15 +110,15 @@ services:
       - openrmfapi-controls
 
   openrmfapi-controls:
-    image: cingulara/openrmf-api-controls:0.7
+    image: cingulara/openrmf-api-controls
     ports:
-      - 8094:8080
+      - 9094:8080
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8080
 
   checklistdb:
-    image: cingulara/openrmf-checklistdb:0.7
+    image: cingulara/openrmf-checklistdb
     restart: always
     ports:
       - 27017
@@ -127,10 +127,10 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=myp2ssw0rd
       - MONGO_INITDB_DATABASE=openrmf
     volumes:
-      - checklist-data-volume:/data/db
+      - checklist-data-volume-dev:/data/db
 
   scoredb:
-    image: cingulara/openrmf-scoredb:0.7
+    image: cingulara/openrmf-scoredb
     restart: always
     ports:
       - 27017
@@ -139,10 +139,10 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=myp2ssw0rd
       - MONGO_INITDB_DATABASE=openrmfscore
     volumes:
-      - score-data-volume:/data/db
+      - score-data-volume-dev:/data/db
 
   templatedb:
-    image: cingulara/openrmf-templatedb:0.7
+    image: cingulara/openrmf-templatedb
     restart: always
     ports:
       - 27017
@@ -151,7 +151,7 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=myp2ssw0rd
       - MONGO_INITDB_DATABASE=openrmftemplate
     volumes:
-      - template-data-volume:/data/db
+      - template-data-volume-dev:/data/db
 
   natsserver: 
     image: nats
@@ -163,6 +163,6 @@ services:
 
 # put all the volume listings here for persistent data
 volumes:
-  template-data-volume:
-  checklist-data-volume:
-  score-data-volume:
+  template-data-volume-dev:
+  checklist-data-volume-dev:
+  score-data-volume-dev:
