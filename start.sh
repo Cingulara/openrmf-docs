@@ -14,3 +14,6 @@ docker pull cingulara/openrmf-api-controls:0.7
 
 # Now run the latest development openRMF stack
 docker-compose -f stack.yml up -d
+
+# tell them the URL
+echo 'Run http://localhost:8080/ to access openRMF'

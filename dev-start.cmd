@@ -15,3 +15,6 @@ docker pull nats
 
 REM Now run the latest development openRMF stack
 docker-compose -f dev-stack.yml up -d
+
+REM tell them the URL
+ECHO "Run http://localhost:9080/ to access openRMF"
