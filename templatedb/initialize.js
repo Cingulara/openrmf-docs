@@ -1,2 +1,2 @@
-db.createUser({ user: "openstigtemplate" , pwd: "openstig1234!", roles: [{ "role": "readWrite", "db": "openstigtemplate"}]});
+db.createUser({ user: "openrmftemplate" , pwd: "openrmf1234!", roles: [{ "role": "readWrite", "db": "openrmftemplate"}]});
 db.createCollection("Templates");
