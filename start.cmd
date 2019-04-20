@@ -16,4 +16,6 @@ REM Now run the latest development openRMF stack
 docker-compose -f stack.yml up -d
 
 REM tell them the URL
+ECHO ""
 ECHO "Run http://localhost:8080/ to access openRMF"
+ECHO ""

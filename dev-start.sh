@@ -17,4 +17,6 @@ docker pull nats
 docker-compose -f dev-stack.yml up -d
 
 # tell them the URL
+echo ''
 echo 'Run http://localhost:9080/ to access openRMF'
+echo ''
