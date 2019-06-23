@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openrmf-controls-api
+spec:
+  selector:
+    matchLabels:
+      run: openrmf-controls
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        run: openrmf-controls
+    spec:
+      containers:
+      - name: openrmf-controls
+        image: cingulara/openrmf-api-controls:latest
+        ports:
+        - containerPort: 8094
+        env:
+        - name: ASPNETCORE_ENVIRONMENT
+          value: Development
+        - name: ASPNETCORE_URLS
+          value: http://*:8094
+        resources:
+          limits:
+            memory: "1Gi"
+          requests:
+            memory: "500M"
