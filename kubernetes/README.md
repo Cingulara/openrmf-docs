@@ -4,7 +4,7 @@ You have a couple choices when you wish to expose your application endpoints out
 
 
 ## Enabling Minikube Ingress for pod access
-Follow the information at https://medium.com/@awkwardferny/getting-started-with-kubernetes-ingress-nginx-on-minikube-d75e58f52b6c to enable the ingress minikube addon and then expose your pod HTTP path with a /path extension to the main Minikube IP.
+Follow the information at https://kubernetes.io/docs/tasks/access-application-cluster/ingress-minikube/ to enable the ingress minikube addon `minikube addons enable ingress` and then expose your pod HTTP path with a /path extension to the main Minikube IP.
 
 * Each service YAML has an ingress.yaml that goes with it, which gives a /path name off the Minikube IP to that service, which gets you into the pod.
 
@@ -14,3 +14,18 @@ Follow the directions at https://github.com/elsonrodriguez/minikube-lb-patch to 
 
 * Make sure you have `jq` and if not run `brew install jq` or the equivalent on a Linux box
 * Make sure the script that uses the minikube profile has the correct path if you have a named profile for Minikube
+
+## Set the kubectl namespace to openrmf
+
+Run `kubectl config set-context --current --namespace=openrmf`.
+
+## How I run Minikube
+
+I use a named profile so I can try out things, so I run minikube like this in a .sh file:
+
+```bash
+minikube start --kubernetes-version "v1.14.3" \
+    --vm-driver virtualbox --disk-size 40GB \
+    --cpus 2 --memory 8096 --profile openrmf
+
+```
