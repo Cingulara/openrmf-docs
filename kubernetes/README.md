@@ -6,7 +6,7 @@ You have a couple choices when you wish to expose your application endpoints out
 ## Enabling Minikube Ingress for pod access
 Follow the information at https://kubernetes.io/docs/tasks/access-application-cluster/ingress-minikube/ to enable the ingress minikube addon `minikube addons enable ingress` and then expose your pod HTTP path with a /path extension to the main Minikube IP.
 
-* Each service YAML has an ingress.yaml that goes with it, which gives a /path name off the Minikube IP to that service, which gets you into the pod.
+* Each service YAML has an ingress.yaml that goes with it, which gives a /* and a hostname off the Minikube IP to that service, which gets you into the pod.
 
 ## Enabling external IPs for the pods in Minikube via loadbalancer patch pod
 
