@@ -43,4 +43,4 @@ spec:
   selector:
     run: openrmf-controls
   sessionAffinity: None
-  type: ClusterIP
+  type: NodePort
