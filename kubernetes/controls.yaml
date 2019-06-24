@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: openrmf-controls-api
+  name: openrmf-controls
   namespace: openrmf
 spec:
   selector:
@@ -28,3 +28,19 @@ spec:
             memory: "1Gi"
           requests:
             memory: "500M"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: openrmf-controls
+  namespace: openrmf
+spec:
+  ports:
+  - name: http
+    port: 8094
+    protocol: TCP
+    targetPort: 8094
+  selector:
+    run: openrmf-controls
+  sessionAffinity: None
+  type: LoadBalancer
