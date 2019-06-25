@@ -2,6 +2,8 @@
 
 You have a couple choices when you wish to expose your application endpoints out of k8s to your local computer with Minkube. They are outlined below. 
 
+For a regular k8s setup you would have an ingress controller like NGINX or Traefik or even HAProxy to help control ingress matching to services in a similar manner.
+
 
 ## Enabling Minikube Ingress for pod access
 Follow the information at https://kubernetes.io/docs/tasks/access-application-cluster/ingress-minikube/ to enable the ingress minikube addon `minikube addons enable ingress` and then expose your pod HTTP path with a /path extension to the main Minikube IP.
