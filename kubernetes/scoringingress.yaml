@@ -1,16 +1,16 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: openrmf-controls-ingress
+  name: openrmf-scoring-ingress
   namespace: openrmf
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
-  - host: controls.openrmf
+  - host: scoring.openrmf
     http:
       paths:
       - path: /*
         backend:
-          serviceName: openrmf-controls
+          serviceName: openrmf-scoring
           servicePort: 8080

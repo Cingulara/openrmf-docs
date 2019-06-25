@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: openrmf-controls
+  name: openrmf-save
   namespace: openrmf
 spec:
   selector:
     matchLabels:
-      run: openrmf-controls
+      run: openrmf-save
   replicas: 2
   template:
     metadata:
       labels:
-        run: openrmf-controls
+        run: openrmf-save
     spec:
       containers:
-      - name: openrmf-controls
-        image: cingulara/openrmf-api-controls:latest
+      - name: openrmf-save
+        image: cingulara/openrmf-api-save:latest
         ports:
         - containerPort: 8080
         env:
@@ -23,6 +23,12 @@ spec:
           value: Development
         - name: ASPNETCORE_URLS
           value: http://*:8080
+        - name: natsserverurl
+          value: nats://natsserver:4222
+        - name: mongoConnection
+          value: mongodb://openrmf:openrmf1234!@192.168.11.52/openrmf?authSource=openrmf
+        - name: mongodb
+          value: openrmf
         resources:
           limits:
             memory: "1Gi"
@@ -34,7 +40,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: openrmf-controls
+  name: openrmf-save
   namespace: openrmf
 spec:
   ports:
@@ -43,6 +49,6 @@ spec:
     protocol: TCP
     targetPort: 8080
   selector:
-    run: openrmf-controls
+    run: openrmf-save
   sessionAffinity: None
   type: NodePort

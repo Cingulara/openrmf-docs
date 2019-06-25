@@ -17,7 +17,7 @@ Follow the directions at https://github.com/elsonrodriguez/minikube-lb-patch to 
 
 ## Set the kubectl namespace to openrmf
 
-Run `kubectl config set-context --current --namespace=openrmf`.
+Run `kubectl config set-context openrmf --namespace=openrmf` where the openrmf after set-context is the named Minikube profile you are using. 
 
 ## How I run Minikube
 

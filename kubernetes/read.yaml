@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: openrmf-controls
+  name: openrmf-read
   namespace: openrmf
 spec:
   selector:
     matchLabels:
-      run: openrmf-controls
+      run: openrmf-read
   replicas: 2
   template:
     metadata:
       labels:
-        run: openrmf-controls
+        run: openrmf-read
     spec:
       containers:
-      - name: openrmf-controls
-        image: cingulara/openrmf-api-controls:latest
+      - name: openrmf-read
+        image: cingulara/openrmf-api-read:latest
         ports:
         - containerPort: 8080
         env:
@@ -23,6 +23,14 @@ spec:
           value: Development
         - name: ASPNETCORE_URLS
           value: http://*:8080
+        - name: openrmf-api-score-server
+          value: http://openrmfapi-scoring:8080
+        - name: openrmf-api-compliance-server
+          value: http://openrmfapi-compliance:8080
+        - name: mongoConnection
+          value: mongodb://openrmf:openrmf1234!@192.168.11.52/openrmf?authSource=openrmf
+        - name: mongodb
+          value: openrmf
         resources:
           limits:
             memory: "1Gi"
@@ -34,7 +42,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: openrmf-controls
+  name: openrmf-read
   namespace: openrmf
 spec:
   ports:
@@ -43,6 +51,6 @@ spec:
     protocol: TCP
     targetPort: 8080
   selector:
-    run: openrmf-controls
+    run: openrmf-read
   sessionAffinity: None
   type: NodePort

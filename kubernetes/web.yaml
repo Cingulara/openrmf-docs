@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openrmf-web
+  namespace: openrmf
+spec:
+  selector:
+    matchLabels:
+      run: openrmf-web
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        run: openrmf-web
+    spec:
+      containers:
+      - name: openrmf-web
+        image: cingulara/openrmf-web:latest
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            memory: "500M"
+            cpu: "500m"
+          requests:
+            memory: "250M"
+            cpu: "250m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: openrmf-web
+  namespace: openrmf
+spec:
+  ports:
+  - name: http
+    port: 8080
+    protocol: TCP
+    targetPort: 80
+  selector:
+    run: openrmf-web
+  sessionAffinity: None
+  type: NodePort
