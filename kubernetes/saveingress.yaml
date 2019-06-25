@@ -1,16 +1,16 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: openrmf-controls-ingress
+  name: openrmf-save-ingress
   namespace: openrmf
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
-  - host: controls.openrmf
+  - host: save.openrmf
     http:
       paths:
       - path: /*
         backend:
-          serviceName: openrmf-controls
+          serviceName: openrmf-save
           servicePort: 8080
