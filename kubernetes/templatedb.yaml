@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openrmf-templatedb
+  namespace: openrmf
+spec:
+  selector:
+    matchLabels:
+      run: openrmf-templatedb
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        run: openrmf-templatedb
+    spec:
+      containers:
+      - name: openrmf-templatedb
+        image: cingulara/openrmf-templatedb:latest
+        ports:
+        - containerPort: 27017
+        env:
+        - name: MONGO_INITDB_ROOT_USERNAME
+          value: root
+        - name: MONGO_INITDB_ROOT_PASSWORD
+          value: myp2ssw0rd
+        - name: MONGO_INITDB_DATABASE
+          value: openrmf
+        resources:
+          requests:
+            memory: "500M"
+            cpu: "500m"
+        volumeMounts:
+        - mountPath: /data/db
+          name: mongodata-templatedb
+      restartPolicy: Always
+      volumes:
+      - name: mongodata-templatedb
+        persistentVolumeClaim:
+          claimName: mongodata-templatedb
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: openrmf-templatedb
+  namespace: openrmf
+spec:
+  ports:
+  - name: mongodb-templatedb
+    port: 27017
+    protocol: TCP
+    targetPort: 27017
+  selector:
+    run: openrmf-templatedb
+  sessionAffinity: None
+  clusterIP: None
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mongodata-templatedb
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
