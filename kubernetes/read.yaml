@@ -28,7 +28,7 @@ spec:
         - name: openrmf-api-compliance-server
           value: http://openrmfapi-compliance:8080
         - name: mongoConnection
-          value: mongodb://openrmf:openrmf1234!@192.168.11.52/openrmf?authSource=openrmf
+          value: mongodb://openrmf:openrmf1234!@openrmf-checklistdb/openrmf?authSource=openrmf
         - name: mongodb
           value: openrmf
         resources:

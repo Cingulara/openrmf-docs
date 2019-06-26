@@ -26,7 +26,7 @@ spec:
         - name: natsserverurl
           value: nats://natsserver:4222
         - name: mongoConnection
-          value: mongodb://openrmftemplate:openrmf1234!@192.168.11.52/openrmftemplate?authSource=openrmftemplate
+          value: mongodb://openrmftemplate:openrmf1234!@openrmf-templatedb/openrmftemplate?authSource=openrmftemplate
         - name: mongodb
           value: openrmftemplate
         resources:
