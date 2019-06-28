@@ -10,7 +10,7 @@ spec:
   - host: web.openrmf
     http:
       paths:
-      - path: /*
+      - path: /
         backend:
           serviceName: openrmf-web
           servicePort: 8080

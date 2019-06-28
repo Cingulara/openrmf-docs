@@ -10,7 +10,7 @@ spec:
   - host: save.openrmf
     http:
       paths:
-      - path: /*
+      - path: /
         backend:
           serviceName: openrmf-save
           servicePort: 8080

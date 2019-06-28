@@ -10,7 +10,7 @@ spec:
   - host: controls.openrmf
     http:
       paths:
-      - path: /*
+      - path: /
         backend:
           serviceName: openrmf-controls
           servicePort: 8080

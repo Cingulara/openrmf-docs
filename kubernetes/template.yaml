@@ -3,6 +3,9 @@ kind: Deployment
 metadata:
   name: openrmf-template
   namespace: openrmf
+  labels:
+    app: openrmf
+    component: api-template
 spec:
   selector:
     matchLabels:

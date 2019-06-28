@@ -3,6 +3,9 @@ kind: Deployment
 metadata:
   name: openrmf-save
   namespace: openrmf
+  labels:
+    app: openrmf
+    component: api-save
 spec:
   selector:
     matchLabels:

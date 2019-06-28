@@ -10,7 +10,7 @@ spec:
   - host: scoring.openrmf
     http:
       paths:
-      - path: /*
+      - path: /
         backend:
           serviceName: openrmf-scoring
           servicePort: 8080

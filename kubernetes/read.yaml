@@ -3,6 +3,9 @@ kind: Deployment
 metadata:
   name: openrmf-read
   namespace: openrmf
+  labels:
+    app: openrmf
+    component: api-read
 spec:
   selector:
     matchLabels:

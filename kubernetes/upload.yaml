@@ -3,6 +3,9 @@ kind: Deployment
 metadata:
   name: openrmf-upload
   namespace: openrmf
+  labels:
+    app: openrmf
+    component: api-upload
 spec:
   selector:
     matchLabels:

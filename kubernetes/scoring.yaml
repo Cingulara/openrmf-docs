@@ -3,6 +3,9 @@ kind: Deployment
 metadata:
   name: openrmf-scoring
   namespace: openrmf
+  labels:
+    app: openrmf
+    component: api-scoring
 spec:
   selector:
     matchLabels:

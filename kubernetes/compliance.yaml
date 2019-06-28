@@ -3,6 +3,9 @@ kind: Deployment
 metadata:
   name: openrmf-compliance
   namespace: openrmf
+  labels:
+    app: openrmf
+    component: api-compliance
 spec:
   selector:
     matchLabels:

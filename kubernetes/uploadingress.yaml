@@ -10,7 +10,7 @@ spec:
   - host: upload.openrmf
     http:
       paths:
-      - path: /*
+      - path: /
         backend:
           serviceName: openrmf-upload
           servicePort: 8080

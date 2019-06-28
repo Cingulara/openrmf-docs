@@ -3,11 +3,14 @@ kind: Deployment
 metadata:
   name: openrmf-controls
   namespace: openrmf
+  labels:
+    app: openrmf
+    component: api-controls
 spec:
   selector:
     matchLabels:
       run: openrmf-controls
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:

@@ -3,6 +3,9 @@ kind: Deployment
 metadata:
   name: openrmf-web
   namespace: openrmf
+  labels:
+    app: openrmf
+    component: web
 spec:
   selector:
     matchLabels:
