@@ -10,7 +10,7 @@ spec:
   selector:
     matchLabels:
       run: openrmf-scoring
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:
