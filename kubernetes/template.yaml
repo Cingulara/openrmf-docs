@@ -34,11 +34,11 @@ spec:
           value: openrmftemplate
         resources:
           limits:
-            memory: "1Gi"
-            cpu: "750m"
+            memory: "750Mi"
+            cpu: "500m"
           requests:
-            memory: "500M"
-            cpu: "250m"
+            memory: "250Mi"
+            cpu: "125m"
 ---
 apiVersion: v1
 kind: Service

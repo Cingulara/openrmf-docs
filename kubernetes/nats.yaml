@@ -25,9 +25,12 @@ spec:
         - containerPort: 4222
           protocol: TCP
         resources:
-          requests:
+          limits:
             memory: "250Mi"
             cpu: "250m"
+          requests:
+            memory: "125Mi"
+            cpu: "125m"
       restartPolicy: Always
 ---
 apiVersion: v1
