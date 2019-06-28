@@ -3,6 +3,9 @@ kind: Deployment
 metadata:
   name: openrmf-templatedb
   namespace: openrmf
+  labels:
+    app: openrmf
+    component: templatedb
 spec:
   selector:
     matchLabels:
@@ -30,7 +33,7 @@ spec:
         resources:
           requests:
             memory: "500M"
-            cpu: "500m"
+            cpu: "250m"
         volumeMounts:
         - mountPath: /data/db
           name: mongodata-templatedb

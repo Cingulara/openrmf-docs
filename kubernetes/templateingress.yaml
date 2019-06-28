@@ -10,7 +10,7 @@ spec:
   - host: template.openrmf
     http:
       paths:
-      - path: /*
+      - path: /
         backend:
           serviceName: openrmf-template
           servicePort: 8080

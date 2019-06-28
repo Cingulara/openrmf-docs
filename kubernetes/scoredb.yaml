@@ -3,6 +3,9 @@ kind: Deployment
 metadata:
   name: openrmf-scoredb
   namespace: openrmf
+  labels:
+    app: openrmf
+    component: scoredb
 spec:
   selector:
     matchLabels:
@@ -30,7 +33,7 @@ spec:
         resources:
           requests:
             memory: "500M"
-            cpu: "500m"
+            cpu: "250m"
         volumeMounts:
         - mountPath: /data/db
           name: mongodata-scoredb
