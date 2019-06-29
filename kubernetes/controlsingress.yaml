@@ -7,7 +7,7 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
-  - host: controls.openrmf
+  - host: controls.openrmf.local
     http:
       paths:
       - path: /
