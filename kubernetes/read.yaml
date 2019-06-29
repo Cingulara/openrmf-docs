@@ -27,9 +27,9 @@ spec:
         - name: ASPNETCORE_URLS
           value: http://*:8080
         - name: openrmf-api-score-server
-          value: http://openrmfapi-scoring:8080
+          value: http://openrmf-scoring:8080
         - name: openrmf-api-compliance-server
-          value: http://openrmfapi-compliance:8080
+          value: http://openrmf-compliance:8080
         - name: mongoConnection
           value: mongodb://openrmf:openrmf1234!@openrmf-checklistdb/openrmf?authSource=openrmf
         - name: mongodb

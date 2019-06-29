@@ -27,9 +27,9 @@ spec:
         - name: ASPNETCORE_URLS
           value: http://*:8080
         - name: openrmf-api-read-server
-          value: http://openrmfapi-read:8080
+          value: http://openrmf-read:8080
         - name: openrmf-api-controls-server
-          value: http://openrmfapi-controls:8080
+          value: http://openrmf-controls:8080
         resources:
           limits:
             memory: "750Mi"
