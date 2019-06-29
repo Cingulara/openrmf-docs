@@ -4,13 +4,15 @@ metadata:
   name: openrmf-save-ingress
   namespace: openrmf
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/cors-allow-methods: "GET, OPTIONS"
 spec:
   rules:
-  - host: save.openrmf
+  - host: openrmf.local
     http:
       paths:
-      - path: /
+      - path: /save(/|$)(.*)
         backend:
           serviceName: openrmf-save
           servicePort: 8080

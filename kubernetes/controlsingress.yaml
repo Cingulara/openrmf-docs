@@ -4,13 +4,15 @@ metadata:
   name: openrmf-controls-ingress
   namespace: openrmf
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/cors-allow-methods: "GET, OPTIONS"
 spec:
   rules:
-  - host: controls.openrmf.local
+  - host: openrmf.local
     http:
       paths:
-      - path: /
+      - path: /controls(/|$)(.*)
         backend:
           serviceName: openrmf-controls
           servicePort: 8080

@@ -4,13 +4,15 @@ metadata:
   name: openrmf-read-ingress
   namespace: openrmf
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/cors-allow-methods: "GET, OPTIONS"
 spec:
   rules:
-  - host: read.openrmf.local
+  - host: openrmf.local
     http:
       paths:
-      - path: /
+      - path: /read(/|$)(.*)
         backend:
           serviceName: openrmf-read
           servicePort: 8080
