@@ -31,3 +31,28 @@ minikube start --kubernetes-version "v1.14.3" \
     --cpus 2 --memory 8096 --profile openrmf
 
 ```
+
+## Ingress Rules and paths into the APIs
+
+There is a hiden gem here https://github.com/kubernetes/ingress-nginx/blob/master/docs/examples/rewrite/README.md on how to setup the ingress controllers especiall if you have sub paths. This below has a $2 in the rewrite target. This means "add the extra stuff on the end". So in this example, if I call http://openrmf.local/controls/healthz/ it will add the /healthz/ to the root of the API call internally. Otherwise it was always just dropping it and calling root no matter what "sub path" of the URL I was calling.
+
+```yaml
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: openrmf-controls-ingress
+  namespace: openrmf
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/cors-allow-methods: "GET, OPTIONS"
+spec:
+  rules:
+  - host: openrmf.local
+    http:
+      paths:
+      - path: /controls(/|$)(.*)
+        backend:
+          serviceName: openrmf-controls
+          servicePort: 8080
+```
