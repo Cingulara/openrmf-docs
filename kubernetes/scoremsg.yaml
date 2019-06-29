@@ -23,7 +23,7 @@ spec:
         - containerPort: 8080
         env:
         - name: openrmf-api-read-server
-          value: http://openrmfapi-read:8080
+          value: http://openrmf-read:8080
         - name: natsserverurl
           value: nats://natsserver:4222
         - name: mongoConnection
