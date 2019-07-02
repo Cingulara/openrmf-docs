@@ -29,7 +29,7 @@ spec:
         - name: MONGO_INITDB_ROOT_PASSWORD
           value: myp2ssw0rd
         - name: MONGO_INITDB_DATABASE
-          value: openrmf
+          value: openrmftemplate
         resources:
           requests:
             memory: "500M"
