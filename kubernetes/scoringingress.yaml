@@ -5,6 +5,7 @@ metadata:
   namespace: openrmf
   annotations:
     kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
     nginx.ingress.kubernetes.io/rewrite-target: /$2
     nginx.ingress.kubernetes.io/cors-allow-methods: "GET, POST, OPTIONS"
 spec:
