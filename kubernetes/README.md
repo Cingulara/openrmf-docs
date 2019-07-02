@@ -26,10 +26,9 @@ Run `kubectl config set-context openrmf --namespace=openrmf` where the openrmf a
 I use a named profile so I can try out things, so I run minikube like this in a .sh file:
 
 ```bash
-minikube start --kubernetes-version "v1.14.3" \
+minikube start \
     --vm-driver virtualbox --disk-size 40GB \
-    --cpus 2 --memory 8096 --profile openrmf
-
+    --cpus 3 --memory 8096 --profile openrmf
 ```
 
 ## Ingress Rules and paths into the APIs
