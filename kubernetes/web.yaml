@@ -1,3 +1,19 @@
+# put the apis.js into the proper area for the path to call within K8s
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: openrmf-apiconfig
+  namespace: openrmf
+data:
+  apis.js: |
+var readAPI = 'http://openrmf.local/read'
+var scoreAPI = 'http://openrmf.local/scoring'
+var saveAPI = 'http://openrmf.local/save'
+var uploadAPI = 'http://openrmf.local/upload'
+var templateAPI = 'http://openrmf.local/template'
+var complianceAPI = 'http://openrmf.local/compliance'
+var controlAPI = 'http://openrmf.local/controls'
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -19,6 +35,10 @@ spec:
       containers:
       - name: openrmf-web
         image: cingulara/openrmf-web:latest
+        volumeMounts:
+        - name: apiconfig-volume
+          mountPath: /usr/share/nginx/html/js/apis.js
+          subPath: apis.js
         ports:
         - containerPort: 80
         resources:
@@ -28,6 +48,10 @@ spec:
           requests:
             memory: "250M"
             cpu: "250m"
+      volumes:
+        - name: apiconfig-volume
+          configMap:
+            name: openrmf-apiconfig
 ---
 apiVersion: v1
 kind: Service
