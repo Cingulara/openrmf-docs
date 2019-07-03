@@ -6,13 +6,13 @@ metadata:
   namespace: openrmf
 data:
   apis.js: |
-var readAPI = 'http://openrmf.local/read'
-var scoreAPI = 'http://openrmf.local/scoring'
-var saveAPI = 'http://openrmf.local/save'
-var uploadAPI = 'http://openrmf.local/upload'
-var templateAPI = 'http://openrmf.local/template'
-var complianceAPI = 'http://openrmf.local/compliance'
-var controlAPI = 'http://openrmf.local/controls'
+    var readAPI = 'http://openrmf.local/read'
+    var scoreAPI = 'http://openrmf.local/scoring'
+    var saveAPI = 'http://openrmf.local/save'
+    var uploadAPI = 'http://openrmf.local/upload'
+    var templateAPI = 'http://openrmf.local/template'
+    var complianceAPI = 'http://openrmf.local/compliance'
+    var controlAPI = 'http://openrmf.local/controls'
 ---
 apiVersion: apps/v1
 kind: Deployment
