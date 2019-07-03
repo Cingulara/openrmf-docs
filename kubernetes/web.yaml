@@ -40,7 +40,8 @@ spec:
           mountPath: /usr/share/nginx/html/js/apis.js
           subPath: apis.js
         ports:
-        - containerPort: 80
+        - name: web-port
+          containerPort: 80
         resources:
           limits:
             memory: "400M"
@@ -48,6 +49,17 @@ spec:
           requests:
             memory: "150M"
             cpu: "125m"
+        readinessProbe:
+          tcpSocket:
+            port: web-port
+          initialDelaySeconds: 5
+          periodSeconds: 30
+        livenessProbe:
+          httpGet:
+            path: /status.html
+            port: web-port
+          initialDelaySeconds: 3
+          periodSeconds: 60
       volumes:
         - name: apiconfig-volume
           configMap:

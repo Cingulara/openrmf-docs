@@ -20,7 +20,19 @@ spec:
       - name: openrmf-scoring
         image: cingulara/openrmf-api-scoring:latest
         ports:
-        - containerPort: 8080
+        - name: web-port
+          containerPort: 8080
+        readinessProbe:
+          tcpSocket:
+            port: web-port
+          initialDelaySeconds: 5
+          periodSeconds: 30
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: web-port
+          initialDelaySeconds: 3
+          periodSeconds: 30
         env:
         - name: ASPNETCORE_ENVIRONMENT
           value: Development
