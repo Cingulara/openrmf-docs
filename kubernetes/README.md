@@ -71,3 +71,40 @@ spec:
           serviceName: openrmf-compliance
           servicePort: 8080
 ```
+
+## How to setup your k8s to run OpenRMF (for now)
+I run all these from the openrmf-docs/kubernetes folder by hand to make sure they are GTG for now. Soon I will script or put into helm to make this easier.
+
+1. Run `kubectl create ns openrmf` to create the OpenRMF namespace area
+2. Run `kubectl apply -f ./nats.yaml` to setup NATS 1.4
+3. Run `kubectl apply -f ./scoredb.yaml` to setup the Score MongoDB
+4. Run `kubectl apply -f ./checklistdb.yaml` to setup the Checklist MongoDB
+5. Run `kubectl apply -f ./templatedb.yaml` to setup the Template MongoDB
+6. Run `kubectl apply -f ./controls.yaml` to setup the Controls API
+7. Run `kubectl apply -f ./compliance.yaml` to setup the Compliance API
+8. Run `kubectl apply -f ./read.yaml` to setup the Read API
+9. Run `kubectl apply -f ./scoring.yaml` to setup the Scoring API
+10. Run `kubectl apply -f ./upload.yaml` to setup the Upload API
+11. Run `kubectl apply -f ./web.yaml` to setup the Web UI that calls all the APIs
+12. Run `kubectl apply -f ./scoremsg.yaml` to setup the NATS client for scoring the checklists with eventual consistency
+13. Run `kubectl apply -f ./template.yaml` to setup the Template API
+14. Run `kubectl apply -f ./save.yaml` to setup the Save API
+
+That sets up all the pieces. Then you have to set the Ingress to talk to them outside of the k8s cluster:
+1. Run `kubectl apply -f ./complianceingress.yaml`
+2. Run `kubectl apply -f ./controlsingress.yaml`
+3. Run `kubectl apply -f ./readingress.yaml`
+4. Run `kubectl apply -f ./saveingress.yaml`
+5. Run `kubectl apply -f ./scoringingress.yaml`
+6. Run `kubectl apply -f ./templateingress.yaml`
+7. Run `kubectl apply -f ./uploadingress.yaml`
+8. Run `kubectl apply -f ./webingress.yaml`
+9. Run `kubectl get ing` to ensure all Ingress are setup with proper hosts and IP Addresses
+10. Make sure your "openrmf.local" DNS name (or whatever you changed it to in the YAML) points to your `minikube ip` address.
+
+Other things you can do to make this work well while testing:
+
+1. Run kubectl config set-context openrmf --namespace=openrmf` to set your default namespace if you wish
+2. Run `kubectl get pods -o wide` to make sure things are coming up correctly
+3. Run `kubectl get pvc` to make sure the persistent volume claims are AOK
+4. Run `kubectl describe node minikube` to make sure CPU and disk pressure are not stopping you
