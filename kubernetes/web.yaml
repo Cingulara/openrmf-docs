@@ -43,11 +43,11 @@ spec:
         - containerPort: 80
         resources:
           limits:
-            memory: "500M"
+            memory: "400M"
             cpu: "500m"
           requests:
-            memory: "250M"
-            cpu: "250m"
+            memory: "150M"
+            cpu: "125m"
       volumes:
         - name: apiconfig-volume
           configMap:
