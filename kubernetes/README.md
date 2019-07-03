@@ -55,3 +55,19 @@ spec:
           serviceName: openrmf-controls
           servicePort: 8080
 ```
+
+## How I get this to run locally using DNS (hint: /etc/hosts)
+
+Using the ingress information below where the "host" and the "path" pieces come into play, you can for instance go to http://openrmf.local/web/ and get the web UI. The web.yaml file in here has a ConfigMap that rewrites the API path variables for the web UI to use to call the READ or CONTROLS or COMPLIANCE or UPLOAD API and return data required. All that hinges on the configmap in the web.yaml, the *ingress.yaml files and your /etc/hosts file pointing to the correct IP for "openrmf.local". You can of course change the name, but change it everywhere. And the "IP" to use is found running `minikube ip` if you are using Minikube locally as a "kubernetes cluster of 1".
+
+```yaml
+spec:
+  rules:
+  - host: openrmf.local
+    http:
+      paths:
+      - path: /web(/|$)(.*)
+        backend:
+          serviceName: openrmf-compliance
+          servicePort: 8080
+```
