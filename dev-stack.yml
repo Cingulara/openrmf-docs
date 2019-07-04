@@ -154,7 +154,7 @@ services:
       - template-data-volume-dev:/data/db
 
   natsserver: 
-    image: nats
+    image: nats:1.4.1-linux
     restart: always
     ports:
       - 4222

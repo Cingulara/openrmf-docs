@@ -1,4 +1,4 @@
-# remove older Docker images for openSTIG
+REM remove older Docker images for openSTIG
 docker rmi -f cingulara/openstig-api-controls:0.6
 docker rmi -f cingulara/openstig-api-read:0.6
 docker rmi -f cingulara/openstig-api-compliance:0.6
@@ -12,7 +12,7 @@ docker rmi -f cingulara/openstig-checklistdb:0.3
 docker rmi -f cingulara/openstig-templatedb:0.3
 docker rmi -f cingulara/openstig-scoredb:0.3
 
-# remove older Docker images for openRMF
+REM remove older Docker images for openRMF
 docker rmi -f cingulara/openrmf-api-controls:0.7
 docker rmi -f cingulara/openrmf-api-read:0.7
 docker rmi -f cingulara/openrmf-api-compliance:0.7
