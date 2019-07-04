@@ -11,10 +11,12 @@ docker pull cingulara/openrmf-checklistdb
 docker pull cingulara/openrmf-api-template
 docker pull cingulara/openrmf-api-compliance
 docker pull cingulara/openrmf-api-controls
-docker pull nats
+docker pull nats:1.4.1-linux
 
 REM Now run the latest development openRMF stack
 docker-compose -f dev-stack.yml up -d
 
 REM tell them the URL
+ECHO ""
 ECHO "Run http://localhost:9080/ to access openRMF"
+ECHO ""
