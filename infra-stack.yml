@@ -12,7 +12,7 @@ services:
       - MONGO_INITDB_DATABASE=openrmf
 
   nats: 
-    image: nats
+    image: nats:1.4.1-linux
     restart: always
     ports:
       - 4222:4222
