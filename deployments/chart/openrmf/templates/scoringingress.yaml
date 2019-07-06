@@ -1,0 +1,25 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: openrmf-scoring-ingress
+  namespace: openrmf
+  labels:
+    app: openrmf
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    component: scoring-api-ingress
+    release: {{ .Release.Name }}
+    revision: "{{ .Release.Revision }}"
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/cors-allow-methods: "GET, POST, OPTIONS"
+spec:
+  rules:
+  - host: {{.Values.dnsName}}
+    http:
+      paths:
+      - path: /scoring(/|$)(.*)
+        backend:
+          serviceName: openrmf-scoring
+          servicePort: 8080

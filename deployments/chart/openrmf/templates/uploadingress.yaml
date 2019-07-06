@@ -1,0 +1,25 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: openrmf-upload-ingress
+  namespace: openrmf
+  labels:
+    app: openrmf
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    component: upload-api-ingress
+    release: {{ .Release.Name }}
+    revision: "{{ .Release.Revision }}"
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/cors-allow-methods: "GET, POST, PUT, OPTIONS"
+    nginx.ingress.kubernetes.io/proxy-body-size: 15m
+spec:
+  rules:
+  - host: {{.Values.dnsName}}
+    http:
+      paths:
+      - path: /upload(/|$)(.*)
+        backend:
+          serviceName: openrmf-upload
+          servicePort: 8080

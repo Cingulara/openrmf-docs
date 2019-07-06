@@ -25,3 +25,15 @@ docker rmi -f cingulara/openrmf-api-scoring:0.7
 docker rmi -f cingulara/openrmf-checklistdb:0.7
 docker rmi -f cingulara/openrmf-templatedb:0.7
 docker rmi -f cingulara/openrmf-scoredb:0.7
+docker rmi -f cingulara/openrmf-api-controls:latest
+docker rmi -f cingulara/openrmf-api-read:latest
+docker rmi -f cingulara/openrmf-api-compliance:latest
+docker rmi -f cingulara/openrmf-web:latest
+docker rmi -f cingulara/openrmf-api-upload:latest
+docker rmi -f cingulara/openrmf-api-template:latest
+docker rmi -f cingulara/openrmf-api-save:latest
+docker rmi -f cingulara/openrmf-msg-score:latest
+docker rmi -f cingulara/openrmf-api-scoring:latest
+docker rmi -f cingulara/openrmf-checklistdb:latest
+docker rmi -f cingulara/openrmf-templatedb:latest
+docker rmi -f cingulara/openrmf-scoredb:latest
