@@ -6,7 +6,7 @@ metadata:
   labels:
     app: openrmf
     chart: {{ .Chart.Name }}-{{ .Chart.Version }}
-    component: Compliance API
+    component: compliance-api
     release: {{ .Release.Name }}
     revision: "{{ .Release.Revision }}"
 spec:

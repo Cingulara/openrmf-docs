@@ -6,7 +6,7 @@ metadata:
   labels:
     app: openrmf
     chart: {{ .Chart.Name }}-{{ .Chart.Version }}
-    component: NATS Server 1.4.1
+    component: nats-server-1.4.1
     release: {{ .Release.Name }}
     revision: "{{ .Release.Revision }}"
 spec:
