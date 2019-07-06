@@ -1,0 +1,24 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: openrmf-web-ingress
+  namespace: openrmf
+  labels:
+    app: openrmf
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    component: Web UI Ingress
+    release: {{ .Release.Name }}
+    revision: "{{ .Release.Revision }}"
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/cors-allow-methods: "GET, POST, PUT, DELETE, OPTIONS"
+spec:
+  rules:
+  - host: {{.Values.dnsName}}
+    http:
+      paths:
+      - path: /web(/|$)(.*)
+        backend:
+          serviceName: openrmf-web
+          servicePort: 8080

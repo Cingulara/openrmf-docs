@@ -1,0 +1,7 @@
+Congratulations on installing the OpenRMF tool! 
+
+To verify that OpenRMF has started, run:
+
+  kubectl --namespace={{ .Release.Namespace }} get deployments -l "release={{ .Release.Name }}"
+
+You can now point your web browser to http://{{.Values.dnsName}}/web/ to run the OpenRMF tool within your cluster!

@@ -1,0 +1,25 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: openrmf-read-ingress
+  namespace: openrmf
+  labels:
+    app: openrmf
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    component: Read API Ingress
+    release: {{ .Release.Name }}
+    revision: "{{ .Release.Revision }}"
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/cors-allow-methods: "GET, OPTIONS"
+spec:
+  rules:
+  - host: {{.Values.dnsName}}
+    http:
+      paths:
+      - path: /read(/|$)(.*)
+        backend:
+          serviceName: openrmf-read
+          servicePort: 8080

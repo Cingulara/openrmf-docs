@@ -1,0 +1,88 @@
+# put the apis.js into the proper area for the path to call within K8s
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: openrmf-apiconfig
+  namespace: openrmf
+  labels:
+    app: openrmf
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    component: Web UI
+    release: {{ .Release.Name }}
+    revision: "{{ .Release.Revision }}"
+data:
+  apis.js: |
+    var readAPI = 'http://openrmf.local/read'
+    var scoreAPI = 'http://openrmf.local/scoring'
+    var saveAPI = 'http://openrmf.local/save'
+    var uploadAPI = 'http://openrmf.local/upload'
+    var templateAPI = 'http://openrmf.local/template'
+    var complianceAPI = 'http://openrmf.local/compliance'
+    var controlAPI = 'http://openrmf.local/controls'
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openrmf-web
+  namespace: openrmf
+  labels:
+    app: openrmf
+    component: web
+spec:
+  selector:
+    matchLabels:
+      run: openrmf-web
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: openrmf-web
+    spec:
+      containers:
+      - name: openrmf-web
+        image: cingulara/openrmf-web:latest
+        volumeMounts:
+        - name: apiconfig-volume
+          mountPath: /usr/share/nginx/html/js/apis.js
+          subPath: apis.js
+        ports:
+        - name: web-port
+          containerPort: 80
+        resources:
+          limits:
+            memory: "400M"
+            cpu: "500m"
+          requests:
+            memory: "150M"
+            cpu: "125m"
+        readinessProbe:
+          tcpSocket:
+            port: web-port
+          initialDelaySeconds: 5
+          periodSeconds: 30
+        livenessProbe:
+          httpGet:
+            path: /status.html
+            port: web-port
+          initialDelaySeconds: 3
+          periodSeconds: 60
+      volumes:
+        - name: apiconfig-volume
+          configMap:
+            name: openrmf-apiconfig
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: openrmf-web
+  namespace: openrmf
+spec:
+  ports:
+  - name: http
+    port: 8080
+    protocol: TCP
+    targetPort: 80
+  selector:
+    run: openrmf-web
+  sessionAffinity: None
+  type: NodePort
