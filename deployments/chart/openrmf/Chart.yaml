@@ -1,0 +1,14 @@
+apiVersion: v1
+name: openrmf
+version: 1.0.0
+description: The OpenRMF web application to manage DoD STIGs and NIST Risk Management Framework Compliance
+keywords:
+  - RMF
+  - openrmf
+  - risk management framework
+maintainers:
+  - name: Dale Bingham
+    email: dale.bingham@cingulara.com
+engine: gotpl 
+appVersion: 0.7.0
+deprecated: false
