@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openrmf-read
+  namespace: openrmf
+  labels:
+    app: openrmf
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    component: read-api
+    release: {{ .Release.Name }}
+    revision: "{{ .Release.Revision }}"
+spec:
+  selector:
+    matchLabels:
+      run: openrmf-read
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: openrmf-read
+    spec:
+      containers:
+      - name: openrmf-read
+        image: cingulara/openrmf-api-read:latest
+        ports:
+        - name: web-port
+          containerPort: 8080
+        readinessProbe:
+          tcpSocket:
+            port: web-port
+          initialDelaySeconds: 5
+          periodSeconds: 30
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: web-port
+          initialDelaySeconds: 3
+          periodSeconds: 30
+        env:
+        - name: ASPNETCORE_ENVIRONMENT
+          value: Development
+        - name: ASPNETCORE_URLS
+          value: http://*:8080
+        - name: openrmf-api-score-server
+          value: http://openrmf-scoring:8080
+        - name: openrmf-api-compliance-server
+          value: http://openrmf-compliance:8080
+        - name: mongoConnection
+          value: mongodb://openrmf:openrmf1234!@openrmf-checklistdb/openrmf?authSource=openrmf
+        - name: mongodb
+          value: openrmf
+        resources:
+          limits:
+            memory: "750Mi"
+            cpu: "500m"
+          requests:
+            memory: "250Mi"
+            cpu: "125m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: openrmf-read
+  namespace: openrmf
+spec:
+  ports:
+  - name: http
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    run: openrmf-read
+  sessionAffinity: None
+  type: NodePort
