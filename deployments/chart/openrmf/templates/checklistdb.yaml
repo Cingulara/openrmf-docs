@@ -6,7 +6,7 @@ metadata:
   labels:
     app: openrmf
     chart: {{ .Chart.Name }}-{{ .Chart.Version }}
-    component: Checklist MongoDB
+    component: checklist-mongodb
     release: {{ .Release.Name }}
     revision: "{{ .Release.Revision }}"
 spec:
