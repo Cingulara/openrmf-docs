@@ -4,6 +4,8 @@ If you have helm and tiller setup you can use the helm command with the charts a
 to setup the OpenRMF demo within k8s. The values.yaml file has the DNS name of what you want the 
 main URL to be to use the demo via HTTP. For now that is the only real value needed. 
 
+To install Helm into your cluster see https://helm.sh/docs/using_helm/.
+
 ## Steps to install the OpenRMF Demo
 
 1. Run `kubectl apply -f ./deployments/kubernetes/namespace.yaml`from the root folder within the repo.
