@@ -6,7 +6,7 @@ metadata:
   labels:
     app: openrmf
     chart: {{ .Chart.Name }}-{{ .Chart.Version }}
-    component: Controls API Ingres
+    component: controls-ingress-api
     release: {{ .Release.Name }}
     revision: "{{ .Release.Revision }}"
   annotations:

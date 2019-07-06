@@ -4,9 +4,9 @@ metadata:
   name: openrmf-upload-ingress
   namespace: openrmf
   labels:
-    app: Upload API Ingress
+    app: openrmf
     chart: {{ .Chart.Name }}-{{ .Chart.Version }}
-    component: Web UI
+    component: upload-api-ingress
     release: {{ .Release.Name }}
     revision: "{{ .Release.Revision }}"
   annotations:
