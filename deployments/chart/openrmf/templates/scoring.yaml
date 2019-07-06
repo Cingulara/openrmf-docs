@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openrmf-scoring
+  namespace: openrmf
+  labels:
+    app: openrmf
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    component: Scoring API
+    release: {{ .Release.Name }}
+    revision: "{{ .Release.Revision }}"
+spec:
+  selector:
+    matchLabels:
+      run: openrmf-scoring
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: openrmf-scoring
+    spec:
+      containers:
+      - name: openrmf-scoring
+        image: cingulara/openrmf-api-scoring:latest
+        ports:
+        - name: web-port
+          containerPort: 8080
+        readinessProbe:
+          tcpSocket:
+            port: web-port
+          initialDelaySeconds: 5
+          periodSeconds: 30
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: web-port
+          initialDelaySeconds: 3
+          periodSeconds: 30
+        env:
+        - name: ASPNETCORE_ENVIRONMENT
+          value: Development
+        - name: ASPNETCORE_URLS
+          value: http://*:8080
+        - name: natsserverurl
+          value: nats://natsserver:4222
+        - name: mongoConnection
+          value: mongodb://openrmfscore:openrmf1234!@openrmf-scoredb/openrmfscore?authSource=openrmfscore
+        - name: mongodb
+          value: openrmfscore
+        resources:
+          limits:
+            memory: "750Mi"
+            cpu: "500m"
+          requests:
+            memory: "250Mi"
+            cpu: "125m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: openrmf-scoring
+  namespace: openrmf
+spec:
+  ports:
+  - name: http
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    run: openrmf-scoring
+  sessionAffinity: None
+  type: NodePort

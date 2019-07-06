@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openrmf-template
+  namespace: openrmf
+  labels:
+    app: openrmf
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    component: Template API
+    release: {{ .Release.Name }}
+    revision: "{{ .Release.Revision }}"
+spec:
+  selector:
+    matchLabels:
+      run: openrmf-template
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: openrmf-template
+    spec:
+      containers:
+      - name: openrmf-template
+        image: cingulara/openrmf-api-template:latest
+        ports:
+        - name: web-port
+          containerPort: 8080
+        readinessProbe:
+          tcpSocket:
+            port: web-port
+          initialDelaySeconds: 5
+          periodSeconds: 30
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: web-port
+          initialDelaySeconds: 3
+          periodSeconds: 30
+        env:
+        - name: ASPNETCORE_ENVIRONMENT
+          value: Development
+        - name: ASPNETCORE_URLS
+          value: http://*:8080
+        - name: natsserverurl
+          value: nats://natsserver:4222
+        - name: mongoConnection
+          value: mongodb://openrmftemplate:openrmf1234!@openrmf-templatedb/openrmftemplate?authSource=openrmftemplate
+        - name: mongodb
+          value: openrmftemplate
+        resources:
+          limits:
+            memory: "750Mi"
+            cpu: "500m"
+          requests:
+            memory: "250Mi"
+            cpu: "125m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: openrmf-template
+  namespace: openrmf
+spec:
+  ports:
+  - name: http
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    run: openrmf-template
+  sessionAffinity: None
+  type: NodePort
