@@ -1,4 +1,4 @@
-# openRMF Documentation (v 0.6) (formerly openSTIG)
+# openRMF Documentation (v 0.7) (formerly openSTIG)
 
 ## Introduction
 openRMF is an open source tool for managing, viewing, and reporting of your DoD STIG checklists in one web-based interface using your browser. It also generates a compliance listing of all your checklists across a whole system based on NIST 800-53 for your Risk Management Framework (RMF) documentation and process. This tool helps you manage multiple systems going through the RMF process and allows you to structure your data in a clean interface all in one location for your group or program. It can save you weeks of manually checking vulnerability-to-CCI-to-NIST controls and generating reports manually, so you can get on to the value-added work for your cybersecurity hygiene.
@@ -21,6 +21,8 @@ Read more about its genesis <a href="https://www.cingulara.com/opensource.html" 
 - [x] Filter Vulnerabilities on the Checklist page by status 
 - [x] Filter vulnerabilities for your Compliance listing based on major controls
 - [x] Exporting your list of checklists and their score by status and category to MS Excel 
+- [x] YAML to quickly setup this project in OpenShift or K8s natively
+- [x] Filter the Compliance Generator for Low/Moderate/High projects as well as PII/Privacy overlay information
 
 ## ToDos (in no particular order)
 - [ ] Generate the RMF POA&M
@@ -33,7 +35,6 @@ Read more about its genesis <a href="https://www.cingulara.com/opensource.html" 
 - [ ] Import the Manual XML STIG to create a starting checklist
 - [ ] Track changes / versions as you edit for a visual diff
 - [ ] Track projects and due dates with notifications on timelines as well as anniversaries and required updates
-- [ ] YAML to quickly setup this project in OpenShift or K8s natively
 
 If we are missing something you want, please add it on our main <a href="https://github.com/Cingulara/openrmf-web/issues" target="_blank">GitHub Issues</a> page.
 
