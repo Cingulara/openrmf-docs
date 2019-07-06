@@ -6,7 +6,7 @@ metadata:
   labels:
     app: openrmf
     chart: {{ .Chart.Name }}-{{ .Chart.Version }}
-    component: Web UI Ingress
+    component: web-ui-ingress
     release: {{ .Release.Name }}
     revision: "{{ .Release.Revision }}"
   annotations:

@@ -6,7 +6,7 @@ metadata:
   labels:
     app: openrmf
     chart: {{ .Chart.Name }}-{{ .Chart.Version }}
-    component: Scoring API Ingress
+    component: scoring-api-ingress
     release: {{ .Release.Name }}
     revision: "{{ .Release.Revision }}"
   annotations:

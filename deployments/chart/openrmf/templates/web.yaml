@@ -7,7 +7,7 @@ metadata:
   labels:
     app: openrmf
     chart: {{ .Chart.Name }}-{{ .Chart.Version }}
-    component: Web UI
+    component: web-ui
     release: {{ .Release.Name }}
     revision: "{{ .Release.Revision }}"
 data:

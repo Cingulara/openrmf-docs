@@ -6,7 +6,7 @@ metadata:
   labels:
     app: openrmf
     chart: {{ .Chart.Name }}-{{ .Chart.Version }}
-    component: Save API
+    component: save-api
     release: {{ .Release.Name }}
     revision: "{{ .Release.Revision }}"
 spec:
