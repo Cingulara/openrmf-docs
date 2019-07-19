@@ -12,13 +12,13 @@ metadata:
     revision: "{{ .Release.Revision }}"
 data:
   apis.js: |
-    var readAPI = 'http://openrmf.local/read'
-    var scoreAPI = 'http://openrmf.local/scoring'
-    var saveAPI = 'http://openrmf.local/save'
-    var uploadAPI = 'http://openrmf.local/upload'
-    var templateAPI = 'http://openrmf.local/template'
-    var complianceAPI = 'http://openrmf.local/compliance'
-    var controlAPI = 'http://openrmf.local/controls'
+    var readAPI = 'http://{{.Values.dnsName}}/read'
+    var scoreAPI = 'http://{{.Values.dnsName}}/scoring'
+    var saveAPI = 'http://{{.Values.dnsName}}/save'
+    var uploadAPI = 'http://{{.Values.dnsName}}/upload'
+    var templateAPI = 'http://{{.Values.dnsName}}/template'
+    var complianceAPI = 'http://{{.Values.dnsName}}/compliance'
+    var controlAPI = 'http://{{.Values.dnsName}}/controls'
 ---
 apiVersion: apps/v1
 kind: Deployment
