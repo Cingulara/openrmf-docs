@@ -57,6 +57,9 @@ The best way to run this application (once you have Docker installed) is to go t
 ## Run openRMF latest development
 For those that want to run the actual "latest" of openSTIG you should run `git clone https://github.com/Cingulara/openrmf-docs.git `, then `git checkout develop` to switch to the develop branch. There is a ./dev-start.sh (or .\dev-start.cmd on Windows) file to run to start and a corresponding ./dev-stop.sh (.\dev-stop.cmd on Windows) to run the latest development version. These operate on http://localhost:9080 so as not to interfere with a running released version to compare/contrast. Note the dev-stack.yml has different ports and different database mount volumes as well. 
 
+## Authentication with Keycloak
+https://github.com/UKHomeOffice/keycloak-proxy/blob/master/README.md
+
 ## Architecture explained
 
 Phase 1 Vision / Concept as drawn on my whiteboard:
