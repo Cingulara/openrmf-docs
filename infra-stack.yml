@@ -12,13 +12,17 @@ services:
       - MONGO_INITDB_DATABASE=openrmf
 
   nats: 
+    # nats -c /tmp/nats.config -D -V
     image: nats:1.4.1-linux
+    command: -c /tmp/nats.config -D -V
     restart: always
     ports:
       - 4222:4222
       - 6222:6222
       - 8222:8222
-      
+    volumes:
+      - ./nats.config:/tmp/nats.config
+
   mongo-express:
     image: mongo-express:latest
     restart: always
