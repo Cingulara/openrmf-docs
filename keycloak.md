@@ -27,6 +27,13 @@ OpenRMF uses Keycloak initially for login and password access as well as role ba
 22. Set the Web Origins appropriately for CORS (i.e. development could be * or your specific URL)
 23. Click the Save button to save this initial setup
 24. Click on the Client Scopes tab to ensure the `roles` scope is in the right hand box to pass to OpenRMF upon login
+25. Click on the Mappers tab under the openrmf Client
+26. Click the Create button
+27. Add a roles mapper to use just the `roles` name to pass roles to our application (we do this just in case Keycloak changes something...ours remains as this)
+28. Make the JSON type a String (see image below)
+29. Save the mapper
+
+Now you are finally done! Check the OpenRMF web application by creating a user and logging in.
 
 ### Password Policy Screenshot
 ![Image](./img/keycloak/authentication-password-policy.png?raw=true)
@@ -36,6 +43,9 @@ OpenRMF uses Keycloak initially for login and password access as well as role ba
 
 ### Roles Setup Screenshot
 ![Image](./img/keycloak/keycloak-roles.png?raw=true)
+
+### Client Mapper Screenshot
+![Image](./img/keycloak/keycloak-openrmf-client-mapper-roles.png?raw=true)
 
 
 ## Application Settings for Keycloak for running in Debug Mode
