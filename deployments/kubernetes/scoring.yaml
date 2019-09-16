@@ -38,12 +38,14 @@ spec:
           value: Development
         - name: ASPNETCORE_URLS
           value: http://*:8080
-        - name: natsserverurl
-          value: nats://natsserver:4222
-        - name: mongoConnection
+        - name: MONGODBCONNECTION
           value: mongodb://openrmfscore:openrmf1234!@openrmf-scoredb/openrmfscore?authSource=openrmfscore
-        - name: mongodb
+        - name: MONGODB
           value: openrmfscore
+        - name: JWT-AUTHORITY
+          value: http://192.168.11.39:9001/auth/realms/openrmf
+        - name: JWT-CLIENT
+          value: openrmf
         resources:
           limits:
             memory: "750Mi"
