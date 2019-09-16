@@ -1,8 +1,9 @@
 version : '3'
  
 services:
+### 1 Web Front End Container
   openrmf-web:
-    image: cingulara/openrmf-web:0.7
+    image: cingulara/openrmf-web:0.8
     ports:
       - 8080:80
     depends_on:
@@ -13,112 +14,142 @@ services:
       - openrmfapi-read
       - openrmfapi-compliance
 
+### 7 API Containers
   openrmfapi-scoring:
-    image: cingulara/openrmf-api-scoring:0.7
+    image: cingulara/openrmf-api-scoring:0.8
     ports:
       - 8090:8080
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8080
-      - mongoConnection=mongodb://openrmfscore:openrmf1234!@scoredb/openrmfscore?authSource=openrmfscore
-      - mongodb=openrmfscore
-      - natsserverurl=nats://natsserver:4222
+      - MONGODBCONNECTION=mongodb://openrmfscore:openrmf1234!@scoredb/openrmfscore?authSource=openrmfscore
+      - MONGODB=openrmfscore
     depends_on:
       - scoredb
-      - natsserver
-
-  openrmfmsg-score:
-    image: cingulara/openrmf-msg-score:0.7
-    environment:
-      - openrmf-api-read-server=http://openrmfapi-read:8080
-      - mongoConnection=mongodb://openrmfscore:openrmf1234!@scoredb/openrmfscore?authSource=openrmfscore
-      - mongodb=openrmfscore
-      - natsserverurl=nats://natsserver:4222
-    depends_on:
-      - scoredb
-      - natsserver
-      - openrmfapi-read
   
   openrmfapi-save:
-    image: cingulara/openrmf-api-save:0.7
+    image: cingulara/openrmf-api-save:0.8
     ports:
       - 8082:8080
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8080
-      - mongoConnection=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
-      - mongodb=openrmf
-      - natsserverurl=nats://natsserver:4222
+      - MONGODBCONNECTION=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
+      - MONGODB=openrmf
+      - NATSSERVERURL=nats://natsserver:4222
+      - JWT-AUTHORITY=http://192.168.11.39:9001/auth/realms/openrmf
+      - JWT-CLIENT=openrmf
     depends_on:
       - openrmfmsg-score
       - checklistdb
       - natsserver
 
   openrmfapi-template:
-    image: cingulara/openrmf-api-template:0.7
+    image: cingulara/openrmf-api-template:0.8
     ports:
       - 8088:8080
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8080
-      - mongoConnection=mongodb://openrmftemplate:openrmf1234!@templatedb/openrmftemplate?authSource=openrmftemplate
-      - mongodb=openrmftemplate
+      - MONGODBCONNECTION=mongodb://openrmftemplate:openrmf1234!@templatedb/openrmftemplate?authSource=openrmftemplate
+      - MONGODB=openrmftemplate
+      - JWT-AUTHORITY=http://192.168.11.39:9001/auth/realms/openrmf
+      - JWT-CLIENT=openrmf
     depends_on:
       - templatedb
 
   openrmfapi-upload:
-    image: cingulara/openrmf-api-upload:0.7
+    image: cingulara/openrmf-api-upload:0.8
     ports:
       - 8086:8080
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8080
-      - mongoConnection=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
-      - mongodb=openrmf
-      - natsserverurl=nats://natsserver:4222
+      - MONGODBCONNECTION=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
+      - MONGODB=openrmf
+      - NATSSERVERURL=nats://natsserver:4222
+      - JWT-AUTHORITY=http://192.168.11.39:9001/auth/realms/openrmf
+      - JWT-CLIENT=openrmf
     depends_on:
       - openrmfmsg-score
       - checklistdb
       - natsserver
 
   openrmfapi-read:
-    image: cingulara/openrmf-api-read:0.7
+    image: cingulara/openrmf-api-read:0.8
     ports:
       - 8084:8080
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8080
-      - mongoConnection=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
-      - mongodb=openrmf
-      - openrmf-api-score-server=http://openrmfapi-scoring:8080
-      - openrmf-api-compliance-server=http://openrmfapi-compliance:8080
+      - MONGODBCONNECTION=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
+      - MONGODB=openrmf
+      - NATSSERVERURL=nats://natsserver:4222
+      - JWT-AUTHORITY=http://192.168.11.39:9001/auth/realms/openrmf
+      - JWT-CLIENT=openrmf
     depends_on:
       - checklistdb
-      - openrmfapi-scoring
 
   openrmfapi-compliance:
-    image: cingulara/openrmf-api-compliance:0.7
+    image: cingulara/openrmf-api-compliance:0.8
     ports:
       - 8092:8080
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8080
-      - openrmf-api-read-server=http://openrmfapi-read:8080
-      - openrmf-api-controls-server=http://openrmfapi-controls:8080
-    depends_on:
-      - openrmfapi-read
-      - openrmfapi-controls
+      - NATSSERVERURL=nats://natsserver:4222
+      - JWT-AUTHORITY=http://192.168.11.39:9001/auth/realms/openrmf
+      - JWT-CLIENT=openrmf
 
   openrmfapi-controls:
-    image: cingulara/openrmf-api-controls:0.7
+    image: cingulara/openrmf-api-controls:0.8
     ports:
       - 8094:8080
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8080
+      - NATSSERVERURL=nats://natsserver:4222
+      - JWT-AUTHORITY=http://192.168.11.39:9001/auth/realms/openrmf
+      - JWT-CLIENT=openrmf
 
+### 4 Messaging Containers
+  openrmfmsg-score:
+    image: cingulara/openrmf-msg-score:0.8
+    environment:
+      - MONGODBCONNECTION=mongodb://openrmfscore:openrmf1234!@scoredb/openrmfscore?authSource=openrmfscore
+      - MONGODB=openrmfscore
+      - NATSSERVERURL=nats://natsserver:4222
+    depends_on:
+      - scoredb
+      - natsserver
+
+  openrmfmsg-checklist:
+    image: cingulara/openrmf-msg-checklist:0.8
+    environment:
+      - MONGODBCONNECTION=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
+      - MONGODB=openrmf
+      - NATSSERVERURL=nats://natsserver:4222
+    depends_on:
+      - checklistdb
+      - natsserver
+
+  openrmfmsg-compliance:
+    image: cingulara/openrmf-msg-compliance:0.8
+    environment:
+      - NATSSERVERURL=nats://natsserver:4222
+    depends_on:
+      - natsserver
+
+  openrmfmsg-controls:
+    image: cingulara/openrmf-msg-controls:0.8
+    environment:
+      - NATSSERVERURL=nats://natsserver:4222
+    depends_on:
+      - natsserver
+
+### 3 MongoDB Containers
   checklistdb:
-    image: cingulara/openrmf-checklistdb:0.7
+    image: cingulara/openrmf-checklistdb:0.8
     restart: always
     ports:
       - 27017
@@ -130,7 +161,7 @@ services:
       - checklist-data-volume:/data/db
 
   scoredb:
-    image: cingulara/openrmf-scoredb:0.7
+    image: cingulara/openrmf-scoredb:0.8
     restart: always
     ports:
       - 27017
@@ -142,7 +173,7 @@ services:
       - score-data-volume:/data/db
 
   templatedb:
-    image: cingulara/openrmf-templatedb:0.7
+    image: cingulara/openrmf-templatedb:0.8
     restart: always
     ports:
       - 27017
@@ -153,6 +184,7 @@ services:
     volumes:
       - template-data-volume:/data/db
 
+# NATS messaging container (internal)
   natsserver: 
     image: nats:1.4.1-linux
     restart: always
