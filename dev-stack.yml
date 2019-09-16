@@ -158,7 +158,7 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=myp2ssw0rd
       - MONGO_INITDB_DATABASE=openrmf
     volumes:
-      - checklist-data-volume:/data/db
+      - checklist-dev-data-volume:/data/db
 
   scoredb:
     image: cingulara/openrmf-scoredb
@@ -170,7 +170,7 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=myp2ssw0rd
       - MONGO_INITDB_DATABASE=openrmfscore
     volumes:
-      - score-data-volume:/data/db
+      - score-dev-data-volume:/data/db
 
   templatedb:
     image: cingulara/openrmf-templatedb
@@ -182,7 +182,7 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=myp2ssw0rd
       - MONGO_INITDB_DATABASE=openrmftemplate
     volumes:
-      - template-data-volume:/data/db
+      - template-dev-data-volume:/data/db
 
 ### NATS messaging container (internal)
   natsserver: 
@@ -195,6 +195,6 @@ services:
 
 ### put all the volume listings here for persistent data
 volumes:
-  template-data-volume:
-  checklist-data-volume:
-  score-data-volume:
+  template-dev-data-volume:
+  checklist-dev-data-volume:
+  score-dev-data-volume:
