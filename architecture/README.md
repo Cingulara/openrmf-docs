@@ -22,3 +22,20 @@ of chart data and XLSX downloads.
 * https://github.com/Cingulara/openrmf-msg-compliance is a NATS client for responding to request/reply on a list of all compliance listings mapping STIG vulnerability IDs to controls. Use this for a full listing based on a low/moderate/high level as well as if you are using personally identifiable information (PII) or similar data.
 
 I started this project with separate microservices all over including messaging for API-to-API communication. Future enhancements are to organically add publish / subscribe pieces such as compliance, auditing, logging, etc. to make this more user and enterprise ready. Along with all the error trapping, checking for NATS connection, etc. that a production 1.0 application would have. 
+
+## Current Messaging Architecture
+
+OpenRMF uses NATS messaging to work eventual consistency as well as API-to-API communication. The items below talk on the types of messaging, who initiates the communication, the receiving NATS client, and a description of what it does.
+
+| Subject | Msg Type | Calling API |     Receiving Client  | Description |
+|---------|----------|-------------|-----------------------|-------------|
+| openrmf.checklist.read | Request/Reply |             | openrmf-msg-checklist | Ask for a full checklist/artifact record based on the ID passed in |
+| openrmf.system.checklists.read | Request/Reply |             | openrmf-msg-checklist | Ask for all checklist records for a given system title passed in |
+|  |  |             |  |      |
+|  |  |             |  |      |
+|  |  |             |  |      |
+|  |  |             |  |      |
+|  |  |             |  |      |
+|  |  |             |  |      |
+|  |  |             |  |      |
+|  |  |             |  |      |
