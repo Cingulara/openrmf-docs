@@ -1,9 +1,11 @@
 # openRMF Architecture
 This has the current architecture information for the OpenRMF application as of version 0.8.
 
+![Image](./openRMF-Tool-0.8-Architecture.png?raw=true)
+
 ## The Genesis
 The January 2019 Phase 1 Vision / Concept as drawn on my whiteboard in my basement:
-![Image](./architecture/phase1-architecture-whiteboard.jpg?raw=true)
+![Image](./phase1-architecture-whiteboard.jpg?raw=true)
 
 ## Current Architecture
 
@@ -29,13 +31,13 @@ OpenRMF uses NATS messaging to work eventual consistency as well as API-to-API c
 
 | Subject | Msg Type | Calling API |     Receiving Client  | Description |
 |---------|----------|-------------|-----------------------|-------------|
-| openrmf.checklist.read | Request/Reply |             | openrmf-msg-checklist | Ask for a full checklist/artifact record based on the ID passed in |
-| openrmf.system.checklists.read | Request/Reply |             | openrmf-msg-checklist | Ask for all checklist records for a given system title passed in |
-|  |  |             |  |      |
-|  |  |             |  |      |
-|  |  |             |  |      |
-|  |  |             |  |      |
-|  |  |             |  |      |
-|  |  |             |  |      |
-|  |  |             |  |      |
-|  |  |             |  |      |
+| openrmf.checklist.read | Request/Reply | Score (Msg Client), Compliance  | openrmf-msg-checklist | Ask for a full checklist/artifact record based on the ID passed in |
+| openrmf.system.checklists.read | Request/Reply | Compliance          | openrmf-msg-checklist | Ask for all checklist records for a given system title passed in |
+| openrmf.checklist.save.new | Subscribe | Upload | openrmf-msg-score | Grab the new uploaded checklist ID sent and generate the score of open, not applicable, not a finding, and not reviewed items across categories |
+| openrmf.checklist.save.update | Subscribe | Upload | openrmf-msg-score | Grab the updated checklist ID sent and generate the score of open, not applicable, not a finding, and not reviewed items across categories |
+| openrmf.checklist.delete | Subscribe | Save | openrmf-msg-score | Delete the score record for the passed in checklist ID  |
+| openrmf.score.read | Subscribe | Read | openrmf-msg-score | Read API calling for the score when generating an XLSX checklist download listing the score. |
+| openrmf.compliance.cci | Request/Reply | Compliance | openrmf-msg-compliance | Send back all CCI to NIST Major Controls listing. |
+| openrmf.compliance.cci.control | Request/Reply | Compliance, Read | openrmf-msg-compliance | Send back a full listing of CCI items based on the NIST/RMF control passed in.  |
+| openrmf.controls | Request/Reply | Compliance |  openrmf-msg-controls| Send back the list of all controls. |
+| openrmf.controls.search | Request/Reply | Controls | openrmf-msg-controls | Send back a single record for the passed in control (i.e. AC-2). |
