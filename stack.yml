@@ -24,7 +24,7 @@ services:
       - ASPNETCORE_URLS=http://*:8080
       - MONGODBCONNECTION=mongodb://openrmfscore:openrmf1234!@scoredb/openrmfscore?authSource=openrmfscore
       - MONGODB=openrmfscore
-      - JWT-AUTHORITY=http://192.168.11.39:9001/auth/realms/openrmf
+      - JWT-AUTHORITY=http://192.168.11.22:9001/auth/realms/openrmf
       - JWT-CLIENT=openrmf
     depends_on:
       - scoredb
@@ -39,7 +39,7 @@ services:
       - MONGODBCONNECTION=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
       - MONGODB=openrmf
       - NATSSERVERURL=nats://natsserver:4222
-      - JWT-AUTHORITY=http://192.168.11.39:9001/auth/realms/openrmf
+      - JWT-AUTHORITY=http://192.168.11.22:9001/auth/realms/openrmf
       - JWT-CLIENT=openrmf
     depends_on:
       - openrmfmsg-score
@@ -55,7 +55,7 @@ services:
       - ASPNETCORE_URLS=http://*:8080
       - MONGODBCONNECTION=mongodb://openrmftemplate:openrmf1234!@templatedb/openrmftemplate?authSource=openrmftemplate
       - MONGODB=openrmftemplate
-      - JWT-AUTHORITY=http://192.168.11.39:9001/auth/realms/openrmf
+      - JWT-AUTHORITY=http://192.168.11.22:9001/auth/realms/openrmf
       - JWT-CLIENT=openrmf
     depends_on:
       - templatedb
@@ -70,7 +70,7 @@ services:
       - MONGODBCONNECTION=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
       - MONGODB=openrmf
       - NATSSERVERURL=nats://natsserver:4222
-      - JWT-AUTHORITY=http://192.168.11.39:9001/auth/realms/openrmf
+      - JWT-AUTHORITY=http://192.168.11.22:9001/auth/realms/openrmf
       - JWT-CLIENT=openrmf
     depends_on:
       - openrmfmsg-score
@@ -87,7 +87,7 @@ services:
       - MONGODBCONNECTION=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
       - MONGODB=openrmf
       - NATSSERVERURL=nats://natsserver:4222
-      - JWT-AUTHORITY=http://192.168.11.39:9001/auth/realms/openrmf
+      - JWT-AUTHORITY=http://192.168.11.22:9001/auth/realms/openrmf
       - JWT-CLIENT=openrmf
     depends_on:
       - checklistdb
@@ -100,7 +100,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8080
       - NATSSERVERURL=nats://natsserver:4222
-      - JWT-AUTHORITY=http://192.168.11.39:9001/auth/realms/openrmf
+      - JWT-AUTHORITY=http://192.168.11.22:9001/auth/realms/openrmf
       - JWT-CLIENT=openrmf
 
   openrmfapi-controls:
@@ -111,7 +111,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8080
       - NATSSERVERURL=nats://natsserver:4222
-      - JWT-AUTHORITY=http://192.168.11.39:9001/auth/realms/openrmf
+      - JWT-AUTHORITY=http://192.168.11.22:9001/auth/realms/openrmf
       - JWT-CLIENT=openrmf
 
 ### 4 Messaging Containers
