@@ -6,5 +6,8 @@
 dnsName: openrmf.local
 
 # The Identity Provider URL and Realm, i.e. using Keycloak for AuthN and AuthZ
-IdentityProviderURL: http://192.168.11.39:9001/auth/realms/openrmf
+IdentityProviderURL: http://192.168.11.39:9001/auth
+# The Realm to use from the ID provider
 IdentityProviderRealm: openrmf
+# The Identity Provider Client Id to use
+IdentityProviderClientId: openrmf

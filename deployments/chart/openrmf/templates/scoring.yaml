@@ -46,9 +46,9 @@ spec:
         - name: MONGODB
           value: openrmfscore
         - name: JWT-AUTHORITY
-          value: {{.Values.IdentityProviderURL}}
+          value: {{.Values.IdentityProviderURL}}/realms/{{.Values.IdentityProviderRealm}}
         - name: JWT-CLIENT
-          value: {{.Values.IdentityProviderRealm}}
+          value: {{.Values.IdentityProviderClientId}}
         resources:
           limits:
             memory: "750Mi"

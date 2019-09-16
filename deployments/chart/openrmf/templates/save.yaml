@@ -44,9 +44,9 @@ spec:
         - name: NATSSERVERURL
           value: nats://natsserver:4222
         - name: JWT-AUTHORITY
-          value: {{.Values.IdentityProviderURL}}
+          value: {{.Values.IdentityProviderURL}}/realms/{{.Values.IdentityProviderRealm}}
         - name: JWT-CLIENT
-          value: {{.Values.IdentityProviderRealm}}
+          value: {{.Values.IdentityProviderClientId}}
         - name: MONGODBCONNECTION
           value: mongodb://openrmf:openrmf1234!@openrmf-checklistdb/openrmf?authSource=openrmf
         - name: MONGODB
