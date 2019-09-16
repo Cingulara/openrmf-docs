@@ -63,6 +63,8 @@ You can use the below lines to run Keycloak and use Postgres to save the configu
 
 ```
 docker network create openrmf-keycloak-network
+
 docker run -d --name postgres --net openrmf-keycloak-network -v openrmf-postgres:/var/lib/postgresql/data -e POSTGRES_DB=keycloak -e POSTGRES_USER=keycloak -e POSTGRES_PASSWORD=password postgres:11.5
+
 docker run -d --rm --name keycloak --net openrmf-keycloak-network -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin -e DB_VENDOR=postgres -e DB_USER=keycloak -e DB_PASSWORD=password -p 9001:8080 jboss/keycloak:7.0.0
 ```
