@@ -7,7 +7,7 @@ metadata:
   labels:
     app: openrmf
     chart: {{ .Chart.Name }}-{{ .Chart.Version }}
-    component: web-ui
+    component: web-ui-apijs
     release: {{ .Release.Name }}
     revision: "{{ .Release.Revision }}"
 data:
@@ -19,6 +19,21 @@ data:
     var templateAPI = 'http://{{.Values.dnsName}}/template'
     var complianceAPI = 'http://{{.Values.dnsName}}/compliance'
     var controlAPI = 'http://{{.Values.dnsName}}/controls'
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: openrmf-authconfig
+  namespace: openrmf
+  labels:
+    app: openrmf
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    component: web-ui-authjs
+    release: {{ .Release.Name }}
+    revision: "{{ .Release.Revision }}"
+data:
+  auth.js: |
+    var keycloak = Keycloak({ url: '{{.Values.IdentityProviderURL}}', realm: '{{.Values.IdentityProviderRealm}}', clientId: '{{.Values.IdentityProviderClientId}}'});
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -45,6 +60,9 @@ spec:
         - name: apiconfig-volume
           mountPath: /usr/share/nginx/html/js/apis.js
           subPath: apis.js
+        - name: authconfig-volume
+          mountPath: /usr/share/nginx/html/js/auth.js
+          subPath: auth.js
         ports:
         - name: web-port
           containerPort: 80
