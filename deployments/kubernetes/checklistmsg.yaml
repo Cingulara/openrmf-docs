@@ -1,33 +1,33 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: openrmf-msg-score
+  name: openrmf-msg-checklist
   namespace: openrmf
   labels:
     app: openrmf
-    component: msg-score
+    component: msg-checklist
 spec:
   selector:
     matchLabels:
-      run: openrmf-msg-score
+      run: openrmf-msg-checklist
   replicas: 1
   template:
     metadata:
       labels:
-        run: openrmf-msg-score
+        run: openrmf-msg-checklist
     spec:
       containers:
-      - name: openrmf-msg-score
-        image: cingulara/openrmf-msg-score:latest
+      - name: openrmf-msg-checklist
+        image: cingulara/openrmf-msg-checklist:latest
         ports:
         - containerPort: 8080
         env:
         - name: NATSSERVERURL
           value: nats://natsserver:4222
         - name: MONGODBCONNECTION
-          value: mongodb://openrmfscore:openrmf1234!@openrmf-scoredb/openrmfscore?authSource=openrmfscore
+          value: mongodb://openrmf:openrmf1234!@openrmf-checklistdb/openrmf?authSource=openrmf
         - name: MONGODB
-          value: openrmfscore
+          value: openrmf
         resources:
           limits:
             memory: "1Gi"
