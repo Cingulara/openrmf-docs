@@ -184,7 +184,7 @@ services:
     volumes:
       - template-data-volume:/data/db
 
-# NATS messaging container (internal)
+### NATS messaging container (internal)
   natsserver: 
     image: nats:1.4.1-linux
     restart: always
@@ -193,7 +193,7 @@ services:
       - 6222
       - 8222
 
-# put all the volume listings here for persistent data
+### put all the volume listings here for persistent data
 volumes:
   template-data-volume:
   checklist-data-volume:
