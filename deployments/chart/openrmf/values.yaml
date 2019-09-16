@@ -4,3 +4,7 @@
 
 # main DNS name used to access the deployed app in k8s via DNS through an ingress controller
 dnsName: openrmf.local
+
+# The Identity Provider URL and Realm, i.e. using Keycloak for AuthN and AuthZ
+IdentityProviderURL: http://192.168.11.39:9001/auth/realms/openrmf
+IdentityProviderRealm: openrmf

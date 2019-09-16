@@ -24,6 +24,8 @@ services:
       - ASPNETCORE_URLS=http://*:8080
       - MONGODBCONNECTION=mongodb://openrmfscore:openrmf1234!@scoredb/openrmfscore?authSource=openrmfscore
       - MONGODB=openrmfscore
+      - JWT-AUTHORITY=http://192.168.11.39:9001/auth/realms/openrmf
+      - JWT-CLIENT=openrmf
     depends_on:
       - scoredb
   
