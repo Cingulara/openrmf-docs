@@ -86,9 +86,12 @@ I run all these from the openrmf-docs/kubernetes folder by hand to make sure the
 9. Run `kubectl apply -f ./scoring.yaml` to setup the Scoring API
 10. Run `kubectl apply -f ./upload.yaml` to setup the Upload API
 11. Run `kubectl apply -f ./web.yaml` to setup the Web UI that calls all the APIs
-12. Run `kubectl apply -f ./scoremsg.yaml` to setup the NATS client for scoring the checklists with eventual consistency
-13. Run `kubectl apply -f ./template.yaml` to setup the Template API
-14. Run `kubectl apply -f ./save.yaml` to setup the Save API
+12. Run `kubectl apply -f ./template.yaml` to setup the Template API
+13. Run `kubectl apply -f ./save.yaml` to setup the Save API
+14. Run `kubectl apply -f ./scoremsg.yaml` to setup the NATS client for scoring the checklists with eventual consistency
+15. Run `kubectl apply -f ./checklistmsg.yaml` to setup the NATS client for retrieving system and checklist information
+16. Run `kubectl apply -f ./controlsmsg.yaml` to setup the NATS client for retrieving Controls information
+17. Run `kubectl apply -f ./compliancemsg.yaml` to setup the NATS client for generating Compliance information
 
 That sets up all the pieces. Then you have to set the Ingress to talk to them outside of the k8s cluster:
 1. Run `kubectl apply -f ./complianceingress.yaml`
