@@ -9,7 +9,7 @@ To install Helm into your cluster see https://helm.sh/docs/using_helm/.
 ## Steps to install the OpenRMF Demo
 
 1. Run `kubectl apply -f ./deployments/kubernetes/namespace.yaml`from the root folder within the repo.
-2. Run `helm install ./deployments/chart/openrmf`from the root folder within the root folder.
+2. Run `helm install ./deployments/chart/openrmf`from the root folder within the repo.
 3. Verify by going to the HTTP path shown after a successful helm install to verify it is working.
 
 ## Values.yaml for your MUX AEW install
