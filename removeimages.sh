@@ -13,6 +13,21 @@ docker rmi -f cingulara/openstig-templatedb:0.3
 docker rmi -f cingulara/openstig-scoredb:0.3
 
 # remove older Docker images for openRMF
+docker rmi -f cingulara/openrmf-api-controls:0.8
+docker rmi -f cingulara/openrmf-api-read:0.8
+docker rmi -f cingulara/openrmf-api-compliance:0.8
+docker rmi -f cingulara/openrmf-web:0.8
+docker rmi -f cingulara/openrmf-api-upload:0.8
+docker rmi -f cingulara/openrmf-api-template:0.8
+docker rmi -f cingulara/openrmf-api-save:0.8
+docker rmi -f cingulara/openrmf-msg-score:0.8
+docker rmi -f cingulara/openrmf-msg-checklist:0.8
+docker rmi -f cingulara/openrmf-msg-controls:0.8
+docker rmi -f cingulara/openrmf-msg-compliance:0.8
+docker rmi -f cingulara/openrmf-api-scoring:0.8
+docker rmi -f cingulara/openrmf-checklistdb:0.8
+docker rmi -f cingulara/openrmf-templatedb:0.8
+docker rmi -f cingulara/openrmf-scoredb:0.8
 docker rmi -f cingulara/openrmf-api-controls:0.7
 docker rmi -f cingulara/openrmf-api-read:0.7
 docker rmi -f cingulara/openrmf-api-compliance:0.7
