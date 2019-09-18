@@ -5,6 +5,9 @@ docker pull cingulara/openrmf-api-save
 docker pull cingulara/openrmf-api-upload
 docker pull cingulara/openrmf-api-scoring
 docker pull cingulara/openrmf-msg-score
+docker pull cingulara/openrmf-msg-compliance
+docker pull cingulara/openrmf-msg-controls
+docker pull cingulara/openrmf-msg-checklist
 docker pull cingulara/openrmf-templatedb
 docker pull cingulara/openrmf-scoredb
 docker pull cingulara/openrmf-checklistdb
