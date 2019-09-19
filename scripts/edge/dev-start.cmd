@@ -17,7 +17,7 @@ docker pull cingulara/openrmf-api-controls
 docker pull nats:1.4.1-linux
 
 REM Now run the latest development openRMF stack
-docker-compose -f dev-stack.yml up -d
+docker-compose up -d
 
 REM tell them the URL
 ECHO ""
