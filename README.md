@@ -57,10 +57,12 @@ Be sure to check out the [Keycloak information](#authentication-with-keycloak) b
 
 > The data is currently mapped to internal Docker-managed volumes for persistence. You can run the "docker volume rm" command below if you wish to remove and start over as you test.  If you want persistence you could change the connection strings to another MongoDB server and adjust the stack.yml accordingly. Or use a volume in your stack.yml or individual docker commands. 
 
-> You must look at the YML files and replace the root URL for the Keycloak/OpenID location and realm. Check the `.env` file in the [scripts](scripts) directory to see how to set those variables. The docker-compose stack YML files read that .env file to launch.
+> You must look at the YML files and see how we set the Keycloak/OpenID location and realm. Check the `.env` file in the [scripts](scripts) directory to see how to set those variables. The docker-compose stack YML files read that .env file to launch.
 
 ## Run openRMF latest development
-For those that want to run the actual "latest" of OpenRMF you should run `git clone https://github.com/Cingulara/openrmf-docs.git `, then `git checkout develop` to switch to the develop branch. There is a ./dev-start.sh (or .\dev-start.cmd on Windows) file to run to start and a corresponding ./dev-stop.sh (.\dev-stop.cmd on Windows) to run the latest development version. These operate on http://localhost:9080 so as not to interfere with a running released version to compare/contrast. Note the dev-stack.yml has different ports and different database mount volumes as well. 
+For those that want to run the actual "latest" of OpenRMF you should run `git clone https://github.com/Cingulara/openrmf-docs.git `, then `git checkout develop` to switch to the develop branch. Inside the scripts directory there is a ./dev-start.sh (or .\dev-start.cmd on Windows) file to run to start and a corresponding ./dev-stop.sh (.\dev-stop.cmd on Windows) to run the latest development version. These operate on http://localhost:9080 so as not to interfere with a running released version to compare/contrast. Note the dev-stack.yml has different ports and different database mount volumes as well. 
+
+> You must look at the YML files and see how we set the Keycloak/OpenID location and realm. Check the `.env` file in the [scripts](scripts) directory to see how to set those variables. The docker-compose stack YML files read that .env file to launch.
 
 > Please ensure you check the launch.json on the VSCode windows to point to your NATS and your Keycloak setup.
 
