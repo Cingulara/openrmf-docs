@@ -13,6 +13,8 @@ services:
       - openrmfapi-upload
       - openrmfapi-read
       - openrmfapi-compliance
+    networks:
+      - openrmf-dev
 
 ### 7 API Containers
   openrmfapi-scoring:
@@ -28,6 +30,8 @@ services:
       - JWT-CLIENT=${JWT-CLIENT}
     depends_on:
       - scoredb
+    networks:
+      - openrmf-dev
   
   openrmfapi-save:
     image: cingulara/openrmf-api-save
@@ -45,6 +49,8 @@ services:
       - openrmfmsg-score
       - checklistdb
       - natsserver
+    networks:
+      - openrmf-dev
 
   openrmfapi-template:
     image: cingulara/openrmf-api-template
@@ -59,6 +65,8 @@ services:
       - JWT-CLIENT=${JWT-CLIENT}
     depends_on:
       - templatedb
+    networks:
+      - openrmf-dev
 
   openrmfapi-upload:
     image: cingulara/openrmf-api-upload
@@ -76,6 +84,8 @@ services:
       - openrmfmsg-score
       - checklistdb
       - natsserver
+    networks:
+      - openrmf-dev
 
   openrmfapi-read:
     image: cingulara/openrmf-api-read
@@ -91,6 +101,8 @@ services:
       - JWT-CLIENT=${JWT-CLIENT}
     depends_on:
       - checklistdb
+    networks:
+      - openrmf-dev
 
   openrmfapi-compliance:
     image: cingulara/openrmf-api-compliance
@@ -102,6 +114,8 @@ services:
       - NATSSERVERURL=nats://natsserver:4222
       - JWT-AUTHORITY=${JWT-AUTHORITY}
       - JWT-CLIENT=${JWT-CLIENT}
+    networks:
+      - openrmf-dev
 
   openrmfapi-controls:
     image: cingulara/openrmf-api-controls
@@ -113,6 +127,8 @@ services:
       - NATSSERVERURL=nats://natsserver:4222
       - JWT-AUTHORITY=${JWT-AUTHORITY}
       - JWT-CLIENT=${JWT-CLIENT}
+    networks:
+      - openrmf-dev
 
 ### 4 Messaging Containers
   openrmfmsg-score:
@@ -124,6 +140,8 @@ services:
     depends_on:
       - scoredb
       - natsserver
+    networks:
+      - openrmf-dev
 
   openrmfmsg-checklist:
     image: cingulara/openrmf-msg-checklist
@@ -134,6 +152,8 @@ services:
     depends_on:
       - checklistdb
       - natsserver
+    networks:
+      - openrmf-dev
 
   openrmfmsg-compliance:
     image: cingulara/openrmf-msg-compliance
@@ -141,6 +161,8 @@ services:
       - NATSSERVERURL=nats://natsserver:4222
     depends_on:
       - natsserver
+    networks:
+      - openrmf-dev
 
   openrmfmsg-controls:
     image: cingulara/openrmf-msg-controls
@@ -148,6 +170,8 @@ services:
       - NATSSERVERURL=nats://natsserver:4222
     depends_on:
       - natsserver
+    networks:
+      - openrmf-dev
 
 ### 3 MongoDB Containers
   checklistdb:
@@ -161,6 +185,8 @@ services:
       - MONGO_INITDB_DATABASE=openrmf
     volumes:
       - checklist-dev-data-volume:/data/db
+    networks:
+      - openrmf-dev
 
   scoredb:
     image: cingulara/openrmf-scoredb
@@ -173,6 +199,8 @@ services:
       - MONGO_INITDB_DATABASE=openrmfscore
     volumes:
       - score-dev-data-volume:/data/db
+    networks:
+      - openrmf-dev
 
   templatedb:
     image: cingulara/openrmf-templatedb
@@ -185,6 +213,8 @@ services:
       - MONGO_INITDB_DATABASE=openrmftemplate
     volumes:
       - template-dev-data-volume:/data/db
+    networks:
+      - openrmf-dev
 
 ### NATS messaging container (internal)
   natsserver: 
@@ -194,9 +224,15 @@ services:
       - 4222
       - 6222
       - 8222
+    networks:
+      - openrmf-dev
 
 ### put all the volume listings here for persistent data
 volumes:
   template-dev-data-volume:
   checklist-dev-data-volume:
   score-dev-data-volume:
+
+### put all the networks here
+networks:
+  openrmf-dev:
