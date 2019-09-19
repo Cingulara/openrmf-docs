@@ -1,6 +1,15 @@
 # Keycloak 7.0 setup for OpenRMF Login and RBAC
 OpenRMF uses Keycloak (OpenID) initially for login and password access as well as role based access control. You also can use Keycloak for linking to Identity Providers with Google, GitHub, Twitter, and others for access to OpenRMF. Feel free to follow these Keycloak directions or use another provider that can give you OpenID functionality. The Keycloak setup is below and should be similar to other OpenID applications. This setup below uses Keycloak 7.0. I have not tried it on version 6 or below. If you must use 6 then you will need to test to ensure it works 100%.
 
+## Running Keycloak in Docker
+You can use the below line to run Keycloak and use Postgres to save the configuration information. Please update your passwords appropriately in the [keycloak-stack.yml](scripts/keycloak-stack.yml) file.
+
+```
+docker-compose -f ./scripts/keycloak-stack.yml up -d
+```
+
+To stop this, run the same command and replace "up" with "down".
+
 ## Step by Step Directions
 
 1. Log in to your Keycloak instance, whether online or within containers (docker, kubernetes) or natively on your machine
@@ -56,15 +65,3 @@ There are a few places when running in debug mode that you have to know the Keyc
 * all the API `.vscode/launch.json` files like the picture below.
 
 ![Image](./img/keycloak/dotnet-core-keycloak-reference.png?raw=true)
-
-
-## Running Keycloak in Docker
-You can use the below lines to run Keycloak and use Postgres to save the configuration information. Please update your passwords appropriately!
-
-```
-docker network create openrmf-keycloak-network
-
-docker run -d --name postgres --net openrmf-keycloak-network -v openrmf-postgres:/var/lib/postgresql/data -e POSTGRES_DB=keycloak -e POSTGRES_USER=keycloak -e POSTGRES_PASSWORD=password postgres:11.5
-
-docker run -d --rm --name keycloak --net openrmf-keycloak-network -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin -e DB_VENDOR=postgres -e DB_USER=keycloak -e DB_PASSWORD=password -p 9001:8080 jboss/keycloak:7.0.0
-```
