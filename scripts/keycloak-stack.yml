@@ -16,8 +16,7 @@ services:
       - keycloak-postgres:/var/lib/postgresql/data
 
   keycloak: 
-    image: nats:1.4.1-linux
-    command: -D -V
+    image: jboss/keycloak:7.0.0
     restart: always
     ports:
       - 9001:8080
