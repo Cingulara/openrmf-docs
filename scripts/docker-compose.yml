@@ -21,13 +21,12 @@ services:
     image: cingulara/openrmf-api-scoring:0.8
     ports:
       - 8090:8080
+    env_file: .env
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8080
       - MONGODBCONNECTION=mongodb://openrmfscore:openrmf1234!@scoredb/openrmfscore?authSource=openrmfscore
       - MONGODB=openrmfscore
-      - JWT-AUTHORITY=${JWT-AUTHORITY}
-      - JWT-CLIENT=${JWT-CLIENT}
     depends_on:
       - scoredb
     networks:
@@ -37,14 +36,13 @@ services:
     image: cingulara/openrmf-api-save:0.8
     ports:
       - 8082:8080
+    env_file: .env
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8080
       - MONGODBCONNECTION=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
       - MONGODB=openrmf
       - NATSSERVERURL=nats://natsserver:4222
-      - JWT-AUTHORITY=${JWT-AUTHORITY}
-      - JWT-CLIENT=${JWT-CLIENT}
     depends_on:
       - openrmfmsg-score
       - checklistdb
@@ -56,13 +54,12 @@ services:
     image: cingulara/openrmf-api-template:0.8
     ports:
       - 8088:8080
+    env_file: .env
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8080
       - MONGODBCONNECTION=mongodb://openrmftemplate:openrmf1234!@templatedb/openrmftemplate?authSource=openrmftemplate
       - MONGODB=openrmftemplate
-      - JWT-AUTHORITY=${JWT-AUTHORITY}
-      - JWT-CLIENT=${JWT-CLIENT}
     depends_on:
       - templatedb
     networks:
@@ -72,14 +69,13 @@ services:
     image: cingulara/openrmf-api-upload:0.8
     ports:
       - 8086:8080
+    env_file: .env
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8080
       - MONGODBCONNECTION=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
       - MONGODB=openrmf
       - NATSSERVERURL=nats://natsserver:4222
-      - JWT-AUTHORITY=${JWT-AUTHORITY}
-      - JWT-CLIENT=${JWT-CLIENT}
     depends_on:
       - openrmfmsg-score
       - checklistdb
@@ -91,14 +87,13 @@ services:
     image: cingulara/openrmf-api-read:0.8
     ports:
       - 8084:8080
+    env_file: .env
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8080
       - MONGODBCONNECTION=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
       - MONGODB=openrmf
       - NATSSERVERURL=nats://natsserver:4222
-      - JWT-AUTHORITY=${JWT-AUTHORITY}
-      - JWT-CLIENT=${JWT-CLIENT}
     depends_on:
       - checklistdb
     networks:
@@ -108,12 +103,11 @@ services:
     image: cingulara/openrmf-api-compliance:0.8
     ports:
       - 8092:8080
+    env_file: .env
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8080
       - NATSSERVERURL=nats://natsserver:4222
-      - JWT-AUTHORITY=${JWT-AUTHORITY}
-      - JWT-CLIENT=${JWT-CLIENT}
     networks:
       - openrmf
 
@@ -121,12 +115,11 @@ services:
     image: cingulara/openrmf-api-controls:0.8
     ports:
       - 8094:8080
+    env_file: .env
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8080
       - NATSSERVERURL=nats://natsserver:4222
-      - JWT-AUTHORITY=${JWT-AUTHORITY}
-      - JWT-CLIENT=${JWT-CLIENT}
     networks:
       - openrmf
 

@@ -26,8 +26,6 @@ services:
       - ASPNETCORE_URLS=http://*:8080
       - MONGODBCONNECTION=mongodb://openrmfscore:openrmf1234!@scoredb/openrmfscore?authSource=openrmfscore
       - MONGODB=openrmfscore
-      - JWT-AUTHORITY=${JWT-AUTHORITY}
-      - JWT-CLIENT=${JWT-CLIENT}
     depends_on:
       - scoredb
     networks:
@@ -43,8 +41,6 @@ services:
       - MONGODBCONNECTION=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
       - MONGODB=openrmf
       - NATSSERVERURL=nats://natsserver:4222
-      - JWT-AUTHORITY=${JWT-AUTHORITY}
-      - JWT-CLIENT=${JWT-CLIENT}
     depends_on:
       - openrmfmsg-score
       - checklistdb
@@ -61,8 +57,6 @@ services:
       - ASPNETCORE_URLS=http://*:8080
       - MONGODBCONNECTION=mongodb://openrmftemplate:openrmf1234!@templatedb/openrmftemplate?authSource=openrmftemplate
       - MONGODB=openrmftemplate
-      - JWT-AUTHORITY=${JWT-AUTHORITY}
-      - JWT-CLIENT=${JWT-CLIENT}
     depends_on:
       - templatedb
     networks:
@@ -78,8 +72,6 @@ services:
       - MONGODBCONNECTION=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
       - MONGODB=openrmf
       - NATSSERVERURL=nats://natsserver:4222
-      - JWT-AUTHORITY=${JWT-AUTHORITY}
-      - JWT-CLIENT=${JWT-CLIENT}
     depends_on:
       - openrmfmsg-score
       - checklistdb
@@ -97,8 +89,6 @@ services:
       - MONGODBCONNECTION=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
       - MONGODB=openrmf
       - NATSSERVERURL=nats://natsserver:4222
-      - JWT-AUTHORITY=${JWT-AUTHORITY}
-      - JWT-CLIENT=${JWT-CLIENT}
     depends_on:
       - checklistdb
     networks:
@@ -112,8 +102,6 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8080
       - NATSSERVERURL=nats://natsserver:4222
-      - JWT-AUTHORITY=${JWT-AUTHORITY}
-      - JWT-CLIENT=${JWT-CLIENT}
     networks:
       - openrmf-dev
 
@@ -125,8 +113,6 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8080
       - NATSSERVERURL=nats://natsserver:4222
-      - JWT-AUTHORITY=${JWT-AUTHORITY}
-      - JWT-CLIENT=${JWT-CLIENT}
     networks:
       - openrmf-dev
 
