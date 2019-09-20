@@ -78,7 +78,7 @@ Starting with version 0.8 we have AuthN and AuthZ setup for use. See the [Keyclo
 ## Known issues
 If you find something please add an issue to the correct repo. 
 
-- Version 0.7 the scoring currently does not work right. We are working on that.
+- Version 0.7 the scoring currently does not work right. We are working on that in our spare time. Or just move to 0.8 with RBAC and call it fixed!
 
 If you find any problem, have an idea or enhancement please do not hesitate to add to the [Issues](https://github.com/Cingulara/openrmf-docs/issues) area.
 
