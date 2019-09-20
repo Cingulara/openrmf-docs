@@ -21,5 +21,5 @@ docker-compose up -d
 
 REM tell them the URL
 ECHO ""
-ECHO "Run http://localhost:9080/ to access openRMF"
+ECHO "Run http://{ip-address}:9080/ to access openRMF"
 ECHO ""
