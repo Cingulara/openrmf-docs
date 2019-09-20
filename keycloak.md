@@ -32,7 +32,7 @@ To stop this, run the same command and replace "up" with "down".
 18. Add the Name and Description fields
 19. Set the access type to public
 20. Disable the Direct Access Grants
-21. Setup the Valid Rediret URIs to where your OpenRMF main root URL is (i.e. http://localhost:8080/*)
+21. Setup the Valid Redirect URIs to where your OpenRMF main root URL is (i.e. http://{ip-address}:8080/*)
 22. Set the Web Origins appropriately for CORS (i.e. development could be * or your specific URL)
 23. Click the Save button to save this initial setup
 24. Click on the Client Scopes tab to ensure the `roles` scope is in the right hand box to pass to OpenRMF upon login
@@ -42,7 +42,9 @@ To stop this, run the same command and replace "up" with "down".
 28. Make the JSON type a String (see image below)
 29. Save the mapper
 
-Now you are finally done! Check the OpenRMF web application by creating a user and logging in.
+Now you are finally done! Check the OpenRMF web application by creating a user and logging in. 
+
+> Remember the Redirect URIs cannot be "localhost" if you are running these components inside Docker. Localhost is local to the docker container!
 
 ### Password Policy Screenshot
 ![Image](./img/keycloak/authentication-password-policy.png?raw=true)
