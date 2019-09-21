@@ -36,7 +36,7 @@ spec:
         resources:
           requests:
             memory: "500M"
-            cpu: "250m"
+            cpu: "200m"
         volumeMounts:
         - mountPath: /data/db
           name: mongodata-checklistdb
@@ -44,7 +44,7 @@ spec:
       volumes:
       - name: mongodata-checklistdb
         persistentVolumeClaim:
-          claimName: mongodata-checklistdb
+          claimName: openrmf-checklistdb-claim
 ---
 apiVersion: v1
 kind: Service
@@ -65,8 +65,10 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mongodata-checklistdb
+  namespace: openrmf
+  name: openrmf-checklistdb-claim
 spec:
+  storageClassName: standard
   accessModes:
   - ReadWriteOnce
   resources:

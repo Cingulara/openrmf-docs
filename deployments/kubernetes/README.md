@@ -73,22 +73,26 @@ spec:
 ```
 
 ## How to setup your k8s to run OpenRMF (for now)
-I run all these from the openrmf-docs/kubernetes folder by hand to make sure they are GTG for now. Soon I will script or put into helm to make this easier.
+I run all these from the openrmf-docs/kubernetes folder by hand to make sure they are GTG for now. There is also a helm chart to make this easier in a different directory under [deployments](../).
 
-1. Run `kubectl create ns openrmf` to create the OpenRMF namespace area
-2. Run `kubectl apply -f ./nats.yaml` to setup NATS 1.4
-3. Run `kubectl apply -f ./scoredb.yaml` to setup the Score MongoDB
-4. Run `kubectl apply -f ./checklistdb.yaml` to setup the Checklist MongoDB
-5. Run `kubectl apply -f ./templatedb.yaml` to setup the Template MongoDB
-6. Run `kubectl apply -f ./controls.yaml` to setup the Controls API
-7. Run `kubectl apply -f ./compliance.yaml` to setup the Compliance API
-8. Run `kubectl apply -f ./read.yaml` to setup the Read API
-9. Run `kubectl apply -f ./scoring.yaml` to setup the Scoring API
-10. Run `kubectl apply -f ./upload.yaml` to setup the Upload API
-11. Run `kubectl apply -f ./web.yaml` to setup the Web UI that calls all the APIs
-12. Run `kubectl apply -f ./scoremsg.yaml` to setup the NATS client for scoring the checklists with eventual consistency
+1. Run `kubectl apply -f ./namespace.yaml` to create the OpenRMF namespace area
+2. Run `kubectl apply -f ./pv.yaml` to create a persistent volume (if you don't have one to use already)
+3. Run `kubectl apply -f ./nats.yaml` to setup NATS 1.4
+4. Run `kubectl apply -f ./scoredb.yaml` to setup the Score MongoDB
+5. Run `kubectl apply -f ./checklistdb.yaml` to setup the Checklist MongoDB
+6. Run `kubectl apply -f ./templatedb.yaml` to setup the Template MongoDB
+7. Run `kubectl apply -f ./controls.yaml` to setup the Controls API
+8. Run `kubectl apply -f ./compliance.yaml` to setup the Compliance API
+9. Run `kubectl apply -f ./read.yaml` to setup the Read API
+10. Run `kubectl apply -f ./scoring.yaml` to setup the Scoring API
+11. Run `kubectl apply -f ./upload.yaml` to setup the Upload API
+12. Run `kubectl apply -f ./web.yaml` to setup the Web UI that calls all the APIs
 13. Run `kubectl apply -f ./template.yaml` to setup the Template API
 14. Run `kubectl apply -f ./save.yaml` to setup the Save API
+15. Run `kubectl apply -f ./scoremsg.yaml` to setup the NATS client for scoring the checklists with eventual consistency
+16. Run `kubectl apply -f ./checklistmsg.yaml` to setup the NATS client for retrieving system and checklist information
+17. Run `kubectl apply -f ./controlsmsg.yaml` to setup the NATS client for retrieving Controls information
+18. Run `kubectl apply -f ./compliancemsg.yaml` to setup the NATS client for generating Compliance information
 
 That sets up all the pieces. Then you have to set the Ingress to talk to them outside of the k8s cluster:
 1. Run `kubectl apply -f ./complianceingress.yaml`

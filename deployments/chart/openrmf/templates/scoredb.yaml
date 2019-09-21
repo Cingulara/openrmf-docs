@@ -36,7 +36,7 @@ spec:
         resources:
           requests:
             memory: "500M"
-            cpu: "250m"
+            cpu: "200m"
         volumeMounts:
         - mountPath: /data/db
           name: mongodata-scoredb
@@ -44,7 +44,7 @@ spec:
       volumes:
       - name: mongodata-scoredb
         persistentVolumeClaim:
-          claimName: mongodata-scoredb
+          claimName: openrmf-scoredb-claim
 ---
 apiVersion: v1
 kind: Service
@@ -65,8 +65,10 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mongodata-scoredb
+  namespace: openrmf
+  name: openrmf-scoredb-claim
 spec:
+  storageClassName: standard
   accessModes:
   - ReadWriteOnce
   resources:

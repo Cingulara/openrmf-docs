@@ -4,4 +4,5 @@ To verify that OpenRMF has started, run:
 
   kubectl --namespace=openrmf get deployments -l "release={{ .Release.Name }}"
 
-You can now point your web browser to http://{{.Values.dnsName}}/web/ to run the OpenRMF tool within your cluster!
+You can now point your web browser to http://{{.Values.dnsName}}/web/ to run the OpenRMF tool 
+within your cluster! Make sure your Keycloak (or OpenID) authentication is ready to go.
