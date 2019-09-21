@@ -33,4 +33,4 @@ spec:
             cpu: "250m"
           requests:
             memory: "500M"
-            cpu: "125m"
+            cpu: "100m"
