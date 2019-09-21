@@ -41,7 +41,7 @@ spec:
       volumes:
       - name: mongodata-checklistdb
         persistentVolumeClaim:
-          claimName: mongodata-checklistdb
+          claimName: openrmf-checklistdb-claim
 ---
 apiVersion: v1
 kind: Service
@@ -62,8 +62,10 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mongodata-checklistdb
+  name: openrmf-checklistdb-claim
+  namespace: openrmf
 spec:
+  storageClassName: standard
   accessModes:
   - ReadWriteOnce
   resources:
