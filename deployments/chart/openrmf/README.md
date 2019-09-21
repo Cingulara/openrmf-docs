@@ -21,13 +21,15 @@ The values.yaml file has only 4 fields to configure. The defaults match up to th
 ```
 dnsName: openrmf.local
 ```
-It is the DNS name that you want the ingress to respond to. This can be a DNS pointer to the IP of your k8s installation. It also could be the `minikube ip` for a local  install setup in your /etc/hosts file. Whichever it is, make the name match DNS so your deployment can be accessed via a web browser.
+It is the DNS name that you want the ingress to respond to. This can be a DNS pointer to the IP of your k8s installation. It also could be the `minikube ip` for a local install setup in your /etc/hosts file. Whichever it is, make the name match DNS so your deployment can be accessed via a web browser.
 
 ### The Identity Provider URL and Realm, i.e. using Keycloak for AuthN and AuthZ
 ```
 IdentityProviderURL: http://192.168.11.22:9001/auth
 ```
-This is the root URL of Keycloak or whatever you want to try and use as the Identity Provider.
+This is the root URL of Keycloak or whatever you want to try and use as the Identity Provider. 
+
+> If you have used Keycloak locally for OpenRMF and switched to Minikube or a DNS name be sure to update your Redirect URI values.
 
 ### The Realm to use from the ID provider
 ```
