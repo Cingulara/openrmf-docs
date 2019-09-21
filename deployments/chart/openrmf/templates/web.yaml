@@ -88,6 +88,9 @@ spec:
         - name: apiconfig-volume
           configMap:
             name: openrmf-apiconfig
+        - name: authconfig-volume
+          configMap:
+            name: openrmf-authconfig
 ---
 apiVersion: v1
 kind: Service

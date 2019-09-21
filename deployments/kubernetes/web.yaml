@@ -21,7 +21,7 @@ metadata:
   namespace: openrmf
 data:
   auth.js: |
-    var keycloak = Keycloak({ url: 'http://192.168.11.39:9001/auth',realm: 'openrmf',clientId: 'openrmf'});
+    var keycloak = Keycloak({ url: 'http://192.168.11.29:9001/auth',realm: 'openrmf',clientId: 'openrmf'});
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -76,6 +76,9 @@ spec:
         - name: apiconfig-volume
           configMap:
             name: openrmf-apiconfig
+        - name: authconfig-volume
+          configMap:
+            name: openrmf-authconfig
 ---
 apiVersion: v1
 kind: Service

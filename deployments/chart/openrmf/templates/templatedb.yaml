@@ -44,7 +44,7 @@ spec:
       volumes:
       - name: mongodata-templatedb
         persistentVolumeClaim:
-          claimName: mongodata-templatedb
+          claimName: openrmf-templatedb-claim
 ---
 apiVersion: v1
 kind: Service
@@ -65,8 +65,10 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mongodata-templatedb
+  namespace: openrmf
+  name: openrmf-templatedb-claim
 spec:
+  storageClassName: standard
   accessModes:
   - ReadWriteOnce
   resources:
