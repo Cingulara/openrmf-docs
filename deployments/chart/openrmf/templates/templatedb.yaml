@@ -36,7 +36,7 @@ spec:
         resources:
           requests:
             memory: "500M"
-            cpu: "250m"
+            cpu: "200m"
         volumeMounts:
         - mountPath: /data/db
           name: mongodata-templatedb
