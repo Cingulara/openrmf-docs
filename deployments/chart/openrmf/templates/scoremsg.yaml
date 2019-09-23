@@ -25,13 +25,11 @@ spec:
         ports:
         - containerPort: 8080
         env:
-        - name: openrmf-api-read-server
-          value: http://openrmf-read:8080
-        - name: natsserverurl
+        - name: NATSSERVERURL
           value: nats://natsserver:4222
-        - name: mongoConnection
+        - name: MONGODBCONNECTION
           value: mongodb://openrmfscore:openrmf1234!@openrmf-scoredb/openrmfscore?authSource=openrmfscore
-        - name: mongodb
+        - name: MONGODB
           value: openrmfscore
         resources:
           limits:
@@ -39,4 +37,4 @@ spec:
             cpu: "250m"
           requests:
             memory: "500M"
-            cpu: "125m"
+            cpu: "100m"

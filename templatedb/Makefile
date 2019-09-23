@@ -1,4 +1,4 @@
-VERSION ?= 0.7
+VERSION ?= 0.8
 NAME ?= "openrmf-templatedb"
 AUTHOR ?= "Dale Bingham"
 PORT_EXT ?= 27017

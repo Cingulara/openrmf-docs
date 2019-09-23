@@ -7,18 +7,33 @@ metadata:
   labels:
     app: openrmf
     chart: {{ .Chart.Name }}-{{ .Chart.Version }}
-    component: web-ui
+    component: web-ui-apijs
     release: {{ .Release.Name }}
     revision: "{{ .Release.Revision }}"
 data:
   apis.js: |
-    var readAPI = 'http://openrmf.local/read'
-    var scoreAPI = 'http://openrmf.local/scoring'
-    var saveAPI = 'http://openrmf.local/save'
-    var uploadAPI = 'http://openrmf.local/upload'
-    var templateAPI = 'http://openrmf.local/template'
-    var complianceAPI = 'http://openrmf.local/compliance'
-    var controlAPI = 'http://openrmf.local/controls'
+    var readAPI = 'http://{{.Values.dnsName}}/read'
+    var scoreAPI = 'http://{{.Values.dnsName}}/scoring'
+    var saveAPI = 'http://{{.Values.dnsName}}/save'
+    var uploadAPI = 'http://{{.Values.dnsName}}/upload'
+    var templateAPI = 'http://{{.Values.dnsName}}/template'
+    var complianceAPI = 'http://{{.Values.dnsName}}/compliance'
+    var controlAPI = 'http://{{.Values.dnsName}}/controls'
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: openrmf-authconfig
+  namespace: openrmf
+  labels:
+    app: openrmf
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    component: web-ui-authjs
+    release: {{ .Release.Name }}
+    revision: "{{ .Release.Revision }}"
+data:
+  auth.js: |
+    var keycloak = Keycloak({ url: '{{.Values.IdentityProviderURL}}', realm: '{{.Values.IdentityProviderRealm}}', clientId: '{{.Values.IdentityProviderClientId}}'});
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -45,6 +60,9 @@ spec:
         - name: apiconfig-volume
           mountPath: /usr/share/nginx/html/js/apis.js
           subPath: apis.js
+        - name: authconfig-volume
+          mountPath: /usr/share/nginx/html/js/auth.js
+          subPath: auth.js
         ports:
         - name: web-port
           containerPort: 80
@@ -54,7 +72,7 @@ spec:
             cpu: "500m"
           requests:
             memory: "150M"
-            cpu: "125m"
+            cpu: "100m"
         readinessProbe:
           tcpSocket:
             port: web-port
@@ -70,6 +88,9 @@ spec:
         - name: apiconfig-volume
           configMap:
             name: openrmf-apiconfig
+        - name: authconfig-volume
+          configMap:
+            name: openrmf-authconfig
 ---
 apiVersion: v1
 kind: Service

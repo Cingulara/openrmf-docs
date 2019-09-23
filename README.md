@@ -1,13 +1,14 @@
-# openRMF Documentation (v 0.7) (formerly openSTIG)
+# OpenRMF Documentation (v 0.8) (formerly openSTIG)
 
-## Introduction
-openRMF is an open source tool for managing, viewing, and reporting of your DoD STIG checklists in one web-based interface using your browser. It also generates a compliance listing of all your checklists across a whole system based on NIST 800-53 for your Risk Management Framework (RMF) documentation and process. This tool helps you manage multiple systems going through the RMF process and allows you to structure your data in a clean interface all in one location for your group or program. It can save you weeks of manually checking vulnerability-to-CCI-to-NIST controls and generating reports manually, so you can get on to the value-added work for your cybersecurity hygiene.
+## Introduction to OpenRMF
+OpenRMF is an open source tool for managing, viewing, and reporting of your DoD STIG checklists in one web-based interface using your browser. It also generates a compliance listing of all your checklists across a whole system based on NIST 800-53 for your Risk Management Framework (RMF) documentation and process. This tool helps you manage multiple systems going through the RMF process and allows you to structure your data in a clean interface all in one location for your group or program. It can save you weeks of manually checking vulnerability-to-CCI-to-NIST controls and generating reports manually, so you can get on to the value-added work for your cybersecurity hygiene.
 
 Read more about its genesis <a href="https://www.cingulara.com/opensource.html" target="_blank">here</a>.
 
 ![Image](./img/UI-checklist-dashboard.png?raw=true)
 
 ## Current Functionality
+- [x] User AuthN and AuthZ for login accounts and Role Based Access Control on functions
 - [x] Save/Upload .CKL files for viewing and safekeeping
 - [x] List and display active checklists
 - [x] List and display templated checklists (starting points)
@@ -26,11 +27,11 @@ Read more about its genesis <a href="https://www.cingulara.com/opensource.html" 
 
 ## ToDos (in no particular order)
 - [ ] Generate the RMF POA&M
-- [ ] Import SCAP scans for automatic checklist documentation
-- [ ] Import NESSUS scans for automatic checklist documentation
+- [ ] Import SCAP scans (DISA STIGs) for automatic checklist documentation
+- [ ] Import ACAS/NESSUS scans (patches and updates) for automatic checklist documentation
 - [ ] Select the fields to export to MS Excel, autofilter enabled on the header row
 - [ ] A wizard to ask questions and customize a starting checklist file for you with certain fields and comments filled in
-- [ ] User login and auditing
+- [ ] Auditing all creates, deletes, and updates
 - [ ] Central logging (ledger) for all CRUD and access usage based on NATS
 - [ ] Import the Manual XML STIG to create a starting checklist
 - [ ] Track changes / versions as you edit for a visual diff
@@ -40,45 +41,44 @@ If we are missing something you want, please add it on our main <a href="https:/
 
 ## Description
 
-The openRMF tool is a better alternative than the [DISA STIGViewer.jar](https://iase.disa.mil/stigs/Pages/stig-viewing-guidance.aspx) that is used for DoD STIG checklist files, RMF process information, and the like. It is necessary to capture and report on this information, please do not mistake what I say for not agreeing with securing services. However, the DISA Java tool itself is horribly designed and not conducive to today's environment and use. Their Java tool has been like this for a loooooonnnnnngggg time and I have wanted to make something better (IMO) for almost as long. So this tool here is the start! It is a way (currently) to view, report on, dive into, manage, and export your STIG checklists no matter which checklist you are referring to. All the .CKL files have a common format and htis reads and displays/manages that in a web front end using .NET Core APIs, MongoDB and NATS messaging. [View the history](https://www.cingulara.com/opensource.html) of this tool on our website. 
+The openRMF tool is an advanced alternative than the [DISA STIGViewer.jar](https://iase.disa.mil/stigs/Pages/stig-viewing-guidance.aspx) that is used for DoD STIG checklist files, RMF process information, and the like. It is necessary to capture and report on this information, please do not mistake what I say for not agreeing with securing services. However, the DISA Java tool itself is horribly designed and not conducive to today's environment and use. Their Java tool has been like this for a loooooonnnnnngggg time and I have wanted to make something better (IMO) for almost as long. So this tool here is the start! It is a way (currently) to view, report on, dive into, manage, and export your STIG checklists no matter which checklist you are referring to. All the .CKL files have a common format and htis reads and displays/manages that in a web front end using .NET Core APIs, MongoDB and NATS messaging. [View the history](https://www.cingulara.com/opensource.html) of this tool on our website. 
 
 This is the repo for all the docs as the openRMF project goes along.  Documentation on the openRMF application will be here in MD files and reference images and other documents as well as GH markdown. This application idea has been brewing in my head for well over a decade and specifically since July 4th weekend 2018 when I started to put down code. Then in January 2019 when I scrapped all that July stuff and went for web APIs, microservices, eventual consistency, CQRS (command query responsibility segregation to scale separately), using MongoDB and NATS.
 
 ## What you need to run
-You need a web browser that is fairly current. And you need Docker installed on your desktop or server as this currently uses the Docker runtime to bring up all components with ` docker-compose ` via the included ".sh" shell (Linux / Mac) or ".cmd" command scripts (Windows).
+You need a web browser that is fairly current. And you need Docker installed on your desktop (or Kubernetes/minikube) or server as this currently uses the Docker runtime to bring up all components with ` docker-compose ` via the included ".sh" shell (Linux / Mac) or ".cmd" command scripts (Windows).
 
 * Docker is available at <a href="https://docs.docker.com/install/" target="_blank">https://docs.docker.com/install/</a>.
 
 ## Run openRMF locally
-The best way to run this application (once you have Docker installed) is to go to the Code -- Releases tab https://github.com/Cingulara/openrmf-docs/releases and pull down the latest release. Unzip the file and then run the ./start.sh or .\start.cmd file to pull the latest images and run openRMF. Then you can open a local browser to http://localhost:8080/ and see what happens. If you want to change the ports you only have to edit the stack.yml file locally.  
+The best way to run this application (once you have Docker installed) is to go to the Code -- Releases tab https://github.com/Cingulara/openrmf-docs/releases and pull down the latest release. Unzip the file and then run the ./start.sh or .\start.cmd file to pull the latest images and run openRMF. Then you can open a local browser to http://{ip-address}:8080/ and see what happens. If you want to change the ports you only have to edit the docker-compose.yml file locally. These files are in the [scripts](scripts) folder of this repo.
 
-> The data is currently mapped to internal Docker-managed volumes for persistenct. You can run the "docker volume rm" command below if you wish to remove and start over as you test.  If you want persistence you could change the connection strings to another MongoDB server and adjust the stack.yml accordingly.
+Be sure to check out the [Keycloak information](#authentication-with-keycloak) because version 0.8 and beyond has RBAC for AuthN and AuthZ on the web and API calls. Or you could use another OpenID compliant application to provide AuthN and AuthZ.
+
+> The data is currently mapped to internal Docker-managed volumes for persistence. You can run the "docker volume rm" command below if you wish to remove and start over as you test.  If you want persistence you could change the connection strings to another MongoDB server and adjust the docker-compose.yml accordingly. Or use a volume in your docker-compose.yml or individual docker commands. 
+
+> You must look at the .env file to see we set the Keycloak/OpenID location and realm. Check the `.env` file in the [scripts](scripts) directory to see how to set those variables. The docker-compose stack YML files read that .env file to launch. These cannot be "localhost" as "localhost" inside a docker container is that container, not the host it is running on.
+
+```yaml
+JWT-AUTHORITY=http://xxx.xxx.xxx.xxx:9001/auth/realms/openrmf
+JWT-CLIENT=openrmf
+```
 
 ## Run openRMF latest development
-For those that want to run the actual "latest" of openSTIG you should run `git clone https://github.com/Cingulara/openrmf-docs.git `, then `git checkout develop` to switch to the develop branch. There is a ./dev-start.sh (or .\dev-start.cmd on Windows) file to run to start and a corresponding ./dev-stop.sh (.\dev-stop.cmd on Windows) to run the latest development version. These operate on http://localhost:9080 so as not to interfere with a running released version to compare/contrast. Note the dev-stack.yml has different ports and different database mount volumes as well. 
+For those that want to run the actual "latest" or "edge" of OpenRMF you should run `git clone https://github.com/Cingulara/openrmf-docs.git `, then `git checkout develop` to switch to the develop branch. Inside the scripts directory there is an [edge](scripts/edge/) directory with ./dev-start.sh (or .\dev-start.cmd on Windows) file to run to start and a corresponding ./dev-stop.sh (.\dev-stop.cmd on Windows) to run the latest development version. These operate on http://{ip-address}:9080 so as not to interfere with a running released version to compare/contrast. Note the docker-compose.yml has different ports and different database mount volumes as well. 
 
-## Architecture explained
+> You must look at the YML files and see how we set the Keycloak/OpenID location and realm. Check the `.env` file in the [scripts](scripts) directory to see how to set those variables. The docker-compose stack YML files read that .env file to launch.
 
-Phase 1 Vision / Concept as drawn on my whiteboard:
+> Please ensure you check the launch.json on the VSCode windows to point to your NATS and your Keycloak setup.
 
-![Image](./architecture/openRMF-Tool-0.6-Architecture.png?raw=true)
+## Authentication with Keycloak
 
-The architecture was setup to do a few things for this tool and for myself actually:
-* https://github.com/Cingulara/openrmf-web is the web UI pointing to all these APIs below to render checklists listings, data, vulnerabilities, reports, and allowing saving 
-of chart data and XLSX downloads.
-* https://github.com/Cingulara/openrmf-api-read is for listing, getting, and downloading a checklist and its metadata of title, description, type, and future user info. It also has an export to Excel function that is color coded for status thanks to a request by a good IA/CS friend of mine that needed that.
-* https://github.com/Cingulara/openrmf-api-save is for saving checklist data by posting it ALL in a form, including the raw checklist data (not a file). This publishes an "openrmf.save.xxxx" type of event to NATS.
-* https://github.com/Cingulara/openrmf-api-template is for uploading, listing, and getting checklist file templates to start from.
-* https://github.com/Cingulara/openrmf-msg-score is a NATS messaging subscriber listening to "openrmf.save.*" events from Save and Upload to score the checklist and putting that score into the Mongo DB for the scoring API
-* https://github.com/Cingulara/openrmf-api-scoring is for reading a score of a checklist as well as scoring a checklist based on a file posted (at runtime).
-* https://github.com/Cingulara/openrmf-api-upload is for uploading a .CKL checklist file with metadata and saving the result. This publishes an "openrmf.save.xxxx" type of event.
-* https://github.com/Cingulara/openrmf-api-controls is a read-only lookup of NIST controls to match to CCI for the compliance API and other pieces that need to pull the NIST control descriptions for 800-53.
-* https://github.com/Cingulara/openrmf-api-compliance is for generating the compliance listing, matching NIST controls via CCI to 1 or more checklists in a System. This generates a table of controls and the checklists corresponding to the control from the system's group of checklists. The checklist is linked to the Checklist service and color coded by status.
-
-Future enhancements, since I did it with separate microservices all over including messaging, are to organically add publish / subscribe pieces such as compliance, auditing, logging, etc. to make this more user and enterprise ready. Along with all the error trapping, checking for NATS connection, etc. that a production 1.0 application would have. 
+Starting with version 0.8 we have AuthN and AuthZ setup for use. See the [Keycloak Document](keycloak.md) for more information.
 
 ## Known issues
-If you find something please add an issue to the correct repo. I know for now, I don't "D" yet to delete. It is ephemeral so I just power down the stack and power back up as I am testing. Eventually I will need to do that. 
+If you find something please add an issue to the correct repo. 
+
+- Version 0.7 the scoring currently does not work right. We are working on that in our spare time. Or just move to 0.8 with RBAC and call it fixed!
 
 If you find any problem, have an idea or enhancement please do not hesitate to add to the [Issues](https://github.com/Cingulara/openrmf-docs/issues) area.
 

@@ -14,6 +14,15 @@ data:
     var complianceAPI = 'http://openrmf.local/compliance'
     var controlAPI = 'http://openrmf.local/controls'
 ---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: openrmf-authconfig
+  namespace: openrmf
+data:
+  auth.js: |
+    var keycloak = Keycloak({ url: 'http://192.168.11.29:9001/auth',realm: 'openrmf',clientId: 'openrmf'});
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -39,6 +48,9 @@ spec:
         - name: apiconfig-volume
           mountPath: /usr/share/nginx/html/js/apis.js
           subPath: apis.js
+        - name: authconfig-volume
+          mountPath: /usr/share/nginx/html/js/auth.js
+          subPath: auth.js
         ports:
         - name: web-port
           containerPort: 80
@@ -64,6 +76,9 @@ spec:
         - name: apiconfig-volume
           configMap:
             name: openrmf-apiconfig
+        - name: authconfig-volume
+          configMap:
+            name: openrmf-authconfig
 ---
 apiVersion: v1
 kind: Service

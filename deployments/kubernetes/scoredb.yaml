@@ -41,7 +41,7 @@ spec:
       volumes:
       - name: mongodata-scoredb
         persistentVolumeClaim:
-          claimName: mongodata-scoredb
+          claimName: openrmf-scoredb-claim
 ---
 apiVersion: v1
 kind: Service
@@ -62,8 +62,10 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mongodata-scoredb
+  name: openrmf-scoredb-claim
+  namespace: openrmf
 spec:
+  storageClassName: standard
   accessModes:
   - ReadWriteOnce
   resources:
