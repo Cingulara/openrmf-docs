@@ -5,10 +5,10 @@
 # main DNS name used to access the deployed app in k8s via DNS through an ingress controller
 # if running locally, you may need to edit your "hosts" file under /etc/hosts or the 
 # /windows/system32/drivers/etc/hosts file in Windows
-dnsName: openrmf.local
+dnsName: demo.openrmf.io
 
 # The Identity Provider URL and Realm, i.e. using Keycloak for AuthN and AuthZ
-IdentityProviderURL: http://192.168.11.29:9001/auth
+IdentityProviderURL: https://keycloak.openrmf.io/auth
 # The Realm to use from the ID provider
 IdentityProviderRealm: openrmf
 # The Identity Provider Client Id to use
