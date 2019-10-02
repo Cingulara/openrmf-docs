@@ -1,0 +1,122 @@
+---
+# Source: openrmf/templates/web.yaml
+# put the apis.js into the proper area for the path to call within K8s
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: openrmf-apiconfig
+  namespace: openrmf
+  labels:
+    app: openrmf
+    chart: openrmf-1.0.0
+    component: web-ui-apijs
+    release: release-name
+    revision: "0"
+data:
+  apis.js: |
+    var readAPI = 'http://demo.openrmf.io/read'
+    var scoreAPI = 'http://demo.openrmf.io/scoring'
+    var saveAPI = 'http://demo.openrmf.io/save'
+    var uploadAPI = 'http://demo.openrmf.io/upload'
+    var templateAPI = 'http://demo.openrmf.io/template'
+    var complianceAPI = 'http://demo.openrmf.io/compliance'
+    var controlAPI = 'http://demo.openrmf.io/controls'
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: openrmf-authconfig
+  namespace: openrmf
+  labels:
+    app: openrmf
+    chart: openrmf-1.0.0
+    component: web-ui-authjs
+    release: release-name
+    revision: "0"
+data:
+  auth.js: |
+    var keycloak = Keycloak({ url: 'https://keycloak.openrmf.io/auth', realm: 'openrmf', clientId: 'openrmf'});
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openrmf-web
+  namespace: openrmf
+  labels:
+    app: openrmf
+    component: web
+spec:
+  selector:
+    matchLabels:
+      run: openrmf-web
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: openrmf-web
+    spec:
+      containers:
+      - name: openrmf-web
+        image: cingulara/openrmf-web:latest
+        volumeMounts:
+        - name: apiconfig-volume
+          mountPath: /usr/share/nginx/html/js/apis.js
+          subPath: apis.js
+        - name: authconfig-volume
+          mountPath: /usr/share/nginx/html/js/auth.js
+          subPath: auth.js
+        ports:
+        - name: web-port
+          containerPort: 80
+        resources:
+          limits:
+            memory: "400M"
+            cpu: "500m"
+          requests:
+            memory: "150M"
+            cpu: "100m"
+        readinessProbe:
+          tcpSocket:
+            port: web-port
+          initialDelaySeconds: 5
+          periodSeconds: 30
+        livenessProbe:
+          httpGet:
+            path: /status.html
+            port: web-port
+          initialDelaySeconds: 3
+          periodSeconds: 60
+      volumes:
+        - name: apiconfig-volume
+          configMap:
+            name: openrmf-apiconfig
+        - name: authconfig-volume
+          configMap:
+            name: openrmf-authconfig
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: openrmf-web
+  namespace: openrmf
+  annotations:
+    # Note that the backend talks over HTTP.
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
+    # TODO: Fill in with the ARN of your certificate.
+    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:us-east-1:144701936928:certificate/7ab33a42-370b-4bdb-a3ee-265de60b0946
+    # Only run SSL on the port named "https" below.
+    service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "https"
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  - name: https
+    port: 443
+    protocol: TCP
+    targetPort: 80
+  selector:
+    run: openrmf-web
+  sessionAffinity: None
+  type: LoadBalancer
