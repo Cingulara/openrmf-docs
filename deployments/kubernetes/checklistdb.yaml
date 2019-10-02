@@ -65,7 +65,6 @@ metadata:
   name: openrmf-checklistdb-claim
   namespace: openrmf
 spec:
-  storageClassName: standard
   accessModes:
   - ReadWriteOnce
   resources:
