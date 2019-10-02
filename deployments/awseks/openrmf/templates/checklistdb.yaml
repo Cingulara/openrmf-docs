@@ -1,26 +1,31 @@
+---
+# Source: openrmf/templates/checklistdb.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: openrmf-templatedb
+  name: openrmf-checklistdb
   namespace: openrmf
   labels:
     app: openrmf
-    component: templatedb
+    chart: openrmf-1.0.0
+    component: checklist-mongodb
+    release: release-name
+    revision: "0"
 spec:
   selector:
     matchLabels:
-      run: openrmf-templatedb
+      run: openrmf-checklistdb
   replicas: 1
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        run: openrmf-templatedb
+        run: openrmf-checklistdb
     spec:
       containers:
-      - name: openrmf-templatedb
-        image: cingulara/openrmf-templatedb:latest
+      - name: openrmf-checklistdb
+        image: cingulara/openrmf-checklistdb:latest
         ports:
         - containerPort: 27017
         env:
@@ -29,33 +34,33 @@ spec:
         - name: MONGO_INITDB_ROOT_PASSWORD
           value: myp2ssw0rd
         - name: MONGO_INITDB_DATABASE
-          value: openrmftemplate
+          value: openrmf
         resources:
           requests:
             memory: "500M"
-            cpu: "250m"
+            cpu: "200m"
         volumeMounts:
         - mountPath: /data/db
-          name: mongodata-templatedb
+          name: mongodata-checklistdb
       restartPolicy: Always
       volumes:
-      - name: mongodata-templatedb
+      - name: mongodata-checklistdb
         persistentVolumeClaim:
-          claimName: openrmf-templatedb-claim
+          claimName: openrmf-checklistdb-claim
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: openrmf-templatedb
+  name: openrmf-checklistdb
   namespace: openrmf
 spec:
   ports:
-  - name: mongodb-templatedb
+  - name: mongodb-checklistdb
     port: 27017
     protocol: TCP
     targetPort: 27017
   selector:
-    run: openrmf-templatedb
+    run: openrmf-checklistdb
   sessionAffinity: None
   clusterIP: None
 ---
@@ -63,8 +68,9 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   namespace: openrmf
-  name: openrmf-templatedb-claim
+  name: openrmf-checklistdb-claim
 spec:
+  storageClassName: standard
   accessModes:
   - ReadWriteOnce
   resources:
