@@ -25,7 +25,7 @@ spec:
     spec:
       containers:
       - name: openrmf-scoredb
-        image: cingulara/openrmf-scoredb:latest
+        image: cingulara/openrmf-scoredb:0.8
         ports:
         - containerPort: 27017
         env:

@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
       - name: openrmf-controls
-        image: cingulara/openrmf-api-controls:latest
+        image: cingulara/openrmf-api-controls:0.8
         ports:
         - name: web-port
           containerPort: 8080
