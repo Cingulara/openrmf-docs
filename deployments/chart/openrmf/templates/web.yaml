@@ -55,7 +55,7 @@ spec:
     spec:
       containers:
       - name: openrmf-web
-        image: cingulara/openrmf-web:latest
+        image: cingulara/openrmf-web:0.8.1
         volumeMounts:
         - name: apiconfig-volume
           mountPath: /usr/share/nginx/html/js/apis.js
