@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
       - name: openrmf-checklistdb
-        image: cingulara/openrmf-checklistdb:latest
+        image: cingulara/openrmf-checklistdb:0.8
         ports:
         - containerPort: 27017
         env:

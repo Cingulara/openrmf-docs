@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
       - name: openrmf-msg-score
-        image: cingulara/openrmf-msg-score:latest
+        image: cingulara/openrmf-msg-score:0.8
         ports:
         - containerPort: 8080
         env:
