@@ -14,13 +14,13 @@ metadata:
     revision: "0"
 data:
   apis.js: |
-    var readAPI = 'http://demo.openrmf.io/read'
-    var scoreAPI = 'http://demo.openrmf.io/scoring'
-    var saveAPI = 'http://demo.openrmf.io/save'
-    var uploadAPI = 'http://demo.openrmf.io/upload'
-    var templateAPI = 'http://demo.openrmf.io/template'
-    var complianceAPI = 'http://demo.openrmf.io/compliance'
-    var controlAPI = 'http://demo.openrmf.io/controls'
+    var readAPI = 'https://read.openrmf.io'
+    var scoreAPI = 'https://scoring.openrmf.io'
+    var saveAPI = 'https://save.openrmf.io'
+    var uploadAPI = 'https://upload.openrmf.io'
+    var templateAPI = 'https://template.openrmf.io'
+    var complianceAPI = 'https://compliance.openrmf.io'
+    var controlAPI = 'https://controls.openrmf.io'
 ---
 apiVersion: v1
 kind: ConfigMap
