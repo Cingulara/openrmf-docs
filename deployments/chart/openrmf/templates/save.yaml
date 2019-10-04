@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: openrmf-save
-        image: cingulara/openrmf-api-save:latest
+        image: cingulara/openrmf-api-save:0.8
         ports:
         - name: web-port
           containerPort: 8080
