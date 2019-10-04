@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: openrmf-msg-controls
-        image: cingulara/openrmf-msg-controls:latest
+        image: cingulara/openrmf-msg-controls:0.8
         ports:
         - containerPort: 8080
         env:

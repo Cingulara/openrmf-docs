@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: openrmf-scoring
-        image: cingulara/openrmf-api-scoring:latest
+        image: cingulara/openrmf-api-scoring:0.8
         ports:
         - name: web-port
           containerPort: 8080

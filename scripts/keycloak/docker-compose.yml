@@ -26,6 +26,7 @@ services:
       - DB_VENDOR=postgres 
       - DB_USER=keycloak 
       - DB_PASSWORD=password
+      - PROXY_ADDRESS_FORWARDING=true
     depends_on:
       - postgres
     networks:
