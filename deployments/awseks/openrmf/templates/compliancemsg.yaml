@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
       - name: openrmf-msg-compliance
-        image: cingulara/openrmf-msg-compliance:latest
+        image: cingulara/openrmf-msg-compliance:0.8
         ports:
         - containerPort: 8080
         env:
