@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: openrmf-upload
-  namespace: openrmf
+  namespace: {{.Values.namespace}}
   labels:
     app: openrmf
     chart: {{ .Chart.Name }}-{{ .Chart.Version }}
@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: openrmf-upload
-        image: cingulara/openrmf-api-upload:0.8
+        image: cingulara/openrmf-api-upload:{{.Values.uploadImage}}
         ports:
         - name: web-port
           containerPort: 8080
@@ -48,9 +48,9 @@ spec:
         - name: MONGODB
           value: openrmf
         - name: JWT-AUTHORITY
-          value: {{.Values.IdentityProviderURL}}/realms/{{.Values.IdentityProviderRealm}}
+          value: {{.Values.identityProviderURL}}/realms/{{.Values.identityProviderRealm}}
         - name: JWT-CLIENT
-          value: {{.Values.IdentityProviderClientId}}
+          value: {{.Values.identityProviderClientId}}
         resources:
           limits:
             memory: "750Mi"
@@ -63,7 +63,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: openrmf-upload
-  namespace: openrmf
+  namespace: {{.Values.namespace}}
 spec:
   ports:
   - name: http
@@ -73,4 +73,4 @@ spec:
   selector:
     run: openrmf-upload
   sessionAffinity: None
-  type: NodePort
+  type: {{.Values.serviceType}}
