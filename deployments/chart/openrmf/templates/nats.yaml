@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: openrmf-nats
-  namespace: openrmf
+  namespace: {{.Values.namespace}}
   labels:
     app: openrmf
     chart: {{ .Chart.Name }}-{{ .Chart.Version }}
@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
       - name: openrmf-nats
-        image: nats:1.4.1-linux
+        image: nats:{{.Values.natsImage}}
         ports:
         - containerPort: 4222
           protocol: TCP
