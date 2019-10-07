@@ -3,7 +3,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: openrmf-apiconfig
-  namespace: openrmf
+  namespace: {{.Values.namespace}}
   labels:
     app: openrmf
     chart: {{ .Chart.Name }}-{{ .Chart.Version }}
@@ -12,19 +12,19 @@ metadata:
     revision: "{{ .Release.Revision }}"
 data:
   apis.js: |
-    var readAPI = 'http://{{.Values.dnsName}}/read'
-    var scoreAPI = 'http://{{.Values.dnsName}}/scoring'
-    var saveAPI = 'http://{{.Values.dnsName}}/save'
-    var uploadAPI = 'http://{{.Values.dnsName}}/upload'
-    var templateAPI = 'http://{{.Values.dnsName}}/template'
-    var complianceAPI = 'http://{{.Values.dnsName}}/compliance'
-    var controlAPI = 'http://{{.Values.dnsName}}/controls'
+    var readAPI = '{{.Values.readAPI}}'
+    var scoreAPI = '{{.Values.scoreAPI}}'
+    var saveAPI = '{{.Values.saveAPI}}'
+    var uploadAPI = '{{.Values.uploadAPI}}'
+    var templateAPI = '{{.Values.templateAPI}}'
+    var complianceAPI = '{{.Values.complianceAPI}}'
+    var controlAPI = '{{.Values.controlAPI}}'
 ---
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: openrmf-authconfig
-  namespace: openrmf
+  namespace: {{.Values.namespace}}
   labels:
     app: openrmf
     chart: {{ .Chart.Name }}-{{ .Chart.Version }}
@@ -33,13 +33,13 @@ metadata:
     revision: "{{ .Release.Revision }}"
 data:
   auth.js: |
-    var keycloak = Keycloak({ url: '{{.Values.IdentityProviderURL}}', realm: '{{.Values.IdentityProviderRealm}}', clientId: '{{.Values.IdentityProviderClientId}}'});
+    var keycloak = Keycloak({ url: '{{.Values.identityProviderURL}}', realm: '{{.Values.identityProviderRealm}}', clientId: '{{.Values.identityProviderClientId}}'});
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: openrmf-web
-  namespace: openrmf
+  namespace: {{.Values.namespace}}
   labels:
     app: openrmf
     component: web
@@ -55,7 +55,7 @@ spec:
     spec:
       containers:
       - name: openrmf-web
-        image: cingulara/openrmf-web:0.8.1
+        image: cingulara/openrmf-web:{{.Values.webuiImage}}
         volumeMounts:
         - name: apiconfig-volume
           mountPath: /usr/share/nginx/html/js/apis.js
@@ -96,7 +96,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: openrmf-web
-  namespace: openrmf
+  namespace: {{.Values.namespace}}
 spec:
   ports:
   - name: http
@@ -106,4 +106,4 @@ spec:
   selector:
     run: openrmf-web
   sessionAffinity: None
-  type: NodePort
+  type: {{.Values.serviceType}}
