@@ -2,7 +2,7 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: openrmf-compliance-ingress
-  namespace: openrmf
+  namespace: {{.Values.namespace}}
   labels:
     app: openrmf
     chart: {{ .Chart.Name }}-{{ .Chart.Version }}
