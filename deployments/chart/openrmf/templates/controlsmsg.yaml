@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: openrmf-msg-controls
-  namespace: openrmf
+  namespace: {{.Values.namespace}}
   labels:
     app: openrmf
     chart: {{ .Chart.Name }}-{{ .Chart.Version }}
@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: openrmf-msg-controls
-        image: cingulara/openrmf-msg-controls:0.8
+        image: cingulara/openrmf-msg-controls:{{.Values.controlmsgImage}}
         ports:
         - containerPort: 8080
         env:
