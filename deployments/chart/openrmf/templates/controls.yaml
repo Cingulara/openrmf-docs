@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: openrmf-controls
-  namespace: openrmf
+  namespace: {{.Values.namespace}}
   labels:
     app: openrmf
     chart: {{ .Chart.Name }}-{{ .Chart.Version }}
@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: openrmf-controls
-        image: cingulara/openrmf-api-controls:0.8
+        image: cingulara/openrmf-api-controls:{{.Values.controlImage}}
         ports:
         - name: web-port
           containerPort: 8080
@@ -44,9 +44,9 @@ spec:
         - name: NATSSERVERURL
           value: nats://natsserver:4222
         - name: JWT-AUTHORITY
-          value: {{.Values.IdentityProviderURL}}/realms/{{.Values.IdentityProviderRealm}}
+          value: {{.Values.identityProviderURL}}/realms/{{.Values.identityProviderRealm}}
         - name: JWT-CLIENT
-          value: {{.Values.IdentityProviderClientId}}
+          value: {{.Values.identityProviderClientId}}
         resources:
           limits:
             memory: "750Mi"
@@ -59,7 +59,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: openrmf-controls
-  namespace: openrmf
+  namespace: {{.Values.namespace}}
 spec:
   ports:
   - name: http
@@ -69,4 +69,4 @@ spec:
   selector:
     run: openrmf-controls
   sessionAffinity: None
-  type: NodePort
+  type: {{.Values.serviceType}}

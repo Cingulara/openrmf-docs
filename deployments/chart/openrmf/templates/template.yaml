@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: openrmf-template
-  namespace: openrmf
+  namespace: {{.Values.namespace}}
   labels:
     app: openrmf
     chart: {{ .Chart.Name }}-{{ .Chart.Version }}
@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: openrmf-template
-        image: cingulara/openrmf-api-template:0.8
+        image: cingulara/openrmf-api-template:{{.Values.templateImage}}
         ports:
         - name: web-port
           containerPort: 8080
@@ -46,9 +46,9 @@ spec:
         - name: MONGODB
           value: openrmftemplate
         - name: JWT-AUTHORITY
-          value: {{.Values.IdentityProviderURL}}/realms/{{.Values.IdentityProviderRealm}}
+          value: {{.Values.identityProviderURL}}/realms/{{.Values.identityProviderRealm}}
         - name: JWT-CLIENT
-          value: {{.Values.IdentityProviderClientId}}
+          value: {{.Values.identityProviderClientId}}
         resources:
           limits:
             memory: "750Mi"
@@ -61,7 +61,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: openrmf-template
-  namespace: openrmf
+  namespace: {{.Values.namespace}}
 spec:
   ports:
   - name: http
@@ -71,4 +71,4 @@ spec:
   selector:
     run: openrmf-template
   sessionAffinity: None
-  type: NodePort
+  type: {{.Values.serviceType}}
