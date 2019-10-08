@@ -4,11 +4,13 @@ metadata:
   name: openrmf-upload
   namespace: {{.Values.namespace}}
   labels:
-    app: openrmf
-    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
-    component: upload-api
-    release: {{ .Release.Name }}
-    revision: "{{ .Release.Revision }}"
+    app.kubernetes.io/name: openrmf
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app.kubernetes.io/component: upload-api
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/revision: "{{ .Release.Revision }}"
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: helm
 spec:
   selector:
     matchLabels:
@@ -58,12 +60,22 @@ spec:
           requests:
             memory: "250Mi"
             cpu: "100m"
+{{/* Use this service definition and NGINX controller setup if minikube */}}
+{{ if and .Values.installType (eq .Values.installType "minikube") }}
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: openrmf-upload
   namespace: {{.Values.namespace}}
+  labels:
+    app.kubernetes.io/name: openrmf
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app.kubernetes.io/component: upload-api
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/revision: "{{ .Release.Revision }}"
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: helm
 spec:
   ports:
   - name: http
@@ -74,3 +86,70 @@ spec:
     run: openrmf-upload
   sessionAffinity: None
   type: {{.Values.serviceType}}
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: openrmf-upload-ingress
+  namespace: {{.Values.namespace}}
+  labels:
+    app.kubernetes.io/name: openrmf
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app.kubernetes.io/component: upload-api-ingress
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/revision: "{{ .Release.Revision }}"
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: helm
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/cors-allow-methods: "GET, POST, PUT, OPTIONS"
+    nginx.ingress.kubernetes.io/proxy-body-size: 15m
+spec:
+  rules:
+  - host: {{.Values.dnsName}}
+    http:
+      paths:
+      - path: /upload(/|$)(.*)
+        backend:
+          serviceName: openrmf-upload
+          servicePort: 8080
+{{ end }}
+{{/* Use this service definition and Load Balancer type setup if AWS EKS */}}
+{{ if and .Values.installType (eq .Values.installType "awseks") }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: openrmf-upload
+  namespace: {{.Values.namespace}}
+  labels:
+    app.kubernetes.io/name: openrmf
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app.kubernetes.io/component: upload-api
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/revision: "{{ .Release.Revision }}"
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: helm
+  annotations:
+    # Note that the backend talks over HTTP.
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
+    # The ARN of your certificate.
+    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: {{.Values.awsACM}}
+    # Only run SSL on the port named "https" below.
+    service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "https"
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 8080
+  - name: https
+    port: 443
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    run: openrmf-upload
+  sessionAffinity: None
+  type: {{.Values.serviceTypeAWS | default "LoadBalancer"}}
+{{ end }}

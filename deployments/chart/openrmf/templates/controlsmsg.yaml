@@ -4,11 +4,13 @@ metadata:
   name: openrmf-msg-controls
   namespace: {{.Values.namespace}}
   labels:
-    app: openrmf
-    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
-    component: controls-nats-message-client
-    release: {{ .Release.Name }}
-    revision: "{{ .Release.Revision }}"
+    app.kubernetes.io/name: openrmf
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app.kubernetes.io/component: controls-nats-message-client
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/revision: "{{ .Release.Revision }}"
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: helm
 spec:
   selector:
     matchLabels:
