@@ -2,7 +2,7 @@
 # This is a YAML-formatted file.
 # Declare name/value pairs to be passed into your templates.
 
-# main DNS name used to access the deployed app in k8s via DNS through an ingress controller
+# main DNS name used to access the deployed app in k8s via DNS through an NGINX ingress controller
 # if running locally, you may need to edit your "hosts" file under /etc/hosts or the 
 # /windows/system32/drivers/etc/hosts file in Windows
 dnsName: demo.openrmf.io
@@ -50,6 +50,14 @@ templateAPI:   https://template.openrmf.io
 complianceAPI: https://compliance.openrmf.io
 controlAPI:    https://controls.openrmf.io
 
-# Service Types
+# Service Types for Minikube and AWS separately
 # Examples: NodePort, LoadBalancer, etc.
-serviceType: LoadBalancer
+serviceTypeMinikube: NodePort
+serviceTypeAWS: LoadBalancer
+
+# Installation type
+# Examples: awseks, minikube
+installType: awseks
+
+# AWS ACM Certificate ARN if used
+awsACM: arn:aws:acm:us-east-1:xxxxxxxxxxxxxx:certificate/xxxxxxxxxxxxxxxx
