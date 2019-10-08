@@ -1,8 +1,16 @@
 # Deployments
 
-For deployments using helm see the chart/openrmf folder.
+For deployments using helm see the [chart/openrmf](./chart/openrmf/) folder. There is a values.yaml file that has comments and fields to use. If you wish to use the helm chart to generate the YAML like I do, you can run the following command below from the deployments folder (after you do a git clone or download the code ZIP) to make the files.  You must create the directory to put the files into in the DIR_NAME below.
 
-For a straight kubernetes (k8s) installation go to the kubernetes folder.
+```
+helm template chart/openrmf --output-dir DIR_NAME -n RELEASE_NAME --notes
+```
+or to put into a single file to deploy
+```
+helm template chart/openrmf --output-dir DIR_NAME -n RELEASE_NAME --notes > ./openrmf.yaml
+```
+
+For a straight kubernetes (k8s) installation w/o helm go to the kubernetes folder and make the namespace. Then deploy all the pieces locally. You may have to adjust the services based on your setup.
 
 # AWS EKS Specifics
 
@@ -52,6 +60,6 @@ Now you can have a persistent volume claim (PVC) in your deployment YAML files f
 
 ## Add HTTPS to your EKS endpoint
 
-To get https working on your EKS endpoints, read this article: https://aws.amazon.com/premiumsupport/knowledge-center/terminate-https-traffic-eks-acm/. This is the one I got to work successfully every time.
+To get https working on your EKS endpoints, read this article: https://aws.amazon.com/premiumsupport/knowledge-center/terminate-https-traffic-eks-acm/. This is the one I got to work successfully every time. And it is what I did in my charts for now while I test others. The issue (read PITA) is the DNS you get from each LoadBalancer, you have to add CNAME records for a TLD to point to them. No path level routing. Not very IaC so still working toward a better solution.
 
 Or if you need path based routing, https://aws.amazon.com/blogs/opensource/kubernetes-ingress-aws-alb-ingress-controller/. And then https://kubernetes-sigs.github.io/aws-alb-ingress-controller/guide/tasks/ssl_redirect/ for the path routing across all pieces.
