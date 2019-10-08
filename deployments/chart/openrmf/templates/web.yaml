@@ -3,13 +3,15 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: openrmf-apiconfig
-  namespace: {{.Values.namespace}}
+  namespace: {{.Values.namespace | default "openrmf"}}
   labels:
-    app: openrmf
-    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
-    component: web-ui-apijs
-    release: {{ .Release.Name }}
-    revision: "{{ .Release.Revision }}"
+    app.kubernetes.io/name: openrmf
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app.kubernetes.io/component: web-ui-ingress
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/revision: "{{ .Release.Revision }}"
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: helm
 data:
   apis.js: |
     var readAPI = '{{.Values.readAPI}}'
@@ -24,13 +26,15 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: openrmf-authconfig
-  namespace: {{.Values.namespace}}
+  namespace: {{.Values.namespace | default "openrmf"}}
   labels:
-    app: openrmf
-    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
-    component: web-ui-authjs
-    release: {{ .Release.Name }}
-    revision: "{{ .Release.Revision }}"
+    app.kubernetes.io/name: openrmf
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app.kubernetes.io/component: web-ui-ingress
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/revision: "{{ .Release.Revision }}"
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: helm
 data:
   auth.js: |
     var keycloak = Keycloak({ url: '{{.Values.identityProviderURL}}', realm: '{{.Values.identityProviderRealm}}', clientId: '{{.Values.identityProviderClientId}}'});
@@ -39,10 +43,15 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: openrmf-web
-  namespace: {{.Values.namespace}}
+  namespace: {{.Values.namespace | default "openrmf"}}
   labels:
-    app: openrmf
-    component: web
+    app.kubernetes.io/name: openrmf
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app.kubernetes.io/component: web-ui-ingress
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/revision: "{{ .Release.Revision }}"
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: helm
 spec:
   selector:
     matchLabels:
@@ -55,7 +64,7 @@ spec:
     spec:
       containers:
       - name: openrmf-web
-        image: cingulara/openrmf-web:{{.Values.webuiImage}}
+        image: cingulara/openrmf-web:{{.Values.webuiImage | default "latest"}}
         volumeMounts:
         - name: apiconfig-volume
           mountPath: /usr/share/nginx/html/js/apis.js
@@ -91,12 +100,22 @@ spec:
         - name: authconfig-volume
           configMap:
             name: openrmf-authconfig
+{{/* Use this service definition and NGINX controller setup if minikube */}}
+{{ if and .Values.installType (eq .Values.installType "minikube") }}
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: openrmf-web
-  namespace: {{.Values.namespace}}
+  namespace: {{.Values.namespace | default "openrmf"}}
+  labels:
+    app.kubernetes.io/name: openrmf
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app.kubernetes.io/component: web-ui-service
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/revision: "{{ .Release.Revision }}"
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: helm
 spec:
   ports:
   - name: http
@@ -106,4 +125,70 @@ spec:
   selector:
     run: openrmf-web
   sessionAffinity: None
-  type: {{.Values.serviceType}}
+  type: {{.Values.serviceTypeMinikube | default "NodePort"}}
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: openrmf-web-ingress
+  namespace: {{.Values.namespace}}
+  labels:
+    app.kubernetes.io/name: openrmf
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app.kubernetes.io/component: web-ui-ingress
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/revision: "{{ .Release.Revision }}"
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: helm
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/cors-allow-methods: "GET, POST, PUT, DELETE, OPTIONS"
+spec:
+  rules:
+  - host: {{.Values.dnsName}}
+    http:
+      paths:
+      - path: /web(/|$)(.*)
+        backend:
+          serviceName: openrmf-web
+          servicePort: 8080
+{{ end }}
+{{/* Use this service definition and NGINX controller setup if minikube */}}
+{{ if and .Values.installType (eq .Values.installType "awseks") }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: openrmf-web
+  namespace: {{.Values.namespace}}
+  labels:
+    app.kubernetes.io/name: openrmf
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app.kubernetes.io/component: web-ui-service
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/revision: "{{ .Release.Revision }}"
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: helm
+  annotations:
+    # Note that the backend talks over HTTP.
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
+    # The ARN of your certificate.
+    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: {{.Values.awsACM}}
+    # Only run SSL on the port named "https" below.
+    service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "https"
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  - name: https
+    port: 443
+    protocol: TCP
+    targetPort: 80
+  selector:
+    run: openrmf-web
+  sessionAffinity: None
+  type: {{.Values.serviceTypeAWS | default "LoadBalancer"}}
+{{ end }}
