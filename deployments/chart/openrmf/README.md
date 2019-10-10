@@ -7,7 +7,7 @@ main URL to be to use the demo via HTTP. There are other values in there for ser
 To install Helm into your cluster see https://helm.sh/docs/using_helm/. You can use helm and tiller or you can just use helm
 locally to setup YAML files you use to deploy later w/o tiller running in your cluster. (I do the latter.)
 
-## Steps to install the OpenRMF Demo
+## Steps to install the OpenRMF Software
 
 1. Run `kubectl apply -f ./deployments/kubernetes/namespace.yaml`from the root folder within the repo. This makes the namespace to run all the pieces in.
 2. For Minikube, run `kubectl apply -f ./deployments/kubernetes/pv.yaml`from the root folder within the repo. This makes the persistent volume to use. Adjust as necessary. Run this only if you need a new PV to use. For AWS or other providers see their 

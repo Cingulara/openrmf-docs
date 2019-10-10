@@ -1,3 +1,22 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: templatedbsecret
+  namespace: {{.Values.namespace}}
+  labels:
+    app.kubernetes.io/name: openrmf
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app.kubernetes.io/component: template-mongodb-secret
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/revision: "{{ .Release.Revision }}"
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: helm
+type: Opaque
+data:
+  username: {{.Values.templatedbuser}}
+  password: {{.Values.templatedbpassword}}
+  dbname: {{.Values.templatedbname}}
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -30,11 +49,20 @@ spec:
         - containerPort: 27017
         env:
         - name: MONGO_INITDB_ROOT_USERNAME
-          value: root
+          valueFrom:  
+            secretKeyRef:
+              name: checklistdbsecret
+              key: username
         - name: MONGO_INITDB_ROOT_PASSWORD
-          value: myp2ssw0rd
+          valueFrom:  
+            secretKeyRef:
+              name: checklistdbsecret
+              key: password
         - name: MONGO_INITDB_DATABASE
-          value: openrmftemplate
+          valueFrom:  
+            secretKeyRef:
+              name: checklistdbsecret
+              key: dbname
         resources:
           requests:
             memory: "500M"
