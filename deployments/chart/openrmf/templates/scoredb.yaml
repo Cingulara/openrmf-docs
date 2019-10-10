@@ -13,10 +13,11 @@ metadata:
     app.kubernetes.io/managed-by: helm
 type: Opaque
 data:
-  username: {{.Values.scoredbuser}}
-  password: {{.Values.scoredbpassword}}
-  dbname: {{.Values.scoredbname}}
----
+  initUsername: {{.Values.scoreInitDBUser}}
+  initPassword: {{.Values.scoreInitDBPassword}}
+  initDBNname: {{.Values.scoreInitDBName}}
+  appUsername: {{.Values.scoreAppUser}}
+  appPassword: {{.Values.scoreAppPassword}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -52,17 +53,17 @@ spec:
           valueFrom:  
             secretKeyRef:
               name: scoredbsecret
-              key: username
+              key: initUsername
         - name: MONGO_INITDB_ROOT_PASSWORD
           valueFrom:  
             secretKeyRef:
               name: scoredbsecret
-              key: password
+              key: initPassword
         - name: MONGO_INITDB_DATABASE
           valueFrom:  
             secretKeyRef:
               name: scoredbsecret
-              key: dbname
+              key: initDBNname
         resources:
           requests:
             memory: "500M"
