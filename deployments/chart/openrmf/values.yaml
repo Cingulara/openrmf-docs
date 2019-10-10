@@ -17,6 +17,10 @@ identityProviderClientId: openrmf
 # the namespace to put all of this in
 namespace: openrmf
 
+# Installation type
+# Examples: awseks, minikube
+installType: awseks
+
 # versions of container to adjust
 # examples: 0.8, 0.8.1, latest
 checklistdbImage: 0.8
@@ -41,7 +45,9 @@ natsImage: 1.4.1-linux
 # examples: standard, ebs-sc, efs-sc
 storageClass: standard
 
-# API URLs for the web client side calls
+# API URLs for the web client side calls, used in the web.yaml deployment for the UI
+# These are rewritted to the web pods in a ConfigMap for inclusion of client-side API calls
+# Examples: 'http://openrmf.local/read', https://read.openrmf.io
 readAPI:       https://read.openrmf.io
 scoreAPI:      https://scoring.openrmf.io
 saveAPI:       https://save.openrmf.io
@@ -54,10 +60,6 @@ controlAPI:    https://controls.openrmf.io
 # Examples: NodePort, LoadBalancer, etc.
 serviceTypeMinikube: NodePort
 serviceTypeAWS: LoadBalancer
-
-# Installation type
-# Examples: awseks, minikube
-installType: awseks
 
 # AWS ACM Certificate ARN if used
 awsACM: arn:aws:acm:us-east-1:xxxxxxxxxxxxxx:certificate/xxxxxxxxxxxxxxxx
