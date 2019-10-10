@@ -1,9 +1,28 @@
-# Enabling external-to-k8s-cluster access to your pods
+# Installing OpenRMF to a Kubernetes instance
+This information shows you how to deploy OpenRMF to a Kubernetes instance. I have used this for manually deploying to AWS EKS (outside of ingress) as well as to minikube locally. 
+
+## How I run Minikube
+
+I use a named profile so I can try out things, so I run minikube like this in a .sh file:
+
+```bash
+minikube start \
+    --vm-driver virtualbox --disk-size 40GB \
+    --cpus 3 --memory 8096 --profile openrmf
+```
+
+## Optional: Set the kubectl namespace to openrmf
+
+Run `kubectl config set-context openrmf --namespace=openrmf` where the openrmf after set-context is the named Minikube profile you are using. 
+
+
+# Ingress Options
+
+## Enabling external-to-k8s-cluster access to your pods
 
 You have a couple choices when you wish to expose your application endpoints out of k8s to your local computer with Minkube. They are outlined below. 
 
 For a regular k8s setup you would have an ingress controller like NGINX or Traefik or even HAProxy to help control ingress matching to services in a similar manner.
-
 
 ## Enabling Minikube Ingress for pod access
 Follow the information at https://kubernetes.io/docs/tasks/access-application-cluster/ingress-minikube/ to enable the ingress minikube addon `minikube addons enable ingress` and then expose your pod HTTP path with a /path extension to the main Minikube IP.
@@ -17,21 +36,7 @@ Follow the directions at https://github.com/elsonrodriguez/minikube-lb-patch to 
 * Make sure you have `jq` and if not run `brew install jq` or the equivalent on a Linux box
 * Make sure the script that uses the minikube profile has the correct path if you have a named profile for Minikube
 
-## Set the kubectl namespace to openrmf
-
-Run `kubectl config set-context openrmf --namespace=openrmf` where the openrmf after set-context is the named Minikube profile you are using. 
-
-## How I run Minikube
-
-I use a named profile so I can try out things, so I run minikube like this in a .sh file:
-
-```bash
-minikube start \
-    --vm-driver virtualbox --disk-size 40GB \
-    --cpus 3 --memory 8096 --profile openrmf
-```
-
-## Ingress Rules and paths into the APIs
+## Ingress Rules and paths into the APIs using NGINX 
 
 There is a hiden gem here https://github.com/kubernetes/ingress-nginx/blob/master/docs/examples/rewrite/README.md on how to setup the ingress controllers especiall if you have sub paths. This below has a $2 in the rewrite target. This means "add the extra stuff on the end". So in this example, if I call http://openrmf.local/controls/healthz/ it will add the /healthz/ to the root of the API call internally. Otherwise it was always just dropping it and calling root no matter what "sub path" of the URL I was calling.
 
@@ -72,7 +77,7 @@ spec:
           servicePort: 8080
 ```
 
-## How to setup your k8s to run OpenRMF (for now)
+## How to setup your k8s to run OpenRMF (manually w/o Heml)
 I run all these from the openrmf-docs/kubernetes folder by hand to make sure they are GTG for now. There is also a helm chart to make this easier in a different directory under [deployments](../).
 
 1. Run `kubectl apply -f ./namespace.yaml` to create the OpenRMF namespace area
