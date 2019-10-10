@@ -1,5 +1,11 @@
 # Deployments
+You can use the Helm chart or do the individual `kubectl` commands from the Kubernetes folder. See the specific information below. Before you start, please make your namespace accordingly. If you do not want your namespace to be `openrmf` adjust the [./kubernetes/namespace.yaml](./kubernetes/namespace.yaml) file and your [./chart/openrmf/namespace.yaml](./chart/openrmf/values.yaml) file for helm.
 
+```
+kubectl apply -f ./kubernetes/namespace.yaml
+```
+
+## Helm
 For deployments using helm see the [chart/openrmf](./chart/openrmf/) folder. There is a values.yaml file that has comments and fields to use. If you wish to use the helm chart to generate the YAML like I do, you can run the following command below from the deployments folder (after you do a git clone or download the code ZIP) to make the files.  You must create the directory to put the files into in the DIR_NAME below.
 
 ```
@@ -10,7 +16,8 @@ or to put into a single file to deploy
 helm template chart/openrmf --output-dir DIR_NAME -n RELEASE_NAME --notes > ./openrmf.yaml
 ```
 
-For a straight kubernetes (k8s) installation w/o helm go to the kubernetes folder and make the namespace. Then deploy all the pieces locally. You may have to adjust the services based on your setup.
+## Kubernetes
+For a straight kubernetes (k8s) installation w/o helm go to the kubernetes folder and make the namespace with the . Then deploy all the pieces locally. You may have to adjust the services based on your setup.
 
 # AWS EKS Specifics
 
