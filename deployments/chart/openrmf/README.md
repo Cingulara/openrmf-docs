@@ -1,10 +1,11 @@
-# Using Helm and Tiller to deploy OpenRMF into kubernetes (k8s)
+# Using Helm to deploy OpenRMF into kubernetes (k8s)
 
 If you have helm and tiller setup you can use the helm command with the charts and values supplied
 to setup the OpenRMF demo within k8s. The values.yaml file has the DNS name of what you want the 
 main URL to be to use the demo via HTTP. There are other values in there for service types, version of pods, etc. The defaults for most are good to go however the install type, 3 identity provider values, the main namespace, and the DNS name are pretty important to get correct.
 
-To install Helm into your cluster see https://helm.sh/docs/using_helm/.
+To install Helm into your cluster see https://helm.sh/docs/using_helm/. You can use helm and tiller or you can just use helm
+locally to setup YAML files you use to deploy later w/o tiller running in your cluster. (I do the latter.)
 
 ## Steps to install the OpenRMF Demo
 
