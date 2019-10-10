@@ -65,16 +65,22 @@ serviceTypeAWS: LoadBalancer
 awsACM: arn:aws:acm:us-east-1:xxxxxxxxxxxxxx:certificate/xxxxxxxxxxxxxxxx
 
 # Checklist Database Secret Values
-checklistdbuser: root
-checklistdbpassword: myp2ssw0rd
-checklistdbname: openrmf
+checklistInitDBUser: root
+checklistInitDBPassword: myp2ssw0rd
+checklistInitDBName: openrmf
+checklistAppUser: root
+checklistAppPassword: myp2ssw0rd
 
 # Template Database Secret Values
-templatedbuser: root
-templatedbpassword: myp2ssw0rd
-templatedbname: openrmftemplate
+templateInitDBUuser: root
+templateInitDBPassword: myp2ssw0rd
+templateInitDBName: openrmftemplate
+templateAppUser: root
+templateAppPassword: myp2ssw0rd
 
 # Score Database Secret Values
 scoredbuser: root
 scoredbpassword: myp2ssw0rd
 scoredbname: openrmfscore
+scoreAppUser: root
+scoreAppPassword: myp2ssw0rd

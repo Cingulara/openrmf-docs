@@ -13,9 +13,11 @@ metadata:
     app.kubernetes.io/managed-by: helm
 type: Opaque
 data:
-  username: {{.Values.checklistdbuser}}
-  password: {{.Values.checklistdbpassword}}
-  dbname: {{.Values.openrmftemplate}}
+  initUsername: {{.Values.checklistInitDBUser}}
+  initPassword: {{.Values.checklistInitDBPassword}}
+  initDBNname: {{.Values.checklistInitDBName}}
+  appUsername: {{.Values.checklistAppUser}}
+  appPassword: {{.Values.checklistAppPassword}}
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -52,17 +54,17 @@ spec:
           valueFrom:  
             secretKeyRef:
               name: checklistdbsecret
-              key: username
+              key: initUsername
         - name: MONGO_INITDB_ROOT_PASSWORD
           valueFrom:  
             secretKeyRef:
               name: checklistdbsecret
-              key: password
+              key: initPassword
         - name: MONGO_INITDB_DATABASE
           valueFrom:  
             secretKeyRef:
               name: checklistdbsecret
-              key: dbname
+              key: initDBNname
         resources:
           requests:
             memory: "500M"
