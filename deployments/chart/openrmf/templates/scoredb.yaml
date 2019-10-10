@@ -1,3 +1,22 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: scoredbsecret
+  namespace: {{.Values.namespace}}
+  labels:
+    app.kubernetes.io/name: openrmf
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app.kubernetes.io/component: score-mongodb-secret
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/revision: "{{ .Release.Revision }}"
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: helm
+type: Opaque
+data:
+  username: {{.Values.scoredbuser}}
+  password: {{.Values.scoredbpassword}}
+  dbname: {{.Values.scoredbname}}
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -30,11 +49,20 @@ spec:
         - containerPort: 27017
         env:
         - name: MONGO_INITDB_ROOT_USERNAME
-          value: root
+          valueFrom:  
+            secretKeyRef:
+              name: scoredbsecret
+              key: username
         - name: MONGO_INITDB_ROOT_PASSWORD
-          value: myp2ssw0rd
+          valueFrom:  
+            secretKeyRef:
+              name: scoredbsecret
+              key: password
         - name: MONGO_INITDB_DATABASE
-          value: openrmfscore
+          valueFrom:  
+            secretKeyRef:
+              name: scoredbsecret
+              key: dbname
         resources:
           requests:
             memory: "500M"

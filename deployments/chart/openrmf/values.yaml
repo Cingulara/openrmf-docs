@@ -63,3 +63,18 @@ serviceTypeAWS: LoadBalancer
 
 # AWS ACM Certificate ARN if used
 awsACM: arn:aws:acm:us-east-1:xxxxxxxxxxxxxx:certificate/xxxxxxxxxxxxxxxx
+
+# Checklist Database Secret Values
+checklistdbuser: root
+checklistdbpassword: myp2ssw0rd
+checklistdbname: openrmf
+
+# Template Database Secret Values
+templatedbuser: root
+templatedbpassword: myp2ssw0rd
+templatedbname: openrmftemplate
+
+# Score Database Secret Values
+scoredbuser: root
+scoredbpassword: myp2ssw0rd
+scoredbname: openrmfscore
