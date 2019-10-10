@@ -17,19 +17,19 @@ helm template chart/openrmf --output-dir DIR_NAME -n RELEASE_NAME --notes > ./op
 ```
 
 ## Kubernetes
-For a straight kubernetes (k8s) installation w/o helm go to the kubernetes folder and make the namespace with the . Then deploy all the pieces locally. You may have to adjust the services based on your setup.
+For a straight kubernetes (k8s) installation w/o helm go to the [kubernetes](./kubernetes) folder and make the namespace with the . Then deploy all the pieces locally. You may have to adjust the services based on your setup.
 
 # AWS EKS Specifics
 
 ## Setup the Persistent Volume
 
-Follow the information here https://docs.aws.amazon.com/eks/latest/userguide/ebs-csi.html to setup a persistent volume to use across your cluster if you have not done so already. The OpenRMF uses persistent volume claims (PVC) to store database data.
+If you wish to use the Amazon Web Services Kubernetes service EKS, then follow the information here https://docs.aws.amazon.com/eks/latest/userguide/ebs-csi.html to setup a persistent volume to use across your cluster if you have not done so already. The OpenRMF uses persistent volume claims (PVC) to store database data.
 
 * curl -O https://raw.githubusercontent.com/kubernetes-sigs/aws-ebs-csi-driver/v0.4.0/docs/example-iam-policy.json
 * aws iam create-policy --policy-name Amazon_EBS_CSI_Driver --policy-document file://example-iam-policy.json
 
-Keep a copy of the Arn returned: 
-* "Arn": "arn:aws:iam::xxxxxxxxxxxx:policy/Amazon_EBS_CSI_Driver",
+Keep a copy of the arn returned: 
+* "arn": "arn:aws:iam::xxxxxxxxxxxx:policy/Amazon_EBS_CSI_Driver",
 
 You also an run `kubectl -n kube-system describe configmap aws-auth` to get the information
 ```
