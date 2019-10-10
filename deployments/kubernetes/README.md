@@ -24,7 +24,7 @@ You have a couple choices when you wish to expose your application endpoints out
 
 For a regular k8s setup you would have an ingress controller like NGINX or Traefik or even HAProxy to help control ingress matching to services in a similar manner.
 
-## Enabling Minikube Ingress for pod access
+## Enabling Minikube Ingress for pod access using NGINX
 Follow the information at https://kubernetes.io/docs/tasks/access-application-cluster/ingress-minikube/ to enable the ingress minikube addon `minikube addons enable ingress` and then expose your pod HTTP path with a /path extension to the main Minikube IP.
 
 * Each service YAML has an ingress.yaml that goes with it, which gives a /* and a hostname off the Minikube IP to that service, which gets you into the pod.
