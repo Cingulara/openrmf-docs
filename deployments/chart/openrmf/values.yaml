@@ -5,21 +5,23 @@
 # main DNS name used to access the deployed app in k8s via DNS through an NGINX ingress controller
 # if running locally, you may need to edit your "hosts" file under /etc/hosts or the 
 # /windows/system32/drivers/etc/hosts file in Windows
-dnsName: demo.openrmf.io
+# Examples: openrmf.local, demo.openrmf.io, openrmf.mycompany.com
+dnsName: openrmf.local
 
 # The Identity Provider URL and Realm, i.e. using Keycloak for AuthN and AuthZ
-identityProviderURL: https://keycloak.openrmf.io/auth
+# Examples: https://keycloak.openrmf.io/auth, http://192.168.11.29:9001/auth
+identityProviderURL: http://192.168.11.29:9001/auth
 # The Realm to use from the ID provider
 identityProviderRealm: openrmf
 # The Identity Provider Client Id to use
 identityProviderClientId: openrmf
 
 # the namespace to put all of this in
-namespace: openrmf
+namespace: openrmfdev
 
 # Installation type
 # Examples: awseks, minikube
-installType: awseks
+installType: minikube
 
 # versions of container to adjust
 # examples: 0.8, 0.8.1, latest
@@ -38,7 +40,6 @@ templateImage: 0.8
 templatedbImage: 0.8
 uploadImage: 0.8
 webuiImage: 0.8.1
-
 natsImage: 1.4.1-linux
 
 # storage class name for PVC
@@ -48,13 +49,13 @@ storageClass: standard
 # API URLs for the web client side calls, used in the web.yaml deployment for the UI
 # These are rewritted to the web pods in a ConfigMap for inclusion of client-side API calls
 # Examples: 'http://openrmf.local/read', https://read.openrmf.io
-readAPI:       https://read.openrmf.io
-scoreAPI:      https://scoring.openrmf.io
-saveAPI:       https://save.openrmf.io
-uploadAPI:     https://upload.openrmf.io
-templateAPI:   https://template.openrmf.io
-complianceAPI: https://compliance.openrmf.io
-controlAPI:    https://controls.openrmf.io
+readAPI:       http://openrmf.local/read
+scoreAPI:      http://openrmf.local/scoring
+saveAPI:       http://openrmf.local/save
+uploadAPI:     http://openrmf.local/upload
+templateAPI:   http://openrmf.local/template
+complianceAPI: http://openrmf.local/compliance
+controlAPI:    http://openrmf.local/controls
 
 # Service Types for Minikube and AWS separately
 # Examples: NodePort, LoadBalancer, etc.
