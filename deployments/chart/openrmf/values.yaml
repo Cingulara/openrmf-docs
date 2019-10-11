@@ -75,8 +75,8 @@ checklistAppPassword: openrmf1234!
 templateInitDBUuser: root
 templateInitDBPassword: myp2ssw0rd
 templateInitDBName: openrmftemplate
-templateAppUser: root
-templateAppPassword: myp2ssw0rd
+templateAppUser: openrmf
+templateAppPassword: openrmf1234!
 
 # Score Database Secret Values
 scoreInitDBUser: root
