@@ -18,6 +18,24 @@ data:
   initDBNname: {{.Values.templateInitDBName}}
   appConnection: mongodb://{{.Values.templateAppUser}}:{{.Values.templateAppPassword}}@openrmf-templatedb/{{.Values.templateInitDBName}}?authSource={{.Values.templateInitDBName}}
 ---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: templatedb-initconfig
+  namespace: {{.Values.namespace | default "openrmf"}}
+  labels:
+    app.kubernetes.io/name: openrmf
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app.kubernetes.io/component: templatedb-init-config
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/revision: "{{ .Release.Revision }}"
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: helm
+data:
+  mongo-init.js: |
+    db.createUser({ user: "{{.Values.templateAppUser}}" , pwd: "{{.Values.templateAppPassword}}!", roles: [{ "role": "readWrite", "db": "{{.Values.templateInitDBName}}"}]});
+    db.createCollection("Templates");
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -76,6 +94,9 @@ spec:
       - name: mongodata-templatedb
         persistentVolumeClaim:
           claimName: openrmf-templatedb-claim
+      - name: initconfig-volume
+        configMap:
+          name: templatedb-initconfig
 ---
 apiVersion: v1
 kind: Service
