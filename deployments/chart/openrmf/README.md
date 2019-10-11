@@ -125,3 +125,20 @@ I believe if you put this up in EKS, you need HTTPS. The ACM is extremely easy t
 ```yaml
 awsACM: arn:aws:acm:us-east-1:xxxxxxxxxxxxxx:certificate/yyyyyyyyyyyyy
 ```
+
+## MongoDB Database Users, Passwords, and Database Name
+There are three sections for the 3 MongoDBs (for now) that store the initialization environment variables for MongoDB per their Docker information.
+The initialization database user, password, and initial database are the first three. They are used in the 3 "*db.yaml" files to setup MongoDB. The 
+application user and application password are used in a few places such as the API connection strings and the initialization scripts of MongoDB.
+
+These values are used in secrets created with the database YAML definitions and used in the message and API YAML files. You also will see a 
+ConfigMap mounted volume for initialization scripts in the "*db.yaml" files to setup each database with a user and the initial database collection. 
+All of the values used in these are in the values.yaml file so you can define your security of user/pwd however you need to.
+
+```yaml
+checklistInitDBUser: root
+checklistInitDBPassword: myp2ssw0rd
+checklistInitDBName: openrmf
+checklistAppUser: openrmf
+checklistAppPassword: openrmf1234!
+```
