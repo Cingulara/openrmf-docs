@@ -85,7 +85,7 @@ If you find any problem, have an idea or enhancement please do not hesitate to a
 ## Creating MongoDB Users by Hand
 If you wish you can create a MongoDB setup locally to persist your data and see what it does. Checkout the [create users by hand](create-users-by-hand.md) readme for more on that. 
 
-## cleaning up the Docker volumes and such every so often
+## Cleaning up the Docker volumes and such every so often
 If you want to remove all data from volumes you can run the below. Do at your own risk and know the consequences! I do this on my development machine to clear ALL volumes including those not for openRMF. 
 
 * run `docker volume rm $(docker volume ls -qf dangling=true)` 
