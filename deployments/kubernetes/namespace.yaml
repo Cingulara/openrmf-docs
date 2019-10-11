@@ -1,3 +1,4 @@
+# Step 1: have a namespace to put this into!
 apiVersion: v1
 kind: Namespace
 metadata:
