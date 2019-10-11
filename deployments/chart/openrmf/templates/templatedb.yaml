@@ -15,7 +15,7 @@ type: Opaque
 data:
   initUsername: {{.Values.templateInitDBUser}}
   initPassword: {{.Values.templateInitDBPassword}}
-  initDBNname: {{.Values.templateInitDBName}}
+  initDBName: {{.Values.templateInitDBName}}
   appConnection: {{.Values.templateAppConnection}}
 ---
 apiVersion: v1
@@ -81,7 +81,7 @@ spec:
           valueFrom:  
             secretKeyRef:
               name: templatedbsecret
-              key: initDBNname
+              key: initDBName
         resources:
           requests:
             memory: "500M"

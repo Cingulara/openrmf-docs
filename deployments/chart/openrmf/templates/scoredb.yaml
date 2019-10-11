@@ -81,7 +81,7 @@ spec:
           valueFrom:  
             secretKeyRef:
               name: scoredbsecret
-              key: initDBNname
+              key: initDBName
         resources:
           requests:
             memory: "500M"

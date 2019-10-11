@@ -85,6 +85,15 @@ checklistInitDBName: b3BlbnJtZg==
 # mongodb://{{.Values.scoreAppUser}}:{{.Values.scoreAppPassword}}@openrmf-scoredb/{{.Values.scoreInitDBName}}?authSource={{.Values.scoreInitDBName}}
 checklistAppConnection: bW9uZ29kYjovL29wZW5ybWY6b3BlbnJtZjEyMzQhQG9wZW5ybWYtY2hlY2tsaXN0ZGIvb3BlbnJtZj9hdXRoU291cmNlPW9wZW5ybWY=
 
+# Score Database Secret Values
+scoreInitDBUser: cm9vdA==
+scoreInitDBPassword: bVlwMnNzdzByZA==
+scoreInitDBName: b3BlbnJtZnNjb3Jl
+# app connection must be in the form below with valid user, password, and database names
+# the user, password, and database name must match the initialization scripts above -- secrets however are base64 encoded
+# mongodb://{{.Values.scoreAppUser}}:{{.Values.scoreAppPassword}}@openrmf-scoredb/{{.Values.scoreInitDBName}}?authSource={{.Values.scoreInitDBName}}
+scoreAppConnection: bW9uZ29kYjovL29wZW5ybWZzY29yZTpvcGVucm1mOTg3NiFAb3BlbnJtZi1jaGVja2xpc3RkYi9vcGVucm1mc2NvcmU/YXV0aFNvdXJjZT1vcGVucm1mc2NvcmU=
+
 # Template Database Secret Values
 templateInitDBUser: cm9vdA==
 templateInitDBPassword: bVlwMnNzdzByZA==
@@ -93,12 +102,3 @@ templateInitDBName: b3BlbnJtZnRlbXBsYXRl
 # the user, password, and database name must match the initialization scripts above -- secrets however are base64 encoded
 # mongodb://{{.Values.scoreAppUser}}:{{.Values.scoreAppPassword}}@openrmf-scoredb/{{.Values.scoreInitDBName}}?authSource={{.Values.scoreInitDBName}}
 templateAppConnection: bW9uZ29kYjovL29wZW5ybWZ0ZW1wbGF0ZTpvcGVucm1mNDMyMSFAb3BlbnJtZi1jaGVja2xpc3RkYi9vcGVucm1mdGVtcGxhdGU/YXV0aFNvdXJjZT1vcGVucm1mdGVtcGxhdGU=
-
-# Score Database Secret Values
-scoreInitDBUser: cm9vdA==
-scoreInitDBPassword: bVlwMnNzdzByZA==!
-scoreInitDBName: b3BlbnJtZnNjb3Jl
-# app connection must be in the form below with valid user, password, and database names
-# the user, password, and database name must match the initialization scripts above -- secrets however are base64 encoded
-# mongodb://{{.Values.scoreAppUser}}:{{.Values.scoreAppPassword}}@openrmf-scoredb/{{.Values.scoreInitDBName}}?authSource={{.Values.scoreInitDBName}}
-scoreAppConnection: bW9uZ29kYjovL29wZW5ybWZzY29yZTpvcGVucm1mOTg3NiFAb3BlbnJtZi1jaGVja2xpc3RkYi9vcGVucm1mc2NvcmU/YXV0aFNvdXJjZT1vcGVucm1mc2NvcmU=
