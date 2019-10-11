@@ -1,6 +1,8 @@
 # Installing OpenRMF to a Kubernetes instance
 This information shows you how to deploy OpenRMF to a Kubernetes instance. I have used this for manually deploying to AWS EKS (outside of ingress) as well as to minikube locally. 
 
+To generate your YAML use the [Helm Chart](../chart/openrmf) after making your namespace and persistent volume.
+
 ## How I run Minikube
 
 I use a named profile so I can try out things, so I run minikube like this in a .sh file:
