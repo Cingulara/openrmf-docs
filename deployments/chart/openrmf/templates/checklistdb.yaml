@@ -18,6 +18,24 @@ data:
   initDBNname: {{.Values.checklistInitDBName}}
   appConnection: mongodb://{{.Values.checklistAppUser}}:{{.Values.checklistAppPassword}}@openrmf-checklistdb/{{.Values.checklistInitDBName}}?authSource={{.Values.checklistInitDBName}}
 ---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: checklistdb-initconfig
+  namespace: {{.Values.namespace | default "openrmf"}}
+  labels:
+    app.kubernetes.io/name: openrmf
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app.kubernetes.io/component: checklistdb-init-config
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/revision: "{{ .Release.Revision }}"
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: helm
+data:
+  mongo-init.js: |
+    db.createUser({ user: "{{.Values.checklistAppUser}}" , pwd: "{{.Values.checklistAppPassword}}!", roles: [{ "role": "readWrite", "db": "{{.Values.checklistInitDBName}}"}]});
+    db.createCollection("Artifacts");
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -76,6 +94,9 @@ spec:
       - name: mongodata-checklistdb
         persistentVolumeClaim:
           claimName: openrmf-checklistdb-claim
+      - name: initconfig-volume
+        configMap:
+          name: checklistdb-initconfig
 ---
 apiVersion: v1
 kind: Service
