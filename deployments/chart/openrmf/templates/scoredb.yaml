@@ -18,6 +18,24 @@ data:
   initDBNname: {{.Values.scoreInitDBName}}
   appConnection: mongodb://{{.Values.scoreAppUser}}:{{.Values.scoreAppPassword}}@openrmf-scoredb/{{.Values.scoreInitDBName}}?authSource={{.Values.scoreInitDBName}}
 ---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: scoredb-initconfig
+  namespace: {{.Values.namespace | default "openrmf"}}
+  labels:
+    app.kubernetes.io/name: openrmf
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app.kubernetes.io/component: scoredb-init-config
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/revision: "{{ .Release.Revision }}"
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: helm
+data:
+  mongo-init.js: |
+    db.createUser({ user: "{{.Values.scoreAppUser}}" , pwd: "{{.Values.scoreAppPassword}}!", roles: [{ "role": "readWrite", "db": "{{.Values.scoreInitDBName}}"}]});
+    db.createCollection("Scores");
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -76,6 +94,9 @@ spec:
       - name: mongodata-scoredb
         persistentVolumeClaim:
           claimName: openrmf-scoredb-claim
+      - name: initconfig-volume
+        configMap:
+          name: scoredb-initconfig
 ---
 apiVersion: v1
 kind: Service
