@@ -44,9 +44,15 @@ spec:
         - name: ASPNETCORE_URLS
           value: http://*:8080
         - name: MONGODBCONNECTION
-          value: mongodb://openrmftemplate:openrmf1234!@openrmf-templatedb/openrmftemplate?authSource=openrmftemplate
+          valueFrom:  
+            secretKeyRef:
+              name: templatedbsecret
+              key: appConnection
         - name: MONGODB
-          value: openrmftemplate
+          valueFrom:  
+            secretKeyRef:
+              name: templatedbsecret
+              key: initDBNname
         - name: JWT-AUTHORITY
           value: {{.Values.identityProviderURL}}/realms/{{.Values.identityProviderRealm}}
         - name: JWT-CLIENT

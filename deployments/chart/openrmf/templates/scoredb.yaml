@@ -16,8 +16,8 @@ data:
   initUsername: {{.Values.scoreInitDBUser}}
   initPassword: {{.Values.scoreInitDBPassword}}
   initDBNname: {{.Values.scoreInitDBName}}
-  appUsername: {{.Values.scoreAppUser}}
-  appPassword: {{.Values.scoreAppPassword}}
+  appConnection: mongodb://{{.Values.scoreAppUser}}:{{.Values.scoreAppPassword}}@openrmf-scoredb/{{.Values.scoreInitDBName}}?authSource={{.Values.scoreInitDBName}}
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:

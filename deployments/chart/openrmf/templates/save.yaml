@@ -50,9 +50,15 @@ spec:
         - name: JWT-CLIENT
           value: {{.Values.identityProviderClientId}}
         - name: MONGODBCONNECTION
-          value: mongodb://openrmf:openrmf1234!@openrmf-checklistdb/openrmf?authSource=openrmf
+          valueFrom:  
+            secretKeyRef:
+              name: checklistdbsecret
+              key: appConnection
         - name: MONGODB
-          value: openrmf
+          valueFrom:  
+            secretKeyRef:
+              name: checklistdbsecret
+              key: initDBNname
         resources:
           limits:
             memory: "750Mi"
