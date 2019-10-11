@@ -52,7 +52,7 @@ spec:
           valueFrom:  
             secretKeyRef:
               name: scoredbsecret
-              key: initDBNname
+              key: initDBName
         - name: JWT-AUTHORITY
           value: {{.Values.identityProviderURL}}/realms/{{.Values.identityProviderRealm}}
         - name: JWT-CLIENT

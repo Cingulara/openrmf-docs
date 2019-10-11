@@ -74,7 +74,7 @@ scoreAppPassword: openrmf9876!
 # SECRET VALUES ARE TO BE IN base64
 # Example: echo -n 'openrmf' | base64 
 # Above gives you a base64 encoded value to use here
-# More informaiton can be found at https://kubernetes.io/docs/concepts/configuration/secret/
+# More information can be found at https://kubernetes.io/docs/concepts/configuration/secret/
 
 # Checklist Database Secret Values
 checklistInitDBUser: cm9vdA==
