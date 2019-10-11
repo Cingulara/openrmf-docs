@@ -44,9 +44,15 @@ spec:
         - name: ASPNETCORE_URLS
           value: http://*:8080
         - name: MONGODBCONNECTION
-          value: mongodb://openrmfscore:openrmf1234!@openrmf-scoredb/openrmfscore?authSource=openrmfscore
+          valueFrom:  
+            secretKeyRef:
+              name: scoredbsecret
+              key: appConnection
         - name: MONGODB
-          value: openrmfscore
+          valueFrom:  
+            secretKeyRef:
+              name: scoredbsecret
+              key: initDBNname
         - name: JWT-AUTHORITY
           value: {{.Values.identityProviderURL}}/realms/{{.Values.identityProviderRealm}}
         - name: JWT-CLIENT

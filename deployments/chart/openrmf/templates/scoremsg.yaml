@@ -30,9 +30,15 @@ spec:
         - name: NATSSERVERURL
           value: nats://natsserver:4222
         - name: MONGODBCONNECTION
-          value: mongodb://openrmfscore:openrmf1234!@openrmf-scoredb/openrmfscore?authSource=openrmfscore
+          valueFrom:  
+            secretKeyRef:
+              name: scoredbsecret
+              key: appConnection
         - name: MONGODB
-          value: openrmfscore
+          valueFrom:  
+            secretKeyRef:
+              name: scoredbsecret
+              key: initDBNname
         resources:
           limits:
             memory: "1Gi"
