@@ -44,9 +44,15 @@ spec:
         - name: ASPNETCORE_URLS
           value: http://*:8080
         - name: MONGODBCONNECTION
-          value: mongodb://openrmf:openrmf1234!@openrmf-checklistdb/openrmf?authSource=openrmf
+          valueFrom:  
+            secretKeyRef:
+              name: checklistdbsecret
+              key: appConnection
         - name: MONGODB
-          value: openrmf
+          valueFrom:  
+            secretKeyRef:
+              name: checklistdbsecret
+              key: initDBNname
         - name: NATSSERVERURL
           value: nats://natsserver:4222
         - name: JWT-AUTHORITY
