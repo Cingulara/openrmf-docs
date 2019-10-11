@@ -1,8 +1,9 @@
-Congratulations on installing the OpenRMF tool! 
+Congratulations on installing the OpenRMF tool! Please make sure the secrets you referenced 
+in the values.yaml file are correct and setup in the correct namespace '{{.Values.namespace}}'. 
 
 To verify that OpenRMF has started, run:
 
-  kubectl --namespace=openrmf get deployments -l "release={{ .Release.Name }}"
+  kubectl --namespace={{.Values.namespace}} get deployments -l "release={{ .Release.Name }}"
 
 You can now point your web browser to http://{{.Values.dnsName}}/web/ to run the OpenRMF tool 
 within your cluster! Make sure your Keycloak (or OpenID) authentication is ready to go.

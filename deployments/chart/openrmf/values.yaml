@@ -2,14 +2,103 @@
 # This is a YAML-formatted file.
 # Declare name/value pairs to be passed into your templates.
 
-# main DNS name used to access the deployed app in k8s via DNS through an ingress controller
+# main DNS name used to access the deployed app in k8s via DNS through an NGINX ingress controller
 # if running locally, you may need to edit your "hosts" file under /etc/hosts or the 
 # /windows/system32/drivers/etc/hosts file in Windows
+# Examples: openrmf.local, demo.openrmf.io, openrmf.mycompany.com
 dnsName: openrmf.local
 
 # The Identity Provider URL and Realm, i.e. using Keycloak for AuthN and AuthZ
-IdentityProviderURL: http://192.168.11.29:9001/auth
+# Examples: https://keycloak.openrmf.io/auth, http://192.168.11.29:9001/auth
+identityProviderURL: http://192.168.11.29:9001/auth
 # The Realm to use from the ID provider
-IdentityProviderRealm: openrmf
+identityProviderRealm: openrmf
 # The Identity Provider Client Id to use
-IdentityProviderClientId: openrmf
+identityProviderClientId: openrmf
+
+# the namespace to put all of this in
+namespace: openrmfdev
+
+# Installation type
+# Examples: awseks, minikube
+installType: minikube
+
+# versions of container to adjust
+# examples: 0.8, 0.8.1, latest
+checklistmsgImage: 0.8
+complianceImage: 0.8
+compliancemsgImage: 0.8
+controlImage: 0.8
+controlmsgImage: 0.8
+readImage: 0.8
+saveImage: 0.8
+scoremsgImage: 0.8
+scoringImage: 0.8
+templateImage: 0.8
+uploadImage: 0.8
+webuiImage: 0.8.1
+mongoImage: 4.0.5
+natsImage: 1.4.1-linux
+
+# storage class name for PVC
+# examples: standard, ebs-sc, efs-sc
+storageClass: standard
+
+# API URLs for the web client side calls, used in the web.yaml deployment for the UI
+# These are rewritted to the web pods in a ConfigMap for inclusion of client-side API calls
+# Examples: 'http://openrmf.local/read', https://read.openrmf.io
+readAPI:       http://openrmf.local/read
+scoreAPI:      http://openrmf.local/scoring
+saveAPI:       http://openrmf.local/save
+uploadAPI:     http://openrmf.local/upload
+templateAPI:   http://openrmf.local/template
+complianceAPI: http://openrmf.local/compliance
+controlAPI:    http://openrmf.local/controls
+
+# Service Types for Minikube and AWS separately
+# Examples: NodePort, LoadBalancer, etc.
+serviceTypeMinikube: NodePort
+serviceTypeAWS: LoadBalancer
+
+# AWS ACM Certificate ARN if used
+awsACM: arn:aws:acm:us-east-1:xxxxxxxxxxxxxx:certificate/xxxxxxxxxxxxxxxx
+
+# Database initialization Scripts
+checklistAppUser: openrmf
+checklistAppPassword: openrmf1234!
+templateAppUser: openrmftemplate
+templateAppPassword: openrmf4321!
+scoreAppUser: openrmfscore
+scoreAppPassword: openrmf9876!
+
+# SECRET VALUES ARE TO BE IN base64
+# Example: echo -n 'openrmf' | base64 
+# Above gives you a base64 encoded value to use here
+# More information can be found at https://kubernetes.io/docs/concepts/configuration/secret/
+
+# Checklist Database Secret Values
+checklistInitDBUser: cm9vdA==
+checklistInitDBPassword: bVlwMnNzdzByZA==
+checklistInitDBName: b3BlbnJtZg==
+# app connection must be in the form below with valid user, password, and database names
+# the user, password, and database name must match the initialization scripts above -- secrets however are base64 encoded
+# mongodb://{{.Values.scoreAppUser}}:{{.Values.scoreAppPassword}}@openrmf-scoredb/{{.Values.scoreInitDBName}}?authSource={{.Values.scoreInitDBName}}
+checklistAppConnection: bW9uZ29kYjovL29wZW5ybWY6b3BlbnJtZjEyMzQhQG9wZW5ybWYtY2hlY2tsaXN0ZGIvb3BlbnJtZj9hdXRoU291cmNlPW9wZW5ybWY=
+
+# Score Database Secret Values
+scoreInitDBUser: cm9vdA==
+scoreInitDBPassword: bVlwMnNzdzByZA==
+scoreInitDBName: b3BlbnJtZnNjb3Jl
+# app connection must be in the form below with valid user, password, and database names
+# the user, password, and database name must match the initialization scripts above -- secrets however are base64 encoded
+# mongodb://{{.Values.scoreAppUser}}:{{.Values.scoreAppPassword}}@openrmf-scoredb/{{.Values.scoreInitDBName}}?authSource={{.Values.scoreInitDBName}}
+scoreAppConnection: bW9uZ29kYjovL29wZW5ybWZzY29yZTpvcGVucm1mOTg3NiFAb3BlbnJtZi1jaGVja2xpc3RkYi9vcGVucm1mc2NvcmU/YXV0aFNvdXJjZT1vcGVucm1mc2NvcmU=
+
+# Template Database Secret Values
+templateInitDBUser: cm9vdA==
+templateInitDBPassword: bVlwMnNzdzByZA==
+templateInitDBName: b3BlbnJtZnRlbXBsYXRl
+# app connection must be in the form below with valid user, password, and database names
+# the user, password, and database name must match the initialization scripts above -- secrets however are base64 encoded
+# mongodb://{{.Values.scoreAppUser}}:{{.Values.scoreAppPassword}}@openrmf-scoredb/{{.Values.scoreInitDBName}}?authSource={{.Values.scoreInitDBName}}
+templateAppConnection: bW9uZ29kYjovL29wZW5ybWZ0ZW1wbGF0ZTpvcGVucm1mNDMyMSFAb3BlbnJtZi1jaGVja2xpc3RkYi9vcGVucm1mdGVtcGxhdGU/YXV0aFNvdXJjZT1vcGVucm1mdGVtcGxhdGU=

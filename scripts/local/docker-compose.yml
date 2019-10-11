@@ -10,6 +10,8 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=myp2ssw0rd
       - MONGO_INITDB_DATABASE=openrmf
+    volumes:
+      - ./initializedbs.js:/docker-entrypoint-initdb.d/initialize.js:ro
 
   nats: 
     image: nats:1.4.1-linux

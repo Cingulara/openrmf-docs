@@ -1,16 +1,16 @@
+---
+# Source: openrmf/templates/compliancemsg.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: openrmf-msg-compliance
-  namespace: {{.Values.namespace}}
+  namespace: openrmf
   labels:
-    app.kubernetes.io/name: openrmf
-    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
-    app.kubernetes.io/component: compliance-nats-message-client
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/revision: "{{ .Release.Revision }}"
-    app.kubernetes.io/version: {{ .Chart.AppVersion }}
-    app.kubernetes.io/managed-by: helm
+    app: openrmf
+    chart: openrmf-1.0.0
+    component: compliance-nats-message-client
+    release: release-name
+    revision: "0"
 spec:
   selector:
     matchLabels:
@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
       - name: openrmf-msg-compliance
-        image: cingulara/openrmf-msg-compliance:{{.Values.compliancemsgImage}}
+        image: cingulara/openrmf-msg-compliance:0.8
         ports:
         - containerPort: 8080
         env:

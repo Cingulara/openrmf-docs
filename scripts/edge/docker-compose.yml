@@ -161,7 +161,7 @@ services:
 
 ### 3 MongoDB Containers
   checklistdb:
-    image: cingulara/openrmf-checklistdb
+    image: mongo:4.0.5
     restart: always
     ports:
       - 27017
@@ -171,11 +171,12 @@ services:
       - MONGO_INITDB_DATABASE=openrmf
     volumes:
       - checklist-dev-data-volume:/data/db
+      - ../initializeChecklist.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
     networks:
       - openrmf-dev
 
   scoredb:
-    image: cingulara/openrmf-scoredb
+    image: mongo:4.0.5
     restart: always
     ports:
       - 27017
@@ -185,11 +186,12 @@ services:
       - MONGO_INITDB_DATABASE=openrmfscore
     volumes:
       - score-dev-data-volume:/data/db
+      - ./initializeScore.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
     networks:
       - openrmf-dev
 
   templatedb:
-    image: cingulara/openrmf-templatedb
+    image: mongo:4.0.5
     restart: always
     ports:
       - 27017
@@ -199,6 +201,7 @@ services:
       - MONGO_INITDB_DATABASE=openrmftemplate
     volumes:
       - template-dev-data-volume:/data/db
+      - ./initializeTemplate.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
     networks:
       - openrmf-dev
 
