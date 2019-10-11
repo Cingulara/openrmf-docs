@@ -8,13 +8,11 @@ docker pull cingulara/openrmf-msg-score:0.8
 docker pull cingulara/openrmf-msg-compliance:0.8
 docker pull cingulara/openrmf-msg-controls:0.8
 docker pull cingulara/openrmf-msg-checklist:0.8
-docker pull cingulara/openrmf-templatedb:0.8
-docker pull cingulara/openrmf-scoredb:0.8
-docker pull cingulara/openrmf-checklistdb:0.8
 docker pull cingulara/openrmf-api-template:0.8
 docker pull cingulara/openrmf-api-compliance:0.8
 docker pull cingulara/openrmf-api-controls:0.8
 docker pull nats:1.4.1-linux
+docker pull mongo:4.0.5
 
 # Now run the latest development openRMF stack
 docker-compose up -d
