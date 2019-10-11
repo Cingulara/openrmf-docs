@@ -68,8 +68,8 @@ awsACM: arn:aws:acm:us-east-1:xxxxxxxxxxxxxx:certificate/xxxxxxxxxxxxxxxx
 checklistInitDBUser: root
 checklistInitDBPassword: myp2ssw0rd
 checklistInitDBName: openrmf
-checklistAppUser: root
-checklistAppPassword: myp2ssw0rd
+checklistAppUser: openrmf
+checklistAppPassword: openrmf1234!
 
 # Template Database Secret Values
 templateInitDBUuser: root
@@ -79,8 +79,8 @@ templateAppUser: root
 templateAppPassword: myp2ssw0rd
 
 # Score Database Secret Values
-scoredbuser: root
-scoredbpassword: myp2ssw0rd
-scoredbname: openrmfscore
-scoreAppUser: root
-scoreAppPassword: myp2ssw0rd
+scoreInitDBUser: root
+scoreInitDBPassword: myp2ssw0rd
+scoreInitDBName: openrmfscore
+scoreAppUser: openrmfscore
+scoreAppPassword: openrmf1234!
