@@ -77,6 +77,7 @@ spec:
           servicePort: 8080
 ```
 
+<<<<<<< HEAD
 ## How to setup your k8s to run OpenRMF (manually w/o Helm)
 
 Use the [Helm Chart](../chart/openrmf/) and generate a single file template to deploy locally/manually without a running rooted Tiller in your cluster.
