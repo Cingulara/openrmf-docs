@@ -1,53 +1,55 @@
+---
+# Source: openrmf/templates/checklistdb.yaml
 apiVersion: v1
 kind: Secret
 metadata:
   name: checklistdbsecret
-  namespace: {{.Values.namespace}}
+  namespace: openrmfdev
   labels:
     app.kubernetes.io/name: openrmf
-    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    helm.sh/chart: openrmf-1.1.0
     app.kubernetes.io/component: checklist-mongodb-secret
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/revision: "{{ .Release.Revision }}"
-    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/instance: testnumber2
+    app.kubernetes.io/revision: "0"
+    app.kubernetes.io/version: 0.8.1
     app.kubernetes.io/managed-by: helm
 type: Opaque
 data:
-  initUsername: {{.Values.checklistInitDBUser}}
-  initPassword: {{.Values.checklistInitDBPassword}}
-  initDBName: {{.Values.checklistInitDBName}}
-  appConnection: mongodb://{{.Values.checklistAppUser}}:{{.Values.checklistAppPassword}}@openrmf-checklistdb/{{.Values.checklistInitDBName}}?authSource={{.Values.checklistInitDBName}}
+  initUsername: root
+  initPassword: mYp2ssw0rd
+  initDBNname: openrmf
+  appConnection: mongodb://openrmf2:openrmf1234!@openrmf-checklistdb/openrmf?authSource=openrmf
 ---
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: checklistdb-initconfig
-  namespace: {{.Values.namespace | default "openrmf"}}
+  namespace: openrmfdev
   labels:
     app.kubernetes.io/name: openrmf
-    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    helm.sh/chart: openrmf-1.1.0
     app.kubernetes.io/component: checklistdb-init-config
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/revision: "{{ .Release.Revision }}"
-    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/instance: testnumber2
+    app.kubernetes.io/revision: "0"
+    app.kubernetes.io/version: 0.8.1
     app.kubernetes.io/managed-by: helm
 data:
   mongo-init.js: |
-    db.createUser({ user: "{{.Values.checklistAppUser}}" , pwd: "{{.Values.checklistAppPassword}}!", roles: [{ "role": "readWrite", "db": "{{.Values.checklistInitDBName}}"}]});
+    db.createUser({ user: "openrmf2" , pwd: "openrmf1234!!", roles: [{ "role": "readWrite", "db": "openrmf"}]});
     db.createCollection("Artifacts");
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: openrmf-checklistdb
-  namespace: {{.Values.namespace}}
+  namespace: openrmfdev
   labels:
     app.kubernetes.io/name: openrmf
-    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    helm.sh/chart: openrmf-1.1.0
     app.kubernetes.io/component: checklist-mongodb
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/revision: "{{ .Release.Revision }}"
-    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/instance: testnumber2
+    app.kubernetes.io/revision: "0"
+    app.kubernetes.io/version: 0.8.1
     app.kubernetes.io/managed-by: helm
 spec:
   selector:
@@ -63,7 +65,7 @@ spec:
     spec:
       containers:
       - name: openrmf-checklistdb
-        image: mongo:{{.Values.mongoImage}}
+        image: mongo:4.0.5
         ports:
         - containerPort: 27017
         env:
@@ -81,7 +83,7 @@ spec:
           valueFrom:  
             secretKeyRef:
               name: checklistdbsecret
-              key: initDBName
+              key: initDBNname
         resources:
           requests:
             memory: "500M"
@@ -102,14 +104,14 @@ apiVersion: v1
 kind: Service
 metadata:
   name: openrmf-checklistdb
-  namespace: {{.Values.namespace}}
+  namespace: openrmfdev
   labels:
     app.kubernetes.io/name: openrmf
-    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    helm.sh/chart: openrmf-1.1.0
     app.kubernetes.io/component: checklist-mongodb
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/revision: "{{ .Release.Revision }}"
-    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/instance: testnumber2
+    app.kubernetes.io/revision: "0"
+    app.kubernetes.io/version: 0.8.1
     app.kubernetes.io/managed-by: helm
 spec:
   ports:
@@ -125,18 +127,18 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  namespace: {{.Values.namespace}}
+  namespace: openrmfdev
   name: openrmf-checklistdb-claim
   labels:
     app.kubernetes.io/name: openrmf
-    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    helm.sh/chart: openrmf-1.1.0
     app.kubernetes.io/component: checklist-mongodb
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/revision: "{{ .Release.Revision }}"
-    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/instance: testnumber2
+    app.kubernetes.io/revision: "0"
+    app.kubernetes.io/version: 0.8.1
     app.kubernetes.io/managed-by: helm
 spec:
-  storageClassName: {{.Values.storageClass}}
+  storageClassName: standard
   accessModes:
   - ReadWriteOnce
   resources:

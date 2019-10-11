@@ -25,7 +25,6 @@ installType: minikube
 
 # versions of container to adjust
 # examples: 0.8, 0.8.1, latest
-checklistdbImage: 0.8
 checklistmsgImage: 0.8
 complianceImage: 0.8
 compliancemsgImage: 0.8
@@ -33,13 +32,12 @@ controlImage: 0.8
 controlmsgImage: 0.8
 readImage: 0.8
 saveImage: 0.8
-scoredbImage: 0.8
-scoremsgmage: 0.8
+scoremsgImage: 0.8
 scoringImage: 0.8
 templateImage: 0.8
-templatedbImage: 0.8
 uploadImage: 0.8
 webuiImage: 0.8.1
+mongoImage: 4.0.5
 natsImage: 1.4.1-linux
 
 # storage class name for PVC
@@ -73,7 +71,7 @@ checklistAppUser: openrmf2
 checklistAppPassword: openrmf1234!
 
 # Template Database Secret Values
-templateInitDBUuser: root
+templateInitDBUser: root
 templateInitDBPassword: myp2SSw0rd
 templateInitDBName: openrmftemplate
 templateAppUser: openrmftemplate2

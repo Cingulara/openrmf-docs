@@ -13,7 +13,7 @@ helm template chart/openrmf --output-dir DIR_NAME -n RELEASE_NAME --notes
 ```
 or to put into a single file to deploy
 ```
-helm template chart/openrmf --output-dir DIR_NAME -n RELEASE_NAME --notes > ./openrmf.yaml
+helm template chart/openrmf -n RELEASE_NAME --notes > ./openrmf.yaml
 ```
 
 ## Kubernetes

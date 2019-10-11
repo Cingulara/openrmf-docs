@@ -1,15 +1,17 @@
+---
+# Source: openrmf/templates/scoremsg.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: openrmf-msg-score
-  namespace: {{.Values.namespace}}
+  namespace: openrmfdev
   labels:
     app.kubernetes.io/name: openrmf
-    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    helm.sh/chart: openrmf-1.1.0
     app.kubernetes.io/component: score-nats-message-client
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/revision: "{{ .Release.Revision }}"
-    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/instance: testnumber2
+    app.kubernetes.io/revision: "0"
+    app.kubernetes.io/version: 0.8.1
     app.kubernetes.io/managed-by: helm
 spec:
   selector:
@@ -23,7 +25,7 @@ spec:
     spec:
       containers:
       - name: openrmf-msg-score
-        image: cingulara/openrmf-msg-score:{{.Values.scoremsgImage}}
+        image: cingulara/openrmf-msg-score:
         ports:
         - containerPort: 8080
         env:
@@ -38,7 +40,7 @@ spec:
           valueFrom:  
             secretKeyRef:
               name: scoredbsecret
-              key: initDBName
+              key: initDBNname
         resources:
           limits:
             memory: "1Gi"

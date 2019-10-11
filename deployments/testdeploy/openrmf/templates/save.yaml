@@ -1,0 +1,124 @@
+---
+# Source: openrmf/templates/save.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openrmf-save
+  namespace: openrmfdev
+  labels:
+    app.kubernetes.io/name: openrmf
+    helm.sh/chart: openrmf-1.1.0
+    app.kubernetes.io/component: save-api
+    app.kubernetes.io/instance: testnumber2
+    app.kubernetes.io/revision: "0"
+    app.kubernetes.io/version: 0.8.1
+    app.kubernetes.io/managed-by: helm
+spec:
+  selector:
+    matchLabels:
+      run: openrmf-save
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: openrmf-save
+    spec:
+      containers:
+      - name: openrmf-save
+        image: cingulara/openrmf-api-save:0.8
+        ports:
+        - name: web-port
+          containerPort: 8080
+        readinessProbe:
+          tcpSocket:
+            port: web-port
+          initialDelaySeconds: 5
+          periodSeconds: 30
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: web-port
+          initialDelaySeconds: 3
+          periodSeconds: 30
+        env:
+        - name: ASPNETCORE_ENVIRONMENT
+          value: Development
+        - name: ASPNETCORE_URLS
+          value: http://*:8080
+        - name: NATSSERVERURL
+          value: nats://natsserver:4222
+        - name: JWT-AUTHORITY
+          value: http://192.168.11.29:9001/auth/realms/openrmf
+        - name: JWT-CLIENT
+          value: openrmf
+        - name: MONGODBCONNECTION
+          valueFrom:  
+            secretKeyRef:
+              name: checklistdbsecret
+              key: appConnection
+        - name: MONGODB
+          valueFrom:  
+            secretKeyRef:
+              name: checklistdbsecret
+              key: initDBNname
+        resources:
+          limits:
+            memory: "750Mi"
+            cpu: "500m"
+          requests:
+            memory: "250Mi"
+            cpu: "100m"
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: openrmf-save
+  namespace: openrmfdev
+  labels:
+    app.kubernetes.io/name: openrmf
+    helm.sh/chart: openrmf-1.1.0
+    app.kubernetes.io/component: save-api
+    app.kubernetes.io/instance: testnumber2
+    app.kubernetes.io/revision: "0"
+    app.kubernetes.io/version: 0.8.1
+    app.kubernetes.io/managed-by: helm
+spec:
+  ports:
+  - name: http
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    run: openrmf-save
+  sessionAffinity: None
+  type: 
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: openrmf-save-ingress
+  namespace: openrmfdev
+  labels:
+    app: openrmf
+    chart: openrmf-1.1.0
+    component: save-api-ingress
+    release: testnumber2
+    revision: "0"
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/cors-allow-methods: "GET, POST, PUT, DELETE, OPTIONS"
+spec:
+  rules:
+  - host: openrmf.local
+    http:
+      paths:
+      - path: /save(/|$)(.*)
+        backend:
+          serviceName: openrmf-save
+          servicePort: 8080
+
+
+

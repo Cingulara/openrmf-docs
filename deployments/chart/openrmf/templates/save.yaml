@@ -58,7 +58,7 @@ spec:
           valueFrom:  
             secretKeyRef:
               name: checklistdbsecret
-              key: initDBNname
+              key: initDBName
         resources:
           limits:
             memory: "750Mi"
