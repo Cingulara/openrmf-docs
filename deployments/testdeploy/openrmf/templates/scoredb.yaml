@@ -1,53 +1,55 @@
+---
+# Source: openrmf/templates/scoredb.yaml
 apiVersion: v1
 kind: Secret
 metadata:
   name: scoredbsecret
-  namespace: {{.Values.namespace}}
+  namespace: openrmfdev
   labels:
     app.kubernetes.io/name: openrmf
-    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    helm.sh/chart: openrmf-1.1.0
     app.kubernetes.io/component: score-mongodb-secret
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/revision: "{{ .Release.Revision }}"
-    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/instance: testnumber2
+    app.kubernetes.io/revision: "0"
+    app.kubernetes.io/version: 0.8.1
     app.kubernetes.io/managed-by: helm
 type: Opaque
 data:
-  initUsername: {{.Values.scoreInitDBUser}}
-  initPassword: {{.Values.scoreInitDBPassword}}
-  initDBNname: {{.Values.scoreInitDBName}}
-  appConnection: mongodb://{{.Values.scoreAppUser}}:{{.Values.scoreAppPassword}}@openrmf-scoredb/{{.Values.scoreInitDBName}}?authSource={{.Values.scoreInitDBName}}
+  initUsername: root
+  initPassword: myp2ssw0rd!
+  initDBNname: openrmfscore
+  appConnection: mongodb://openrmfscore2:openrmf9999!@openrmf-scoredb/openrmfscore?authSource=openrmfscore
 ---
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: scoredb-initconfig
-  namespace: {{.Values.namespace | default "openrmf"}}
+  namespace: openrmfdev
   labels:
     app.kubernetes.io/name: openrmf
-    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    helm.sh/chart: openrmf-1.1.0
     app.kubernetes.io/component: scoredb-init-config
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/revision: "{{ .Release.Revision }}"
-    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/instance: testnumber2
+    app.kubernetes.io/revision: "0"
+    app.kubernetes.io/version: 0.8.1
     app.kubernetes.io/managed-by: helm
 data:
   mongo-init.js: |
-    db.createUser({ user: "{{.Values.scoreAppUser}}" , pwd: "{{.Values.scoreAppPassword}}!", roles: [{ "role": "readWrite", "db": "{{.Values.scoreInitDBName}}"}]});
+    db.createUser({ user: "openrmfscore2" , pwd: "openrmf9999!!", roles: [{ "role": "readWrite", "db": "openrmfscore"}]});
     db.createCollection("Scores");
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: openrmf-scoredb
-  namespace: {{.Values.namespace}}
+  namespace: openrmfdev
   labels:
     app.kubernetes.io/name: openrmf
-    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    helm.sh/chart: openrmf-1.1.0
     app.kubernetes.io/component: score-mongodb
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/revision: "{{ .Release.Revision }}"
-    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/instance: testnumber2
+    app.kubernetes.io/revision: "0"
+    app.kubernetes.io/version: 0.8.1
     app.kubernetes.io/managed-by: helm
 spec:
   selector:
@@ -63,7 +65,7 @@ spec:
     spec:
       containers:
       - name: openrmf-scoredb
-        image: mongo:{{.Values.mongoImage}}
+        image: mongo:4.0.5
         ports:
         - containerPort: 27017
         env:
@@ -102,14 +104,14 @@ apiVersion: v1
 kind: Service
 metadata:
   name: openrmf-scoredb
-  namespace: {{.Values.namespace}}
+  namespace: openrmfdev
   labels:
     app.kubernetes.io/name: openrmf
-    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    helm.sh/chart: openrmf-1.1.0
     app.kubernetes.io/component: score-mongodb
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/revision: "{{ .Release.Revision }}"
-    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/instance: testnumber2
+    app.kubernetes.io/revision: "0"
+    app.kubernetes.io/version: 0.8.1
     app.kubernetes.io/managed-by: helm
 spec:
   ports:
@@ -125,18 +127,18 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  namespace: {{.Values.namespace}}
+  namespace: openrmfdev
   name: openrmf-scoredb-claim
   labels:
     app.kubernetes.io/name: openrmf
-    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    helm.sh/chart: openrmf-1.1.0
     app.kubernetes.io/component: score-mongodb
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/revision: "{{ .Release.Revision }}"
-    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/instance: testnumber2
+    app.kubernetes.io/revision: "0"
+    app.kubernetes.io/version: 0.8.1
     app.kubernetes.io/managed-by: helm
 spec:
-  storageClassName: {{.Values.storageClass}}
+  storageClassName: standard
   accessModes:
   - ReadWriteOnce
   resources:

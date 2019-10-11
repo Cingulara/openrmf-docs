@@ -54,7 +54,7 @@ spec:
           valueFrom:  
             secretKeyRef:
               name: checklistdbsecret
-              key: initDBNname
+              key: initDBName
           value: openrmf
         - name: JWT-AUTHORITY
           value: {{.Values.identityProviderURL}}/realms/{{.Values.identityProviderRealm}}

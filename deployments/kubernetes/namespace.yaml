@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: openrmf
+  name: openrmfdev
   labels:
     role: openrmf-system
     istio-injection: enabled
