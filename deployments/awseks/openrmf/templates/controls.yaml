@@ -1,0 +1,85 @@
+---
+# Source: openrmf/templates/controls.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openrmf-controls
+  namespace: openrmf
+  labels:
+    app: openrmf
+    chart: openrmf-1.0.0
+    component: controls-api
+    release: release-name
+    revision: "0"
+spec:
+  selector:
+    matchLabels:
+      run: openrmf-controls
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: openrmf-controls
+    spec:
+      containers:
+      - name: openrmf-controls
+        image: cingulara/openrmf-api-controls:0.8
+        ports:
+        - name: web-port
+          containerPort: 8080
+        readinessProbe:
+          tcpSocket:
+            port: web-port
+          initialDelaySeconds: 5
+          periodSeconds: 30
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: web-port
+          initialDelaySeconds: 3
+          periodSeconds: 30
+        env:
+        - name: ASPNETCORE_ENVIRONMENT
+          value: Development
+        - name: ASPNETCORE_URLS
+          value: http://*:8080
+        - name: NATSSERVERURL
+          value: nats://natsserver:4222
+        - name: JWT-AUTHORITY
+          value: https://keycloak.openrmf.io/auth/realms/openrmf
+        - name: JWT-CLIENT
+          value: openrmf
+        resources:
+          limits:
+            memory: "750Mi"
+            cpu: "500m"
+          requests:
+            memory: "250Mi"
+            cpu: "100m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: openrmf-controls
+  namespace: openrmf
+  annotations:
+    # Note that the backend talks over HTTP.
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
+    # TODO: Fill in with the ARN of your certificate.
+    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:us-east-1:xxxxxxxxxxxxxx:certificate/xxxxxxxxxxxxxxxx
+    # Only run SSL on the port named "https" below.
+    service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "https"
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 8080
+  - name: https
+    port: 443
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    run: openrmf-controls
+  sessionAffinity: None
+  type: LoadBalancer

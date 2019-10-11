@@ -1,0 +1,40 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.16.0 (0c01309)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: keycloak
+  name: keycloak
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: keycloak
+    spec:
+      containers:
+      - env:
+        - name: DB_PASSWORD
+          value: 1qaz2WSX3edc4RFVcl0ak
+        - name: DB_USER
+          value: keycloak
+        - name: DB_VENDOR
+          value: postgres
+        - name: KEYCLOAK_PASSWORD
+          value: 0okm9IJN8uhb7YGVcl0ak
+        - name: KEYCLOAK_USER
+          value: admin
+        - name: PROXY_ADDRESS_FORWARDING
+          value: "true" 
+        image: jboss/keycloak:7.0.0
+        name: keycloak
+        ports:
+        - containerPort: 8080
+        resources: {}
+      restartPolicy: Always
+status: {}

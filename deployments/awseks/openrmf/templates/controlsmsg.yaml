@@ -1,16 +1,16 @@
+---
+# Source: openrmf/templates/controlsmsg.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: openrmf-msg-controls
-  namespace: {{.Values.namespace}}
+  namespace: openrmf
   labels:
-    app.kubernetes.io/name: openrmf
-    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
-    app.kubernetes.io/component: controls-nats-message-client
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/revision: "{{ .Release.Revision }}"
-    app.kubernetes.io/version: {{ .Chart.AppVersion }}
-    app.kubernetes.io/managed-by: helm
+    app: openrmf
+    chart: openrmf-1.0.0
+    component: controls-nats-message-client
+    release: release-name
+    revision: "0"
 spec:
   selector:
     matchLabels:
@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
       - name: openrmf-msg-controls
-        image: cingulara/openrmf-msg-controls:{{.Values.controlmsgImage}}
+        image: cingulara/openrmf-msg-controls:0.8
         ports:
         - containerPort: 8080
         env:

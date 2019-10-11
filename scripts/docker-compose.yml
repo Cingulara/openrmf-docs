@@ -3,7 +3,7 @@ version : '3'
 services:
 ### 1 Web Front End Container
   openrmf-web:
-    image: cingulara/openrmf-web:0.8
+    image: cingulara/openrmf-web:0.8.1
     ports:
       - 8080:80
     depends_on:
@@ -168,7 +168,7 @@ services:
 
 ### 3 MongoDB Containers
   checklistdb:
-    image: cingulara/openrmf-checklistdb:0.8
+    image: mongo:4.0.5
     restart: always
     ports:
       - 27017
@@ -178,11 +178,12 @@ services:
       - MONGO_INITDB_DATABASE=openrmf
     volumes:
       - checklist-data-volume:/data/db
+      - ./initializeChecklist.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
     networks:
       - openrmf
 
   scoredb:
-    image: cingulara/openrmf-scoredb:0.8
+    image: mongo:4.0.5
     restart: always
     ports:
       - 27017
@@ -192,11 +193,12 @@ services:
       - MONGO_INITDB_DATABASE=openrmfscore
     volumes:
       - score-data-volume:/data/db
+      - ./initializeScore.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
     networks:
       - openrmf
 
   templatedb:
-    image: cingulara/openrmf-templatedb:0.8
+    image: mongo:4.0.5
     restart: always
     ports:
       - 27017
@@ -206,6 +208,7 @@ services:
       - MONGO_INITDB_DATABASE=openrmftemplate
     volumes:
       - template-data-volume:/data/db
+      - ./initializeTemplate.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
     networks:
       - openrmf
 

@@ -2,13 +2,15 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: openrmf-nats
-  namespace: openrmf
+  namespace: {{.Values.namespace}}
   labels:
-    app: openrmf
-    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
-    component: nats-server-1.4.1
-    release: {{ .Release.Name }}
-    revision: "{{ .Release.Revision }}"
+    app.kubernetes.io/name: openrmf
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app.kubernetes.io/component: nats-server-1.4.1
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/revision: "{{ .Release.Revision }}"
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: helm
 spec:
   selector:
     matchLabels:
@@ -23,7 +25,7 @@ spec:
     spec:
       containers:
       - name: openrmf-nats
-        image: nats:1.4.1-linux
+        image: nats:{{.Values.natsImage}}
         ports:
         - containerPort: 4222
           protocol: TCP
@@ -40,7 +42,15 @@ apiVersion: v1
 kind: Service
 metadata:
   name: natsserver
-  namespace: openrmf
+  namespace: {{.Values.namespace}}
+  labels:
+    app.kubernetes.io/name: openrmf
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app.kubernetes.io/component: nats-server-1.4.1
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/revision: "{{ .Release.Revision }}"
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: helm
 spec:
   ports:
   - name: nats
