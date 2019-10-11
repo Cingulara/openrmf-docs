@@ -16,8 +16,7 @@ data:
   initUsername: {{.Values.templateInitDBUser}}
   initPassword: {{.Values.templateInitDBPassword}}
   initDBNname: {{.Values.templateInitDBName}}
-  appUsername: {{.Values.templateAppUser}}
-  appPassword: {{.Values.templateAppPassword}}
+  appConnection: mongodb://{{.Values.templateAppUser}}:{{.Values.templateAppPassword}}@openrmf-templatedb/{{.Values.templateInitDBName}}?authSource={{.Values.templateInitDBName}}
 ---
 apiVersion: apps/v1
 kind: Deployment
