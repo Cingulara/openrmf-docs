@@ -63,23 +63,42 @@ serviceTypeAWS: LoadBalancer
 # AWS ACM Certificate ARN if used
 awsACM: arn:aws:acm:us-east-1:xxxxxxxxxxxxxx:certificate/xxxxxxxxxxxxxxxx
 
-# Checklist Database Secret Values
-checklistInitDBUser: root
-checklistInitDBPassword: mYp2ssw0rd
-checklistInitDBName: openrmf
-checklistAppUser: openrmf2
+# Database initialization Scripts
+checklistAppUser: openrmf
 checklistAppPassword: openrmf1234!
+templateAppUser: openrmftemplate
+templateAppPassword: openrmf4321!
+scoreAppUser: openrmfscore
+scoreAppPassword: openrmf9876!
+
+# SECRET VALUES ARE TO BE IN base64
+# Example: echo -n 'openrmf' | base64 
+# Above gives you a base64 encoded value to use here
+# More informaiton can be found at https://kubernetes.io/docs/concepts/configuration/secret/
+
+# Checklist Database Secret Values
+checklistInitDBUser: cm9vdA==
+checklistInitDBPassword: bVlwMnNzdzByZA==
+checklistInitDBName: b3BlbnJtZg==
+# app connection must be in the form below with valid user, password, and database names
+# the user, password, and database name must match the initialization scripts above -- secrets however are base64 encoded
+# mongodb://{{.Values.scoreAppUser}}:{{.Values.scoreAppPassword}}@openrmf-scoredb/{{.Values.scoreInitDBName}}?authSource={{.Values.scoreInitDBName}}
+checklistAppConnection: bW9uZ29kYjovL29wZW5ybWY6b3BlbnJtZjEyMzQhQG9wZW5ybWYtY2hlY2tsaXN0ZGIvb3BlbnJtZj9hdXRoU291cmNlPW9wZW5ybWY=
 
 # Template Database Secret Values
-templateInitDBUser: root
-templateInitDBPassword: myp2SSw0rd
-templateInitDBName: openrmftemplate
-templateAppUser: openrmftemplate2
-templateAppPassword: openrmf4321!
+templateInitDBUser: cm9vdA==
+templateInitDBPassword: bVlwMnNzdzByZA==
+templateInitDBName: b3BlbnJtZnRlbXBsYXRl
+# app connection must be in the form below with valid user, password, and database names
+# the user, password, and database name must match the initialization scripts above -- secrets however are base64 encoded
+# mongodb://{{.Values.scoreAppUser}}:{{.Values.scoreAppPassword}}@openrmf-scoredb/{{.Values.scoreInitDBName}}?authSource={{.Values.scoreInitDBName}}
+templateAppConnection: bW9uZ29kYjovL29wZW5ybWZ0ZW1wbGF0ZTpvcGVucm1mNDMyMSFAb3BlbnJtZi1jaGVja2xpc3RkYi9vcGVucm1mdGVtcGxhdGU/YXV0aFNvdXJjZT1vcGVucm1mdGVtcGxhdGU=
 
 # Score Database Secret Values
-scoreInitDBUser: root
-scoreInitDBPassword: myp2ssw0rd!
-scoreInitDBName: openrmfscore
-scoreAppUser: openrmfscore2
-scoreAppPassword: openrmf9999!
+scoreInitDBUser: cm9vdA==
+scoreInitDBPassword: bVlwMnNzdzByZA==!
+scoreInitDBName: b3BlbnJtZnNjb3Jl
+# app connection must be in the form below with valid user, password, and database names
+# the user, password, and database name must match the initialization scripts above -- secrets however are base64 encoded
+# mongodb://{{.Values.scoreAppUser}}:{{.Values.scoreAppPassword}}@openrmf-scoredb/{{.Values.scoreInitDBName}}?authSource={{.Values.scoreInitDBName}}
+scoreAppConnection: bW9uZ29kYjovL29wZW5ybWZzY29yZTpvcGVucm1mOTg3NiFAb3BlbnJtZi1jaGVja2xpc3RkYi9vcGVucm1mc2NvcmU/YXV0aFNvdXJjZT1vcGVucm1mc2NvcmU=

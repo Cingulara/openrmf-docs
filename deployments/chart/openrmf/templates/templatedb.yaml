@@ -16,7 +16,7 @@ data:
   initUsername: {{.Values.templateInitDBUser}}
   initPassword: {{.Values.templateInitDBPassword}}
   initDBNname: {{.Values.templateInitDBName}}
-  appConnection: mongodb://{{.Values.templateAppUser}}:{{.Values.templateAppPassword}}@openrmf-templatedb/{{.Values.templateInitDBName}}?authSource={{.Values.templateInitDBName}}
+  appConnection: {{.Values.templateAppConnection}}
 ---
 apiVersion: v1
 kind: ConfigMap

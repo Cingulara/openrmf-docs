@@ -15,9 +15,22 @@ or to put into a single file to deploy
 ```
 helm template chart/openrmf -n RELEASE_NAME --notes > ./openrmf.yaml
 ```
+Once the file(s) are generated you can apply the files. Make sure the namespace in the values.yaml file for the chart and the 
+namespace you made in step 1 are the same!
+
+1. Create your namespace, i.e. `kubectl apply -f ./deployments/kubernetes/namespace.yaml`
+2. Apply the file(s), i.e. `kubectl apply -f <path-to-where-your-helm-YAML-files-are> -n <namespace-you-specified>`
 
 ## Kubernetes
 For a straight kubernetes (k8s) installation w/o helm go to the [kubernetes](./kubernetes) folder and make the namespace with the . Then deploy all the pieces locally. You may have to adjust the services based on your setup.
+
+## Generating Secrets
+To use secrets in the YAML file you need to generate the values in base64 encoding. The username, initial root password, database name, 
+etc. are all used in other places through the API YAMLs and database YAML files to bring up and connect to MongoDB.
+
+```bash
+echo -n 'openrmf' | base64 
+```
 
 # AWS EKS Specifics
 

@@ -15,8 +15,8 @@ type: Opaque
 data:
   initUsername: {{.Values.scoreInitDBUser}}
   initPassword: {{.Values.scoreInitDBPassword}}
-  initDBNname: {{.Values.scoreInitDBName}}
-  appConnection: mongodb://{{.Values.scoreAppUser}}:{{.Values.scoreAppPassword}}@openrmf-scoredb/{{.Values.scoreInitDBName}}?authSource={{.Values.scoreInitDBName}}
+  initDBName: {{.Values.scoreInitDBName}}
+  appConnection: {{.Values.scoreAppConnection}}
 ---
 apiVersion: v1
 kind: ConfigMap

@@ -16,7 +16,7 @@ data:
   initUsername: {{.Values.checklistInitDBUser}}
   initPassword: {{.Values.checklistInitDBPassword}}
   initDBName: {{.Values.checklistInitDBName}}
-  appConnection: mongodb://{{.Values.checklistAppUser}}:{{.Values.checklistAppPassword}}@openrmf-checklistdb/{{.Values.checklistInitDBName}}?authSource={{.Values.checklistInitDBName}}
+  appConnection: {{.Values.checklistAppConnection}}
 ---
 apiVersion: v1
 kind: ConfigMap
