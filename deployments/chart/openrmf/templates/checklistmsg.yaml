@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openrmf-msg-checklist
+  namespace: {{.Values.namespace}}
+  labels:
+    app.kubernetes.io/name: openrmf
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app.kubernetes.io/component: checklist-nats-message-client
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/revision: "{{ .Release.Revision }}"
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: helm
+spec:
+  selector:
+    matchLabels:
+      run: openrmf-msg-checklist
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: openrmf-msg-checklist
+    spec:
+      containers:
+      - name: openrmf-msg-checklist
+        image: cingulara/openrmf-msg-checklist:{{.Values.checklistmsgImage}}
+        ports:
+        - containerPort: 8080
+        env:
+        - name: NATSSERVERURL
+          value: nats://natsserver:4222
+        - name: MONGODBCONNECTION
+          valueFrom:  
+            secretKeyRef:
+              name: checklistdbsecret
+              key: appConnection
+        - name: MONGODB
+          valueFrom:  
+            secretKeyRef:
+              name: checklistdbsecret
+              key: initDBNname
+        resources:
+          limits:
+            memory: "1Gi"
+            cpu: "250m"
+          requests:
+            memory: "500M"
+            cpu: "100m"
