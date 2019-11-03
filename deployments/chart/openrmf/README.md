@@ -70,21 +70,20 @@ individual images this is updated. Each one can be set individually just in case
 repos in the https://www.github.com/Cingulara/ area.
 
 ```yaml
-checklistdbImage: 0.8
-checklistmsgImage: 0.8
-complianceImage: 0.8
-compliancemsgImage: 0.8
-controlImage: 0.8
-controlmsgImage: 0.8
-readImage: 0.8
-saveImage: 0.8
-scoredbImage: 0.8
-scoremsgmage: 0.8
-scoringImage: 0.8
-templateImage: 0.8
-templatedbImage: 0.8
-uploadImage: 0.8
-webuiImage: 0.8.1
+checklistmsgImage: 0.9
+complianceImage: 0.9
+compliancemsgImage: 0.9
+controlImage: 0.9
+controlmsgImage: 0.9
+readImage: 0.9
+saveImage: 0.9
+scoremsgImage: 0.9
+scoringImage: 0.9
+templateImage: 0.9
+templatemsgImage: 0.9
+uploadImage: 0.9
+webuiImage: 0.9
+mongoImage: 4.0.5
 natsImage: 1.4.1-linux
 ```
 
