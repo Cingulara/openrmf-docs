@@ -1,4 +1,4 @@
-theme: jekyll-theme-minimal
+theme: just-the-docs
 title: OpenRMF Docs
 description: OpenRMF is the only open source tool to manage your DoD STIG checklists, generate NIST compliance, keep track of your security items that are Open or Not Reviewed, and shrink your timeline to submit for an ATO!
 # logo: [Location of the logo]
