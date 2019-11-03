@@ -12,6 +12,7 @@ docker pull cingulara/openrmf-templatedb
 docker pull cingulara/openrmf-scoredb
 docker pull cingulara/openrmf-checklistdb
 docker pull cingulara/openrmf-api-template
+docker pull cingulara/openrmf-msg-template
 docker pull cingulara/openrmf-api-compliance
 docker pull cingulara/openrmf-api-controls
 docker pull nats:1.4.1-linux
