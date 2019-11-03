@@ -1,7 +1,7 @@
 # openRMF Architecture
 This has the current architecture information for the OpenRMF application as of version 0.8.
 
-![Image](./openRMF-Tool-0.8-Architecture.png?raw=true)
+![Image](./openRMF-Tool-Architecture.png?raw=true)
 
 ## The Genesis
 The January 2019 Phase 1 Vision / Concept as drawn on my whiteboard in my basement:
@@ -22,6 +22,7 @@ of chart data and XLSX downloads.
 * https://github.com/Cingulara/openrmf-api-compliance is for generating the compliance listing, matching NIST controls via CCI to 1 or more checklists in a System. This generates a table of controls and the checklists corresponding to the control from the system's group of checklists. The checklist is linked to the Checklist service and color coded by status.
 * https://github.com/Cingulara/openrmf-msg-controls is a NATS client for responding to request/reply on a list of all RMF controls or get the information on a specific control (i.e. AC-1).
 * https://github.com/Cingulara/openrmf-msg-compliance is a NATS client for responding to request/reply on a list of all compliance listings mapping STIG vulnerability IDs to controls. Use this for a full listing based on a low/moderate/high level as well as if you are using personally identifiable information (PII) or similar data.
+* https://github.com/Cingulara/openrmf-msg-template is a NATS client for responding to request/reply on a request for a checklist SYSTEM template based on the title passed in.
 
 I started this project with separate microservices all over including messaging for API-to-API communication. Future enhancements are to organically add publish / subscribe pieces such as compliance, auditing, logging, etc. to make this more user and enterprise ready. Along with all the error trapping, checking for NATS connection, etc. that a production 1.0 application would have. 
 
@@ -41,3 +42,4 @@ OpenRMF uses NATS messaging to work eventual consistency as well as API-to-API c
 | openrmf.compliance.cci.control | Request/Reply | Compliance, Read | openrmf-msg-compliance | Send back a full listing of CCI items based on the NIST/RMF control passed in.  |
 | openrmf.controls | Request/Reply | Compliance |  openrmf-msg-controls| Send back the list of all controls. |
 | openrmf.controls.search | Request/Reply | Controls | openrmf-msg-controls | Send back a single record for the passed in control (i.e. AC-2). |
+| openrmf.template.read | Request/Reply | Upload | openrmf-msg-template | Send back a single template checklist record for the passed in title. Used when you upload an XCCDF SCAP scan result to create a checklist. |
