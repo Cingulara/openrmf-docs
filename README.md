@@ -1,4 +1,4 @@
-# OpenRMF Documentation (v 0.8) (formerly openSTIG)
+# OpenRMF Documentation (v 0.9)
 
 ## Introduction to OpenRMF
 OpenRMF is an open source tool for managing, viewing, and reporting of your DoD STIG checklists in one web-based interface using your browser. It also generates a compliance listing of all your checklists across a whole system based on NIST 800-53 for your Risk Management Framework (RMF) documentation and process. This tool helps you manage multiple systems going through the RMF process and allows you to structure your data in a clean interface all in one location for your group or program. It can save you weeks of manually checking vulnerability-to-CCI-to-NIST controls and generating reports manually, so you can get on to the value-added work for your cybersecurity hygiene.
@@ -9,6 +9,7 @@ Read more about its genesis <a href="https://www.cingulara.com/opensource.html" 
 
 ## Current Functionality
 - [x] User AuthN and AuthZ for login accounts and Role Based Access Control on functions
+- [x] Import SCAP scans (DISA STIGs) for automatic checklist documentation
 - [x] Save/Upload .CKL files for viewing and safekeeping
 - [x] List and display active checklists
 - [x] List and display templated checklists (starting points)
@@ -27,7 +28,6 @@ Read more about its genesis <a href="https://www.cingulara.com/opensource.html" 
 
 ## ToDos (in no particular order)
 - [ ] Generate the RMF POA&M
-- [ ] Import SCAP scans (DISA STIGs) for automatic checklist documentation
 - [ ] Import ACAS/NESSUS scans (patches and updates) for automatic checklist documentation
 - [ ] Select the fields to export to MS Excel, autofilter enabled on the header row
 - [ ] A wizard to ask questions and customize a starting checklist file for you with certain fields and comments filled in
@@ -41,17 +41,17 @@ If we are missing something you want, please add it on our main <a href="https:/
 
 ## Description
 
-The openRMF tool is an advanced alternative than the [DISA STIGViewer.jar](https://iase.disa.mil/stigs/Pages/stig-viewing-guidance.aspx) that is used for DoD STIG checklist files, RMF process information, and the like. It is necessary to capture and report on this information, please do not mistake what I say for not agreeing with securing services. However, the DISA Java tool itself is horribly designed and not conducive to today's environment and use. Their Java tool has been like this for a loooooonnnnnngggg time and I have wanted to make something better (IMO) for almost as long. So this tool here is the start! It is a way (currently) to view, report on, dive into, manage, and export your STIG checklists no matter which checklist you are referring to. All the .CKL files have a common format and htis reads and displays/manages that in a web front end using .NET Core APIs, MongoDB and NATS messaging. [View the history](https://www.cingulara.com/opensource.html) of this tool on our website. 
+The OpenRMF tool is an advanced alternative than the [DISA STIGViewer.jar](https://iase.disa.mil/stigs/Pages/stig-viewing-guidance.aspx) that is used for DoD STIG checklist files, RMF process information, and the like. It is necessary to capture and report on this information, please do not mistake what I say for not agreeing with securing services. However, the DISA Java tool itself is horribly designed and not conducive to today's environment and use. Their Java tool has been like this for a loooooonnnnnngggg time and I have wanted to make something better (IMO) for almost as long. So this tool here is the start! It is a way (currently) to view, report on, dive into, manage, and export your STIG checklists no matter which checklist you are referring to. All the .CKL files have a common format and htis reads and displays/manages that in a web front end using .NET Core APIs, MongoDB and NATS messaging. [View the history](https://www.cingulara.com/opensource.html) of this tool on our website. 
 
-This is the repo for all the docs as the openRMF project goes along.  Documentation on the openRMF application will be here in MD files and reference images and other documents as well as GH markdown. This application idea has been brewing in my head for well over a decade and specifically since July 4th weekend 2018 when I started to put down code. Then in January 2019 when I scrapped all that July stuff and went for web APIs, microservices, eventual consistency, CQRS (command query responsibility segregation to scale separately), using MongoDB and NATS.
+This is the repo for all the docs as the OpenRMF project goes along.  Documentation on the OpenRMF application will be here in MD files and reference images and other documents as well as GH markdown. This application idea has been brewing in my head for well over a decade and specifically since July 4th weekend 2018 when I started to put down code. Then in January 2019 when I scrapped all that July stuff and went for web APIs, microservices, eventual consistency, CQRS (command query responsibility segregation to scale separately), using MongoDB and NATS.
 
 ## What you need to run
 You need a web browser that is fairly current. And you need Docker installed on your desktop (or Kubernetes/minikube) or server as this currently uses the Docker runtime to bring up all components with ` docker-compose ` via the included ".sh" shell (Linux / Mac) or ".cmd" command scripts (Windows).
 
 * Docker is available at <a href="https://docs.docker.com/install/" target="_blank">https://docs.docker.com/install/</a>.
 
-## Run openRMF locally
-The best way to run this application (once you have Docker installed) is to go to the Code -- Releases tab https://github.com/Cingulara/openrmf-docs/releases and pull down the latest release. Unzip the file and then run the ./start.sh or .\start.cmd file to pull the latest images and run openRMF. Then you can open a local browser to http://{ip-address}:8080/ and see what happens. If you want to change the ports you only have to edit the docker-compose.yml file locally. These files are in the [scripts](scripts) folder of this repo.
+## Run OpenRMF locally
+The best way to run this application (once you have Docker installed) is to go to the Code -- Releases tab https://github.com/Cingulara/openrmf-docs/releases and pull down the latest release. Unzip the file and then run the ./start.sh or .\start.cmd file to pull the latest images and run OpenRMF. Then you can open a local browser to http://{ip-address}:8080/ and see what happens. If you want to change the ports you only have to edit the docker-compose.yml file locally. These files are in the [scripts](scripts) folder of this repo.
 
 Be sure to check out the [Keycloak information](#authentication-with-keycloak) because version 0.8 and beyond has RBAC for AuthN and AuthZ on the web and API calls. Or you could use another OpenID compliant application to provide AuthN and AuthZ.
 
@@ -64,7 +64,7 @@ JWT-AUTHORITY=http://xxx.xxx.xxx.xxx:9001/auth/realms/openrmf
 JWT-CLIENT=openrmf
 ```
 
-## Run openRMF latest development
+## Run OpenRMF latest development
 For those that want to run the actual "latest" or "edge" of OpenRMF you should run `git clone https://github.com/Cingulara/openrmf-docs.git `, then `git checkout develop` to switch to the develop branch. Inside the scripts directory there is an [edge](scripts/edge/) directory with ./dev-start.sh (or .\dev-start.cmd on Windows) file to run to start and a corresponding ./dev-stop.sh (.\dev-stop.cmd on Windows) to run the latest development version. These operate on http://{ip-address}:9080 so as not to interfere with a running released version to compare/contrast. Note the docker-compose.yml has different ports and different database mount volumes as well. 
 
 > You must look at the YML files and see how we set the Keycloak/OpenID location and realm. Check the `.env` file in the [scripts](scripts) directory to see how to set those variables. The docker-compose stack YML files read that .env file to launch.
@@ -86,7 +86,7 @@ If you find any problem, have an idea or enhancement please do not hesitate to a
 If you wish you can create a MongoDB setup locally to persist your data and see what it does. Checkout the [create users by hand](create-users-by-hand.md) readme for more on that. 
 
 ## Cleaning up the Docker volumes and such every so often
-If you want to remove all data from volumes you can run the below. Do at your own risk and know the consequences! I do this on my development machine to clear ALL volumes including those not for openRMF. 
+If you want to remove all data from volumes you can run the below. Do at your own risk and know the consequences! I do this on my development machine to clear ALL volumes including those not for OpenRMF. 
 
 * run `docker volume rm $(docker volume ls -qf dangling=true)` 
 * run `docker system prune` and then enter `y` and press Enter when asked
