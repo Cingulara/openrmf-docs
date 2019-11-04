@@ -8,11 +8,11 @@ description: OpenRMF is the only open source tool to manage your DoD STIG checkl
 search_enabled: true
 heading_anchors: true
 
-footer_content: "Copyright &copy; 2019 Cingulara. Distributed by <a href=\"https://www.openrmf.io\">openrmf.io.</a>"
+footer_content: "Copyright &copy; 2019 Cingulara. Distributed by <a href=\"https://www.openrmf.io\" target=\"_blank\">openrmf.io.</a>"
 
 # Aux links for the upper right navigation
 aux_links:
   "openrmf.io":
     - "//www.openrmf.io/"
   "Code on GitHub":
-    - "github.com/cingulara/openrmf-docs/"
+    - "//github.com/cingulara/openrmf-docs/"
