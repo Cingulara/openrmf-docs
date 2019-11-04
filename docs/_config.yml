@@ -1,9 +1,18 @@
 remote_theme: pmarsceill/just-the-docs
 title: OpenRMF Docs
 description: OpenRMF is the only open source tool to manage your DoD STIG checklists, generate NIST compliance, keep track of your security items that are Open or Not Reviewed, and shrink your timeline to submit for an ATO!
-# logo: [Location of the logo]
+
+# Set a path/url to a logo that will be displayed instead of the title
+# logo: "/assets/images/just-the-docs.png"
 
 search_enabled: true
 heading_anchors: true
 
-footer_content: "Copyright &copy; 2019 Cingulara. Distributed by an <a href=\"https://www.openrmf.io\">openrmf.io.</a>"
+footer_content: "Copyright &copy; 2019 Cingulara. Distributed by <a href=\"https://www.openrmf.io\">openrmf.io.</a>"
+
+# Aux links for the upper right navigation
+aux_links:
+  "openrmf.io":
+    - "//www.openrmf.io/"
+  "Code on GitHub":
+    - "github.com/cingulara/openrmf-docs/"
