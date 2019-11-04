@@ -19,10 +19,11 @@ Some of the high level features are below:
 
 * 100% web based
 * 100% Open Source Software (OSS)
+* Upload a CKL or SCAP XCCDF format file easily to visualize your RMF process
 * Automatically organizes your checklists by system
 * Single source of truth for your system checklists
 * Management insight into Cybersecurity Status and Security Posture instantly
-* Role Based Access Control (RBAC) to control access to read as well as edit data
+* AuthN, AuthZ, and Role Based Access Control (RBAC) to control access to read as well as edit data
 * Run on premise, on a local machine, or in the cloud
 * Easily find errors and deltas across checklists in your system
 * Easily run a compliance report in seconds for your Low, Moderate, or High system
