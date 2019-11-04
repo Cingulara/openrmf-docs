@@ -14,7 +14,7 @@ git clone https://github.com/Cingulara/openrmf-docs.git
 Next, in the terminal window run <git checkout develop> so you are in the right branch.
 
 ## Run Keycloak
-To run a local keycloak, go to the scripts/keycloak directory and run the <./startup.sh> or <./startup.cmd> to load Keycloak loally. Then follow the steps below to run Keycloak correctly. The docker-compose used persists the Keycloak database. So once this is setup you should be good to go.  
+To run a local keycloak, go to the scripts/keycloak directory and run the `./startup.sh` or `./startup.cmd` to load Keycloak loally. Then follow the steps below to run Keycloak correctly. The docker-compose used persists the Keycloak database. So once this is setup you should be good to go.  
 
 Note you need to use the IP to reference Keycloak and the OpenRMF tool locally. "Localhost" in the concept of a container is itself, not your local machine! I have stumbled on that so many times....so putting it here now. 
 
@@ -55,6 +55,6 @@ Now you are finally done! Check the OpenRMF web application by creating a user a
 
 ## Run OpenRMF Latest
 
-While in the develop branch, go to the scripts/edge directory. While in that directory run <./dev-start.sh> or <./dev-start.cmd> for your OS and let it spin up the containers for the database and website. You should see a message on how to go to port 8080 to run the application at the end. 
+While in the develop branch, go to the scripts/edge directory. While in that directory run `./dev-start.sh` or `./dev-start.cmd` for your OS and let it spin up the containers for the database and website. You should see a message on how to go to port 8080 to run the application at the end. 
 
 Remember, use the IP address of your local machine to go to it. It should redirect you to go to Keycloak and login or create a user. Once your user is setup and you can log in, you should see OpenRMF correctly!
