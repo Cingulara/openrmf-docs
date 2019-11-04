@@ -1,5 +1,5 @@
 ---
-title: What's New with OpenRMF
+title: What's New in v0.9
 nav_order: 2
 ---
 
