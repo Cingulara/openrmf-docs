@@ -33,7 +33,7 @@ metadata:
     app.kubernetes.io/managed-by: helm
 data:
   mongo-init.js: |
-    db.createUser({ user: "{{.Values.scoreAppUser}}" , pwd: "{{.Values.scoreAppPassword}}!", roles: [{ "role": "readWrite", "db": "{{.Values.scoreInitDBName}}"}]});
+    db.createUser({ user: "{{.Values.scoreAppUser}}" , pwd: "{{.Values.scoreAppPassword}}!", roles: [{ "role": "readWrite", "db": "{{.Values.scoreAppUser}}"}]});
     db.createCollection("Scores");
 ---
 apiVersion: apps/v1

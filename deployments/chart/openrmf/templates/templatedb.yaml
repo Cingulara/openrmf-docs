@@ -33,7 +33,7 @@ metadata:
     app.kubernetes.io/managed-by: helm
 data:
   mongo-init.js: |
-    db.createUser({ user: "{{.Values.templateAppUser}}" , pwd: "{{.Values.templateAppPassword}}!", roles: [{ "role": "readWrite", "db": "{{.Values.templateInitDBName}}"}]});
+    db.createUser({ user: "{{.Values.templateAppUser}}" , pwd: "{{.Values.templateAppPassword}}!", roles: [{ "role": "readWrite", "db": "{{.Values.templateAppUser}}"}]});
     db.createCollection("Templates");
 ---
 apiVersion: apps/v1
