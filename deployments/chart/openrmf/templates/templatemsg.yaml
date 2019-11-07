@@ -29,6 +29,16 @@ spec:
         env:
         - name: NATSSERVERURL
           value: nats://natsserver:4222
+        - name: MONGODBCONNECTION
+          valueFrom:  
+            secretKeyRef:
+              name: templatedbsecret
+              key: appConnection
+        - name: MONGODB
+          valueFrom:  
+            secretKeyRef:
+              name: templatedbsecret
+              key: initDBName
         resources:
           limits:
             memory: "1Gi"
