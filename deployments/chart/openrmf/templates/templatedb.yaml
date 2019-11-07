@@ -33,7 +33,7 @@ metadata:
     app.kubernetes.io/managed-by: helm
 data:
   mongo-init.js: |
-    db.createUser({ user: "{{.Values.templateAppUser}}" , pwd: "{{.Values.templateAppPassword}}!", roles: [{ "role": "readWrite", "db": "{{.Values.templateAppUser}}"}]});
+    db.createUser({ user: "{{.Values.templateAppUser}}" , pwd: "{{.Values.templateAppPassword}}", roles: [{ "role": "readWrite", "db": "{{.Values.templateAppUser}}"}]});
     db.createCollection("Templates");
 ---
 apiVersion: apps/v1
@@ -89,6 +89,9 @@ spec:
         volumeMounts:
         - mountPath: /data/db
           name: mongodata-templatedb
+        - name: initconfig-volume
+          mountPath: /docker-entrypoint-initdb.d/mongo-init.js
+          subPath: mongo-init.js
       restartPolicy: Always
       volumes:
       - name: mongodata-templatedb

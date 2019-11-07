@@ -33,7 +33,7 @@ metadata:
     app.kubernetes.io/managed-by: helm
 data:
   mongo-init.js: |
-    db.createUser({ user: "{{.Values.scoreAppUser}}" , pwd: "{{.Values.scoreAppPassword}}!", roles: [{ "role": "readWrite", "db": "{{.Values.scoreAppUser}}"}]});
+    db.createUser({ user: "{{.Values.scoreAppUser}}" , pwd: "{{.Values.scoreAppPassword}}", roles: [{ "role": "readWrite", "db": "{{.Values.scoreAppUser}}"}]});
     db.createCollection("Scores");
 ---
 apiVersion: apps/v1
@@ -89,6 +89,9 @@ spec:
         volumeMounts:
         - mountPath: /data/db
           name: mongodata-scoredb
+        - name: initconfig-volume
+          mountPath: /docker-entrypoint-initdb.d/mongo-init.js
+          subPath: mongo-init.js
       restartPolicy: Always
       volumes:
       - name: mongodata-scoredb
