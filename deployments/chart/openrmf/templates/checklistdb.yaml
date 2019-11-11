@@ -33,7 +33,7 @@ metadata:
     app.kubernetes.io/managed-by: helm
 data:
   mongo-init.js: |
-    db.createUser({ user: "{{.Values.checklistAppUser}}" , pwd: "{{.Values.checklistAppPassword}}!", roles: [{ "role": "readWrite", "db": "{{.Values.checklistInitDBName}}"}]});
+    db.createUser({ user: "{{.Values.checklistAppUser}}" , pwd: "{{.Values.checklistAppPassword}}", roles: [{ "role": "readWrite", "db": "{{.Values.checklistAppUser}}"}]});
     db.createCollection("Artifacts");
 ---
 apiVersion: apps/v1
@@ -89,6 +89,9 @@ spec:
         volumeMounts:
         - mountPath: /data/db
           name: mongodata-checklistdb
+        - name: initconfig-volume
+          mountPath: /docker-entrypoint-initdb.d/mongo-init.js
+          subPath: mongo-init.js
       restartPolicy: Always
       volumes:
       - name: mongodata-checklistdb

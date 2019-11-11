@@ -34,8 +34,8 @@ readImage: 0.9
 saveImage: 0.9
 scoremsgImage: 0.9
 scoringImage: 0.9
-templateImage: 0.9
-templatemsgImage: 0.9
+templateImage: 0.9.1
+templatemsgImage: 0.9.1
 uploadImage: 0.9
 webuiImage: 0.9
 mongoImage: 4.0.5
