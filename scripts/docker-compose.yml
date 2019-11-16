@@ -3,7 +3,7 @@ version : '3'
 services:
 ### 1 Web Front End Container
   openrmf-web:
-    image: cingulara/openrmf-web:0.9.1
+    image: cingulara/openrmf-web:0.10
     ports:
       - 8080:80
     depends_on:
@@ -18,7 +18,7 @@ services:
 
 ### 7 API Containers
   openrmfapi-scoring:
-    image: cingulara/openrmf-api-scoring:0.9
+    image: cingulara/openrmf-api-scoring:0.10
     ports:
       - 8090:8080
     env_file: .env
@@ -226,7 +226,8 @@ services:
 
 ### NATS messaging container (internal)
   natsserver: 
-    image: nats:1.4.1-linux
+    image: nats:2.1.0-linux
+    command: -m 8222
     restart: always
     ports:
       - 4222
@@ -234,6 +235,30 @@ services:
       - 8222
     networks:
       - openrmf
+
+  natspromexporter: 
+    image: synadia/prometheus-nats-exporter:latest
+    command: -DV -varz http://natsserver:8222
+    restart: always
+    ports:
+      - 7777
+
+  prometheus:
+    image: prom/prometheus
+    restart: always
+    ports:
+      - 9090
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+
+  grafana: 
+    image: grafana/grafana
+    #command:
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=1qaz2WSX3edc4RFVgr@fana
+    restart: always
+    ports:
+      - 3000:3000
 
 ### put all the volume listings here for persistent data
 volumes:

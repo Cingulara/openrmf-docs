@@ -14,15 +14,37 @@ services:
       - ./initializedbs.js:/docker-entrypoint-initdb.d/initialize.js:ro
 
   nats: 
-    image: nats:1.4.1-linux
-    command: -D -V
+    image: nats:2.1.0-linux
+    command: -D -V -m 8222
     restart: always
     ports:
       - 4222:4222
       - 6222:6222
       - 8222:8222
+
+  natspromexporter: 
+    image: synadia/prometheus-nats-exporter:latest
+    command: -DV -varz http://nats:8222
+    restart: always
+    ports:
+      - 7777
+
+  prometheus:
+    image: prom/prometheus
+    restart: always
+    ports:
+      - 9090
     volumes:
-      - ./nats.config:/tmp/nats.config
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+
+  grafana: 
+    image: grafana/grafana
+    #command:
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=1qaz2WSX3edc4RFVgr@fana
+    restart: always
+    ports:
+      - 3000:3000
 
   mongo-express:
     image: mongo-express:latest
