@@ -226,7 +226,7 @@ services:
 
 ### NATS messaging container (internal)
   natsserver: 
-    image: nats:2.1.0-linux
+    image: nats:2.1.2-linux
     command: -m 8222
     restart: always
     ports:

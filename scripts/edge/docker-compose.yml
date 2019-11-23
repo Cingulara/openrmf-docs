@@ -198,7 +198,7 @@ services:
       - MONGO_INITDB_DATABASE=openrmfscore
     volumes:
       - score-dev-data-volume:/data/db
-      - ./initializeScore.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      - ../initializeScore.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
     networks:
       - openrmf-dev
 
@@ -213,13 +213,13 @@ services:
       - MONGO_INITDB_DATABASE=openrmftemplate
     volumes:
       - template-dev-data-volume:/data/db
-      - ./initializeTemplate.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      - ../initializeTemplate.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
     networks:
       - openrmf-dev
 
 ### NATS messaging container (internal)
   natsserver: 
-    image: nats:1.4.1-linux
+    image: nats:2.1.2-linux
     restart: always
     ports:
       - 4222
@@ -227,6 +227,30 @@ services:
       - 8222
     networks:
       - openrmf-dev
+
+  natspromexporter: 
+    image: synadia/prometheus-nats-exporter:latest
+    command: -DV -varz http://nats:8222
+    restart: always
+    ports:
+      - 7777
+
+  prometheus:
+    image: prom/prometheus
+    restart: always
+    ports:
+      - 9090
+    volumes:
+      - ../prometheus.yml:/etc/prometheus/prometheus.yml:ro
+
+  grafana: 
+    image: grafana/grafana
+    #command:
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=1qaz2WSX3edc4RFVgr@fana
+    restart: always
+    ports:
+      - 3000:3000
 
 ### put all the volume listings here for persistent data
 volumes:

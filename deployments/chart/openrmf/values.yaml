@@ -39,7 +39,7 @@ templatemsgImage: 0.9.1
 uploadImage: 0.9
 webuiImage: 0.9.1
 mongoImage: 4.0.5
-natsImage: 1.4.1-linux
+natsImage: 2.1.2-linux
 
 # storage class name for PVC
 # examples: standard, ebs-sc, efs-sc

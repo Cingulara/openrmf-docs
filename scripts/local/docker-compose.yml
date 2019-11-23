@@ -14,7 +14,7 @@ services:
       - ./initializedbs.js:/docker-entrypoint-initdb.d/initialize.js:ro
 
   nats: 
-    image: nats:2.1.0-linux
+    image: nats:2.1.2-linux
     command: -D -V -m 8222
     restart: always
     ports:

@@ -6,7 +6,7 @@ metadata:
   labels:
     app.kubernetes.io/name: openrmf
     helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
-    app.kubernetes.io/component: nats-server-1.4.1
+    app.kubernetes.io/component: nats-server-2.1.0
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/revision: "{{ .Release.Revision }}"
     app.kubernetes.io/version: {{ .Chart.AppVersion }}
@@ -26,6 +26,7 @@ spec:
       containers:
       - name: openrmf-nats
         image: nats:{{.Values.natsImage}}
+        command: -m 8222
         ports:
         - containerPort: 4222
           protocol: TCP
@@ -61,3 +62,44 @@ spec:
     run: openrmf-nats
   sessionAffinity: None
   clusterIP: None
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openrmf-natspromexporter
+  namespace: {{.Values.namespace}}
+  labels:
+    app.kubernetes.io/name: openrmf
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app.kubernetes.io/component: nats-prometheus-exporter
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/revision: "{{ .Release.Revision }}"
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: helm
+spec:
+  selector:
+    matchLabels:
+      run: openrmf-natspromexporter
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        run: openrmf-natspromexporter
+    spec:
+      containers:
+      - name: openrmf-natspromexporter
+        image: synadia/prometheus-nats-exporter:latest
+        command: -varz http://natsserver:8222
+        ports:
+        - containerPort: 7777
+          protocol: TCP
+        resources:
+          limits:
+            memory: "250Mi"
+            cpu: "250m"
+          requests:
+            memory: "125Mi"
+            cpu: "125m"
+      restartPolicy: Always
