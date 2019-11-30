@@ -171,6 +171,18 @@ services:
     networks:
       - openrmf
 
+  openrmfmsg-system:
+    image: cingulara/openrmf-msg-system
+    environment:
+      - MONGODBCONNECTION=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
+      - MONGODB=openrmf
+      - NATSSERVERURL=nats://natsserver:4222
+    depends_on:
+      - checklistdb
+      - natsserver
+    networks:
+      - openrmf
+
 ### 3 MongoDB Containers
   checklistdb:
     image: mongo:4.0.5

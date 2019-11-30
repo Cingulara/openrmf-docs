@@ -33,7 +33,7 @@ services:
       - openrmf
   
   openrmfapi-save:
-    image: cingulara/openrmf-api-save:0.9
+    image: cingulara/openrmf-api-save:0.10
     ports:
       - 8082:8080
     env_file: .env
@@ -51,7 +51,7 @@ services:
       - openrmf
 
   openrmfapi-template:
-    image: cingulara/openrmf-api-template:0.9.1
+    image: cingulara/openrmf-api-template:0.10
     ports:
       - 8088:8080
     env_file: .env
@@ -66,7 +66,7 @@ services:
       - openrmf
 
   openrmfapi-upload:
-    image: cingulara/openrmf-api-upload:0.9
+    image: cingulara/openrmf-api-upload:0.10
     ports:
       - 8086:8080
     env_file: .env
@@ -84,7 +84,7 @@ services:
       - openrmf
 
   openrmfapi-read:
-    image: cingulara/openrmf-api-read:0.9
+    image: cingulara/openrmf-api-read:0.10
     ports:
       - 8084:8080
     env_file: .env
@@ -100,7 +100,7 @@ services:
       - openrmf
 
   openrmfapi-compliance:
-    image: cingulara/openrmf-api-compliance:0.9
+    image: cingulara/openrmf-api-compliance:0.10
     ports:
       - 8092:8080
     env_file: .env
@@ -112,7 +112,7 @@ services:
       - openrmf
 
   openrmfapi-controls:
-    image: cingulara/openrmf-api-controls:0.9
+    image: cingulara/openrmf-api-controls:0.10
     ports:
       - 8094:8080
     env_file: .env
@@ -125,7 +125,7 @@ services:
 
 ### 4 Messaging Containers
   openrmfmsg-score:
-    image: cingulara/openrmf-msg-score:0.9
+    image: cingulara/openrmf-msg-score:0.10
     environment:
       - MONGODBCONNECTION=mongodb://openrmfscore:openrmf1234!@scoredb/openrmfscore?authSource=openrmfscore
       - MONGODB=openrmfscore
@@ -137,7 +137,7 @@ services:
       - openrmf
 
   openrmfmsg-checklist:
-    image: cingulara/openrmf-msg-checklist:0.9
+    image: cingulara/openrmf-msg-checklist:0.10
     environment:
       - MONGODBCONNECTION=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
       - MONGODB=openrmf
@@ -149,7 +149,7 @@ services:
       - openrmf
 
   openrmfmsg-compliance:
-    image: cingulara/openrmf-msg-compliance:0.9
+    image: cingulara/openrmf-msg-compliance:0.10
     environment:
       - NATSSERVERURL=nats://natsserver:4222
     depends_on:
@@ -158,7 +158,7 @@ services:
       - openrmf
 
   openrmfmsg-controls:
-    image: cingulara/openrmf-msg-controls:0.9
+    image: cingulara/openrmf-msg-controls:0.10
     environment:
       - NATSSERVERURL=nats://natsserver:4222
     depends_on:
@@ -167,13 +167,25 @@ services:
       - openrmf
 
   openrmfmsg-template:
-    image: cingulara/openrmf-msg-template:0.9.1
+    image: cingulara/openrmf-msg-template:0.10
     environment:
       - MONGODBCONNECTION=mongodb://openrmftemplate:openrmf1234!@templatedb/openrmftemplate?authSource=openrmftemplate
       - MONGODB=openrmftemplate
       - NATSSERVERURL=nats://natsserver:4222
     depends_on:
       - templatedb
+      - natsserver
+    networks:
+      - openrmf
+
+  openrmfmsg-system:
+    image: cingulara/openrmf-msg-system:0.10
+    environment:
+      - MONGODBCONNECTION=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
+      - MONGODB=openrmf
+      - NATSSERVERURL=nats://natsserver:4222
+    depends_on:
+      - checklistdb
       - natsserver
     networks:
       - openrmf
