@@ -25,10 +25,10 @@ Read more about its genesis <a href="https://www.cingulara.com/opensource.html" 
 - [x] Exporting your list of checklists and their score by status and category to MS Excel 
 - [x] YAML to quickly setup this project in OpenShift or K8s natively
 - [x] Filter the Compliance Generator for Low/Moderate/High projects as well as PII/Privacy overlay information
+- [x] Import ACAS/NESSUS scans (patches and updates) for automatic checklist documentation
 
 ## ToDos (in no particular order)
 - [ ] Generate the RMF POA&M
-- [ ] Import ACAS/NESSUS scans (patches and updates) for automatic checklist documentation
 - [ ] Select the fields to export to MS Excel, autofilter enabled on the header row
 - [ ] A wizard to ask questions and customize a starting checklist file for you with certain fields and comments filled in
 - [ ] Auditing all creates, deletes, and updates
