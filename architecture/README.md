@@ -1,5 +1,5 @@
 # openRMF Architecture
-This has the current architecture information for the OpenRMF application as of version 0.8.
+This has the current architecture information for the OpenRMF application as of version 0.10.
 
 ![Image](./openRMF-Tool-Architecture.png?raw=true)
 
@@ -22,7 +22,9 @@ of chart data and XLSX downloads.
 * https://github.com/Cingulara/openrmf-api-compliance is for generating the compliance listing, matching NIST controls via CCI to 1 or more checklists in a System. This generates a table of controls and the checklists corresponding to the control from the system's group of checklists. The checklist is linked to the Checklist service and color coded by status.
 * https://github.com/Cingulara/openrmf-msg-controls is a NATS client for responding to request/reply on a list of all RMF controls or get the information on a specific control (i.e. AC-1).
 * https://github.com/Cingulara/openrmf-msg-compliance is a NATS client for responding to request/reply on a list of all compliance listings mapping STIG vulnerability IDs to controls. Use this for a full listing based on a low/moderate/high level as well as if you are using personally identifiable information (PII) or similar data.
-* https://github.com/Cingulara/openrmf-msg-template is a NATS client for responding to request/reply on a request for a checklist SYSTEM template based on the title passed in.
+* https://github.com/Cingulara/openrmf-msg-template is a NATS client for responding to request/reply on a request for a System template based on the title passed in.
+* https://github.com/Cingulara/openrmf-msg-checklist is a NATS client for responding to request/reply on a request for a checklist based on the Mongo DB record Id passed in.
+* https://github.com/Cingulara/openrmf-msg-system is a NATS client for responding to published messages for for updating a System based on title, number of checklists, or running a compliance check.
 
 I started this project with separate microservices all over including messaging for API-to-API communication. Future enhancements are to organically add publish / subscribe pieces such as compliance, auditing, logging, etc. to make this more user and enterprise ready. Along with all the error trapping, checking for NATS connection, etc. that a production 1.0 application would have. 
 
@@ -43,3 +45,8 @@ OpenRMF uses NATS messaging to work eventual consistency as well as API-to-API c
 | openrmf.controls | Request/Reply | Compliance |  openrmf-msg-controls| Send back the list of all controls. |
 | openrmf.controls.search | Request/Reply | Controls | openrmf-msg-controls | Send back a single record for the passed in control (i.e. AC-2). |
 | openrmf.template.read | Request/Reply | Upload | openrmf-msg-template | Send back a single template checklist record for the passed in title. Used when you upload an XCCDF SCAP scan result to create a checklist. |
+| openrmf.checklist.read | Request/Reply | Score | openrmf-msg-checklist | Send back a single checklist record for the passed in Mongo DB InternalId title. Used when you score a checklist in eventual consistency to pull the checklist and create the structure so we can do a count on status. |
+| openrmf.system.checklists.read | Request/Reply | Read | openrmf-msg-checklist | Send back the list of checklists so we can export them into XLSX from the System page. |
+| openrmf.system.update.{Id} | Subscribe | Save | openrmf-msg-system | When a system title is updated, make sure all references throughout the checklists are updated. We save the system group Id and the title with the checklists for easier usage throughout OpenRMF. The source-of-truth is the systemgroups collection in MongoDB. |
+| openrmf.system.count.> | Subscribe | Upload (add) and Save (delete) | openrmf-msg-system | Increments with a ".add" at the end of the subject or decrements if there is a ".delete" at the end of the subject. The payload is the system group Id. |
+| openrmf.system.compliance | Subscribe | Compliance | openrmf-msg-system | Stores the date of the last compliance check run into the system group record for display later. |

@@ -35,6 +35,7 @@ data:
   mongo-init.js: |
     db.createUser({ user: "{{.Values.checklistAppUser}}" , pwd: "{{.Values.checklistAppPassword}}", roles: [{ "role": "readWrite", "db": "{{.Values.checklistAppUser}}"}]});
     db.createCollection("Artifacts");
+    db.createCollection("SystemGroups");
 ---
 apiVersion: apps/v1
 kind: Deployment
