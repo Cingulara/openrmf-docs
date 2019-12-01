@@ -123,7 +123,7 @@ services:
     networks:
       - openrmf
 
-### 4 Messaging Containers
+### 6 Messaging Containers
   openrmfmsg-score:
     image: cingulara/openrmf-msg-score:0.10
     environment:
