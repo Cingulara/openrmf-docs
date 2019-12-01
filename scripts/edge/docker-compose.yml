@@ -246,6 +246,8 @@ services:
     restart: always
     ports:
       - 7777
+    networks:
+      - openrmf-dev
 
   prometheus:
     image: prom/prometheus
@@ -254,6 +256,8 @@ services:
       - 9090
     volumes:
       - ../prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    networks:
+      - openrmf-dev
 
   grafana: 
     image: grafana/grafana
@@ -263,6 +267,8 @@ services:
     restart: always
     ports:
       - 3000:3000
+    networks:
+      - openrmf-dev
 
 ### put all the volume listings here for persistent data
 volumes:
