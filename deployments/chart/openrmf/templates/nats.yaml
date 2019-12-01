@@ -30,6 +30,10 @@ spec:
         ports:
         - containerPort: 4222
           protocol: TCP
+        - containerPort: 6222
+          protocol: TCP
+        - containerPort: 8222
+          protocol: TCP
         resources:
           limits:
             memory: "250Mi"
@@ -58,6 +62,10 @@ spec:
     port: 4222
     protocol: TCP
     targetPort: 4222
+  - name: nats-metrics
+    port: 8222
+    protocol: TCP
+    targetPort: 8222
   selector:
     run: openrmf-nats
   sessionAffinity: None
@@ -103,3 +111,27 @@ spec:
             memory: "125Mi"
             cpu: "125m"
       restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: openrmf-natspromexporter
+  namespace: {{.Values.namespace}}
+  labels:
+    app.kubernetes.io/name: openrmf
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app.kubernetes.io/component: openrmf-natspromexporter
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/revision: "{{ .Release.Revision }}"
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: helm
+spec:
+  ports:
+  - name: natspromexporter
+    port: 7777
+    protocol: TCP
+    targetPort: 7777
+  selector:
+    run: openrmf-natspromexporter
+  sessionAffinity: None
+  clusterIP: None
