@@ -10,7 +10,7 @@ other useful information to use the OpenRMF tool fo you and your team.
 
 OpenRMF is the only open source tool to manage your DoD STIG checklists, generate NIST compliance, keep track of your security items that are Open or Not Reviewed, and shrink your timeline to submit for an ATO!
 
-See [What's New](./whatsnew.md) with the latest version 0.9.
+See [What's New](./whatsnew.md) with the latest version.
 
 ## What it does
 OpenRMF removes the Information Assurance mystery! It allows management to view the status of checklists and RMF progress on their systems. It allows IT administrators and developers to store their checklists in a single place. It allows cybersecurity analysts to see the status of systems in a quick glance. And it allows assessors to have a single place to view the system and all its checklists so their job is more organized. It has a great use for everyone.
