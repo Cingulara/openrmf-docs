@@ -26,7 +26,7 @@ spec:
       containers:
       - name: openrmf-nats
         image: nats:{{.Values.natsImage}}
-        command: ["-m", "8222"]
+        args: ["-m", "8222"]
         ports:
         - containerPort: 4222
           protocol: TCP
@@ -99,7 +99,7 @@ spec:
       containers:
       - name: openrmf-natspromexporter
         image: synadia/prometheus-nats-exporter:latest
-        command: ["-varz", "http://natsserver:8222"]
+        args: ["-varz", "http://natsserver:8222"]
         ports:
         - containerPort: 7777
           protocol: TCP
