@@ -38,7 +38,7 @@ templateImage: 0.10
 templatemsgImage: 0.10
 uploadImage: 0.10
 systemmsgImage: 0.10
-webuiImage: 0.10
+webuiImage: 0.10.1
 mongoImage: 4.0.5
 natsImage: 2.1.2-linux
 
