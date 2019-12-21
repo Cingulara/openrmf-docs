@@ -1,7 +1,7 @@
 ---
 name: Feature request
 about: Suggest an idea for OpenRMF
-title: ''
+title: "[FEATURE] "
 labels: enhancement
 assignees: Cingulara
 
