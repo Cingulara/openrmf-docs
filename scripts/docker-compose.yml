@@ -3,7 +3,7 @@ version : '3'
 services:
 ### 1 Web Front End Container
   openrmf-web:
-    image: cingulara/openrmf-web:0.10.2
+    image: cingulara/openrmf-web:0.10.3
     ports:
       - 8080:80
     depends_on:
