@@ -45,8 +45,11 @@ To stop this, run the "stop" script for the Mac/Linux (.sh) or Windows (.cmd) co
 25. Click on the Mappers tab under the openrmf Client
 26. Click the Create button
 27. Add a roles mapper to use just the `roles` name to pass roles to our application (we do this just in case Keycloak changes something...ours remains as this)
-28. Make the JSON type a String (see image below)
-29. Save the mapper
+28. Enter 'roles' as the Name for the mapper.
+29. Make sure 'User Realm Role' is selected as the Mapper Type.
+30. Use 'roles' as the Token Claim Name.
+31. Make the JSON type a String (see image below)
+32. Save the mapper
 
 Now you are finally done! Check the OpenRMF web application by creating a user and logging in. 
 
