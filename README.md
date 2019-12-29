@@ -1,11 +1,11 @@
-# OpenRMF Documentation (v 0.10)
+# OpenRMF Documentation (v 0.10.5)
 
 ## Introduction to OpenRMF
-OpenRMF is an open source tool for managing, viewing, and reporting of your DoD STIG checklists in one web-based interface using your browser. It also generates a compliance listing of all your checklists across a whole system based on NIST 800-53 for your Risk Management Framework (RMF) documentation and process. This tool helps you manage multiple systems going through the RMF process and allows you to structure your data in a clean interface all in one location for your group or program. It can save you weeks of manually checking vulnerability-to-CCI-to-NIST controls and generating reports manually, so you can get on to the value-added work for your cybersecurity hygiene.
+OpenRMF is an open source tool for managing, viewing, and reporting of your DoD STIG checklists and Nessus Patch Scans in one web-based interface using your browser. It also generates a compliance listing of all your checklists across a whole system based on NIST 800-53 for your Risk Management Framework (RMF) documentation and process. This tool helps you manage multiple systems going through the RMF process and allows you to structure your data in a clean interface all in one location for your group or program. It can save you _weeks_ of manually checking vulnerability-to-CCI-to-NIST controls and manually generating reports, so you can get on to the value-added work for your cybersecurity hygiene.
 
 Read more about its genesis <a href="https://www.cingulara.com/opensource.html" target="_blank">here</a>.
 
-![Image](./img/UI-checklist-dashboard.png?raw=true)
+![Image](./img/UI-dashboard.png?raw=true)
 
 ## Current Functionality
 - [x] User AuthN and AuthZ for login accounts and Role Based Access Control on functions
@@ -25,14 +25,14 @@ Read more about its genesis <a href="https://www.cingulara.com/opensource.html" 
 - [x] Exporting your list of checklists and their score by status and category to MS Excel 
 - [x] YAML to quickly setup this project in OpenShift or K8s natively
 - [x] Filter the Compliance Generator for Low/Moderate/High projects as well as PII/Privacy overlay information
-- [x] Import ACAS/NESSUS scans (patches and updates) for automatic checklist documentation
+- [x] Import ACAS/Nessus scans (patches and updates) for automated reporting and managing critical updates
 
 ## ToDos (in no particular order)
+- [ ] Auditing all creates, deletes, and updates
+- [ ] Central logging (ledger) for all CRUD and access usage based on NATS
 - [ ] Generate the RMF POA&M
 - [ ] Select the fields to export to MS Excel, autofilter enabled on the header row
 - [ ] A wizard to ask questions and customize a starting checklist file for you with certain fields and comments filled in
-- [ ] Auditing all creates, deletes, and updates
-- [ ] Central logging (ledger) for all CRUD and access usage based on NATS
 - [ ] Import the Manual XML STIG to create a starting checklist
 - [ ] Track changes / versions as you edit for a visual diff
 - [ ] Track projects and due dates with notifications on timelines as well as anniversaries and required updates
@@ -43,7 +43,13 @@ If we are missing something you want, please add it on our main <a href="https:/
 
 The OpenRMF tool is an advanced alternative than the [DISA STIGViewer.jar](https://iase.disa.mil/stigs/Pages/stig-viewing-guidance.aspx) that is used for DoD STIG checklist files, RMF process information, and the like. It is necessary to capture and report on this information, please do not mistake what I say for not agreeing with securing services. However, the DISA Java tool itself is horribly designed and not conducive to today's environment and use. Their Java tool has been like this for a loooooonnnnnngggg time and I have wanted to make something better (IMO) for almost as long. So this tool here is the start! It is a way (currently) to view, report on, dive into, manage, and export your STIG checklists no matter which checklist you are referring to. All the .CKL files have a common format and htis reads and displays/manages that in a web front end using .NET Core APIs, MongoDB and NATS messaging. [View the history](https://www.cingulara.com/opensource.html) of this tool on our website. 
 
-This is the repo for all the docs as the OpenRMF project goes along.  Documentation on the OpenRMF application will be here in MD files and reference images and other documents as well as GH markdown. This application idea has been brewing in my head for well over a decade and specifically since July 4th weekend 2018 when I started to put down code. Then in January 2019 when I scrapped all that July stuff and went for web APIs, microservices, eventual consistency, CQRS (command query responsibility segregation to scale separately), using MongoDB and NATS.
+It also is a single pane of glass for your DISA SCAP scans (to generate checklists), Nessus patch scans (to track patch management), and compliance reporting for your systems going through the RMF process. We know: the RMF process is manual and all inclusive! This tool helps to automate as much as possible on the managing and reporting of data so you can:
+1. Know your current Risk Profile
+2. Know your current status
+3. Know what is left to do
+4. Know what your Critical and High items are so you can track and attack them
+
+This particular repository is the repo for all the docs as the OpenRMF project goes along.  Documentation on the OpenRMF application will be here in MD files and reference images and other documents as well as GH markdown. This application idea has been brewing in my head for well over a decade and specifically since July 4th weekend 2018 when I started to put down code. Then in January 2019 when I scrapped all that July stuff and went for web APIs, microservices, eventual consistency, CQRS (command query responsibility segregation to scale separately), using MongoDB and NATS.
 
 ## What you need to run
 You need a web browser that is fairly current. And you need Docker installed on your desktop (or Kubernetes/minikube) or server as this currently uses the Docker runtime to bring up all components with ` docker-compose ` via the included ".sh" shell (Linux / Mac) or ".cmd" command scripts (Windows).
@@ -57,7 +63,7 @@ Be sure to check out the [Keycloak information](#authentication-with-keycloak) b
 
 > The data is currently mapped to internal Docker-managed volumes for persistence. You can run the "docker volume rm" command below if you wish to remove and start over as you test.  If you want persistence you could change the connection strings to another MongoDB server and adjust the docker-compose.yml accordingly. Or use a volume in your docker-compose.yml or individual docker commands. 
 
-> You must look at the .env file to see we set the Keycloak/OpenID location and realm. Check the `.env` file in the [scripts](scripts) directory to see how to set those variables. The docker-compose stack YML files read that .env file to launch. These cannot be "localhost" as "localhost" inside a docker container is that container, not the host it is running on.
+> *_IMPORTANT:_* You must look at the .env file to see we set the Keycloak/OpenID location and realm. Check the `.env` file in the [scripts](scripts) directory to see how to set those variables. The docker-compose stack YML files read that .env file to launch. These cannot be "localhost" as "localhost" inside a docker container is that container, not the host it is running on.
 
 ```yaml
 JWT-AUTHORITY=http://xxx.xxx.xxx.xxx:9001/auth/realms/openrmf
@@ -78,9 +84,7 @@ Starting with version 0.8 we have AuthN and AuthZ setup for use. See the [Keyclo
 ## Known issues
 If you find something please add an issue to the correct repo. 
 
-- Version 0.7 the scoring currently does not work right. We are working on that in our spare time. Or just move to 0.8 with RBAC and call it fixed!
-
-If you find any problem, have an idea or enhancement please do not hesitate to add to the [Issues](https://github.com/Cingulara/openrmf-docs/issues) area.
+- The DISA SCAP tool and the Nessus SCAP scans put out different formats when exporting the report data. We currently can import DISA SCAP XCCDF files. We are currently working on the Nessus SCAP scan import to create / update checklists from it as well. 
 
 ## Creating MongoDB Users by Hand
 If you wish you can create a MongoDB setup locally to persist your data and see what it does. Checkout the [create users by hand](create-users-by-hand.md) readme for more on that. 
@@ -93,14 +97,20 @@ If you want to remove all data from volumes you can run the below. Do at your ow
 
 ## Screenshots of the UI
 
+The System Listing
+![Image](./img/UI-system-listing.png?raw=true)
+
+A System View
+![Image](./img/UI-system-view.png?raw=true)
+
+Exporting the Nessus Patch file summary to XLSX
+![Image](./img/nessus-export-xlsx.png?raw=true)
+
 The Individual Checklist view
 ![Image](./img/UI-checklist-scoring-vulns.png?raw=true)
 
 Generate RMF Compliance Listing with linked Checklists and filtered vulnerabilities!
 ![Image](./img/UI-system-compliance-generator.png?raw=true)
-
-The UI Checklist Graphs
-![Image](./img/UI-checklist-graphs.png?raw=true)
 
 The checklist Upload page
 ![Image](./img/UI-checklist-upload.png?raw=true)
