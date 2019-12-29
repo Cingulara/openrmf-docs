@@ -84,7 +84,7 @@ services:
       - openrmf
 
   openrmfapi-read:
-    image: cingulara/openrmf-api-read:0.10.5
+    image: cingulara/openrmf-api-read:0.10.6
     ports:
       - 8084:8080
     env_file: .env
