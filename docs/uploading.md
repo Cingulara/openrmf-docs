@@ -11,13 +11,13 @@ The Upload page is available to users with the Administrator or Editor role assi
 
 ![OpenRMF Upload of Checklists](/assets/upload-checklist-xccdf.png)
 
-To upload a CKL file or XCCDF SCAP scan result file go to the Upload page. Use the top section to choose a System name and the file. You can upload up to 5 files at a time. You can choose all 5 at once, or do 1 file at a time with the Choose Files button. 
+To upload a CKL file or XCCDF SCAP scan result file go to the Upload page. Use the top section to choose a System name and the file. You can now upload up to 10 files at a time. You can choose all 10 at once, or do 1 file at a time with the Choose Files button. 
 
 If your system is not listed, click the "Add a n ew System" link and type in the System name. Then attach your files and click the Upload and Save button. 
 
 When you upload your files, you will receive a confirmation of the files loading correctly or not. If all works well, the files are saved into the database. And a separate event is fired off to read and "score" the checklist you uploaded to keep track of the number of items by status by category. These are the numbers that show up when you list your checklist. 
 
-If you upload an XCCDF XML SCAP scan result file, that file is matched to internal System Templates from DISA's known good checklists. That checklist is filled in with `pass` or `fail` items from the SCAP scan accordingly. Any vulnerability item not found within the scan is kept as Not Reviewed. This new checklist file is then saved into the database and the scoring process kicks off for it. 
+If you upload an XCCDF XML DISA SCAP scan result file, that file is matched to internal System Templates from DISA's known good checklists. That checklist is filled in with `pass` or `fail` items from the SCAP scan accordingly. Any vulnerability item not found within the scan is kept as Not Reviewed. This new checklist file is then saved into the database and the scoring process kicks off for it. 
 
 ## Uploading Templates
 
