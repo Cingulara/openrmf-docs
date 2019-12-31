@@ -15,40 +15,40 @@ scrape_configs:
   - job_name: 'openrmf-api-read-prometheus'
     # metrics_path defaults to '/metrics'
     static_configs:
-    - targets: ['openrmfapi-read:8084']
+    - targets: ['openrmfapi-read:8080']
   - job_name: 'openrmf-api-save-prometheus'
     # metrics_path defaults to '/metrics'
     static_configs:
     # replace the IP with your local IP for development
     # localhost is not it, as that is w/in the container :)
-    - targets: ['openrmfapi-save:8082']
+    - targets: ['openrmfapi-save:8080']
   - job_name: 'openrmf-api-template-prometheus'
     # metrics_path defaults to '/metrics'
     static_configs:
     # replace the IP with your local IP for development
     # localhost is not it, as that is w/in the container :)
-    - targets: ['openrmfapi-template:8088']
+    - targets: ['openrmfapi-template:8080']
   - job_name: 'openrmf-api-controls-prometheus'
     # metrics_path defaults to '/metrics'
     static_configs:
     # replace the IP with your local IP for development
     # localhost is not it, as that is w/in the container :)
-    - targets: ['openrmfapi-controls:8094']
+    - targets: ['openrmfapi-controls:8080']
   - job_name: 'openrmf-api-compliance-prometheus'
     # metrics_path defaults to '/metrics'
     static_configs:
     # replace the IP with your local IP for development
     # localhost is not it, as that is w/in the container :)
-    - targets: ['openrmfapi-compliance:8092']
+    - targets: ['openrmfapi-compliance:8080']
   - job_name: 'openrmf-api-scoring-prometheus'
     # metrics_path defaults to '/metrics'
     static_configs:
     # replace the IP with your local IP for development
     # localhost is not it, as that is w/in the container :)
-    - targets: ['openrmfapi-scoring:8090']
+    - targets: ['openrmfapi-scoring:8080']
   - job_name: 'openrmf-api-upload-prometheus'
     # metrics_path defaults to '/metrics'
     static_configs:
     # replace the IP with your local IP for development
     # localhost is not it, as that is w/in the container :)
-    - targets: ['openrmfapi-upload:8086']
+    - targets: ['openrmfapi-upload:8080']
