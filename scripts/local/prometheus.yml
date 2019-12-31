@@ -3,8 +3,8 @@ global:
 
   # Attach these labels to any time series or alerts when communicating with
   # external systems (federation, remote storage, Alertmanager).
-  external_labels:
-    monitor: 'nats-openrmf-server'
+  # external_labels:
+  #   monitor: 'nats-openrmf-server'
 
 # A scrape configuration containing exactly one endpoint to scrape:
 scrape_configs:

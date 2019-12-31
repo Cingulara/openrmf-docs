@@ -77,9 +77,13 @@ For those that want to run the actual "latest" or "edge" of OpenRMF you should r
 
 > Please ensure you check the launch.json on the VSCode windows to point to your NATS and your Keycloak setup.
 
+## Metrics Tracking with Prometheus and Grafana
+
+Starting with version 0.10.7 we include metrics tracking for all our major subsystems. See the [OpenRMF Metrics](metrics.md) document for more information.
+
 ## Authentication with Keycloak
 
-Starting with version 0.8 we have AuthN and AuthZ setup for use. See the [Keycloak Document](keycloak.md) for more information.
+Starting with version 0.8 we have AuthN and AuthZ setup for use. See the [Keycloak Document](keycloak.md) document for more information.
 
 ## Known issues
 If you find something please add an issue to the correct repo. 
