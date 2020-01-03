@@ -19,6 +19,8 @@ When you upload your files, you will receive a confirmation of the files loading
 
 If you upload an XCCDF XML DISA SCAP scan result file, that file is matched to internal System Templates from DISA's known good checklists. That checklist is filled in with `pass` or `fail` items from the SCAP scan accordingly. Any vulnerability item not found within the scan is kept as Not Reviewed. This new checklist file is then saved into the database and the scoring process kicks off for it. 
 
+> Note: You must have a single checklist per CKL file. The Java Viewer from DISA allows more than one, however this makes your Cybersecurity personnel's job harder to do. And it makes the issues harder to track. This tool looks for one checklist per CKL file if that is what you are uploading. And it will save you time from having to separate the checklists later when asked to do so by those very same Cybersecurity personnel!
+
 ## Uploading Templates
 
 ![OpenRMF Upload of Templates](/assets/upload-template.png)
