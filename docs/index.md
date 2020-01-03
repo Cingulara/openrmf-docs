@@ -26,6 +26,8 @@ Some of the high level features are below:
 * Automatically organizes your checklists by system
 * Single source of truth for your system checklists
 * Single source of truth for your latest Nessus patch scans
+* Interactive Reports and Searching of Nessus scan data
+* Interactive Reports and Searching of checklist vulnerability data
 * Management insight into Cybersecurity Status and Security Posture instantly
 * AuthN, AuthZ, and Role Based Access Control (RBAC) to control access to read as well as edit data
 * Run on premise, on a local machine, or in the cloud
@@ -33,9 +35,9 @@ Some of the high level features are below:
 * Easily run a compliance report in seconds for your Low, Moderate, or High system
 
 ## Why use OpenRMF
-The current way to implement the Risk Management Framework for your DoD Authority to Operate is very slow. It is driven by disparate pieces of a Java Viewer for checklists, massive amounts of MS Excel spreadsheets for viewing the checklists for management, MS Word documents, various PDF files, and more. Information is shared (hopefully!) via email and shared folders. And there is no one central place for developers, operations, management, and cybersecurity analysts to see the most up to date information. 
+The current way to implement the Risk Management Framework for your DoD Authority to Operate is VERY manual and VERY slow. It is driven by disparate pieces of a Java Viewer for checklists, massive amounts of MS Excel spreadsheets for viewing the checklists for management, MS Word documents, various PDF files, and more. Information is shared (hopefully!) via email and shared folders. And there is no one central place for developers, operations, management, and cybersecurity analysts to see the most up to date information. 
 
-That changes with OpenRMF.
+That changes with OpenRMF!
 
 OpenRMF solves this dilemma. All you need is a web browser to view the pertinent information on your checklists within your system. Checklists are grouped by system and quickly show information such as the number of Category 1, 2, and 3 items as well as the number of Open items versus the Not a Finding "closed" items. Without having to open every single checklist file in the heavy Java viewer DISA provides. 
 

@@ -1,4 +1,4 @@
-# OpenRMF Documentation (v 0.10.7)
+# OpenRMF Documentation (v 0.10.8)
 
 ## Introduction to OpenRMF
 OpenRMF is an open source tool for managing, viewing, and reporting of your DoD STIG checklists and Nessus Patch Scans in one web-based interface using your browser. It also generates a compliance listing of all your checklists across a whole system based on NIST 800-53 for your Risk Management Framework (RMF) documentation and process. This tool helps you manage multiple systems going through the RMF process and allows you to structure your data in a clean interface all in one location for your group or program. It can save you _weeks_ of manually checking vulnerability-to-CCI-to-NIST controls and manually generating reports, so you can get on to the value-added work for your cybersecurity hygiene.
@@ -29,17 +29,19 @@ Read more about its genesis <a href="https://www.cingulara.com/opensource.html" 
 - [x] Metrics exported to Prometheus for API endpoints and NATS messaging, quickly display in Grafana
 - [x] Single Docker Compose file to run locally
 - [x] YAML to quickly setup this project in OpenShift or K8s natively
+- [x] Interactive Nessus Report for searching on latest scan data, filtering, etc. via the web
+- [x] Interactive Checklist Vulnerability report for search and filtering on vulnerabilities interactively via the web
 - [x] User AuthN and AuthZ for login accounts and Role Based Access Control on functions
 
 ## ToDos (in no particular order)
 - [ ] Auditing all creates, deletes, and updates
 - [ ] Central logging (ledger) for all CRUD and access usage based on NATS
 - [ ] Generate the RMF POA&M
+- [ ] Generate the Risk Assessment Report RAR
+- [ ] Generate the Test Plan
 - [ ] Select the fields to export to MS Excel, autofilter enabled on the header row
 - [ ] A wizard to ask questions and customize a starting checklist file for you with certain fields and comments filled in
 - [ ] Import the Manual XML STIG to create a starting checklist
-- [ ] Track changes / versions as you edit for a visual diff
-- [ ] Track projects and due dates with notifications on timelines as well as anniversaries and required updates
 
 If we are missing something you want, please add it on our main <a href="https://github.com/Cingulara/openrmf-web/issues" target="_blank">GitHub Issues</a> page.
 
