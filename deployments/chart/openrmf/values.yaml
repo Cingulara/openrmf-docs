@@ -26,19 +26,19 @@ installType: minikube
 # versions of container to adjust
 # examples: 0.8, 0.8.1, latest
 checklistmsgImage: 0.10.5
-complianceImage: 0.10.5
+complianceImage: 0.10.7
 compliancemsgImage: 0.10.5
-controlImage: 0.10.5
+controlImage: 0.10.7
 controlmsgImage: 0.10.5
-readImage: 0.10.5
+readImage: 0.10.8
 saveImage: 0.10.5
-scoremsgImage: 0.10.5
-scoringImage: 0.10.5
-templateImage: 0.10.5
+scoremsgImage: 0.10.7
+scoringImage: 0.10.7
+templateImage: 0.10.7
 templatemsgImage: 0.10.5
-uploadImage: 0.10.5
+uploadImage: 0.10.7
 systemmsgImage: 0.10.5
-webuiImage: 0.10.5
+webuiImage: 0.10.8.1
 mongoImage: 4.0.5
 natsImage: 2.1.2-linux
 
