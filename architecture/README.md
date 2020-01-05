@@ -1,7 +1,7 @@
 # OpenRMF Architecture
 This has the current architecture information for the OpenRMF application as of version 0.10.
 
-![Image](./OpenRMF-Tool-Architecture.png?raw=true)
+![Image](./openRMF-Tool-Architecture.png?raw=true)
 
 ## The Genesis
 The January 2019 Phase 1 Vision / Concept as drawn on my whiteboard in my basement:
