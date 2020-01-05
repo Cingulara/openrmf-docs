@@ -236,6 +236,21 @@ services:
     networks:
       - openrmf
 
+  auditdb:
+    image: mongo:4.0.5
+    restart: always
+    ports:
+      - 27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=myp2ssw0rd
+      - MONGO_INITDB_DATABASE=openrmfaudit
+    volumes:
+      - audit-data-volume:/data/db
+      - ./initializeAudit.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+    networks:
+      - openrmf
+
 ### NATS messaging container (internal)
   natsserver: 
     image: nats:2.1.2-linux
@@ -248,6 +263,7 @@ services:
     networks:
       - openrmf
 
+### Metrics
   natspromexporter: 
     image: synadia/prometheus-nats-exporter:latest
     command: -DV -varz http://natsserver:8222
@@ -283,6 +299,7 @@ volumes:
   template-data-volume:
   checklist-data-volume:
   score-data-volume:
+  audit-data-volume:
 
 ### put all the networks here
 networks:
