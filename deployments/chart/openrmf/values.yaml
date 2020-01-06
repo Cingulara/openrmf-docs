@@ -75,6 +75,8 @@ templateAppUser: openrmftemplate
 templateAppPassword: openrmf4321!
 scoreAppUser: openrmfscore
 scoreAppPassword: openrmf9876!
+auditAppUser: openrmftemplate
+auditAppPassword: openrmf4321!
 
 # SECRET VALUES ARE TO BE IN base64
 # Example: echo -n 'openrmf' | base64 
@@ -106,4 +108,13 @@ templateInitDBName: b3BlbnJtZnRlbXBsYXRl
 # app connection must be in the form below with valid user, password, and database names
 # the user, password, and database name must match the initialization scripts above -- secrets however are base64 encoded
 # mongodb://{{.Values.scoreAppUser}}:{{.Values.scoreAppPassword}}@openrmf-scoredb/{{.Values.scoreInitDBName}}?authSource={{.Values.scoreInitDBName}}
-templateAppConnection: bW9uZ29kYjovL29wZW5ybWZ0ZW1wbGF0ZTpvcGVucm1mNDMyMSFAb3BlbnJtZi1jaGVja2xpc3RkYi9vcGVucm1mdGVtcGxhdGU/YXV0aFNvdXJjZT1vcGVucm1mdGVtcGxhdGU=
+templateAppConnection: bW9uZ29kYjovL29wZW5ybWZ0ZW1wbGF0ZTpvcGVucm1mNDMyMSFAb3BlbnJtZi10ZW1wbGF0ZWRiL29wZW5ybWZ0ZW1wbGF0ZT9hdXRoU291cmNlPW9wZW5ybWZ0ZW1wbGF0ZQ==
+
+# Template Database Secret Values
+auditInitDBUser: cm9vdA==
+auditInitDBPassword: bVlwMnNzdzByZA==
+auditInitDBName: b3BlbnJtZmF1ZGl0
+# app connection must be in the form below with valid user, password, and database names
+# the user, password, and database name must match the initialization scripts above -- secrets however are base64 encoded
+# mongodb://{{.Values.scoreAppUser}}:{{.Values.scoreAppPassword}}@openrmf-scoredb/{{.Values.scoreInitDBName}}?authSource={{.Values.scoreInitDBName}}
+auditAppConnection: bW9uZ29kYjovL29wZW5ybWZhdWRpdDpvcGVucm1mNDMyMSFAb3BlbnJtZi1hdWRpdGRiL29wZW5ybWZhdWRpdD9hdXRoU291cmNlPW9wZW5ybWZhdWRpdA==
