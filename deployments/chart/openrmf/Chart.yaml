@@ -1,9 +1,10 @@
 apiVersion: v1
 name: openrmf
-version: 1.1.0
-description: The OpenRMF web application to manage DoD STIGs and NIST Risk Management Framework Compliance
+version: 1.2.0
+description: The OpenRMF web application to manage DoD STIGs, Nessus scans and NIST Risk Management Framework Compliance
 keywords:
   - RMF
+  - OpenRMF
   - openrmf
   - risk management framework
 maintainers:
@@ -12,5 +13,5 @@ maintainers:
   - name: David Gould
     email: dgould@tutelasec.com
 engine: gotpl 
-appVersion: 0.10
+appVersion: 0.10.9
 deprecated: false

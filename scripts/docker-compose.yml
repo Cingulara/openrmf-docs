@@ -3,7 +3,7 @@ version : '3'
 services:
 ### 1 Web Front End Container
   openrmf-web:
-    image: cingulara/openrmf-web:0.10.8.1
+    image: cingulara/openrmf-web:0.10.9.1
     ports:
       - 8080:80
     depends_on:
@@ -16,9 +16,9 @@ services:
     networks:
       - openrmf
 
-### 7 API Containers
+### 8 API Containers
   openrmfapi-scoring:
-    image: cingulara/openrmf-api-scoring:0.10.7
+    image: cingulara/openrmf-api-scoring:0.10.9
     ports:
       - 8090:8080
     env_file: .env
@@ -33,7 +33,7 @@ services:
       - openrmf
   
   openrmfapi-save:
-    image: cingulara/openrmf-api-save:0.10.7
+    image: cingulara/openrmf-api-save:0.10.9
     ports:
       - 8082:8080
     env_file: .env
@@ -51,7 +51,7 @@ services:
       - openrmf
 
   openrmfapi-template:
-    image: cingulara/openrmf-api-template:0.10.7
+    image: cingulara/openrmf-api-template:0.10.9
     ports:
       - 8088:8080
     env_file: .env
@@ -66,7 +66,7 @@ services:
       - openrmf
 
   openrmfapi-upload:
-    image: cingulara/openrmf-api-upload:0.10.7
+    image: cingulara/openrmf-api-upload:0.10.9
     ports:
       - 8086:8080
     env_file: .env
@@ -84,7 +84,7 @@ services:
       - openrmf
 
   openrmfapi-read:
-    image: cingulara/openrmf-api-read:0.10.8
+    image: cingulara/openrmf-api-read:0.10.9
     ports:
       - 8084:8080
     env_file: .env
@@ -100,7 +100,7 @@ services:
       - openrmf
 
   openrmfapi-compliance:
-    image: cingulara/openrmf-api-compliance:0.10.7
+    image: cingulara/openrmf-api-compliance:0.10.9
     ports:
       - 8092:8080
     env_file: .env
@@ -112,7 +112,7 @@ services:
       - openrmf
 
   openrmfapi-controls:
-    image: cingulara/openrmf-api-controls:0.10.7
+    image: cingulara/openrmf-api-controls:0.10.9
     ports:
       - 8094:8080
     env_file: .env
@@ -123,9 +123,23 @@ services:
     networks:
       - openrmf
 
-### 6 Messaging Containers
+  openrmfapi-audit:
+    image: cingulara/openrmf-api-audit:0.10.9
+    ports:
+      - 8096:8080
+    env_file: .env
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://*:8080
+      - MONGODBCONNECTION=mongodb://openrmfaudit:openrmf1234!@auditdb/openrmfaudit?authSource=openrmfaudit
+      - MONGODB=openrmfaudit
+      - NATSSERVERURL=nats://natsserver:4222
+    networks:
+      - openrmf
+
+### 7 Messaging Containers
   openrmfmsg-score:
-    image: cingulara/openrmf-msg-score:0.10.7
+    image: cingulara/openrmf-msg-score:0.10.9
     environment:
       - MONGODBCONNECTION=mongodb://openrmfscore:openrmf1234!@scoredb/openrmfscore?authSource=openrmfscore
       - MONGODB=openrmfscore
@@ -137,7 +151,7 @@ services:
       - openrmf
 
   openrmfmsg-checklist:
-    image: cingulara/openrmf-msg-checklist:0.10.5
+    image: cingulara/openrmf-msg-checklist:0.10.9
     environment:
       - MONGODBCONNECTION=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
       - MONGODB=openrmf
@@ -149,7 +163,7 @@ services:
       - openrmf
 
   openrmfmsg-compliance:
-    image: cingulara/openrmf-msg-compliance:0.10.5
+    image: cingulara/openrmf-msg-compliance:0.10.9
     environment:
       - NATSSERVERURL=nats://natsserver:4222
     depends_on:
@@ -158,7 +172,7 @@ services:
       - openrmf
 
   openrmfmsg-controls:
-    image: cingulara/openrmf-msg-controls:0.10.5
+    image: cingulara/openrmf-msg-controls:0.10.9
     environment:
       - NATSSERVERURL=nats://natsserver:4222
     depends_on:
@@ -167,7 +181,7 @@ services:
       - openrmf
 
   openrmfmsg-template:
-    image: cingulara/openrmf-msg-template:0.10.5
+    image: cingulara/openrmf-msg-template:0.10.9
     environment:
       - MONGODBCONNECTION=mongodb://openrmftemplate:openrmf1234!@templatedb/openrmftemplate?authSource=openrmftemplate
       - MONGODB=openrmftemplate
@@ -179,7 +193,7 @@ services:
       - openrmf
 
   openrmfmsg-system:
-    image: cingulara/openrmf-msg-system:0.10.5
+    image: cingulara/openrmf-msg-system:0.10.9
     environment:
       - MONGODBCONNECTION=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
       - MONGODB=openrmf
@@ -190,7 +204,19 @@ services:
     networks:
       - openrmf
 
-### 3 MongoDB Containers
+  openrmfmsg-audit:
+    image: cingulara/openrmf-msg-audit:0.10.9
+    environment:
+      - MONGODBCONNECTION=mongodb://openrmfaudit:openrmf1234!@auditdb/openrmfaudit?authSource=openrmfaudit
+      - MONGODB=openrmfaudit
+      - NATSSERVERURL=nats://natsserver:4222
+    depends_on:
+      - checklistdb
+      - natsserver
+    networks:
+      - openrmf
+
+### 4 MongoDB Containers
   checklistdb:
     image: mongo:4.0.5
     restart: always
@@ -236,6 +262,21 @@ services:
     networks:
       - openrmf
 
+  auditdb:
+    image: mongo:4.0.5
+    restart: always
+    ports:
+      - 27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=myp2ssw0rd
+      - MONGO_INITDB_DATABASE=openrmfaudit
+    volumes:
+      - audit-data-volume:/data/db
+      - ./initializeAudit.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+    networks:
+      - openrmf
+
 ### NATS messaging container (internal)
   natsserver: 
     image: nats:2.1.2-linux
@@ -248,6 +289,7 @@ services:
     networks:
       - openrmf
 
+### Metrics
   natspromexporter: 
     image: synadia/prometheus-nats-exporter:latest
     command: -DV -varz http://natsserver:8222
@@ -283,6 +325,7 @@ volumes:
   template-data-volume:
   checklist-data-volume:
   score-data-volume:
+  audit-data-volume:
 
 ### put all the networks here
 networks:

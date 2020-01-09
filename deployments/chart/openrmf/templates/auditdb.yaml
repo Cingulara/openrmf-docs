@@ -1,0 +1,147 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: auditdbsecret
+  namespace: {{.Values.namespace}}
+  labels:
+    app.kubernetes.io/name: openrmf
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app.kubernetes.io/component: audit-mongodb-secret
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/revision: "{{ .Release.Revision }}"
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: helm
+type: Opaque
+data:
+  initUsername: {{.Values.auditInitDBUser}}
+  initPassword: {{.Values.auditInitDBPassword}}
+  initDBName: {{.Values.auditInitDBName}}
+  appConnection: {{.Values.auditAppConnection}}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: auditdb-initconfig
+  namespace: {{.Values.namespace | default "openrmf"}}
+  labels:
+    app.kubernetes.io/name: openrmf
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app.kubernetes.io/component: auditdb-init-config
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/revision: "{{ .Release.Revision }}"
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: helm
+data:
+  mongo-init.js: |
+    db.createUser({ user: "{{.Values.auditAppUser}}" , pwd: "{{.Values.auditAppPassword}}", roles: [{ "role": "readWrite", "db": "{{.Values.auditAppUser}}"}]});
+    db.createCollection("Templates");
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openrmf-auditdb
+  namespace: {{.Values.namespace}}
+  labels:
+    app.kubernetes.io/name: openrmf
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app.kubernetes.io/component: audit-mongodb
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/revision: "{{ .Release.Revision }}"
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: helm
+spec:
+  selector:
+    matchLabels:
+      run: openrmf-auditdb
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        run: openrmf-auditdb
+    spec:
+      containers:
+      - name: openrmf-auditdb
+        image: mongo:{{.Values.mongoImage}}
+        ports:
+        - containerPort: 27017
+        env:
+        - name: MONGO_INITDB_ROOT_USERNAME
+          valueFrom:  
+            secretKeyRef:
+              name: auditdbsecret
+              key: initUsername
+        - name: MONGO_INITDB_ROOT_PASSWORD
+          valueFrom:  
+            secretKeyRef:
+              name: auditdbsecret
+              key: initPassword
+        - name: MONGO_INITDB_DATABASE
+          valueFrom:  
+            secretKeyRef:
+              name: auditdbsecret
+              key: initDBName
+        resources:
+          requests:
+            memory: "500M"
+            cpu: "200m"
+        volumeMounts:
+        - mountPath: /data/db
+          name: mongodata-auditdb
+        - name: initconfig-volume
+          mountPath: /docker-entrypoint-initdb.d/mongo-init.js
+          subPath: mongo-init.js
+      restartPolicy: Always
+      volumes:
+      - name: mongodata-auditdb
+        persistentVolumeClaim:
+          claimName: openrmf-auditdb-claim
+      - name: initconfig-volume
+        configMap:
+          name: auditdb-initconfig
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: openrmf-auditdb
+  namespace: {{.Values.namespace}}
+  labels:
+    app.kubernetes.io/name: openrmf
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app.kubernetes.io/component: audit-mongodb
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/revision: "{{ .Release.Revision }}"
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: helm
+spec:
+  ports:
+  - name: mongodb-auditdb
+    port: 27017
+    protocol: TCP
+    targetPort: 27017
+  selector:
+    run: openrmf-auditdb
+  sessionAffinity: None
+  clusterIP: None
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: {{.Values.namespace}}
+  name: openrmf-auditdb-claim
+  labels:
+    app.kubernetes.io/name: openrmf
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app.kubernetes.io/component: audit-mongodb
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/revision: "{{ .Release.Revision }}"
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: helm
+spec:
+  storageClassName: {{.Values.storageClass}}
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi

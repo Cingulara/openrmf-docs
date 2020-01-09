@@ -25,20 +25,22 @@ installType: minikube
 
 # versions of container to adjust
 # examples: 0.8, 0.8.1, latest
-checklistmsgImage: 0.10.5
-complianceImage: 0.10.5
-compliancemsgImage: 0.10.5
-controlImage: 0.10.5
-controlmsgImage: 0.10.5
-readImage: 0.10.5
-saveImage: 0.10.5
-scoremsgImage: 0.10.5
-scoringImage: 0.10.5
-templateImage: 0.10.5
-templatemsgImage: 0.10.5
-uploadImage: 0.10.5
-systemmsgImage: 0.10.5
-webuiImage: 0.10.5
+auditImage: 0.10.9
+auditmsgImage: 0.10.9
+checklistmsgImage: 0.10.9
+complianceImage: 0.10.9
+compliancemsgImage: 0.10.9
+controlImage: 0.10.9
+controlmsgImage: 0.10.9
+readImage: 0.10.9
+saveImage: 0.10.9
+scoremsgImage: 0.10.9
+scoringImage: 0.10.9
+templateImage: 0.10.9
+templatemsgImage: 0.10.9
+uploadImage: 0.10.9
+systemmsgImage: 0.10.9
+webuiImage: 0.10.9
 mongoImage: 4.0.5
 natsImage: 2.1.2-linux
 
@@ -56,6 +58,7 @@ uploadAPI:     http://openrmf.local/upload
 templateAPI:   http://openrmf.local/template
 complianceAPI: http://openrmf.local/compliance
 controlAPI:    http://openrmf.local/controls
+auditAPI:      http://openrmf.local/audit
 
 # Service Types for Minikube and AWS separately
 # Examples: NodePort, LoadBalancer, etc.
@@ -72,6 +75,8 @@ templateAppUser: openrmftemplate
 templateAppPassword: openrmf4321!
 scoreAppUser: openrmfscore
 scoreAppPassword: openrmf9876!
+auditAppUser: openrmftemplate
+auditAppPassword: openrmf4321!
 
 # SECRET VALUES ARE TO BE IN base64
 # Example: echo -n 'openrmf' | base64 
@@ -103,4 +108,13 @@ templateInitDBName: b3BlbnJtZnRlbXBsYXRl
 # app connection must be in the form below with valid user, password, and database names
 # the user, password, and database name must match the initialization scripts above -- secrets however are base64 encoded
 # mongodb://{{.Values.scoreAppUser}}:{{.Values.scoreAppPassword}}@openrmf-scoredb/{{.Values.scoreInitDBName}}?authSource={{.Values.scoreInitDBName}}
-templateAppConnection: bW9uZ29kYjovL29wZW5ybWZ0ZW1wbGF0ZTpvcGVucm1mNDMyMSFAb3BlbnJtZi1jaGVja2xpc3RkYi9vcGVucm1mdGVtcGxhdGU/YXV0aFNvdXJjZT1vcGVucm1mdGVtcGxhdGU=
+templateAppConnection: bW9uZ29kYjovL29wZW5ybWZ0ZW1wbGF0ZTpvcGVucm1mNDMyMSFAb3BlbnJtZi10ZW1wbGF0ZWRiL29wZW5ybWZ0ZW1wbGF0ZT9hdXRoU291cmNlPW9wZW5ybWZ0ZW1wbGF0ZQ==
+
+# Template Database Secret Values
+auditInitDBUser: cm9vdA==
+auditInitDBPassword: bVlwMnNzdzByZA==
+auditInitDBName: b3BlbnJtZmF1ZGl0
+# app connection must be in the form below with valid user, password, and database names
+# the user, password, and database name must match the initialization scripts above -- secrets however are base64 encoded
+# mongodb://{{.Values.scoreAppUser}}:{{.Values.scoreAppPassword}}@openrmf-scoredb/{{.Values.scoreInitDBName}}?authSource={{.Values.scoreInitDBName}}
+auditAppConnection: bW9uZ29kYjovL29wZW5ybWZhdWRpdDpvcGVucm1mNDMyMSFAb3BlbnJtZi1hdWRpdGRiL29wZW5ybWZhdWRpdD9hdXRoU291cmNlPW9wZW5ybWZhdWRpdA==
