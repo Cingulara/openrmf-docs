@@ -1,7 +1,6 @@
 ---
 title: Step 3 - View Systems
 nav_order: 300
-has_children: true
 ---
 
 # Viewing your Systems
