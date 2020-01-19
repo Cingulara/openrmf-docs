@@ -1,12 +1,12 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: openrmf-msg-template
+  name: openrmf-msg-audit
   namespace: {{.Values.namespace}}
   labels:
     app.kubernetes.io/name: openrmf
     helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
-    app.kubernetes.io/component: template-nats-message-client
+    app.kubernetes.io/component: audit-nats-message-client
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/revision: "{{ .Release.Revision }}"
     app.kubernetes.io/version: {{ .Chart.AppVersion }}
@@ -14,16 +14,16 @@ metadata:
 spec:
   selector:
     matchLabels:
-      run: openrmf-msg-template
+      run: openrmf-msg-audit
   replicas: 1
   template:
     metadata:
       labels:
-        run: openrmf-msg-template
+        run: openrmf-msg-audit
     spec:
       containers:
-      - name: openrmf-msg-template
-        image: cingulara/openrmf-msg-template:{{.Values.templatemsgImage}}
+      - name: openrmf-msg-audit
+        image: cingulara/openrmf-msg-audit:{{.Values.auditmsgImage}}
         ports:
         - containerPort: 8080
         env:
@@ -32,12 +32,12 @@ spec:
         - name: MONGODBCONNECTION
           valueFrom:  
             secretKeyRef:
-              name: templatedbsecret
+              name: auditdbsecret
               key: appConnection
         - name: MONGODB
           valueFrom:  
             secretKeyRef:
-              name: templatedbsecret
+              name: auditdbsecret
               key: initDBName
         resources:
           limits:

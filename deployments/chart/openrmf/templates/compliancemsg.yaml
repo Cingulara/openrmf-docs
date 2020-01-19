@@ -31,8 +31,8 @@ spec:
           value: nats://natsserver:4222
         resources:
           limits:
-            memory: "1Gi"
+            memory: "750M"
             cpu: "250m"
           requests:
-            memory: "500M"
+            memory: "250M"
             cpu: "100m"

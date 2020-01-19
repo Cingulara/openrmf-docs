@@ -1,5 +1,5 @@
-# openRMF Architecture
-This has the current architecture information for the OpenRMF application as of version 0.10.
+# OpenRMF Architecture
+This has the current architecture information for the OpenRMF application as of version 0.11.
 
 ![Image](./openRMF-Tool-Architecture.png?raw=true)
 
@@ -20,11 +20,13 @@ of chart data and XLSX downloads.
 * https://github.com/Cingulara/openrmf-api-upload is for uploading a .CKL checklist file with metadata and saving the result. This publishes an "openrmf.save.xxxx" type of event.
 * https://github.com/Cingulara/openrmf-api-controls is a read-only lookup of NIST controls to match to CCI for the compliance API and other pieces that need to pull the NIST control descriptions for 800-53.
 * https://github.com/Cingulara/openrmf-api-compliance is for generating the compliance listing, matching NIST controls via CCI to 1 or more checklists in a System. This generates a table of controls and the checklists corresponding to the control from the system's group of checklists. The checklist is linked to the Checklist service and color coded by status.
+* https://github.com/Cingulara/openrmf-api-audit is a read-only lookup of Audit information for OpenRMF that only Administrators can access.
 * https://github.com/Cingulara/openrmf-msg-controls is a NATS client for responding to request/reply on a list of all RMF controls or get the information on a specific control (i.e. AC-1).
 * https://github.com/Cingulara/openrmf-msg-compliance is a NATS client for responding to request/reply on a list of all compliance listings mapping STIG vulnerability IDs to controls. Use this for a full listing based on a low/moderate/high level as well as if you are using personally identifiable information (PII) or similar data.
 * https://github.com/Cingulara/openrmf-msg-template is a NATS client for responding to request/reply on a request for a System template based on the title passed in.
 * https://github.com/Cingulara/openrmf-msg-checklist is a NATS client for responding to request/reply on a request for a checklist based on the Mongo DB record Id passed in.
-* https://github.com/Cingulara/openrmf-msg-system is a NATS client for responding to published messages for for updating a System based on title, number of checklists, or running a compliance check.
+* https://github.com/Cingulara/openrmf-msg-system is a NATS client for responding to published messages for updating a System based on title, number of checklists, or running a compliance check.
+* https://github.com/Cingulara/openrmf-msg-audit is a NATS client for responding to published messages for recording auditable events through OpenRMF.
 
 I started this project with separate microservices all over including messaging for API-to-API communication. Future enhancements are to organically add publish / subscribe pieces such as compliance, auditing, logging, etc. to make this more user and enterprise ready. Along with all the error trapping, checking for NATS connection, etc. that a production 1.0 application would have. 
 

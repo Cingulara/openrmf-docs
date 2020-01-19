@@ -3,13 +3,54 @@ global:
 
   # Attach these labels to any time series or alerts when communicating with
   # external systems (federation, remote storage, Alertmanager).
-  external_labels:
-    monitor: 'nats-openrmf-server'
+  # external_labels:
+  #   monitor: 'nats-openrmf-server'
 
 # A scrape configuration containing exactly one endpoint to scrape:
 scrape_configs:
   # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
   - job_name: 'nats-openrmf-server'
-
     static_configs:
       - targets: ['natspromexporter:7777']
+  - job_name: 'openrmf-api-read-prometheus'
+    # metrics_path defaults to '/metrics'
+    static_configs:
+    # replace the IP with your local IP for development
+    # localhost is not it, as that is w/in the container :)
+    - targets: ['192.168.13.23:8084']
+  - job_name: 'openrmf-api-save-prometheus'
+    # metrics_path defaults to '/metrics'
+    static_configs:
+    # replace the IP with your local IP for development
+    # localhost is not it, as that is w/in the container :)
+    - targets: ['192.168.13.23:8082']
+  - job_name: 'openrmf-api-template-prometheus'
+    # metrics_path defaults to '/metrics'
+    static_configs:
+    # replace the IP with your local IP for development
+    # localhost is not it, as that is w/in the container :)
+    - targets: ['192.168.13.23:8088']
+  - job_name: 'openrmf-api-controls-prometheus'
+    # metrics_path defaults to '/metrics'
+    static_configs:
+    # replace the IP with your local IP for development
+    # localhost is not it, as that is w/in the container :)
+    - targets: ['192.168.13.23:8094']
+  - job_name: 'openrmf-api-compliance-prometheus'
+    # metrics_path defaults to '/metrics'
+    static_configs:
+    # replace the IP with your local IP for development
+    # localhost is not it, as that is w/in the container :)
+    - targets: ['192.168.13.23:8092']
+  - job_name: 'openrmf-api-scoring-prometheus'
+    # metrics_path defaults to '/metrics'
+    static_configs:
+    # replace the IP with your local IP for development
+    # localhost is not it, as that is w/in the container :)
+    - targets: ['192.168.13.23:8090']
+  - job_name: 'openrmf-api-upload-prometheus'
+    # metrics_path defaults to '/metrics'
+    static_configs:
+    # replace the IP with your local IP for development
+    # localhost is not it, as that is w/in the container :)
+    - targets: ['192.168.13.23:8086']

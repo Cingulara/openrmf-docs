@@ -1,7 +1,6 @@
 ---
 title: Step 3 - View Systems
 nav_order: 300
-has_children: true
 ---
 
 # Viewing your Systems
@@ -10,7 +9,7 @@ has_children: true
 
 The System listing is available when you log in and click on Systems in the menu. The above screen loads if there are any checklists loaded. Each system is listed with the title linked to the detailed Systems page with information and checklists listed.
 
-> Note: if no checklists are loaded then you are automatically redirected to the Upload page.
+> Note: if you have the Editor or Administrator permission you will also see an Add button here to add a new system. You also can add a new system by specifing a new system title when uploading a checklist or scan file.
 
 Each listing shows the title, the number of checklists in that system as well as the overall score of the system.  This overall score is based on status across all checklists in your system.
 

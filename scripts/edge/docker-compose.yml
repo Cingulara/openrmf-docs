@@ -116,7 +116,21 @@ services:
     networks:
       - openrmf-dev
 
-### 6 Messaging Containers
+  openrmfapi-audit:
+    image: cingulara/openrmf-api-audit
+    ports:
+      - 8094:8080
+    env_file: .env
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://*:8080
+      - MONGODBCONNECTION=mongodb://openrmfaudit:openrmf1234!@auditdb/openrmfaudit?authSource=openrmfaudit
+      - MONGODB=openrmfaudit
+      - NATSSERVERURL=nats://natsserver:4222
+    networks:
+      - openrmf
+
+### 7 Messaging Containers
   openrmfmsg-score:
     image: cingulara/openrmf-msg-score
     environment:
@@ -183,7 +197,19 @@ services:
     networks:
       - openrmf
 
-### 3 MongoDB Containers
+  openrmfmsg-audit:
+    image: cingulara/openrmf-msg-audit
+    environment:
+      - MONGODBCONNECTION=mongodb://openrmfaudit:openrmf1234!@auditdb/openrmfaudit?authSource=openrmfaudit
+      - MONGODB=openrmfaudit
+      - NATSSERVERURL=nats://natsserver:4222
+    depends_on:
+      - checklistdb
+      - natsserver
+    networks:
+      - openrmf
+
+### 4 MongoDB Containers
   checklistdb:
     image: mongo:4.0.5
     restart: always
@@ -229,6 +255,21 @@ services:
     networks:
       - openrmf-dev
 
+  auditdb:
+    image: mongo:4.0.5
+    restart: always
+    ports:
+      - 27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=myp2ssw0rd
+      - MONGO_INITDB_DATABASE=openrmfaudit
+    volumes:
+      - audit-data-volume:/data/db
+      - ../initializeAudit.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+    networks:
+      - openrmf
+
 ### NATS messaging container (internal)
   natsserver: 
     image: nats:2.1.2-linux
@@ -240,6 +281,7 @@ services:
     networks:
       - openrmf-dev
 
+### Metrics
   natspromexporter: 
     image: synadia/prometheus-nats-exporter:latest
     command: -DV -varz http://nats:8222
@@ -275,6 +317,7 @@ volumes:
   template-dev-data-volume:
   checklist-dev-data-volume:
   score-dev-data-volume:
+  audit-data-volume:
 
 ### put all the networks here
 networks:
