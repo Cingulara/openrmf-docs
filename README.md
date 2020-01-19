@@ -1,4 +1,4 @@
-# OpenRMF Documentation (v 0.10.8)
+# OpenRMF Documentation (v 0.11)
 
 ## Introduction to OpenRMF
 OpenRMF is an open source tool for managing, viewing, and reporting of your DoD STIG checklists and Nessus Patch Scans in one web-based interface using your browser. It also generates a compliance listing of all your checklists across a whole system based on NIST 800-53 for your Risk Management Framework (RMF) documentation and process. This tool helps you manage multiple systems going through the RMF process and allows you to structure your data in a clean interface all in one location for your group or program. It can save you _weeks_ of manually checking vulnerability-to-CCI-to-NIST controls and manually generating reports, so you can get on to the value-added work for your cybersecurity hygiene.
@@ -32,16 +32,16 @@ Read more about its genesis <a href="https://www.cingulara.com/opensource.html" 
 - [x] Interactive Nessus Report for searching on latest scan data, filtering, etc. via the web
 - [x] Interactive Checklist Vulnerability report for search and filtering on vulnerabilities interactively via the web
 - [x] User AuthN and AuthZ for login accounts and Role Based Access Control on functions
+- [x] Auditing all creates, deletes, and updates
+- [x] Import the Manual XML STIG to create a starting checklist (Automatic and behind the scenes for now)
 
 ## ToDos (in no particular order)
-- [ ] Auditing all creates, deletes, and updates
 - [ ] Central logging (ledger) for all CRUD and access usage based on NATS
 - [ ] Generate the RMF POA&M
 - [ ] Generate the Risk Assessment Report RAR
 - [ ] Generate the Test Plan
 - [ ] Select the fields to export to MS Excel, autofilter enabled on the header row
 - [ ] A wizard to ask questions and customize a starting checklist file for you with certain fields and comments filled in
-- [ ] Import the Manual XML STIG to create a starting checklist
 
 If we are missing something you want, please add it on our main <a href="https://github.com/Cingulara/openrmf-web/issues" target="_blank">GitHub Issues</a> page.
 
@@ -49,7 +49,7 @@ If we are missing something you want, please add it on our main <a href="https:/
 
 The OpenRMF tool is an advanced alternative to the [DISA STIGViewer.jar](https://iase.disa.mil/stigs/Pages/stig-viewing-guidance.aspx) and MS Excel hell we go through used for DoD STIG checklist files, RMF process information, and the like. It is necessary to capture and report on this information, please _do not_ mistake what I say for not agreeing with securing services. However, the DISA Java tool itself is horribly designed and not conducive to today's environment and use. And it is only part of the story. Their Java tool has been like this for a loooooonnnnnngggg time and I have wanted to make something better (IMO) for almost as long. So this tool here is the start! It is a way (currently) to view, report on, dive into, manage, and export your STIG checklists no matter which checklist you are referring to. All the .CKL files have a common format and htis reads and displays/manages that in a web front end using .NET Core APIs, MongoDB and NATS messaging. [View the history](https://www.cingulara.com/opensource.html) of this tool on our website. 
 
-OpenRMF also is a single pane of glass for your DISA SCAP scans (to generate checklists), Nessus patch scans (to track patch management), and compliance reporting for your systems going through the RMF process. We know: the RMF process is manual and all inclusive! This tool helps to automate as much as possible on the managing and reporting of data so you can:
+OpenRMF also is a single pane of glass for your DISA SCAP scans (to generate checklists), Nessus SCAP scans (Beta), Nessus patch scans (to track patch management), and compliance reporting for your systems going through the RMF process. We know: the RMF process is manual and all inclusive! This tool helps to automate as much as possible on the managing and reporting of data so you can:
 1. Know your current Risk Profile
 2. Know your current status
 3. Know what is left to do

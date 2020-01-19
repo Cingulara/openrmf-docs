@@ -1,5 +1,5 @@
 # OpenRMF Architecture
-This has the current architecture information for the OpenRMF application as of version 0.10.
+This has the current architecture information for the OpenRMF application as of version 0.11.
 
 ![Image](./openRMF-Tool-Architecture.png?raw=true)
 

@@ -21,8 +21,8 @@ Some of the high level features are below:
 
 * 100% web based
 * 100% Open Source Software (OSS)
-* Upload a CKL or DISA SCAP XCCDF format file easily to visualize your RMF process
-* Upload a .Nessus scan file to see Patch summary of Critical and High items
+* Upload a CKL or DISA SCAP XCCDF (Nessus SCAP XCCDF is in beta now!) format file easily to visualize your RMF process
+* Upload a .Nessus ACAS scan file to see Patch summary of Critical and High items
 * Automatically organizes your checklists by system
 * Single source of truth for your system checklists
 * Single source of truth for your latest Nessus patch scans
