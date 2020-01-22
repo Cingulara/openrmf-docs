@@ -1,7 +1,8 @@
+# Step 1: have a namespace to put this into!
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: openrmf
+  name: openrmfdev
   labels:
     role: openrmf-system
     istio-injection: enabled

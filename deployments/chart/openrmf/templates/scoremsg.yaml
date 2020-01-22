@@ -2,13 +2,15 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: openrmf-msg-score
-  namespace: openrmf
+  namespace: {{.Values.namespace}}
   labels:
-    app: openrmf
-    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
-    component: score-nats-message-client
-    release: {{ .Release.Name }}
-    revision: "{{ .Release.Revision }}"
+    app.kubernetes.io/name: openrmf
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app.kubernetes.io/component: score-nats-message-client
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/revision: "{{ .Release.Revision }}"
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: helm
 spec:
   selector:
     matchLabels:
@@ -21,22 +23,26 @@ spec:
     spec:
       containers:
       - name: openrmf-msg-score
-        image: cingulara/openrmf-msg-score:latest
+        image: cingulara/openrmf-msg-score:{{.Values.scoremsgImage}}
         ports:
         - containerPort: 8080
         env:
-        - name: openrmf-api-read-server
-          value: http://openrmf-read:8080
-        - name: natsserverurl
+        - name: NATSSERVERURL
           value: nats://natsserver:4222
-        - name: mongoConnection
-          value: mongodb://openrmfscore:openrmf1234!@openrmf-scoredb/openrmfscore?authSource=openrmfscore
-        - name: mongodb
-          value: openrmfscore
+        - name: MONGODBCONNECTION
+          valueFrom:  
+            secretKeyRef:
+              name: scoredbsecret
+              key: appConnection
+        - name: MONGODB
+          valueFrom:  
+            secretKeyRef:
+              name: scoredbsecret
+              key: initDBName
         resources:
           limits:
-            memory: "1Gi"
+            memory: "750M"
             cpu: "250m"
           requests:
-            memory: "500M"
-            cpu: "125m"
+            memory: "250M"
+            cpu: "100m"

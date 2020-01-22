@@ -1,0 +1,57 @@
+version : '3'
+ 
+services:
+  mongo:
+    image: mongo:4.0.5
+    restart: always
+    ports:
+      - 27017:27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=myp2ssw0rd
+      - MONGO_INITDB_DATABASE=openrmf
+    volumes:
+      - ./initializedbs.js:/docker-entrypoint-initdb.d/initialize.js:ro
+
+  nats: 
+    image: nats:2.1.2-linux
+    command: -D -V -m 8222
+    restart: always
+    ports:
+      - 4222:4222
+      - 6222:6222
+      - 8222:8222
+
+  natspromexporter: 
+    image: synadia/prometheus-nats-exporter:latest
+    command: -DV -varz http://nats:8222
+    restart: always
+    ports:
+      - 7777
+
+  prometheus:
+    image: prom/prometheus
+    restart: always
+    ports:
+      - 9090:9090
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+
+  grafana: 
+    image: grafana/grafana
+    #command:
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=1qaz2WSX3edc4RFVgr@fana
+    restart: always
+    ports:
+      - 3000:3000
+
+  mongo-express:
+    image: mongo-express:latest
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=mongo
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=root
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=myp2ssw0rd

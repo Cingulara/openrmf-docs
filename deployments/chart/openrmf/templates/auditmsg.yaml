@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openrmf-msg-audit
+  namespace: {{.Values.namespace}}
+  labels:
+    app.kubernetes.io/name: openrmf
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app.kubernetes.io/component: audit-nats-message-client
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/revision: "{{ .Release.Revision }}"
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: helm
+spec:
+  selector:
+    matchLabels:
+      run: openrmf-msg-audit
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: openrmf-msg-audit
+    spec:
+      containers:
+      - name: openrmf-msg-audit
+        image: cingulara/openrmf-msg-audit:{{.Values.auditmsgImage}}
+        ports:
+        - containerPort: 8080
+        env:
+        - name: NATSSERVERURL
+          value: nats://natsserver:4222
+        - name: MONGODBCONNECTION
+          valueFrom:  
+            secretKeyRef:
+              name: auditdbsecret
+              key: appConnection
+        - name: MONGODB
+          valueFrom:  
+            secretKeyRef:
+              name: auditdbsecret
+              key: initDBName
+        resources:
+          limits:
+            memory: "750M"
+            cpu: "250m"
+          requests:
+            memory: "250M"
+            cpu: "100m"

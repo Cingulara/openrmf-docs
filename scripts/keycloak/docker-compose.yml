@@ -1,0 +1,40 @@
+version : '3'
+ 
+services:
+  postgres:
+    image: postgres:11.5
+    restart: always
+    ports:
+      - 5432
+    environment:
+      - POSTGRES_DB=keycloak 
+      - POSTGRES_USER=keycloak 
+      - POSTGRES_PASSWORD=password
+    networks:
+      - keycloak-network
+    volumes:
+      - keycloak-postgres:/var/lib/postgresql/data
+
+  keycloak: 
+    image: jboss/keycloak:7.0.0
+    restart: always
+    ports:
+      - 9001:8080
+    environment:
+      - KEYCLOAK_USER=admin 
+      - KEYCLOAK_PASSWORD=admin 
+      - DB_VENDOR=postgres 
+      - DB_USER=keycloak 
+      - DB_PASSWORD=password
+      - PROXY_ADDRESS_FORWARDING=true
+    depends_on:
+      - postgres
+    networks:
+      - keycloak-network
+
+### put all the volume listings here for persistent data
+volumes:
+  keycloak-postgres:
+
+networks:
+  keycloak-network:

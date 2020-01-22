@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openrmf-msg-controls
+  namespace: {{.Values.namespace}}
+  labels:
+    app.kubernetes.io/name: openrmf
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app.kubernetes.io/component: controls-nats-message-client
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/revision: "{{ .Release.Revision }}"
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: helm
+spec:
+  selector:
+    matchLabels:
+      run: openrmf-msg-controls
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: openrmf-msg-controls
+    spec:
+      containers:
+      - name: openrmf-msg-controls
+        image: cingulara/openrmf-msg-controls:{{.Values.controlmsgImage}}
+        ports:
+        - containerPort: 8080
+        env:
+        - name: NATSSERVERURL
+          value: nats://natsserver:4222
+        resources:
+          limits:
+            memory: "750M"
+            cpu: "250m"
+          requests:
+            memory: "250M"
+            cpu: "100m"

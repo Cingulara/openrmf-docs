@@ -1,14 +1,54 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: templatedbsecret
+  namespace: {{.Values.namespace}}
+  labels:
+    app.kubernetes.io/name: openrmf
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app.kubernetes.io/component: template-mongodb-secret
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/revision: "{{ .Release.Revision }}"
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: helm
+type: Opaque
+data:
+  initUsername: {{.Values.templateInitDBUser}}
+  initPassword: {{.Values.templateInitDBPassword}}
+  initDBName: {{.Values.templateInitDBName}}
+  appConnection: {{.Values.templateAppConnection}}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: templatedb-initconfig
+  namespace: {{.Values.namespace | default "openrmf"}}
+  labels:
+    app.kubernetes.io/name: openrmf
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app.kubernetes.io/component: templatedb-init-config
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/revision: "{{ .Release.Revision }}"
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: helm
+data:
+  mongo-init.js: |
+    db.createUser({ user: "{{.Values.templateAppUser}}" , pwd: "{{.Values.templateAppPassword}}", roles: [{ "role": "readWrite", "db": "{{.Values.templateAppUser}}"}]});
+    db.createCollection("Templates");
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: openrmf-templatedb
-  namespace: openrmf
+  namespace: {{.Values.namespace}}
   labels:
-    app: openrmf
-    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
-    component: template-mongodb
-    release: {{ .Release.Name }}
-    revision: "{{ .Release.Revision }}"
+    app.kubernetes.io/name: openrmf
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app.kubernetes.io/component: template-mongodb
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/revision: "{{ .Release.Revision }}"
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: helm
 spec:
   selector:
     matchLabels:
@@ -23,34 +63,57 @@ spec:
     spec:
       containers:
       - name: openrmf-templatedb
-        image: cingulara/openrmf-templatedb:latest
+        image: mongo:{{.Values.mongoImage}}
         ports:
         - containerPort: 27017
         env:
         - name: MONGO_INITDB_ROOT_USERNAME
-          value: root
+          valueFrom:  
+            secretKeyRef:
+              name: templatedbsecret
+              key: initUsername
         - name: MONGO_INITDB_ROOT_PASSWORD
-          value: myp2ssw0rd
+          valueFrom:  
+            secretKeyRef:
+              name: templatedbsecret
+              key: initPassword
         - name: MONGO_INITDB_DATABASE
-          value: openrmftemplate
+          valueFrom:  
+            secretKeyRef:
+              name: templatedbsecret
+              key: initDBName
         resources:
           requests:
             memory: "500M"
-            cpu: "250m"
+            cpu: "200m"
         volumeMounts:
         - mountPath: /data/db
           name: mongodata-templatedb
+        - name: initconfig-volume
+          mountPath: /docker-entrypoint-initdb.d/mongo-init.js
+          subPath: mongo-init.js
       restartPolicy: Always
       volumes:
       - name: mongodata-templatedb
         persistentVolumeClaim:
-          claimName: mongodata-templatedb
+          claimName: openrmf-templatedb-claim
+      - name: initconfig-volume
+        configMap:
+          name: templatedb-initconfig
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: openrmf-templatedb
-  namespace: openrmf
+  namespace: {{.Values.namespace}}
+  labels:
+    app.kubernetes.io/name: openrmf
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app.kubernetes.io/component: template-mongodb
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/revision: "{{ .Release.Revision }}"
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: helm
 spec:
   ports:
   - name: mongodb-templatedb
@@ -65,8 +128,18 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mongodata-templatedb
+  namespace: {{.Values.namespace}}
+  name: openrmf-templatedb-claim
+  labels:
+    app.kubernetes.io/name: openrmf
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app.kubernetes.io/component: template-mongodb
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/revision: "{{ .Release.Revision }}"
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: helm
 spec:
+  storageClassName: {{.Values.storageClass}}
   accessModes:
   - ReadWriteOnce
   resources:

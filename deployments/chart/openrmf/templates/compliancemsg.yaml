@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openrmf-msg-compliance
+  namespace: {{.Values.namespace}}
+  labels:
+    app.kubernetes.io/name: openrmf
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app.kubernetes.io/component: compliance-nats-message-client
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/revision: "{{ .Release.Revision }}"
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: helm
+spec:
+  selector:
+    matchLabels:
+      run: openrmf-msg-compliance
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: openrmf-msg-compliance
+    spec:
+      containers:
+      - name: openrmf-msg-compliance
+        image: cingulara/openrmf-msg-compliance:{{.Values.compliancemsgImage}}
+        ports:
+        - containerPort: 8080
+        env:
+        - name: NATSSERVERURL
+          value: nats://natsserver:4222
+        resources:
+          limits:
+            memory: "750M"
+            cpu: "250m"
+          requests:
+            memory: "250M"
+            cpu: "100m"
