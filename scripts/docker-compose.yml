@@ -3,7 +3,7 @@ version : '3'
 services:
 ### 1 Web Front End Container
   openrmf-web:
-    image: cingulara/openrmf-web:0.11.1
+    image: cingulara/openrmf-web:0.11.2
     ports:
       - 8080:80
     depends_on:
@@ -51,7 +51,7 @@ services:
       - openrmf
 
   openrmfapi-template:
-    image: cingulara/openrmf-api-template:0.11.1
+    image: cingulara/openrmf-api-template:0.11.2
     ports:
       - 8088:8080
     env_file: .env
@@ -84,7 +84,7 @@ services:
       - openrmf
 
   openrmfapi-read:
-    image: cingulara/openrmf-api-read:0.11.1
+    image: cingulara/openrmf-api-read:0.11.2
     ports:
       - 8084:8080
     env_file: .env
@@ -301,6 +301,9 @@ services:
 
   prometheus:
     image: prom/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--web.enable-lifecycle'
     restart: always
     ports:
       - 9090
