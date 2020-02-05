@@ -3,7 +3,7 @@ version : '3'
 services:
 ### 1 Web Front End Container
   openrmf-web:
-    image: cingulara/openrmf-web:0.11.2
+    image: cingulara/openrmf-web:0.12.0
     ports:
       - 8080:80
     depends_on:
@@ -18,7 +18,7 @@ services:
 
 ### 8 API Containers
   openrmfapi-scoring:
-    image: cingulara/openrmf-api-scoring:0.11
+    image: cingulara/openrmf-api-scoring:0.12
     ports:
       - 8090:8080
     env_file: .env
@@ -33,7 +33,7 @@ services:
       - openrmf
   
   openrmfapi-save:
-    image: cingulara/openrmf-api-save:0.11
+    image: cingulara/openrmf-api-save:0.12
     ports:
       - 8082:8080
     env_file: .env
@@ -66,7 +66,7 @@ services:
       - openrmf
 
   openrmfapi-upload:
-    image: cingulara/openrmf-api-upload:0.11
+    image: cingulara/openrmf-api-upload:0.12
     ports:
       - 8086:8080
     env_file: .env
@@ -84,7 +84,7 @@ services:
       - openrmf
 
   openrmfapi-read:
-    image: cingulara/openrmf-api-read:0.11.2
+    image: cingulara/openrmf-api-read:0.12
     ports:
       - 8084:8080
     env_file: .env
@@ -139,7 +139,7 @@ services:
 
 ### 7 Messaging Containers
   openrmfmsg-score:
-    image: cingulara/openrmf-msg-score:0.11
+    image: cingulara/openrmf-msg-score:0.12
     environment:
       - MONGODBCONNECTION=mongodb://openrmfscore:openrmf1234!@scoredb/openrmfscore?authSource=openrmfscore
       - MONGODB=openrmfscore
@@ -151,7 +151,7 @@ services:
       - openrmf
 
   openrmfmsg-checklist:
-    image: cingulara/openrmf-msg-checklist:0.11
+    image: cingulara/openrmf-msg-checklist:0.12
     environment:
       - MONGODBCONNECTION=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
       - MONGODB=openrmf
@@ -193,7 +193,7 @@ services:
       - openrmf
 
   openrmfmsg-system:
-    image: cingulara/openrmf-msg-system:0.11
+    image: cingulara/openrmf-msg-system:0.12
     environment:
       - MONGODBCONNECTION=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
       - MONGODB=openrmf
