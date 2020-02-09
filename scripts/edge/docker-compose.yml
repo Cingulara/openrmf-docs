@@ -128,7 +128,7 @@ services:
       - MONGODB=openrmfaudit
       - NATSSERVERURL=nats://natsserver:4222
     networks:
-      - openrmf
+      - openrmf-dev
 
 ### 7 Messaging Containers
   openrmfmsg-score:
@@ -183,7 +183,7 @@ services:
       - templatedb
       - natsserver
     networks:
-      - openrmf
+      - openrmf-dev
 
   openrmfmsg-system:
     image: cingulara/openrmf-msg-system
@@ -195,7 +195,7 @@ services:
       - checklistdb
       - natsserver
     networks:
-      - openrmf
+      - openrmf-dev
 
   openrmfmsg-audit:
     image: cingulara/openrmf-msg-audit
@@ -207,7 +207,7 @@ services:
       - checklistdb
       - natsserver
     networks:
-      - openrmf
+      - openrmf-dev
 
 ### 4 MongoDB Containers
   checklistdb:
@@ -268,7 +268,7 @@ services:
       - audit-data-volume:/data/db
       - ../initializeAudit.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
     networks:
-      - openrmf
+      - openrmf-dev
 
 ### NATS messaging container (internal)
   natsserver: 
@@ -293,6 +293,9 @@ services:
 
   prometheus:
     image: prom/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--web.enable-lifecycle'
     restart: always
     ports:
       - 9090
