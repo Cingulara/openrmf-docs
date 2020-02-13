@@ -43,6 +43,8 @@ spec:
           value: Development
         - name: ASPNETCORE_URLS
           value: http://*:8080
+        - name: NATSSERVERURL
+          value: nats://natsserver:4222
         - name: MONGODBCONNECTION
           valueFrom:  
             secretKeyRef:
