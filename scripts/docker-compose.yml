@@ -3,7 +3,7 @@ version : '3'
 services:
 ### 1 Web Front End Container
   openrmf-web:
-    image: cingulara/openrmf-web:0.12.3
+    image: cingulara/openrmf-web:0.12.4
     ports:
       - 8080:80
     depends_on:
@@ -85,7 +85,7 @@ services:
       - openrmf
 
   openrmfapi-read:
-    image: cingulara/openrmf-api-read:0.12.1
+    image: cingulara/openrmf-api-read:0.12.2
     ports:
       - 8084:8080
     env_file: .env
@@ -140,7 +140,7 @@ services:
 
 ### 7 Messaging Containers
   openrmfmsg-score:
-    image: cingulara/openrmf-msg-score:0.12
+    image: cingulara/openrmf-msg-score:0.12.1
     environment:
       - MONGODBCONNECTION=mongodb://openrmfscore:openrmf1234!@scoredb/openrmfscore?authSource=openrmfscore
       - MONGODB=openrmfscore
