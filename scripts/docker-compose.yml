@@ -33,7 +33,7 @@ services:
       - openrmf
   
   openrmfapi-save:
-    image: cingulara/openrmf-api-save:0.12.1
+    image: cingulara/openrmf-api-save:0.12.2
     ports:
       - 8082:8080
     env_file: .env
