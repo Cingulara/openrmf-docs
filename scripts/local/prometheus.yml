@@ -1,5 +1,5 @@
 global:
-  scrape_interval:     5s # By default, scrape targets every 5 seconds.
+  scrape_interval:     30s # By default, scrape targets every 5 seconds.
 
   # Attach these labels to any time series or alerts when communicating with
   # external systems (federation, remote storage, Alertmanager).

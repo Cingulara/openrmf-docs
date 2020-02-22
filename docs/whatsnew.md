@@ -1,5 +1,5 @@
 ---
-title: What's New in v0.11
+title: What's New in v0.12
 nav_order: 2
 ---
 
@@ -7,7 +7,16 @@ nav_order: 2
 
 Please refer to the <a href="https://github.com/Cingulara?tab=projects" target="_blank">OpenRMF Projects listing on GitHub</a> for more information on feature updates and timeline.
 
-The latest version is version 0.11 The recent updates are below:
+The latest working version is version 0.12. The recent updates on that are below:
+* Live editing of Checklist Asset data and Vulnerability status data
+* Showing the version of the checklist
+* Updated UI of the Template page to match the Checklist page
+* Filtering on the System page listing checklists by status and severity/category of Vulnerabilities across all System checklists
+* Filtering on the Checklist page by status and severity/category of Vulnerabilities within that checklist
+* Create a Test Plan Summary across your System of Checklists and Nessus ACAS scan data
+* Updated color coding throughout the UI for Open items to show severity / category better
+
+Version 0.11 updates are also below:
 * Interactive Reports for Nessus Scan data, System Score and Checklist Vulnerability Data
 * New and Improved Dashboard for at-a-glance Critical and High patch issues
 * New and Improved Dashboard for at-a-glance list of Open Items for checklists

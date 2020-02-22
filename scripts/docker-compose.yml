@@ -3,7 +3,7 @@ version : '3'
 services:
 ### 1 Web Front End Container
   openrmf-web:
-    image: cingulara/openrmf-web:0.12.1
+    image: cingulara/openrmf-web:0.12.7
     ports:
       - 8080:80
     depends_on:
@@ -33,7 +33,7 @@ services:
       - openrmf
   
   openrmfapi-save:
-    image: cingulara/openrmf-api-save:0.12
+    image: cingulara/openrmf-api-save:0.12.2
     ports:
       - 8082:8080
     env_file: .env
@@ -51,13 +51,14 @@ services:
       - openrmf
 
   openrmfapi-template:
-    image: cingulara/openrmf-api-template:0.11.2
+    image: cingulara/openrmf-api-template:0.12
     ports:
       - 8088:8080
     env_file: .env
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8080
+      - NATSSERVERURL=nats://natsserver:4222
       - MONGODBCONNECTION=mongodb://openrmftemplate:openrmf1234!@templatedb/openrmftemplate?authSource=openrmftemplate
       - MONGODB=openrmftemplate
     depends_on:
@@ -66,7 +67,7 @@ services:
       - openrmf
 
   openrmfapi-upload:
-    image: cingulara/openrmf-api-upload:0.12
+    image: cingulara/openrmf-api-upload:0.12.2
     ports:
       - 8086:8080
     env_file: .env
@@ -84,7 +85,7 @@ services:
       - openrmf
 
   openrmfapi-read:
-    image: cingulara/openrmf-api-read:0.12
+    image: cingulara/openrmf-api-read:0.12.4
     ports:
       - 8084:8080
     env_file: .env
@@ -100,7 +101,7 @@ services:
       - openrmf
 
   openrmfapi-compliance:
-    image: cingulara/openrmf-api-compliance:0.11
+    image: cingulara/openrmf-api-compliance:0.12
     ports:
       - 8092:8080
     env_file: .env
@@ -139,7 +140,7 @@ services:
 
 ### 7 Messaging Containers
   openrmfmsg-score:
-    image: cingulara/openrmf-msg-score:0.12
+    image: cingulara/openrmf-msg-score:0.12.2
     environment:
       - MONGODBCONNECTION=mongodb://openrmfscore:openrmf1234!@scoredb/openrmfscore?authSource=openrmfscore
       - MONGODB=openrmfscore
@@ -151,7 +152,7 @@ services:
       - openrmf
 
   openrmfmsg-checklist:
-    image: cingulara/openrmf-msg-checklist:0.12
+    image: cingulara/openrmf-msg-checklist:0.12.1
     environment:
       - MONGODBCONNECTION=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
       - MONGODB=openrmf

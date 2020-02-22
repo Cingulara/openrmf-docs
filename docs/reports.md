@@ -26,3 +26,15 @@ This is a larger chart used for exporting and viewing the total items in a syste
 This reports allows you to select a system to load all available checklists. Choose an checklist and click the Run Report button to see all vulnerability data in an interactive table format. You can order columns, use the Search box to filter the information, and click the + icon to see more detailed information on the vulnerability.
 
 ![OpenRMF System Checklist Vulnerability Report](/assets/reports-checklists.png)
+
+
+## RMF Controls Listing Report
+This report lists out the controls and subcontrols across the RMF control listing to let you have more detailed information on what it represents. 
+
+![OpenRMF Controls Report](/assets/reports-controls.png)
+
+
+## System Checklist Vulnerability Report
+This reports lets you search on a vulnerability and see what hosts and checklists have that vulnerability across all checklists within your system.
+
+![OpenRMF Controls Report](/assets/reports-vulnerabilities.png)
