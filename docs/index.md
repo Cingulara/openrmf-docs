@@ -21,21 +21,23 @@ Some of the high level features are below:
 
 * 100% web based
 * 100% Open Source Software (OSS)
-* Upload a CKL or DISA SCAP XCCDF (Nessus SCAP XCCDF is in beta now!) format file easily to visualize your RMF process
+* Upload a DISA Checklist CKL, DISA SCAP XCCDF format file or Nessus SCAP XCCDF format file easily to visualize your RMF process
 * Upload a .Nessus ACAS scan file to see Patch summary of Critical and High items
 * Automatically organizes your checklists by system
+* Live online editing of your checklist through your web browser with auditing of the changes
 * Single source of truth for your system checklists
 * Single source of truth for your latest Nessus patch scans
 * Interactive Reports and Searching of Nessus scan data
-* Interactive Reports and Searching of checklist vulnerability data
+* Interactive Reports and Searching of System and checklist vulnerability data
 * Management insight into Cybersecurity Status and Security Posture instantly
+* Generating of Test Plan Summary for your System
 * AuthN, AuthZ, and Role Based Access Control (RBAC) to control access to read as well as edit data
 * Run on premise, on a local machine, or in the cloud
 * Easily find errors and deltas across checklists in your system
 * Easily run a compliance report in seconds for your Low, Moderate, or High system
 
 ## Why use OpenRMF
-The current way to implement the Risk Management Framework for your DoD Authority to Operate is VERY manual and VERY slow. It is driven by disparate pieces of a Java Viewer for checklists, massive amounts of MS Excel spreadsheets for viewing the checklists for management, MS Word documents, various PDF files, and more. Information is shared (hopefully!) via email and shared folders. And there is no one central place for developers, operations, management, and cybersecurity analysts to see the most up to date information. 
+The current way to implement the Risk Management Framework for your DoD Authority to Operate is VERY manual and VERY slow. It is driven by disparate pieces of a Java Viewer for checklists, massive amounts of MS Excel spreadsheets for viewing the checklists for management, MS Word documents, various PDF files, and more. Information is shared (hopefully!) via email and shared folders. And there is no one central place for developers, operations, management, and cybersecurity analysts to see the most up to date information that is needed to eventually submit to eMASS. 
 
 That changes with OpenRMF!
 
@@ -54,6 +56,6 @@ With coming updates such as automating the Risk Assessment Report, automating th
 More information can be found in our <a href="https://www.openrmf.io/doc/OpenRMF-Product-Information.pdf" target="_blank">product PDF</a> on our website.
 
 ## Architecture
-Below is the top level architecture, drawn via <a href="https://www.draw.io/" target="_blank">Draw.io</a>'s great tool. 
+Below is the top level architecture as of version 0.11 and beyond, drawn via <a href="https://www.draw.io/" target="_blank">Draw.io</a>'s great tool. 
 
 ![OpenRMF v0.10 Architecture](/assets/openRMF-Tool-Architecture.png)
