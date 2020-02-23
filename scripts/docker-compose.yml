@@ -3,7 +3,7 @@ version : '3'
 services:
 ### 1 Web Front End Container
   openrmf-web:
-    image: cingulara/openrmf-web:0.12.7
+    image: cingulara/openrmf-web:0.12.8
     ports:
       - 8080:80
     depends_on:
@@ -85,7 +85,7 @@ services:
       - openrmf
 
   openrmfapi-read:
-    image: cingulara/openrmf-api-read:0.12.4
+    image: cingulara/openrmf-api-read:0.12.5
     ports:
       - 8084:8080
     env_file: .env
@@ -101,7 +101,7 @@ services:
       - openrmf
 
   openrmfapi-compliance:
-    image: cingulara/openrmf-api-compliance:0.12
+    image: cingulara/openrmf-api-compliance:0.12.1
     ports:
       - 8092:8080
     env_file: .env
@@ -113,7 +113,7 @@ services:
       - openrmf
 
   openrmfapi-controls:
-    image: cingulara/openrmf-api-controls:0.11
+    image: cingulara/openrmf-api-controls:0.12
     ports:
       - 8094:8080
     env_file: .env
