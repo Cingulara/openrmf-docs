@@ -15,6 +15,10 @@ The latest working version is version 0.12. The recent updates on that are below
 * Filtering on the Checklist page by status and severity/category of Vulnerabilities within that checklist
 * Create a Test Plan Summary across your System of Checklists and Nessus ACAS scan data
 * Updated color coding throughout the UI for Open items to show severity / category better
+* Generating the POA&M for Open and Not Reviewed items for a system (across all checklists)
+* Generating the Risk Assessment Report (RAR) for a system (across all checklists)
+* Generating the Test Plan Summary for a system (across all checklists)
+* Upgrading a Checklist to the latest version and release with the click of a button!
 
 Version 0.11 updates are also below:
 * Interactive Reports for Nessus Scan data, System Score and Checklist Vulnerability Data

@@ -37,4 +37,10 @@ This report lists out the controls and subcontrols across the RMF control listin
 ## System Checklist Vulnerability Report
 This reports lets you search on a vulnerability and see what hosts and checklists have that vulnerability across all checklists within your system.
 
-![OpenRMF Controls Report](/assets/reports-vulnerabilities.png)
+![OpenRMF Checklist Vulnerability Report](/assets/reports-vulnerabilities.png)
+
+
+## System Checklist Vulnerability Report
+This reports lets you search on a system and major RMF control and see what servers, workstations, devices, etc. relate to that control across all your checklists.
+
+![OpenRMF RMF Controls by Host Report](/assets/reports-host-for-control.png)

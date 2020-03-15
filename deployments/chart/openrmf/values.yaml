@@ -27,20 +27,20 @@ installType: minikube
 # examples: 0.8, 0.8.1, latest
 auditImage: 0.11
 auditmsgImage: 0.11
-checklistmsgImage: 0.11
-complianceImage: 0.11
+checklistmsgImage: 0.12.2
+complianceImage: 0.12.2
 compliancemsgImage: 0.11
-controlImage: 0.11
+controlImage: 0.12.1
 controlmsgImage: 0.11
-readImage: 0.11.1
-saveImage: 0.11
-scoremsgImage: 0.11
-scoringImage: 0.11
-templateImage: 0.11.1
-templatemsgImage: 0.11
-uploadImage: 0.11
-systemmsgImage: 0.11
-webuiImage: 0.11.1
+readImage: 0.12.10
+saveImage: 0.12.3
+scoremsgImage: 0.12.3
+scoringImage: 0.12.2
+templateImage: 0.12.1
+templatemsgImage: 0.12
+uploadImage: 0.12.3
+systemmsgImage: 0.12.1
+webuiImage: 0.12.12
 mongoImage: 4.0.5
 natsImage: 2.1.2-linux
 

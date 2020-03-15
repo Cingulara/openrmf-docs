@@ -1,7 +1,9 @@
 # OpenRMF Documentation (v 0.12)
 
 ## Introduction to OpenRMF
-OpenRMF is an open source tool for managing, viewing, and reporting of your DoD STIG checklists and Nessus Patch Scans in one web-based interface using your browser. It also generates a compliance listing of all your checklists across a whole system based on NIST 800-53 for your Risk Management Framework (RMF) documentation and process. This tool helps you manage multiple systems going through the RMF process and allows you to structure your data in a clean interface all in one location for your group or program. It can save you _weeks_ of manually checking vulnerability-to-CCI-to-NIST controls and manually generating reports, so you can get on to the value-added work for your cybersecurity hygiene.
+OpenRMF is an open source tool for managing, viewing, and reporting of your DoD STIG checklists and Nessus Patch Scans in one web-based interface using your browser. It also generates a compliance listing of all your checklists across a whole system based on NIST 800-53 for your Risk Management Framework (RMF) documentation and process. This tool helps you manage multiple systems going through the RMF process and allows you to structure your data in a clean interface all in one location for your group or program. 
+
+It will save you _weeks_ of manually checking vulnerability-to-CCI-to-NIST controls and manually generating reports, so you can get on to the value-added work for your cybersecurity hygiene.
 
 Read more about its genesis <a href="https://www.cingulara.com/opensource.html" target="_blank">here</a>.
 
@@ -24,7 +26,7 @@ Read more about its genesis <a href="https://www.cingulara.com/opensource.html" 
 - [x] Exporting checklists to MS Excel in seconds with color coded rows based on status (Open = RED, Not a Finding = GREEN, etc.)
 - [x] Exporting of various charts for download to PNG
 - [x] Filter Vulnerabilities on the Checklist page by status 
-- [x] Live Editing of Checklist data through the web browser
+- [x] *Live Editing of Checklist data through the web browser*
 - [x] Filter vulnerabilities for your Compliance listing based on major controls
 - [x] Exporting your list of checklists and their score by status and category to MS Excel 
 - [x] Metrics exported to Prometheus for API endpoints and NATS messaging, quickly display in Grafana
@@ -35,14 +37,20 @@ Read more about its genesis <a href="https://www.cingulara.com/opensource.html" 
 - [x] User AuthN and AuthZ for login accounts and Role Based Access Control on functions
 - [x] Auditing all creates, deletes, and updates
 - [x] Import the Manual XML STIG to create a starting checklist (Automatic and behind the scenes for now)
+- [x] *Generate the RMF POA&M*
+- [x] Generate the Risk Assessment Report RAR
+- [x] Generate the Test Plan
+- [x] Central logging (ledger) for all CRUD and access usage based on NATS
 
 ## ToDos (in no particular order)
-- [ ] Central logging (ledger) for all CRUD and access usage based on NATS
-- [ ] Generate the RMF POA&M
-- [ ] Generate the Risk Assessment Report RAR
-- [ ] Generate the Test Plan
-- [ ] Select the fields to export to MS Excel, autofilter enabled on the header row
 - [ ] A wizard to ask questions and customize a starting checklist file for you with certain fields and comments filled in
+- [ ] External API access to certain functions in OpenRMF
+- [ ] Make the Keycloak setup easier (scripted)
+- [ ] Performance improvements
+- [ ] NATS Jetstream (currently in beta https://www.nats.io/)
+- [ ] Included Jaeger Tracing setup
+- [ ] Scripted Grafana Dashboards
+- [ ] Export Compliance Report to XLSX
 
 If we are missing something you want, please add it on our main <a href="https://github.com/Cingulara/openrmf-web/issues" target="_blank">GitHub Issues</a> page.
 
@@ -66,7 +74,9 @@ You need a web browser that is fairly current. And you need Docker installed on 
 ## Run OpenRMF locally
 The best way to run this application (once you have Docker installed) is to go to the Code -- Releases tab https://github.com/Cingulara/openrmf-docs/releases and pull down the latest release. Unzip the file and then run the ./start.sh or .\start.cmd file to pull the latest images and run OpenRMF. Then you can open a local browser to http://{ip-address}:8080/ and see what happens. If you want to change the ports you only have to edit the docker-compose.yml file locally. These files are in the [scripts](scripts) folder of this repo.
 
-Be sure to check out the [Keycloak information](#authentication-with-keycloak) because version 0.8 and beyond has RBAC for AuthN and AuthZ on the web and API calls. Or you could use another OpenID compliant application to provide AuthN and AuthZ.
+Be sure to check out the [Keycloak information](#authentication-with-keycloak) because OpenRMF version 0.8 and beyond has RBAC for AuthN and AuthZ on the web and API calls. Or you could use another OpenID compliant application to provide AuthN and AuthZ. 
+
+> You need to setup Keycloak first before running OpenRMF.
 
 > The data is currently mapped to internal Docker-managed volumes for persistence. You can run the "docker volume rm" command below if you wish to remove and start over as you test.  If you want persistence you could change the connection strings to another MongoDB server and adjust the docker-compose.yml accordingly. Or use a volume in your docker-compose.yml or individual docker commands. 
 
@@ -90,7 +100,9 @@ Starting with version 0.10.7 we include metrics tracking for all our major subsy
 
 ## Authentication with Keycloak
 
-Starting with version 0.8 we have AuthN and AuthZ setup for use. See the [Keycloak Document](keycloak.md) document for more information.
+Starting with version 0.8 we have AuthN and AuthZ setup for use. See the [Keycloak Document](keycloak.md) document for more information. 
+
+> NOTE: You need to setup Keycloak before running OpenRMF. And you must get the .env file correctly setup.
 
 ## Creating MongoDB Users by Hand
 If you wish you can create a MongoDB setup locally to persist your data and see what it does. Checkout the [create users by hand](create-users-by-hand.md) readme for more on that. 
@@ -102,6 +114,9 @@ If you want to remove all data from volumes you can run the below. Do at your ow
 * run `docker system prune` and then enter `y` and press Enter when asked
 
 ## Screenshots of the UI
+
+The OpenRMF Dashboard for all Systems
+![Image](./img/UI-dashboard.png?raw=true)
 
 The System Listing
 ![Image](./img/UI-system-listing.png?raw=true)
