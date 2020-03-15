@@ -26,7 +26,7 @@ Read more about its genesis <a href="https://www.cingulara.com/opensource.html" 
 - [x] Exporting checklists to MS Excel in seconds with color coded rows based on status (Open = RED, Not a Finding = GREEN, etc.)
 - [x] Exporting of various charts for download to PNG
 - [x] Filter Vulnerabilities on the Checklist page by status 
-- [x] _Live Editing of Checklist data through the web browser_
+- [x] *Live Editing of Checklist data through the web browser*
 - [x] Filter vulnerabilities for your Compliance listing based on major controls
 - [x] Exporting your list of checklists and their score by status and category to MS Excel 
 - [x] Metrics exported to Prometheus for API endpoints and NATS messaging, quickly display in Grafana
@@ -37,7 +37,7 @@ Read more about its genesis <a href="https://www.cingulara.com/opensource.html" 
 - [x] User AuthN and AuthZ for login accounts and Role Based Access Control on functions
 - [x] Auditing all creates, deletes, and updates
 - [x] Import the Manual XML STIG to create a starting checklist (Automatic and behind the scenes for now)
-- [x] _Generate the RMF POA&M_
+- [x] *Generate the RMF POA&M*
 - [x] Generate the Risk Assessment Report RAR
 - [x] Generate the Test Plan
 - [x] Central logging (ledger) for all CRUD and access usage based on NATS
@@ -49,6 +49,7 @@ Read more about its genesis <a href="https://www.cingulara.com/opensource.html" 
 - [ ] Performance improvements
 - [ ] NATS Jetstream (currently in beta https://www.nats.io/)
 - [ ] Included Jaeger Tracing setup
+- [ ] Scripted Grafana Dashboards
 - [ ] Export Compliance Report to XLSX
 
 If we are missing something you want, please add it on our main <a href="https://github.com/Cingulara/openrmf-web/issues" target="_blank">GitHub Issues</a> page.
