@@ -74,7 +74,9 @@ You need a web browser that is fairly current. And you need Docker installed on 
 ## Run OpenRMF locally
 The best way to run this application (once you have Docker installed) is to go to the Code -- Releases tab https://github.com/Cingulara/openrmf-docs/releases and pull down the latest release. Unzip the file and then run the ./start.sh or .\start.cmd file to pull the latest images and run OpenRMF. Then you can open a local browser to http://{ip-address}:8080/ and see what happens. If you want to change the ports you only have to edit the docker-compose.yml file locally. These files are in the [scripts](scripts) folder of this repo.
 
-Be sure to check out the [Keycloak information](#authentication-with-keycloak) because OpenRMF version 0.8 and beyond has RBAC for AuthN and AuthZ on the web and API calls. Or you could use another OpenID compliant application to provide AuthN and AuthZ. _You need to setup Keycloak first before running OpenRMF._
+Be sure to check out the [Keycloak information](#authentication-with-keycloak) because OpenRMF version 0.8 and beyond has RBAC for AuthN and AuthZ on the web and API calls. Or you could use another OpenID compliant application to provide AuthN and AuthZ. 
+
+> You need to setup Keycloak first before running OpenRMF.
 
 > The data is currently mapped to internal Docker-managed volumes for persistence. You can run the "docker volume rm" command below if you wish to remove and start over as you test.  If you want persistence you could change the connection strings to another MongoDB server and adjust the docker-compose.yml accordingly. Or use a volume in your docker-compose.yml or individual docker commands. 
 
@@ -98,7 +100,9 @@ Starting with version 0.10.7 we include metrics tracking for all our major subsy
 
 ## Authentication with Keycloak
 
-Starting with version 0.8 we have AuthN and AuthZ setup for use. See the [Keycloak Document](keycloak.md) document for more information. _NOTE: You need to setup Keycloak before running OpenRMF. And you must get the .env file correctly setup._
+Starting with version 0.8 we have AuthN and AuthZ setup for use. See the [Keycloak Document](keycloak.md) document for more information. 
+
+> NOTE: You need to setup Keycloak before running OpenRMF. And you must get the .env file correctly setup.
 
 ## Creating MongoDB Users by Hand
 If you wish you can create a MongoDB setup locally to persist your data and see what it does. Checkout the [create users by hand](create-users-by-hand.md) readme for more on that. 
