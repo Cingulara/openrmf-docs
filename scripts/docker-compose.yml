@@ -27,6 +27,10 @@ services:
       - ASPNETCORE_URLS=http://*:8080
       - MONGODBCONNECTION=mongodb://openrmfscore:openrmf1234!@scoredb/openrmfscore?authSource=openrmfscore
       - MONGODB=openrmfscore
+      - JAEGER_AGENT_HOST=jaeger
+      - JAEGER_AGENT_PORT=6831
+      - JAEGER_SERVICE_NAME=openrmfapi-scoring
+      - JAEGER_SAMPLER_TYPE=const
     depends_on:
       - scoredb
     networks:
@@ -43,6 +47,10 @@ services:
       - MONGODBCONNECTION=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
       - MONGODB=openrmf
       - NATSSERVERURL=nats://natsserver:4222
+      - JAEGER_AGENT_HOST=jaeger
+      - JAEGER_AGENT_PORT=6831
+      - JAEGER_SERVICE_NAME=openrmfapi-save
+      - JAEGER_SAMPLER_TYPE=const
     depends_on:
       - openrmfmsg-score
       - checklistdb
@@ -61,6 +69,10 @@ services:
       - NATSSERVERURL=nats://natsserver:4222
       - MONGODBCONNECTION=mongodb://openrmftemplate:openrmf1234!@templatedb/openrmftemplate?authSource=openrmftemplate
       - MONGODB=openrmftemplate
+      - JAEGER_AGENT_HOST=jaeger
+      - JAEGER_AGENT_PORT=6831
+      - JAEGER_SERVICE_NAME=openrmfapi-template
+      - JAEGER_SAMPLER_TYPE=const
     depends_on:
       - templatedb
     networks:
@@ -77,6 +89,10 @@ services:
       - MONGODBCONNECTION=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
       - MONGODB=openrmf
       - NATSSERVERURL=nats://natsserver:4222
+      - JAEGER_AGENT_HOST=jaeger
+      - JAEGER_AGENT_PORT=6831
+      - JAEGER_SERVICE_NAME=openrmfapi-upload
+      - JAEGER_SAMPLER_TYPE=const
     depends_on:
       - openrmfmsg-score
       - checklistdb
@@ -95,6 +111,10 @@ services:
       - MONGODBCONNECTION=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
       - MONGODB=openrmf
       - NATSSERVERURL=nats://natsserver:4222
+      - JAEGER_AGENT_HOST=jaeger
+      - JAEGER_AGENT_PORT=6831
+      - JAEGER_SERVICE_NAME=openrmfapi-read
+      - JAEGER_SAMPLER_TYPE=const
     depends_on:
       - checklistdb
     networks:
@@ -109,6 +129,10 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8080
       - NATSSERVERURL=nats://natsserver:4222
+      - JAEGER_AGENT_HOST=jaeger
+      - JAEGER_AGENT_PORT=6831
+      - JAEGER_SERVICE_NAME=openrmfapi-compliance
+      - JAEGER_SAMPLER_TYPE=const
     networks:
       - openrmf
 
@@ -121,6 +145,10 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8080
       - NATSSERVERURL=nats://natsserver:4222
+      - JAEGER_AGENT_HOST=jaeger
+      - JAEGER_AGENT_PORT=6831
+      - JAEGER_SERVICE_NAME=openrmfapi-controls
+      - JAEGER_SAMPLER_TYPE=const
     networks:
       - openrmf
 
@@ -135,6 +163,10 @@ services:
       - MONGODBCONNECTION=mongodb://openrmfaudit:openrmf1234!@auditdb/openrmfaudit?authSource=openrmfaudit
       - MONGODB=openrmfaudit
       - NATSSERVERURL=nats://natsserver:4222
+      - JAEGER_AGENT_HOST=jaeger
+      - JAEGER_AGENT_PORT=6831
+      - JAEGER_SERVICE_NAME=openrmfapi-audit
+      - JAEGER_SAMPLER_TYPE=const
     networks:
       - openrmf
 
@@ -145,6 +177,10 @@ services:
       - MONGODBCONNECTION=mongodb://openrmfscore:openrmf1234!@scoredb/openrmfscore?authSource=openrmfscore
       - MONGODB=openrmfscore
       - NATSSERVERURL=nats://natsserver:4222
+      - JAEGER_AGENT_HOST=jaeger
+      - JAEGER_AGENT_PORT=6831
+      - JAEGER_SERVICE_NAME=openrmfmsg-score
+      - JAEGER_SAMPLER_TYPE=const
     depends_on:
       - scoredb
       - natsserver
@@ -157,6 +193,10 @@ services:
       - MONGODBCONNECTION=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
       - MONGODB=openrmf
       - NATSSERVERURL=nats://natsserver:4222
+      - JAEGER_AGENT_HOST=jaeger
+      - JAEGER_AGENT_PORT=6831
+      - JAEGER_SERVICE_NAME=openrmfmsg-checklist
+      - JAEGER_SAMPLER_TYPE=const
     depends_on:
       - checklistdb
       - natsserver
@@ -167,6 +207,10 @@ services:
     image: cingulara/openrmf-msg-compliance:0.11
     environment:
       - NATSSERVERURL=nats://natsserver:4222
+      - JAEGER_AGENT_HOST=jaeger
+      - JAEGER_AGENT_PORT=6831
+      - JAEGER_SERVICE_NAME=openrmfmsg-compliance
+      - JAEGER_SAMPLER_TYPE=const
     depends_on:
       - natsserver
     networks:
@@ -176,6 +220,10 @@ services:
     image: cingulara/openrmf-msg-controls:0.11
     environment:
       - NATSSERVERURL=nats://natsserver:4222
+      - JAEGER_AGENT_HOST=jaeger
+      - JAEGER_AGENT_PORT=6831
+      - JAEGER_SERVICE_NAME=openrmfmsg-controls
+      - JAEGER_SAMPLER_TYPE=const
     depends_on:
       - natsserver
     networks:
@@ -187,6 +235,10 @@ services:
       - MONGODBCONNECTION=mongodb://openrmftemplate:openrmf1234!@templatedb/openrmftemplate?authSource=openrmftemplate
       - MONGODB=openrmftemplate
       - NATSSERVERURL=nats://natsserver:4222
+      - JAEGER_AGENT_HOST=jaeger
+      - JAEGER_AGENT_PORT=6831
+      - JAEGER_SERVICE_NAME=openrmfmsg-template
+      - JAEGER_SAMPLER_TYPE=const
     depends_on:
       - templatedb
       - natsserver
@@ -199,6 +251,10 @@ services:
       - MONGODBCONNECTION=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
       - MONGODB=openrmf
       - NATSSERVERURL=nats://natsserver:4222
+      - JAEGER_AGENT_HOST=jaeger
+      - JAEGER_AGENT_PORT=6831
+      - JAEGER_SERVICE_NAME=openrmfmsg-system
+      - JAEGER_SAMPLER_TYPE=const
     depends_on:
       - checklistdb
       - natsserver
@@ -211,6 +267,10 @@ services:
       - MONGODBCONNECTION=mongodb://openrmfaudit:openrmf1234!@auditdb/openrmfaudit?authSource=openrmfaudit
       - MONGODB=openrmfaudit
       - NATSSERVERURL=nats://natsserver:4222
+      - JAEGER_AGENT_HOST=jaeger
+      - JAEGER_AGENT_PORT=6831
+      - JAEGER_SERVICE_NAME=openrmfmsg-audit
+      - JAEGER_SAMPLER_TYPE=const
     depends_on:
       - checklistdb
       - natsserver
@@ -309,6 +369,7 @@ services:
     ports:
       - 9090
     volumes:
+      - openrmf-prometheus-data-volume:/prometheus # persist the data
       - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
     networks:
       - openrmf
@@ -321,6 +382,19 @@ services:
     restart: always
     ports:
       - 3000:3000
+    volumes:
+      - openrmf-grafana-data-volume:/var/lib/grafana # persist the data
+    networks:
+      - openrmf
+
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    ports:
+      - "5778:5778/tcp"
+      - "6831:6831/udp"
+      - "16686:16686" # Query Service and UI Metrics
+      - "16687:16687" 
+      - "14271:14271" # Agent Metrics
     networks:
       - openrmf
 
@@ -330,6 +404,8 @@ volumes:
   checklist-data-volume:
   score-data-volume:
   audit-data-volume:
+  openrmf-prometheus-data-volume:
+  openrmf-grafana-data-volume:
 
 ### put all the networks here
 networks:
