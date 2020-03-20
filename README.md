@@ -1,9 +1,11 @@
-# OpenRMF Documentation (v 0.12)
+# OpenRMF Documentation (v 0.13)
 
 ## Introduction to OpenRMF
 OpenRMF is an open source tool for managing, viewing, and reporting of your DoD STIG checklists and Nessus Patch Scans in one web-based interface using your browser. It also generates a compliance listing of all your checklists across a whole system based on NIST 800-53 for your Risk Management Framework (RMF) documentation and process. This tool helps you manage multiple systems going through the RMF process and allows you to structure your data in a clean interface all in one location for your group or program. 
 
 It will save you _weeks_ of manually checking vulnerability-to-CCI-to-NIST controls and manually generating reports, so you can get on to the value-added work for your cybersecurity hygiene.
+
+When a team has poor visibility of their system’s risk data, it can result in bad decisions, errors, security risks and unforeseen issues. Teams must replace manual RMF and checklist methods that use spreadsheets and emails with an open, web-based solution that your team can leverage to plan, track and govern the entire RMF process. That is where OpenRMF helps you and your team!
 
 Read more about its genesis <a href="https://www.cingulara.com/opensource.html" target="_blank">here</a>.
 
@@ -41,16 +43,16 @@ Read more about its genesis <a href="https://www.cingulara.com/opensource.html" 
 - [x] Generate the Risk Assessment Report RAR
 - [x] Generate the Test Plan
 - [x] Central logging (ledger) for all CRUD and access usage based on NATS
+- [x] Make the Keycloak setup easier (scripted)
+- [x] Included Jaeger Tracing setup
+- [x] Grafana and Prometheus included setup
 
 ## ToDos (in no particular order)
-- [ ] A wizard to ask questions and customize a starting checklist file for you with certain fields and comments filled in
 - [ ] External API access to certain functions in OpenRMF
-- [ ] Make the Keycloak setup easier (scripted)
 - [ ] Performance improvements
-- [ ] NATS Jetstream (currently in beta https://www.nats.io/)
-- [ ] Included Jaeger Tracing setup
-- [ ] Scripted Grafana Dashboards
 - [ ] Export Compliance Report to XLSX
+- [ ] Meaningful Health Checks in APIs and MSG clients
+- [ ] Separate Reporting API and Database (MSA)
 
 If we are missing something you want, please add it on our main <a href="https://github.com/Cingulara/openrmf-web/issues" target="_blank">GitHub Issues</a> page.
 
