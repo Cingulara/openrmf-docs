@@ -96,6 +96,10 @@ For those that want to run the actual "latest" or "edge" of OpenRMF you should r
 
 > Please ensure you check the launch.json on the VSCode windows to point to your NATS and your Keycloak setup.
 
+## Install in Air-Gapped / Disconnected Environment
+
+There are [separate instructions](airgapped-install.md) in the included air-gapped installation MD file.
+
 ## Metrics Tracking with Prometheus and Grafana
 
 Starting with version 0.10.7 we include metrics tracking for all our major subsystems. See the [OpenRMF Metrics](metrics.md) document for more information.
