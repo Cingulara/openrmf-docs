@@ -66,7 +66,7 @@ spec:
         - name: JAEGER_SAMPLER_TYPE
           value: {{.Values.jaegerSamplerType}}
         - name: JAEGER_SAMPLER_PARAM
-          value: {{.Values.jaegerSamplerParam}}
+          value: "{{.Values.jaegerSamplerParam}}"
         resources:
           limits:
             memory: "750Mi"
