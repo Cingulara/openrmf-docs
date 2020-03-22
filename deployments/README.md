@@ -5,6 +5,10 @@ You can use the Helm chart or do the individual `kubectl` commands from the Kube
 kubectl apply -f ./kubernetes/namespace.yaml
 ```
 
+> Version 0.13 and beyond requires Jaeger. See the documentation if putting this into Kubernetes for the Jaeger Operator at https://www.jaegertracing.io/docs/1.17/operator/#installing-the-agent-as-daemonset. This is to show tracing and other features of the application internal calls for debugging and information when required. 
+
+Also make sure you have a persistent volume as there are several pieces in here that require the PV. There is a [PV YAML](./kubernetes/pv.yaml) file to show how this works. 
+
 ## Helm
 For deployments using helm see the [chart/openrmf](./chart/openrmf/) folder. There is a values.yaml file that has comments and fields to use. If you wish to use the helm chart to generate the YAML like I do, you can run the following command below from the deployments folder (after you do a git clone or download the code ZIP) to make the files.  You must create the directory to put the files into in the DIR_NAME below.
 
