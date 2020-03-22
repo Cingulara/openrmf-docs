@@ -59,6 +59,16 @@ spec:
             secretKeyRef:
               name: checklistdbsecret
               key: initDBName
+        - name: JAEGER_AGENT_HOST
+          value: jaegerserver
+        - name: JAEGER_AGENT_PORT
+          value: 6831
+        - name: JAEGER_SERVICE_NAME
+          value: openrmfapi-save
+        - name: JAEGER_SAMPLER_TYPE
+          value: {{.Values.jaegerSamplerType}}
+        - name: JAEGER_SAMPLER_PARAM
+          value: {{.Values.jaegerSamplerParam}}
         resources:
           limits:
             memory: "750Mi"
