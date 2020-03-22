@@ -10,14 +10,14 @@ kubectl apply -f ./kubernetes/namespace.yaml
 Also make sure you have a persistent volume as there are several pieces in here that require the PV. There is a [PV YAML](./kubernetes/pv.yaml) file to show how this works. 
 
 ## Helm
-For deployments using helm see the [chart/openrmf](./chart/openrmf/) folder. There is a values.yaml file that has comments and fields to use. If you wish to use the helm chart to generate the YAML like I do, you can run the following command below from the deployments folder (after you do a git clone or download the code ZIP) to make the files.  You must create the directory to put the files into in the DIR_NAME below.
+For deployments using helm see the [chart/openrmf](./chart/openrmf/) folder. There is a values.yaml file that has comments and fields to use. If you wish to use the helm chart to generate the YAML like I do, you can run the following command below from the deployments folder (after you do a git clone or download the code ZIP) to make the files. 
 
 ```
-helm template chart/openrmf --output-dir DIR_NAME -n RELEASE_NAME --notes
+helm template RELEASE_NAME chart/openrmf --output-dir DIR_NAME -n NAMESPACE
 ```
 or to put into a single file to deploy
 ```
-helm template chart/openrmf -n RELEASE_NAME --notes > ./openrmf.yaml
+helm template RELEASE_NAME chart/openrmf > ./openrmf.yaml
 ```
 Once the file(s) are generated you can apply the files. Make sure the namespace in the values.yaml file for the chart and the 
 namespace you made in step 1 are the same!
