@@ -25,7 +25,7 @@ spec:
     spec:
       containers:
       - name: openrmf-nats
-        image: jaegertracing/all-in-one: latest
+        image: jaegertracing/all-in-one:latest
         ports:
         - containerPort: 5778
           protocol: TCP

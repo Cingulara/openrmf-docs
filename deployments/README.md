@@ -38,7 +38,7 @@ echo -n 'openrmf' | base64
 
 If you wish to use the Amazon Web Services Kubernetes service EKS, then follow the information here https://docs.aws.amazon.com/eks/latest/userguide/ebs-csi.html to setup a persistent volume to use across your cluster if you have not done so already. The OpenRMF uses persistent volume claims (PVC) to store database data.
 
-* curl -O https://raw.githubusercontent.com/kubernetes-sigs/aws-ebs-csi-driver/v0.4.0/docs/example-iam-policy.json
+* curl -O https://raw.githubusercontent.com/kubernetes-sigs/aws-ebs-csi-driver/master/docs/example-iam-policy.json
 * aws iam create-policy --policy-name Amazon_EBS_CSI_Driver --policy-document file://example-iam-policy.json
 
 Keep a copy of the arn returned: 
