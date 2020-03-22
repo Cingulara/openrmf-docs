@@ -5,7 +5,7 @@ You can use the Helm chart or do the individual `kubectl` commands from the Kube
 kubectl apply -f ./kubernetes/namespace.yaml
 ```
 
-> Version 0.13 and beyond requires Jaeger. See the documentation if putting this into Kubernetes for the Jaeger Operator at https://www.jaegertracing.io/docs/1.17/operator/#installing-the-agent-as-daemonset. This is to show tracing and other features of the application internal calls for debugging and information when required. 
+> OpenRMF v 0.13 and beyond requires Jaeger. See the documentation if putting this into Kubernetes for the Jaeger Operator at https://www.jaegertracing.io/docs/1.17/operator/#installing-the-agent-as-daemonset. This is to show tracing and other features of the application internal calls for debugging and information when required. 
 
 Also make sure you have a persistent volume as there are several pieces in here that require the PV. There is a [PV YAML](./kubernetes/pv.yaml) file to show how this works. 
 

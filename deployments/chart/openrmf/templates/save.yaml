@@ -60,7 +60,9 @@ spec:
               name: checklistdbsecret
               key: initDBName
         - name: JAEGER_AGENT_HOST
-          value: jaegerserver
+          valueFrom:
+            fieldRef:
+              fieldPath: status.hostIP
         - name: JAEGER_AGENT_PORT
           value: "6831"
         - name: JAEGER_SERVICE_NAME

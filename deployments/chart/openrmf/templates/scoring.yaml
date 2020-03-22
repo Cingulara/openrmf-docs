@@ -58,7 +58,9 @@ spec:
         - name: JWT-CLIENT
           value: {{.Values.identityProviderClientId}}
         - name: JAEGER_AGENT_HOST
-          value: jaegerserver
+          valueFrom:
+            fieldRef:
+              fieldPath: status.hostIP
         - name: JAEGER_AGENT_PORT
           value: "6831"
         - name: JAEGER_SERVICE_NAME
