@@ -143,3 +143,31 @@ checklistInitDBName: openrmf
 checklistAppUser: openrmf
 checklistAppPassword: openrmf1234!
 ```
+
+## Network Policies
+
+There are a few network policies in the template directory as well. As an example, these can be used with the Calico CNI on AWS EKS https://docs.aws.amazon.com/eks/latest/userguide/calico.html following these instructions. 
+
+An example is below, used within the "openrmftest" namespace if setup. This basically says the Audit DB Mongo pod can talk over 27010 (MongoDB default port) with the Audit NATS messaging client and the Audit API. There are a few more in there with the "-policy.yaml" ending on the filename for you to use, apply, tweak, etc. 
+
+```
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  namespace: openrmftest
+  name: audit-db-connection-policy
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/component: audit-mongodb
+  ingress:
+  - ports:
+    - port: 27017
+    from:
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/component: audit-nats-message-client
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/component: audit-api
+```
