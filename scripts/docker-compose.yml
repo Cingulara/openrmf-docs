@@ -353,7 +353,7 @@ services:
 ### Metrics
   natspromexporter: 
     image: synadia/prometheus-nats-exporter:latest
-    command: -DV -varz http://natsserver:8222
+    command: -varz -connz -subz http://natsserver:8222
     restart: always
     ports:
       - 7777
