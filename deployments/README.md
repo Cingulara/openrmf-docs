@@ -29,7 +29,7 @@ namespace you made in step 1 are the same!
 For a straight kubernetes (k8s) installation w/o helm go to the [kubernetes](./kubernetes) folder and make the namespace with the . Then deploy all the pieces locally. You may have to adjust the services based on your setup.
 
 ## Jaeger
-These APIs push out tracing information to Jaeger in Kubernetes. Based on https://github.com/jaegertracing/jaeger-kubernetes you need to run the below to put the Jaeger operator in place. When it is done you can run ` service jaeger-query ` to see the URL for it. The APIs right now will fail if they do not have Jaeger specifics setup. We will in the future put an option in the helm chart to use / not use them. 
+These APIs push out tracing information to Jaeger in Kubernetes. Based on https://github.com/jaegertracing/jaeger-kubernetes you need to run the below to put the Jaeger operator in place. When it is done you can run ` kubectl get service jaeger-query ` to see the URL for it. The APIs right now will fail if they do not have Jaeger specifics setup. We will in the future put an option in the helm chart to use / not use them. 
 
 ```
 kubectl create -f https://raw.githubusercontent.com/jaegertracing/jaeger-kubernetes/master/jaeger-production-template.yml
@@ -94,3 +94,10 @@ Now you can have a persistent volume claim (PVC) in your deployment YAML files f
 To get https working on your EKS endpoints, read this article: https://aws.amazon.com/premiumsupport/knowledge-center/terminate-https-traffic-eks-acm/. This is the one I got to work successfully every time. And it is what I did in my charts for now while I test others. The issue (read PITA) is the DNS you get from each LoadBalancer, you have to add CNAME records for a TLD to point to them. No path level routing. Not very IaC so still working toward a better solution.
 
 Or if you need path based routing, https://aws.amazon.com/blogs/opensource/kubernetes-ingress-aws-alb-ingress-controller/. And then https://kubernetes-sigs.github.io/aws-alb-ingress-controller/guide/tasks/ssl_redirect/ for the path routing across all pieces.
+
+## Deploy the Metrics Server
+Please read up on https://docs.aws.amazon.com/eks/latest/userguide/metrics-server.html to see how you do that. 
+* Pull down the metrics server tar gz
+* Untar
+* Apply the YAMLs in the directory
+* Run `kubectl get deployment metrics-server -n kube-system`
