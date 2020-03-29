@@ -34,7 +34,10 @@ metadata:
 data:
   mongo-init.js: |
     db.createUser({ user: "{{.Values.auditAppUser}}" , pwd: "{{.Values.auditAppPassword}}", roles: [{ "role": "readWrite", "db": "{{.Values.auditAppUser}}"}]});
-    db.createCollection("Templates");
+    db.createCollection("Audits");
+    db.Audits.createIndex({ created: -1 })
+    db.Audits.createIndex({ username: 1 })
+    db.Audits.createIndex({ program: 1 })
 ---
 apiVersion: apps/v1
 kind: Deployment

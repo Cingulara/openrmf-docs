@@ -75,7 +75,7 @@ templateAppUser: openrmftemplate
 templateAppPassword: openrmf4321!
 scoreAppUser: openrmfscore
 scoreAppPassword: openrmf9876!
-auditAppUser: openrmftemplate
+auditAppUser: openrmfaudit
 auditAppPassword: openrmf4321!
 
 # SECRET VALUES ARE TO BE IN base64

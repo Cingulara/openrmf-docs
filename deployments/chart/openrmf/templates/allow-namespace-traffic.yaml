@@ -1,0 +1,13 @@
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  namespace: {{.Values.namespace}}
+  name: web-allow-external
+spec:
+  podSelector:
+    matchLabels: {}
+  ingress:
+    - from:
+      - podSelector:
+          matchLabels:
+            app.kubernetes.io/name: openrmf
