@@ -21,7 +21,7 @@ documentation on making persistent volumes.
 
 The values.yaml file has only 4 fields to configure. The defaults match up to the Keycloak documentation however you can make these whatever you want them to be. 
 
-> PLEASE CHANGE THE DATABASE NAMES, USER NAMES, AND PASSWORDS BEFORE YOU DEPLOY!
+> PLEASE CHANGE THE DATABASE NAMES, USER NAMES, AND PASSWORDS BEFORE YOU DEPLOY! You can use the https://www.base64encode.net/ tool to base64 encode your connections if you need to.
 
 ## main DNS name used to access the deployed app in k8s via DNS through an ingress controller
 ```yaml

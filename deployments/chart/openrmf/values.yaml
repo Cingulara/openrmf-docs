@@ -99,7 +99,7 @@ scoreInitDBName: b3BlbnJtZnNjb3Jl
 # app connection must be in the form below with valid user, password, and database names
 # the user, password, and database name must match the initialization scripts above -- secrets however are base64 encoded
 # mongodb://{{.Values.scoreAppUser}}:{{.Values.scoreAppPassword}}@openrmf-scoredb/{{.Values.scoreInitDBName}}?authSource={{.Values.scoreInitDBName}}
-scoreAppConnection: bW9uZ29kYjovL29wZW5ybWZzY29yZTpvcGVucm1mOTg3NiFAb3BlbnJtZi1jaGVja2xpc3RkYi9vcGVucm1mc2NvcmU/YXV0aFNvdXJjZT1vcGVucm1mc2NvcmU=
+scoreAppConnection: bW9uZ29kYjovL29wZW5ybWZzY29yZTpvcGVucm1mOTg3NiFAb3BlbnJtZi1zY29yZWRiL29wZW5ybWZzY29yZT9hdXRoU291cmNlPW9wZW5ybWZzY29yZQ==
 
 # Template Database Secret Values
 templateInitDBUser: cm9vdA==
