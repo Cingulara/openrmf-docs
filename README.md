@@ -46,12 +46,12 @@ Read more about its genesis <a href="https://www.cingulara.com/opensource.html" 
 - [x] Make the Keycloak setup easier (scripted)
 - [x] Included Jaeger Tracing setup
 - [x] Grafana and Prometheus included setup
+- [x] External API access to certain functions in OpenRMF (ext-api-score)
+- [x] Export Compliance Report to XLSX
+- [x] Meaningful Health Checks in APIs and MSG clients
 
 ## ToDos (in no particular order)
-- [ ] External API access to certain functions in OpenRMF
 - [ ] Performance improvements
-- [ ] Export Compliance Report to XLSX
-- [ ] Meaningful Health Checks in APIs and MSG clients
 - [ ] Separate Reporting API and Database (MSA)
 
 If we are missing something you want, please add it on our main <a href="https://github.com/Cingulara/openrmf-web/issues" target="_blank">GitHub Issues</a> page.
