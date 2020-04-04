@@ -43,6 +43,8 @@ spec:
           value: Development
         - name: ASPNETCORE_URLS
           value: http://*:8080
+        - name: NATSSERVERURL
+          value: nats://natsserver:4222
         - name: MONGODBCONNECTION
           valueFrom:  
             secretKeyRef:
@@ -57,6 +59,18 @@ spec:
           value: {{.Values.identityProviderURL}}/realms/{{.Values.identityProviderRealm}}
         - name: JWT-CLIENT
           value: {{.Values.identityProviderClientId}}
+        - name: JAEGER_AGENT_HOST
+          valueFrom:
+            fieldRef:
+              fieldPath: status.hostIP
+        - name: JAEGER_AGENT_PORT
+          value: "6831"
+        - name: JAEGER_SERVICE_NAME
+          value: openrmfapi-template
+        - name: JAEGER_SAMPLER_TYPE
+          value: {{.Values.jaegerSamplerType}}
+        - name: JAEGER_SAMPLER_PARAM
+          value: "{{.Values.jaegerSamplerParam}}"
         resources:
           limits:
             memory: "750Mi"

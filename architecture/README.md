@@ -1,5 +1,5 @@
 # OpenRMF Architecture
-This has the current architecture information for the OpenRMF application as of version 0.11.
+This has the current architecture information for the OpenRMF application as of version 0.11 and beyond (current version).
 
 ![Image](./openRMF-Tool-Architecture.png?raw=true)
 
@@ -52,3 +52,5 @@ OpenRMF uses NATS messaging to work eventual consistency as well as API-to-API c
 | openrmf.system.update.{Id} | Subscribe | Save | openrmf-msg-system | When a system title is updated, make sure all references throughout the checklists are updated. We save the system group Id and the title with the checklists for easier usage throughout OpenRMF. The source-of-truth is the systemgroups collection in MongoDB. |
 | openrmf.system.count.> | Subscribe | Upload (add) and Save (delete) | openrmf-msg-system | Increments with a ".add" at the end of the subject or decrements if there is a ".delete" at the end of the subject. The payload is the system group Id. |
 | openrmf.system.compliance | Subscribe | Compliance | openrmf-msg-system | Stores the date of the last compliance check run into the system group record for display later. |
+
+| openrmf.compliance.cci.references | Request/Reply | Compliance | openrmf-msg-compliance | Passing in the CCI it returns the CCI title and NIST list of references for the CCI passed in to the Compliance API. |

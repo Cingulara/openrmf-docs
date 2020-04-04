@@ -5,7 +5,7 @@ nav_order: 100
 
 # Uploading Checklists and Templates
 
-The Upload page is available to users with the Administrator or Editor role assigned. From this page you can upload a CKL checklist file made from the DISA Java Viewer. You can upload a SCAP (DoD and now Nessus SCAP in beta) scan result in XCCDF XML format. Or you can upload a CKL file as a User Template for others to start from and create their checklist for the appropriate system technology. 
+The Upload page is available to users with the Administrator or Editor role assigned. From this page you can upload a CKL checklist file made from the DISA Java Viewer. You can upload a SCAP (DoD or Nessus SCAP) scan result in XCCDF XML format. Or you can upload a CKL file as a User Template for others to start from and create their checklist for the appropriate system technology. 
 
 ## Upload Checklists or SCAP XCCDF files
 

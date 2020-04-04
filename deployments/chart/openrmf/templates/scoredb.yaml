@@ -35,6 +35,9 @@ data:
   mongo-init.js: |
     db.createUser({ user: "{{.Values.scoreAppUser}}" , pwd: "{{.Values.scoreAppPassword}}", roles: [{ "role": "readWrite", "db": "{{.Values.scoreAppUser}}"}]});
     db.createCollection("Scores");
+    db.Scores.createIndex({ artifactId: 1 })
+    db.Scores.createIndex({ systemGroupId: 1 })
+    db.Scores.createIndex({ hostName: 1 })
 ---
 apiVersion: apps/v1
 kind: Deployment

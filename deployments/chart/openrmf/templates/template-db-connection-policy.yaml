@@ -1,0 +1,19 @@
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  namespace: {{.Values.namespace}}
+  name: template-db-connection-policy
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/component: template-mongodb
+  ingress:
+  - ports:
+    - port: 27017
+    from:
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/component: template-nats-message-client
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/component: template-api

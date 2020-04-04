@@ -1,0 +1,19 @@
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  namespace: {{.Values.namespace}}
+  name: audit-db-connection-policy
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/component: audit-mongodb
+  ingress:
+  - ports:
+    - port: 27017
+    from:
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/component: audit-nats-message-client
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/component: audit-api

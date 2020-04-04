@@ -35,6 +35,8 @@ data:
   mongo-init.js: |
     db.createUser({ user: "{{.Values.templateAppUser}}" , pwd: "{{.Values.templateAppPassword}}", roles: [{ "role": "readWrite", "db": "{{.Values.templateAppUser}}"}]});
     db.createCollection("Templates");
+    db.Templates.createIndex({ stigType: 1 })
+    db.Templates.createIndex({ templateType: 1 })
 ---
 apiVersion: apps/v1
 kind: Deployment
