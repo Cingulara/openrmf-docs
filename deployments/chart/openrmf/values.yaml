@@ -25,27 +25,27 @@ installType: minikube
 
 # versions of container to adjust
 # examples: 0.8, 0.8.1, latest
-auditImage: 0.13.01
+auditImage: 0.13.02
 auditmsgImage: 0.13.01
 checklistmsgImage: 0.13.01
 complianceImage: 0.13.01
 compliancemsgImage: 0.13.01
 controlImage: 0.13.01
 controlmsgImage: 0.13.01
-readImage: 0.13.01
-saveImage: 0.13.01
+readImage: 0.13.02
+saveImage: 0.13.02
 scoremsgImage: 0.13.01
-scoringImage: 0.13.01
-templateImage: 0.13.01
+scoringImage: 0.13.02
+templateImage: 0.13.02
 templatemsgImage: 0.13.01
-uploadImage: 0.13.01
+uploadImage: 0.13.02
 systemmsgImage: 0.13.01
-webuiImage: 0.13.01
+webuiImage: 0.13.02
 mongoImage: 4.0.5
 natsImage: 2.1.2-linux
 
 # storage class name for PVC
-# examples: standard, ebs-sc, efs-sc
+# examples: standard, gp2, ebs-sc, efs-sc
 storageClass: standard
 
 # API URLs for the web client side calls, used in the web.yaml deployment for the UI
