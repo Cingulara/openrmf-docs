@@ -5,15 +5,19 @@ You can use the Helm chart or do the individual `kubectl` commands from the Kube
 kubectl apply -f ./kubernetes/namespace.yaml
 ```
 
+> OpenRMF v 0.13 and beyond requires Jaeger. See the documentation if putting this into Kubernetes for the Jaeger Operator at https://www.jaegertracing.io/docs/1.17/operator/#installing-the-agent-as-daemonset. This is to show tracing and other features of the application internal calls for debugging and information when required. 
+
+Also make sure you have a persistent volume as there are several pieces in here that require the PV. There is a [PV YAML](./kubernetes/pv.yaml) file to show how this works. 
+
 ## Helm
-For deployments using helm see the [chart/openrmf](./chart/openrmf/) folder. There is a values.yaml file that has comments and fields to use. If you wish to use the helm chart to generate the YAML like I do, you can run the following command below from the deployments folder (after you do a git clone or download the code ZIP) to make the files.  You must create the directory to put the files into in the DIR_NAME below.
+For deployments using helm see the [chart/openrmf](./chart/openrmf/) folder. There is a values.yaml file that has comments and fields to use. If you wish to use the helm chart to generate the YAML like I do, you can run the following command below from the deployments folder (after you do a git clone or download the code ZIP) to make the files. 
 
 ```
-helm template chart/openrmf --output-dir DIR_NAME -n RELEASE_NAME --notes
+helm template RELEASE_NAME chart/openrmf --output-dir DIR_NAME -n NAMESPACE
 ```
 or to put into a single file to deploy
 ```
-helm template chart/openrmf -n RELEASE_NAME --notes > ./openrmf.yaml
+helm template RELEASE_NAME chart/openrmf > ./openrmf.yaml
 ```
 Once the file(s) are generated you can apply the files. Make sure the namespace in the values.yaml file for the chart and the 
 namespace you made in step 1 are the same!
@@ -23,6 +27,13 @@ namespace you made in step 1 are the same!
 
 ## Kubernetes
 For a straight kubernetes (k8s) installation w/o helm go to the [kubernetes](./kubernetes) folder and make the namespace with the . Then deploy all the pieces locally. You may have to adjust the services based on your setup.
+
+## Jaeger
+These APIs push out tracing information to Jaeger in Kubernetes. Based on https://github.com/jaegertracing/jaeger-kubernetes you need to run the below to put the Jaeger operator in place. When it is done you can run ` kubectl get service jaeger-query ` to see the URL for it. The APIs right now will fail if they do not have Jaeger specifics setup. We will in the future put an option in the helm chart to use / not use them. 
+
+```
+kubectl create -f https://raw.githubusercontent.com/jaegertracing/jaeger-kubernetes/master/jaeger-production-template.yml
+```
 
 ## Generating Secrets
 To use secrets in the YAML file you need to generate the values in base64 encoding. The username, initial root password, database name, 
@@ -38,7 +49,7 @@ echo -n 'openrmf' | base64
 
 If you wish to use the Amazon Web Services Kubernetes service EKS, then follow the information here https://docs.aws.amazon.com/eks/latest/userguide/ebs-csi.html to setup a persistent volume to use across your cluster if you have not done so already. The OpenRMF uses persistent volume claims (PVC) to store database data.
 
-* curl -O https://raw.githubusercontent.com/kubernetes-sigs/aws-ebs-csi-driver/v0.4.0/docs/example-iam-policy.json
+* curl -O https://raw.githubusercontent.com/kubernetes-sigs/aws-ebs-csi-driver/master/docs/example-iam-policy.json
 * aws iam create-policy --policy-name Amazon_EBS_CSI_Driver --policy-document file://example-iam-policy.json
 
 Keep a copy of the arn returned: 
@@ -83,3 +94,13 @@ Now you can have a persistent volume claim (PVC) in your deployment YAML files f
 To get https working on your EKS endpoints, read this article: https://aws.amazon.com/premiumsupport/knowledge-center/terminate-https-traffic-eks-acm/. This is the one I got to work successfully every time. And it is what I did in my charts for now while I test others. The issue (read PITA) is the DNS you get from each LoadBalancer, you have to add CNAME records for a TLD to point to them. No path level routing. Not very IaC so still working toward a better solution.
 
 Or if you need path based routing, https://aws.amazon.com/blogs/opensource/kubernetes-ingress-aws-alb-ingress-controller/. And then https://kubernetes-sigs.github.io/aws-alb-ingress-controller/guide/tasks/ssl_redirect/ for the path routing across all pieces.
+
+## Deploy the Metrics Server
+Please read up on https://docs.aws.amazon.com/eks/latest/userguide/metrics-server.html to see how you do that. 
+* Pull down the metrics server tar gz
+* Untar
+* Apply the YAMLs in the directory
+* Run `kubectl get deployment metrics-server -n kube-system`
+
+## Using Network Policies on EKS
+You need to look to kubectl apply -f https://raw.githubusercontent.com/aws/amazon-vpc-cni-k8s/release-1.5/config/v1.5/calico.yaml as an example to enable network separation and tenant isolation. There are some starting NetworkPolicy YAML files in the OpenRMF chart. But you need something like Calico or Cilium or other CNI plugins setup on your EKS Cluster. 

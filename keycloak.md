@@ -2,7 +2,7 @@
 OpenRMF uses Keycloak (OpenID) initially for login and password access as well as role based access control. You also can use Keycloak for linking to Identity Providers with Google, GitHub, Twitter, and others for access to OpenRMF. Feel free to follow these Keycloak directions or use another provider that can give you OpenID functionality. The Keycloak setup is below and should be similar to other OpenID applications. This setup below uses Keycloak 7.0. I have not tried it on version 6 or below. If you must use 6 then you will need to test to ensure it works 100%.
 
 ## Running Keycloak in Docker
-You can use the below line to run Keycloak and use Postgres to save the configuration information. Please update your passwords appropriately in the [docker-compose.yml](scripts/keycloak/docker-compose.yml) file.
+You can use the below line to run Keycloak and use Postgres to save the configuration information. Please update your passwords appropriately in the [docker-compose.yml](scripts/keycloak/docker-compose.yml) file. We have a docker-compose file you can readily pull down and use in our scripts/keycloak directory for you to make this easy.
 
 Mac/Linux:
 ```
@@ -16,7 +16,16 @@ Windows:
 
 To stop this, run the "stop" script for the Mac/Linux (.sh) or Windows (.cmd) command you started.
 
-## Step by Step Directions
+## Automated Script for Setting up Keycloak
+We had a contributor (KC) setup an automated way to define your realm in Keycloak with a script thankfully!  Make sure you `chmod +x` on one of the files linked below for your OS. Run the script and it asks you for the IP of the computer, the first user to make, and then connects to the jboss/keycloak container running. It adds the openrmf realm, client, password policy, roles, first administrator, as well as the default role for users to register.
+
+> Note: You MUST have Keycloak running locally in Docker on the machine where this is run for it to work as-is.
+
+* Mac Users can use [setup-realm-mac.sh](scripts/keycloak/setup-realm-mac.sh) file.
+* Linux users can use the [setup-realm-linux.sh](scripts/keycloak/setup-realm-linux.sh) file. 
+* Windows users, stay tuned!
+
+## Step by Step Manual Directions
 
 1. Log in to your Keycloak instance, whether online or within containers (docker, kubernetes) or natively on your machine
 2. Create a new Realm for openrmf

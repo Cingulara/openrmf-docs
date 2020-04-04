@@ -1,11 +1,19 @@
 ---
-title: What's New in v0.12
+title: What's New in v0.13
 nav_order: 2
 ---
 
 # What's New with OpenRMF
 
 Please refer to the <a href="https://github.com/Cingulara?tab=projects" target="_blank">OpenRMF Projects listing on GitHub</a> for more information on feature updates and timeline.
+
+The latest working version is version 0.13. The recent updates on that are below:
+* Showing the CCI title and NIST related controls for each Vulnerability in a Checklist
+* Export the Compliance listing to MS Excel
+* Updated /healthz checks for Kubernetes for database connectivity
+* Model showing an external API connected to OpenRMF via [Kong API Gateway](https://github.com/Cingulara/openrmf-ext-api-score) for "Scoring" a raw checklist 
+* All APIs show tracing information in Jaeger UI
+* Initial Kubernetes CNI network policies in the Helm 3.0 chart
 
 The latest working version is version 0.12. The recent updates on that are below:
 * Live editing of Checklist Asset data and Vulnerability status data
@@ -19,20 +27,3 @@ The latest working version is version 0.12. The recent updates on that are below
 * Generating the Risk Assessment Report (RAR) for a system (across all checklists)
 * Generating the Test Plan Summary for a system (across all checklists)
 * Upgrading a Checklist to the latest version and release with the click of a button!
-
-Version 0.11 updates are also below:
-* Interactive Reports for Nessus Scan data, System Score and Checklist Vulnerability Data
-* New and Improved Dashboard for at-a-glance Critical and High patch issues
-* New and Improved Dashboard for at-a-glance list of Open Items for checklists
-* Systems page showing all info on a system
-* Reworked the System page for quick look at systems and status at a glance
-* Ability to have a description and title of a system, as well as last recorded compliance generation date
-* Import of Nessus File to keep with the System -- Export back out
-* Export Nessus Summary to XLSX
-* Beta of Importing Nessus SCAP scan XCCDF files for generating checklists (DoD SCAP already included)
-* Auditing of certain Create, Update, and Delete events into a separate database
-* Summary Compliance Report by Family when generating compliance report
-* Update to 0.10 of the NATS C# client
-* Prometheus export for NATS and documentation on showing in Grafana
-* Setup NATS client to auto reconnect, log on disconnect
-* Updated Documentation

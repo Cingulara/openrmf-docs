@@ -12,22 +12,28 @@ services:
       - MONGO_INITDB_DATABASE=openrmf
     volumes:
       - ./initializedbs.js:/docker-entrypoint-initdb.d/initialize.js:ro
+    networks:
+      - openrmf-local
 
   nats: 
     image: nats:2.1.2-linux
-    command: -D -V -m 8222
+    command: -m 8222
     restart: always
     ports:
       - 4222:4222
       - 6222:6222
       - 8222:8222
+    networks:
+      - openrmf-local
 
   natspromexporter: 
     image: synadia/prometheus-nats-exporter:latest
-    command: -DV -varz http://nats:8222
+    command: -varz -connz -subz http://nats:8222
     restart: always
     ports:
       - 7777
+    networks:
+      - openrmf-local
 
   prometheus:
     image: prom/prometheus
@@ -39,6 +45,8 @@ services:
       - 9090:9090
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    networks:
+      - openrmf-local
 
   grafana: 
     image: grafana/grafana
@@ -48,6 +56,19 @@ services:
     restart: always
     ports:
       - 3000:3000
+    networks:
+      - openrmf-local
+
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    ports:
+      - "5778:5778/tcp"
+      - "6831:6831/udp"
+      - "16686:16686"
+      - "16687:16687" # Query Service and UI Metrics
+      - "14271:14271" # Agent Metrics
+    networks:
+      - openrmf-local
 
   mongo-express:
     image: mongo-express:latest
@@ -58,3 +79,9 @@ services:
       - ME_CONFIG_MONGODB_SERVER=mongo
       - ME_CONFIG_MONGODB_ADMINUSERNAME=root
       - ME_CONFIG_MONGODB_ADMINPASSWORD=myp2ssw0rd
+    networks:
+      - openrmf-local
+
+### put all the networks here
+networks:
+  openrmf-local:
