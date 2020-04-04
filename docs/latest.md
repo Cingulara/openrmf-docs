@@ -11,12 +11,26 @@ To run the latest development version of OpenRMF, you can connect to the openrmf
 git clone https://github.com/Cingulara/openrmf-docs.git
 ```
 
-Next, in the terminal window run <git checkout develop> so you are in the right branch.
+Next, in the terminal window run `git checkout develop` so you are in the right branch.
 
 ## Run Keycloak
+For the latest version of OpenRMF you must run Keycloak or a very similar OpenID AuthN/AuthZ provider.
+
 To run a local keycloak, go to the scripts/keycloak directory and run the `./startup.sh` or `./startup.cmd` to load Keycloak loally. Then follow the steps below to run Keycloak correctly. The docker-compose used persists the Keycloak database. So once this is setup you should be good to go.  
 
 Note you need to use the IP to reference Keycloak and the OpenRMF tool locally. "Localhost" in the concept of a container is itself, not your local machine! I have stumbled on that so many times....so putting it here now. 
+
+## Automated Script for Setting up Keycloak
+We had a contributor (KC) setup an automated way to define your realm in Keycloak with a script thankfully!  Make sure you `chmod +x` on one of the files linked below for your OS. Run the script and it asks you for the IP of the computer, the first user to make, and then connects to the jboss/keycloak container running. It adds the openrmf realm, client, password policy, roles, first administrator, as well as the default role for users to register.
+
+> Note: You MUST have Keycloak running locally in Docker on the machine where this is run for it to work as-is.
+
+* Mac Users can use [setup-realm-mac.sh](https://github.com/Cingulara/openrmf-docs/blob/master/scripts/keycloak/setup-realm-mac.sh) file.
+* Linux users can use the [setup-realm-linux.sh](https://github.com/Cingulara/openrmf-docs/blob/master/scripts/keycloak/setup-realm-linux.sh) file. 
+* Windows users, stay tuned!
+
+
+## Setup Keycloak Manually
 
 1. Log in to your Keycloak instance, whether online or within containers (docker, kubernetes) or natively on your machine
 2. Create a new Realm for openrmf
