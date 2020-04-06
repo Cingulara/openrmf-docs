@@ -1,9 +1,10 @@
-version : '3'
+version : '3.2'
  
 services:
 ### 1 Web Front End Container
   openrmf-web:
     image: cingulara/openrmf-web:0.13.02
+    container_name: openrmf-web
     ports:
       - 8080:80
     depends_on:
@@ -19,6 +20,7 @@ services:
 ### 8 API Containers
   openrmfapi-scoring:
     image: cingulara/openrmf-api-scoring:0.13.02
+    container_name: openrmf-scoring-api
     ports:
       - 8090:8080
     env_file: .env
@@ -38,6 +40,7 @@ services:
   
   openrmfapi-save:
     image: cingulara/openrmf-api-save:0.13.02
+    container_name: openrmf-save-api
     ports:
       - 8082:8080
     env_file: .env
@@ -60,6 +63,7 @@ services:
 
   openrmfapi-template:
     image: cingulara/openrmf-api-template:0.13.02
+    container_name: openrmf-template-api
     ports:
       - 8088:8080
     env_file: .env
@@ -80,6 +84,7 @@ services:
 
   openrmfapi-upload:
     image: cingulara/openrmf-api-upload:0.13.02
+    container_name: openrmf-upload-api
     ports:
       - 8086:8080
     env_file: .env
@@ -102,6 +107,7 @@ services:
 
   openrmfapi-read:
     image: cingulara/openrmf-api-read:0.13.02
+    container_name: openrmf-read-api
     ports:
       - 8084:8080
     env_file: .env
@@ -122,6 +128,7 @@ services:
 
   openrmfapi-compliance:
     image: cingulara/openrmf-api-compliance:0.13.01
+    container_name: openrmf-compliance-api
     ports:
       - 8092:8080
     env_file: .env
@@ -138,6 +145,7 @@ services:
 
   openrmfapi-controls:
     image: cingulara/openrmf-api-controls:0.13.01
+    container_name: openrmf-controls-api
     ports:
       - 8094:8080
     env_file: .env
@@ -154,6 +162,7 @@ services:
 
   openrmfapi-audit:
     image: cingulara/openrmf-api-audit:0.13.02
+    container_name: openrmf-audit-api
     ports:
       - 8096:8080
     env_file: .env
@@ -173,6 +182,7 @@ services:
 ### 7 Messaging Containers
   openrmfmsg-score:
     image: cingulara/openrmf-msg-score:0.13.01
+    container_name: openrmf-score-nats-message-client
     environment:
       - MONGODBCONNECTION=mongodb://openrmfscore:openrmf1234!@scoredb/openrmfscore?authSource=openrmfscore
       - MONGODB=openrmfscore
@@ -189,6 +199,7 @@ services:
 
   openrmfmsg-checklist:
     image: cingulara/openrmf-msg-checklist:0.13.01
+    container_name: openrmf-checklist-nats-message-client
     environment:
       - MONGODBCONNECTION=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
       - MONGODB=openrmf
@@ -205,6 +216,7 @@ services:
 
   openrmfmsg-compliance:
     image: cingulara/openrmf-msg-compliance:0.13.01
+    container_name: openrmf-compliance-nats-message-client
     environment:
       - NATSSERVERURL=nats://natsserver:4222
       - JAEGER_AGENT_HOST=jaeger
@@ -218,6 +230,7 @@ services:
 
   openrmfmsg-controls:
     image: cingulara/openrmf-msg-controls:0.13.01
+    container_name: openrmf-controls-nats-message-client
     environment:
       - NATSSERVERURL=nats://natsserver:4222
       - JAEGER_AGENT_HOST=jaeger
@@ -231,6 +244,7 @@ services:
 
   openrmfmsg-template:
     image: cingulara/openrmf-msg-template:0.13.01
+    container_name: openrmf-template-nats-message-client
     environment:
       - MONGODBCONNECTION=mongodb://openrmftemplate:openrmf1234!@templatedb/openrmftemplate?authSource=openrmftemplate
       - MONGODB=openrmftemplate
@@ -247,6 +261,7 @@ services:
 
   openrmfmsg-system:
     image: cingulara/openrmf-msg-system:0.13.01
+    container_name: openrmf-system-nats-message-client
     environment:
       - MONGODBCONNECTION=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
       - MONGODB=openrmf
@@ -263,6 +278,7 @@ services:
 
   openrmfmsg-audit:
     image: cingulara/openrmf-msg-audit:0.13.01
+    container_name: openrmf-audit-nats-message-client
     environment:
       - MONGODBCONNECTION=mongodb://openrmfaudit:openrmf1234!@auditdb/openrmfaudit?authSource=openrmfaudit
       - MONGODB=openrmfaudit
@@ -280,6 +296,7 @@ services:
 ### 4 MongoDB Containers
   checklistdb:
     image: mongo:4.0.5
+    container_name: mongodb-checklist
     restart: always
     ports:
       - 27017
@@ -295,6 +312,7 @@ services:
 
   scoredb:
     image: mongo:4.0.5
+    container_name: mongodb-score
     restart: always
     ports:
       - 27017
@@ -310,6 +328,7 @@ services:
 
   templatedb:
     image: mongo:4.0.5
+    container_name: mongodb-template
     restart: always
     ports:
       - 27017
@@ -325,6 +344,7 @@ services:
 
   auditdb:
     image: mongo:4.0.5
+    container_name: mongodb-audit
     restart: always
     ports:
       - 27017
@@ -341,6 +361,7 @@ services:
 ### NATS messaging container (internal)
   natsserver: 
     image: nats:2.1.2-linux
+    container_name: nats
     command: -m 8222
     restart: always
     ports:
@@ -353,6 +374,7 @@ services:
 ### Metrics
   natspromexporter: 
     image: synadia/prometheus-nats-exporter:latest
+    container_name: nats-prometheus-exporter
     command: -varz -connz -subz http://natsserver:8222
     restart: always
     ports:
@@ -362,6 +384,7 @@ services:
 
   prometheus:
     image: prom/prometheus
+    container_name: prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--web.enable-lifecycle'
@@ -376,6 +399,7 @@ services:
 
   grafana: 
     image: grafana/grafana
+    container_name: grafana
     #command:
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=1qaz2WSX3edc4RFVgr@fana
@@ -389,6 +413,7 @@ services:
 
   jaeger:
     image: jaegertracing/all-in-one:latest
+    container_name: jaeger
     ports:
       - "5778:5778/tcp"
       - "6831:6831/udp"
@@ -397,6 +422,22 @@ services:
       - "14271:14271" # Agent Metrics
     networks:
       - openrmf
+
+  cadvisor:
+    image: google/cadvisor:latest
+    container_name: cadvisor
+    restart: always
+    ports:
+      - 9080:8080
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    networks:
+      - openrmf
+    labels:
+      org.label-schema.group: "monitoring"
 
 ### put all the volume listings here for persistent data
 volumes:
