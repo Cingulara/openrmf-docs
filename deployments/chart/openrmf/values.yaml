@@ -122,3 +122,24 @@ auditAppConnection: bW9uZ29kYjovL29wZW5ybWZhdWRpdDpvcGVucm1mNDMyMSFAb3BlbnJtZi1h
 # Jaeger Tracing Server setup from https://www.jaegertracing.io/docs/latest/sampling/
 jaegerSamplerType: probabilistic
 jaegerSamplerParam: 0.1 # percentage to trace
+
+
+#########
+# Prometheus Operator Setup https://github.com/helm/charts/tree/master/stable/prometheus-operator and 
+# https://github.com/coreos/prometheus-operator
+# To use these you must have the prometheus operator installed from the links above
+#########
+
+# do you use this operator
+useprometheusoperator: true
+
+# The label name and value in name: value setup to match what the Prometheus Operator is using
+# for it to know to pick up and use the ServiceMonitor setup
+# To find this, run 'kubectl get prometheus -o yaml --all-namespaces' and run through the YAML
+# Look for something like this that will show how it matches labels, and use that label setup
+#     serviceMonitorSelector:
+#       matchLabels:
+#         relese: prometheus-operator-1586292731
+
+servicemonitormatchlabelname: release
+servicemonitormatchlabelvalue: prometheus-operator-1586292731

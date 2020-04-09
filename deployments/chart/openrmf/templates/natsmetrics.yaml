@@ -1,0 +1,26 @@
+{{ if .Values.useprometheusoperator }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: openrmf-nats-metrics
+  namespace: openrmf
+  labels:
+    app.kubernetes.io/name: openrmf
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app.kubernetes.io/component: nats-server-2.1.2
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/revision: "{{ .Release.Revision }}"
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: helm
+    {{ .Chart.servicemonitormatchlabelname }}: {{ .Chart.servicemonitormatchlabelvalue }}
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: openrmf-natspromexporter
+  endpoints:
+  - port: natspromexporter
+    interval: 15s
+  namespaceSelector:
+    matchNames:
+    - openrmf
+{{ end }}
