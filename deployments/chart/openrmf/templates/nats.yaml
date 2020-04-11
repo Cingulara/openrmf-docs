@@ -150,7 +150,7 @@ metadata:
     app.kubernetes.io/revision: "{{ .Release.Revision }}"
     app.kubernetes.io/version: {{ .Chart.AppVersion }}
     app.kubernetes.io/managed-by: helm
-    {{ .Chart.servicemonitormatchlabelname }}: {{ .Chart.servicemonitormatchlabelvalue }}
+    {{ .Values.servicemonitormatchlabelname }}: {{ .Values.servicemonitormatchlabelvalue }}
 spec:
   selector:
     matchLabels:
