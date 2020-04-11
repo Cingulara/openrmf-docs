@@ -139,7 +139,7 @@ useprometheusoperator: true
 # Look for something like this that will show how it matches labels, and use that label setup
 #     serviceMonitorSelector:
 #       matchLabels:
-#         relese: prometheus-operator-1586292731
+#         release: prometheus-operator-1586292731
 
 servicemonitormatchlabelname: release
 servicemonitormatchlabelvalue: prometheus-operator-1586292731
