@@ -383,7 +383,7 @@ services:
       - openrmf
 
   nats-client-metrics: 
-    image: cingulara/nats-client-metrics:1.0
+    image: cingulara/nats-client-metrics:1.0.1
     container_name: nats-client-metrics
     restart: always
     ports:
