@@ -34,7 +34,20 @@ services:
     command: -varz -connz -subz http://nats:8222
     restart: always
     ports:
-      - 7777
+      - 7777:7777
+    networks:
+      - openrmf-local
+
+  nats-client-metrics: 
+    image: cingulara/nats-client-metrics:1.0
+    container_name: nats-client-metrics
+    restart: always
+    ports:
+      - 7778:7778
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://*:7778
+      - NATSMETRICSURL=http://nats:8222
     networks:
       - openrmf-local
 

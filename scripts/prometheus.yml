@@ -12,6 +12,9 @@ scrape_configs:
   - job_name: 'nats-openrmf-server'
     static_configs:
       - targets: ['natspromexporter:7777']
+  - job_name: 'nats-openrmf-client-metrics'
+    static_configs:
+      - targets: ['nats-client-metrics:7778']
   - job_name: 'openrmf-api-read-prometheus'
     # metrics_path defaults to '/metrics'
     static_configs:

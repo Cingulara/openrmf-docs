@@ -382,6 +382,19 @@ services:
     networks:
       - openrmf
 
+  nats-client-metrics: 
+    image: cingulara/nats-client-metrics:1.0
+    container_name: nats-client-metrics
+    restart: always
+    ports:
+      - 7778
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://*:7778
+      - NATSMETRICSURL=http://natsserver:8222
+    networks:
+      - openrmf
+
   prometheus:
     image: prom/prometheus
     container_name: prometheus
