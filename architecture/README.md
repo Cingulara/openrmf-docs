@@ -39,7 +39,9 @@ OpenRMF uses NATS messaging to work eventual consistency as well as API-to-API c
 | openrmf.checklist.read | Request/Reply | Score (Msg Client), Compliance  | openrmf-msg-checklist | Ask for a full checklist/artifact record based on the ID passed in |
 | openrmf.system.checklists.read | Request/Reply | Compliance          | openrmf-msg-checklist | Ask for all checklist records for a given system title passed in |
 | openrmf.checklist.save.new | Subscribe | Upload | openrmf-msg-score | Grab the new uploaded checklist ID sent and generate the score of open, not applicable, not a finding, and not reviewed items across categories |
+| openrmf.checklist.save.new | Subscribe | Upload | openrmf-msg-reports | Grab the new uploaded checklist ID sent and generate the vulnerability data in the reports database, separated out by vulnerability ID |
 | openrmf.checklist.save.update | Subscribe | Upload | openrmf-msg-score | Grab the updated checklist ID sent and generate the score of open, not applicable, not a finding, and not reviewed items across categories |
+| openrmf.checklist.save.update | Subscribe | Upload | openrmf-msg-reports | Grab the new uploaded checklist ID sent and generate the vulnerability data in the reports database, separated out by vulnerability ID while removing the old vulnerability data for that checklist ID |
 | openrmf.checklist.delete | Subscribe | Save | openrmf-msg-score | Delete the score record for the passed in checklist ID  |
 | openrmf.score.read | Subscribe | Read | openrmf-msg-score | Read API calling for the score when generating an XLSX checklist download listing the score. |
 | openrmf.compliance.cci | Request/Reply | Compliance | openrmf-msg-compliance | Send back all CCI to NIST Major Controls listing. |
@@ -52,5 +54,6 @@ OpenRMF uses NATS messaging to work eventual consistency as well as API-to-API c
 | openrmf.system.update.{Id} | Subscribe | Save | openrmf-msg-system | When a system title is updated, make sure all references throughout the checklists are updated. We save the system group Id and the title with the checklists for easier usage throughout OpenRMF. The source-of-truth is the systemgroups collection in MongoDB. |
 | openrmf.system.count.> | Subscribe | Upload (add) and Save (delete) | openrmf-msg-system | Increments with a ".add" at the end of the subject or decrements if there is a ".delete" at the end of the subject. The payload is the system group Id. |
 | openrmf.system.compliance | Subscribe | Compliance | openrmf-msg-system | Stores the date of the last compliance check run into the system group record for display later. |
-
 | openrmf.compliance.cci.references | Request/Reply | Compliance | openrmf-msg-compliance | Passing in the CCI it returns the CCI title and NIST list of references for the CCI passed in to the Compliance API. |
+| openrmf.system.delete | Subscribe | Save | openrmf-msg-reports | Passing in the System Group ID, the reporting data for patch scanning and vulnerabilities are removed from the database. |
+| openrmf.system.patchscan | Subscribe | Save | openrmf-msg-reports | Passing in the System Group ID, the reporting data for patch scanning is pulled from the raw string data in the Artifact database, parsed, put into the right structure, and saved into the report database. |
