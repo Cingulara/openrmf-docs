@@ -373,7 +373,7 @@ services:
 
 ### Metrics
   natspromexporter: 
-    image: synadia/prometheus-nats-exporter:latest
+    image: synadia/prometheus-nats-exporter:0.6.2
     container_name: nats-prometheus-exporter
     command: -varz -connz -subz http://natsserver:8222
     restart: always

@@ -29,7 +29,7 @@ services:
       - openrmf-local
 
   natspromexporter: 
-    image: synadia/prometheus-nats-exporter:latest
+    image: synadia/prometheus-nats-exporter:0.6.2
     container_name: nats-exporter-prometheus
     command: -varz -connz -subz http://nats:8222
     restart: always
