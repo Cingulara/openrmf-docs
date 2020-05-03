@@ -61,3 +61,9 @@ scrape_configs:
     # replace the IP with your local IP for development
     # localhost is not it, as that is w/in the container :)
     - targets: ['openrmfapi-audit:8080']
+  - job_name: 'openrmf-api-report-prometheus'
+    # metrics_path defaults to '/metrics'
+    static_configs:
+    # replace the IP with your local IP for development
+    # localhost is not it, as that is w/in the container :)
+    - targets: ['openrmfapi-audit:8080']

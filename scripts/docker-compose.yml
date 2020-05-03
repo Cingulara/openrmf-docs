@@ -179,6 +179,25 @@ services:
     networks:
       - openrmf
 
+  openrmfapi-report:
+    image: cingulara/openrmf-api-report:0.14.01
+    container_name: openrmf-report-api
+    ports:
+      - 8098:8080
+    env_file: .env
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://*:8080
+      - REPORTMONGODBCONNECTION=mongodb://openrmfreport:openrmf1234!@reportdb/openrmfreport?authSource=openrmfreport
+      - REPORTMONGODB=openrmfreport
+      - NATSSERVERURL=nats://natsserver:4222
+      - JAEGER_AGENT_HOST=jaeger
+      - JAEGER_AGENT_PORT=6831
+      - JAEGER_SERVICE_NAME=openrmfapi-report
+      - JAEGER_SAMPLER_TYPE=const
+    networks:
+      - openrmf
+
 ### 7 Messaging Containers
   openrmfmsg-score:
     image: cingulara/openrmf-msg-score:0.13.01
@@ -293,6 +312,25 @@ services:
     networks:
       - openrmf
 
+  openrmfmsg-report:
+    image: cingulara/openrmf-msg-report:0.14.01
+    container_name: openrmf-report-nats-message-client
+    environment:
+      - SYSTEMMONGODBCONNECTION=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
+      - SYSTEMMONGODB=openrmf
+      - REPORTMONGODBCONNECTION=mongodb://openrmfreport:openrmf1234!@reportdb/openrmfreport?authSource=openrmfreport
+      - REPORTMONGODB=openrmfreport
+      - NATSSERVERURL=nats://natsserver:4222
+      - JAEGER_AGENT_HOST=jaeger
+      - JAEGER_AGENT_PORT=6831
+      - JAEGER_SERVICE_NAME=openrmfmsg-report
+      - JAEGER_SAMPLER_TYPE=const
+    depends_on:
+      - checklistdb
+      - natsserver
+    networks:
+      - openrmf
+
 ### 4 MongoDB Containers
   checklistdb:
     image: mongo:4.0.5
@@ -355,6 +393,22 @@ services:
     volumes:
       - audit-data-volume:/data/db
       - ./initializeAudit.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+    networks:
+      - openrmf
+
+  reportdb:
+    image: mongo:4.0.5
+    container_name: mongodb-report
+    restart: always
+    ports:
+      - 27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=myp2ssw0rd
+      - MONGO_INITDB_DATABASE=openrmfreport
+    volumes:
+      - report-data-volume:/data/db
+      - ./initializeReport.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
     networks:
       - openrmf
 
@@ -458,6 +512,7 @@ volumes:
   checklist-data-volume:
   score-data-volume:
   audit-data-volume:
+  report-data-volume:
   openrmf-prometheus-data-volume:
   openrmf-grafana-data-volume:
 
