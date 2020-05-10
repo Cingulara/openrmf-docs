@@ -57,3 +57,5 @@ OpenRMF uses NATS messaging to work eventual consistency as well as API-to-API c
 | openrmf.compliance.cci.references | Request/Reply | Compliance | openrmf-msg-compliance | Passing in the CCI it returns the CCI title and NIST list of references for the CCI passed in to the Compliance API. |
 | openrmf.system.delete | Subscribe | Save | openrmf-msg-reports | Passing in the System Group ID, the reporting data for patch scanning and vulnerabilities are removed from the database. |
 | openrmf.system.patchscan | Subscribe | Save | openrmf-msg-reports | Passing in the System Group ID, the reporting data for patch scanning is pulled from the raw string data in the Artifact database, parsed, put into the right structure, and saved into the report database. |
+| openrmf.report.refresh.nessuspatchdata | Subscribe | Report | openrmf-msg-reports | Issue a command from the GUI as an Administrator to refresh all Nessus Patch Data in every System. |
+| openrmf.report.refresh.vulnerabilitydata | Subscribe | Report | openrmf-msg-reports | Issue a command from the GUI as an Administrator to refresh all Checklist Vulnerability on every checklist in every System. |
