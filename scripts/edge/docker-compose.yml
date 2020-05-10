@@ -17,7 +17,7 @@ services:
     networks:
       - openrmf-dev
 
-### 8 API Containers
+### 9 API Containers
   openrmfapi-scoring:
     image: cingulara/openrmf-api-scoring
     container_name: openrmf-scoring-api
