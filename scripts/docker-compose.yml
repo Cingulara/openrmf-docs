@@ -176,6 +176,8 @@ services:
       - JAEGER_AGENT_PORT=6831
       - JAEGER_SERVICE_NAME=openrmfapi-audit
       - JAEGER_SAMPLER_TYPE=const
+    depends_on:
+      - auditdb
     networks:
       - openrmf
 
@@ -195,6 +197,8 @@ services:
       - JAEGER_AGENT_PORT=6831
       - JAEGER_SERVICE_NAME=openrmfapi-report
       - JAEGER_SAMPLER_TYPE=const
+    depends_on:
+      - reportdb
     networks:
       - openrmf
 
@@ -307,7 +311,7 @@ services:
       - JAEGER_SERVICE_NAME=openrmfmsg-audit
       - JAEGER_SAMPLER_TYPE=const
     depends_on:
-      - checklistdb
+      - auditdb
       - natsserver
     networks:
       - openrmf
@@ -327,6 +331,7 @@ services:
       - JAEGER_SAMPLER_TYPE=const
     depends_on:
       - checklistdb
+      - reportdb
       - natsserver
     networks:
       - openrmf
