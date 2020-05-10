@@ -1,4 +1,4 @@
-# OpenRMF Documentation (v 0.13)
+# OpenRMF Documentation (v 0.14)
 
 ## Introduction to OpenRMF
 OpenRMF is an open source tool for managing, viewing, and reporting of your DoD STIG checklists and Nessus Patch Scans in one web-based interface using your browser. It also generates a compliance listing of all your checklists across a whole system based on NIST 800-53 for your Risk Management Framework (RMF) documentation and process. This tool helps you manage multiple systems going through the RMF process and allows you to structure your data in a clean interface all in one location for your group or program. 
@@ -49,10 +49,8 @@ Read more about its genesis <a href="https://www.cingulara.com/opensource.html" 
 - [x] External API access to certain functions in OpenRMF (ext-api-score)
 - [x] Export Compliance Report to XLSX
 - [x] Meaningful Health Checks in APIs and MSG clients
-
-## ToDos (in no particular order)
-- [ ] Performance improvements
-- [ ] Separate Reporting API and Database (MSA)
+- [x] Performance improvements
+- [x] Separate Reporting API and Database (MSA)
 
 If we are missing something you want, please add it on our main <a href="https://github.com/Cingulara/openrmf-web/issues" target="_blank">GitHub Issues</a> page.
 
