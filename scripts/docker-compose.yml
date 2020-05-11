@@ -349,7 +349,7 @@ services:
       - openrmf
 
   openrmfmsg-report:
-    image: cingulara/openrmf-msg-report:0.14.01
+    image: cingulara/openrmf-msg-report:0.14.02
     container_name: openrmf-report-nats-message-client
     environment:
       - SYSTEMMONGODBCONNECTION=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
