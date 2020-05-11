@@ -24,6 +24,9 @@ I made a NATS metrics dashboard at https://github.com/Cingulara/nats-client-metr
 NATS dashboard for Grafana keeps everything at a server level for bytes in and out, messages in and out, etc. I wanted per client. 
 So go to that URL above and add that dashboard referenced in the [JSON file](https://raw.githubusercontent.com/Cingulara/nats-client-metrics/master/grafana-dashboard.json) to your Prometheus if you want NATS client metrics. 
 
+
+![Image](./img/metrics/metrics-nats-clients.png?raw=true)
+
 ## Prometheus Configuration Setup
 Below is the prometheus.yml file configuration we use when running the local or docker-compose setup of OpenRMF. You can adjust 
 the interval and options as required. Just restart the `docker-compose up -d` command to relaunch and use the new configuration.

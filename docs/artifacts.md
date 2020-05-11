@@ -1,5 +1,5 @@
 ---
-title: Step 6 - Generate RMF Artifact Reports
+title: Step 6 - Generate RMF Artifacts
 nav_order: 450
 ---
 
