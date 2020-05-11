@@ -32,7 +32,9 @@ services:
       - JAEGER_AGENT_HOST=jaeger
       - JAEGER_AGENT_PORT=6831
       - JAEGER_SERVICE_NAME=openrmfapi-scoring
-      - JAEGER_SAMPLER_TYPE=const
+      - JAEGER_SAMPLER_TYPE=probabilistic
+      - JAEGER_SAMPLER_PARAM=0.1
+      - JAEGER_REPORTER_LOG_SPANS=true
     depends_on:
       - scoredb
     networks:
@@ -53,7 +55,9 @@ services:
       - JAEGER_AGENT_HOST=jaeger
       - JAEGER_AGENT_PORT=6831
       - JAEGER_SERVICE_NAME=openrmfapi-save
-      - JAEGER_SAMPLER_TYPE=const
+      - JAEGER_SAMPLER_TYPE=probabilistic
+      - JAEGER_SAMPLER_PARAM=0.1
+      - JAEGER_REPORTER_LOG_SPANS=true
     depends_on:
       - openrmfmsg-score
       - checklistdb
@@ -76,7 +80,9 @@ services:
       - JAEGER_AGENT_HOST=jaeger
       - JAEGER_AGENT_PORT=6831
       - JAEGER_SERVICE_NAME=openrmfapi-template
-      - JAEGER_SAMPLER_TYPE=const
+      - JAEGER_SAMPLER_TYPE=probabilistic
+      - JAEGER_SAMPLER_PARAM=0.1
+      - JAEGER_REPORTER_LOG_SPANS=true
     depends_on:
       - templatedb
     networks:
@@ -97,7 +103,9 @@ services:
       - JAEGER_AGENT_HOST=jaeger
       - JAEGER_AGENT_PORT=6831
       - JAEGER_SERVICE_NAME=openrmfapi-upload
-      - JAEGER_SAMPLER_TYPE=const
+      - JAEGER_SAMPLER_TYPE=probabilistic
+      - JAEGER_SAMPLER_PARAM=0.1
+      - JAEGER_REPORTER_LOG_SPANS=true
     depends_on:
       - openrmfmsg-score
       - checklistdb
@@ -120,7 +128,9 @@ services:
       - JAEGER_AGENT_HOST=jaeger
       - JAEGER_AGENT_PORT=6831
       - JAEGER_SERVICE_NAME=openrmfapi-read
-      - JAEGER_SAMPLER_TYPE=const
+      - JAEGER_SAMPLER_TYPE=probabilistic
+      - JAEGER_SAMPLER_PARAM=0.1
+      - JAEGER_REPORTER_LOG_SPANS=true
     depends_on:
       - checklistdb
     networks:
@@ -139,7 +149,9 @@ services:
       - JAEGER_AGENT_HOST=jaeger
       - JAEGER_AGENT_PORT=6831
       - JAEGER_SERVICE_NAME=openrmfapi-compliance
-      - JAEGER_SAMPLER_TYPE=const
+      - JAEGER_SAMPLER_TYPE=probabilistic
+      - JAEGER_SAMPLER_PARAM=0.1
+      - JAEGER_REPORTER_LOG_SPANS=true
     networks:
       - openrmf
 
@@ -156,7 +168,9 @@ services:
       - JAEGER_AGENT_HOST=jaeger
       - JAEGER_AGENT_PORT=6831
       - JAEGER_SERVICE_NAME=openrmfapi-controls
-      - JAEGER_SAMPLER_TYPE=const
+      - JAEGER_SAMPLER_TYPE=probabilistic
+      - JAEGER_SAMPLER_PARAM=0.1
+      - JAEGER_REPORTER_LOG_SPANS=true
     networks:
       - openrmf
 
@@ -175,7 +189,9 @@ services:
       - JAEGER_AGENT_HOST=jaeger
       - JAEGER_AGENT_PORT=6831
       - JAEGER_SERVICE_NAME=openrmfapi-audit
-      - JAEGER_SAMPLER_TYPE=const
+      - JAEGER_SAMPLER_TYPE=probabilistic
+      - JAEGER_SAMPLER_PARAM=0.1
+      - JAEGER_REPORTER_LOG_SPANS=true
     depends_on:
       - auditdb
     networks:
@@ -196,7 +212,9 @@ services:
       - JAEGER_AGENT_HOST=jaeger
       - JAEGER_AGENT_PORT=6831
       - JAEGER_SERVICE_NAME=openrmfapi-report
-      - JAEGER_SAMPLER_TYPE=const
+      - JAEGER_SAMPLER_TYPE=probabilistic
+      - JAEGER_SAMPLER_PARAM=0.1
+      - JAEGER_REPORTER_LOG_SPANS=true
     depends_on:
       - reportdb
     networks:
@@ -213,7 +231,9 @@ services:
       - JAEGER_AGENT_HOST=jaeger
       - JAEGER_AGENT_PORT=6831
       - JAEGER_SERVICE_NAME=openrmfmsg-score
-      - JAEGER_SAMPLER_TYPE=const
+      - JAEGER_SAMPLER_TYPE=probabilistic
+      - JAEGER_SAMPLER_PARAM=0.1
+      - JAEGER_REPORTER_LOG_SPANS=true
     depends_on:
       - scoredb
       - natsserver
@@ -230,7 +250,9 @@ services:
       - JAEGER_AGENT_HOST=jaeger
       - JAEGER_AGENT_PORT=6831
       - JAEGER_SERVICE_NAME=openrmfmsg-checklist
-      - JAEGER_SAMPLER_TYPE=const
+      - JAEGER_SAMPLER_TYPE=probabilistic
+      - JAEGER_SAMPLER_PARAM=0.1
+      - JAEGER_REPORTER_LOG_SPANS=true
     depends_on:
       - checklistdb
       - natsserver
@@ -245,7 +267,9 @@ services:
       - JAEGER_AGENT_HOST=jaeger
       - JAEGER_AGENT_PORT=6831
       - JAEGER_SERVICE_NAME=openrmfmsg-compliance
-      - JAEGER_SAMPLER_TYPE=const
+      - JAEGER_SAMPLER_TYPE=probabilistic
+      - JAEGER_SAMPLER_PARAM=0.1
+      - JAEGER_REPORTER_LOG_SPANS=true
     depends_on:
       - natsserver
     networks:
@@ -259,7 +283,9 @@ services:
       - JAEGER_AGENT_HOST=jaeger
       - JAEGER_AGENT_PORT=6831
       - JAEGER_SERVICE_NAME=openrmfmsg-controls
-      - JAEGER_SAMPLER_TYPE=const
+      - JAEGER_SAMPLER_TYPE=probabilistic
+      - JAEGER_SAMPLER_PARAM=0.1
+      - JAEGER_REPORTER_LOG_SPANS=true
     depends_on:
       - natsserver
     networks:
@@ -275,7 +301,9 @@ services:
       - JAEGER_AGENT_HOST=jaeger
       - JAEGER_AGENT_PORT=6831
       - JAEGER_SERVICE_NAME=openrmfmsg-template
-      - JAEGER_SAMPLER_TYPE=const
+      - JAEGER_SAMPLER_TYPE=probabilistic
+      - JAEGER_SAMPLER_PARAM=0.1
+      - JAEGER_REPORTER_LOG_SPANS=true
     depends_on:
       - templatedb
       - natsserver
@@ -292,7 +320,9 @@ services:
       - JAEGER_AGENT_HOST=jaeger
       - JAEGER_AGENT_PORT=6831
       - JAEGER_SERVICE_NAME=openrmfmsg-system
-      - JAEGER_SAMPLER_TYPE=const
+      - JAEGER_SAMPLER_TYPE=probabilistic
+      - JAEGER_SAMPLER_PARAM=0.1
+      - JAEGER_REPORTER_LOG_SPANS=true
     depends_on:
       - checklistdb
       - natsserver
@@ -309,7 +339,9 @@ services:
       - JAEGER_AGENT_HOST=jaeger
       - JAEGER_AGENT_PORT=6831
       - JAEGER_SERVICE_NAME=openrmfmsg-audit
-      - JAEGER_SAMPLER_TYPE=const
+      - JAEGER_SAMPLER_TYPE=probabilistic
+      - JAEGER_SAMPLER_PARAM=0.1
+      - JAEGER_REPORTER_LOG_SPANS=true
     depends_on:
       - auditdb
       - natsserver
@@ -328,7 +360,9 @@ services:
       - JAEGER_AGENT_HOST=jaeger
       - JAEGER_AGENT_PORT=6831
       - JAEGER_SERVICE_NAME=openrmfmsg-report
-      - JAEGER_SAMPLER_TYPE=const
+      - JAEGER_SAMPLER_TYPE=probabilistic
+      - JAEGER_SAMPLER_PARAM=0.1
+      - JAEGER_REPORTER_LOG_SPANS=true
     depends_on:
       - checklistdb
       - reportdb
