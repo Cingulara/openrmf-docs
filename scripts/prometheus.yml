@@ -12,6 +12,9 @@ scrape_configs:
   - job_name: 'nats-openrmf-server'
     static_configs:
       - targets: ['natspromexporter:7777']
+  - job_name: 'nats-openrmf-client-metrics'
+    static_configs:
+      - targets: ['nats-client-metrics:7778']
   - job_name: 'openrmf-api-read-prometheus'
     # metrics_path defaults to '/metrics'
     static_configs:
@@ -53,6 +56,12 @@ scrape_configs:
     # localhost is not it, as that is w/in the container :)
     - targets: ['openrmfapi-upload:8080']
   - job_name: 'openrmf-api-audit-prometheus'
+    # metrics_path defaults to '/metrics'
+    static_configs:
+    # replace the IP with your local IP for development
+    # localhost is not it, as that is w/in the container :)
+    - targets: ['openrmfapi-audit:8080']
+  - job_name: 'openrmf-api-report-prometheus'
     # metrics_path defaults to '/metrics'
     static_configs:
     # replace the IP with your local IP for development

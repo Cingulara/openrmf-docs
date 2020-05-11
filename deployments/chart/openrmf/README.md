@@ -171,3 +171,36 @@ spec:
         matchLabels:
           app.kubernetes.io/component: audit-api
 ```
+
+## Prometheus Operator
+There is a section in the Helm chart Values.yaml file that is for the Prometheus Operator available at 
+https://github.com/helm/charts/tree/master/stable/prometheus-operator and 
+https://github.com/coreos/prometheus-operator. If you use this in Kubernetes, and I highly recommend that you do,
+you can set the "use" to true and then the matchLabels part of your Prometheus setup you have
+in your cluster can go in here to quickly match the YAML for monitoring. See the 2 URLs for more 
+information.
+
+We have ServiceMonitor definitions for all APIs as well as the NATS messaging container as well so far
+with version 0.14. When you apply that operator you can run something like `kubectl --namespace default get pods -l "release=prometheus-operator-1586292731"` to get the status.  If you are going to run it, set the Values.yaml to
+true for using that operator. And then set the label name and value to use on the Prometheus Service Monitor 
+sections.
+
+You may very well still need to d/l the metrics information for Kubernetes and then run the `kubectl apply` against the metrics folder with all the YAML files. See https://docs.aws.amazon.com/eks/latest/userguide/metrics-server.html for more information there. 
+
+OpenRMF Helm Chart v3 Values section is below. Note the information about `kubectl get prometheus -o yaml --all-namespaces` to find the matchLabels section you defaulted or created so the ServiceMonitor pieces are lined up well. 
+
+```
+# do you use this operator
+useprometheusoperator: true
+
+# The label name and value in name: value setup to match what the Prometheus Operator is using
+# for it to know to pick up and use the ServiceMonitor setup
+# To find this, run 'kubectl get prometheus -o yaml --all-namespaces' and run through the YAML
+# Look for something like this that will show how it matches labels, and use that label setup
+#     serviceMonitorSelector:
+#       matchLabels:
+#         release: prometheus-operator-1586292731
+
+servicemonitormatchlabelname: release
+servicemonitormatchlabelvalue: prometheus-operator-1586292731
+```

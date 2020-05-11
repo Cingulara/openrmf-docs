@@ -170,3 +170,31 @@ spec:
   sessionAffinity: None
   type: {{.Values.serviceTypeAWS | default "LoadBalancer"}}
 {{ end }}
+{{ if .Values.useprometheusoperator }}
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: openrmf-template-api-metrics
+  namespace: {{.Values.namespace}}
+  labels:
+    app.kubernetes.io/name: openrmf
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app.kubernetes.io/component: template-api
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/revision: "{{ .Release.Revision }}"
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: helm
+    {{ .Values.servicemonitormatchlabelname }}: {{ .Values.servicemonitormatchlabelvalue }}
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: template-api
+  endpoints:
+  - port: https
+    interval: 15s
+    path: /metrics
+  namespaceSelector:
+    matchNames:
+    - {{.Values.namespace}}
+{{ end }}
