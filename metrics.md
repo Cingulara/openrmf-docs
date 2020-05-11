@@ -19,13 +19,18 @@ Once you have Prometheus setup and you deploy the container for https://github.c
 
 ![Image](./img/metrics/metrics-nats-server.png?raw=true)
 
+## NATS Client Connection Metrics
+I made a NATS metrics dashboard at https://github.com/Cingulara/nats-client-metrics that goes down to the client level. The default 
+NATS dashboard for Grafana keeps everything at a server level for bytes in and out, messages in and out, etc. I wanted per client. 
+So go to that URL above and add that dashboard referenced in the [JSON file](https://raw.githubusercontent.com/Cingulara/nats-client-metrics/master/grafana-dashboard.json) to your Prometheus if you want NATS client metrics. 
+
 ## Prometheus Configuration Setup
 Below is the prometheus.yml file configuration we use when running the local or docker-compose setup of OpenRMF. You can adjust 
 the interval and options as required. Just restart the `docker-compose up -d` command to relaunch and use the new configuration.
 
 ```
 global:
-  scrape_interval:     15s # By default, scrape targets every 5 seconds.
+  scrape_interval:     30s # By default, scrape targets every 5 seconds.
 
 # A scrape configuration containing exactly one endpoint to scrape:
 scrape_configs:
@@ -33,46 +38,61 @@ scrape_configs:
   - job_name: 'nats-openrmf-server'
     static_configs:
       - targets: ['natspromexporter:7777']
+  - job_name: 'nats-openrmf-client-metrics'
+    static_configs:
+      - targets: ['nats-client-metrics:7778']
   - job_name: 'openrmf-api-read-prometheus'
     # metrics_path defaults to '/metrics'
     static_configs:
-    - targets: ['openrmfapi-read:8084']
+    - targets: ['openrmfapi-read:8080']
   - job_name: 'openrmf-api-save-prometheus'
     # metrics_path defaults to '/metrics'
     static_configs:
     # replace the IP with your local IP for development
     # localhost is not it, as that is w/in the container :)
-    - targets: ['openrmfapi-save:8082']
+    - targets: ['openrmfapi-save:8080']
   - job_name: 'openrmf-api-template-prometheus'
     # metrics_path defaults to '/metrics'
     static_configs:
     # replace the IP with your local IP for development
     # localhost is not it, as that is w/in the container :)
-    - targets: ['openrmfapi-template:8088']
+    - targets: ['openrmfapi-template:8080']
   - job_name: 'openrmf-api-controls-prometheus'
     # metrics_path defaults to '/metrics'
     static_configs:
     # replace the IP with your local IP for development
     # localhost is not it, as that is w/in the container :)
-    - targets: ['openrmfapi-controls:8094']
+    - targets: ['openrmfapi-controls:8080']
   - job_name: 'openrmf-api-compliance-prometheus'
     # metrics_path defaults to '/metrics'
     static_configs:
     # replace the IP with your local IP for development
     # localhost is not it, as that is w/in the container :)
-    - targets: ['openrmfapi-compliance:8092']
+    - targets: ['openrmfapi-compliance:8080']
   - job_name: 'openrmf-api-scoring-prometheus'
     # metrics_path defaults to '/metrics'
     static_configs:
     # replace the IP with your local IP for development
     # localhost is not it, as that is w/in the container :)
-    - targets: ['openrmfapi-scoring:8090']
+    - targets: ['openrmfapi-scoring:8080']
   - job_name: 'openrmf-api-upload-prometheus'
     # metrics_path defaults to '/metrics'
     static_configs:
     # replace the IP with your local IP for development
     # localhost is not it, as that is w/in the container :)
-    - targets: ['openrmfapi-upload:8086']
+    - targets: ['openrmfapi-upload:8080']
+  - job_name: 'openrmf-api-audit-prometheus'
+    # metrics_path defaults to '/metrics'
+    static_configs:
+    # replace the IP with your local IP for development
+    # localhost is not it, as that is w/in the container :)
+    - targets: ['openrmfapi-audit:8080']
+  - job_name: 'openrmf-api-report-prometheus'
+    # metrics_path defaults to '/metrics'
+    static_configs:
+    # replace the IP with your local IP for development
+    # localhost is not it, as that is w/in the container :)
+    - targets: ['openrmfapi-audit:8080']
 ```
 
 ## Additional Links
