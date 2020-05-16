@@ -80,7 +80,7 @@ scoreAppUser: openrmfscore
 scoreAppPassword: openrmf9876!
 auditAppUser: openrmfaudit
 auditAppPassword: openrmf4321!
-reportAppUser: openrmfaudit
+reportAppUser: openrmfreport
 reportAppPassword: openrmf4321!
 
 # SECRET VALUES ARE TO BE IN base64

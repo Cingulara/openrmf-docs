@@ -173,9 +173,7 @@ spec:
 ```
 
 ## Prometheus Operator
-There is a section in the Helm chart Values.yaml file that is for the Prometheus Operator available at 
-https://github.com/helm/charts/tree/master/stable/prometheus-operator and 
-https://github.com/coreos/prometheus-operator. If you use this in Kubernetes, and I highly recommend that you do,
+There is a section in the Helm chart Values.yaml file that is for the Prometheus Operator available at https://github.com/helm/charts/tree/master/stable/prometheus-operator. If you use this in Kubernetes, and I highly recommend that you do,
 you can set the "use" to true and then the matchLabels part of your Prometheus setup you have
 in your cluster can go in here to quickly match the YAML for monitoring. See the 2 URLs for more 
 information.

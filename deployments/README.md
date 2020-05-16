@@ -26,7 +26,7 @@ namespace you made in step 1 are the same!
 2. Apply the file(s), i.e. `kubectl apply -f <path-to-where-your-helm-YAML-files-are> -n <namespace-you-specified>`
 
 ## Kubernetes
-For a straight kubernetes (k8s) installation w/o helm go to the [kubernetes](./kubernetes) folder and make the namespace with the . Then deploy all the pieces locally. You may have to adjust the services based on your setup.
+For a straight kubernetes (k8s) installation w/o helm go to the [kubernetes](./kubernetes) folder and make the namespace with the `kubectl apply -f ./namespace.yaml`. Then deploy all the pieces locally. You may have to adjust the services based on your setup.
 
 ## Jaeger
 These APIs push out tracing information to Jaeger in Kubernetes. Based on https://github.com/jaegertracing/jaeger-kubernetes you need to run the below to put the Jaeger operator in place. When it is done you can run ` kubectl get service jaeger-query ` to see the URL for it. The APIs right now will fail if they do not have Jaeger specifics setup. We will in the future put an option in the helm chart to use / not use them. 
@@ -103,4 +103,4 @@ Please read up on https://docs.aws.amazon.com/eks/latest/userguide/metrics-serve
 * Run `kubectl get deployment metrics-server -n kube-system`
 
 ## Using Network Policies on EKS
-You need to look to kubectl apply -f https://raw.githubusercontent.com/aws/amazon-vpc-cni-k8s/release-1.5/config/v1.5/calico.yaml as an example to enable network separation and tenant isolation. There are some starting NetworkPolicy YAML files in the OpenRMF chart. But you need something like Calico or Cilium or other CNI plugins setup on your EKS Cluster. 
+You need to look to kubectl apply -f kubectl apply -f https://raw.githubusercontent.com/aws/amazon-vpc-cni-k8s/release-1.6/config/v1.6/calico.yaml as an example to enable network separation and tenant isolation. There are some starting NetworkPolicy YAML files in the OpenRMF chart. But you need something like Calico or Cilium or other CNI plugins setup on your EKS Cluster. 
