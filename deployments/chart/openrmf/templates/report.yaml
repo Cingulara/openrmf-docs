@@ -53,6 +53,8 @@ spec:
             secretKeyRef:
               name: reportdbsecret
               key: initDBName
+        - name: NATSSERVERURL
+          value: nats://natsserver:4222
         - name: JWT-AUTHORITY
           value: {{.Values.identityProviderURL}}/realms/{{.Values.identityProviderRealm}}
         - name: JWT-CLIENT
