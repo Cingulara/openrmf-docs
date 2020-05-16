@@ -239,12 +239,12 @@ spec:
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: openrmf-nats-metrics
+  name: openrmf-nats-client-metrics
   namespace: {{.Values.namespace}}
   labels:
     app.kubernetes.io/name: openrmf
     helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
-    app.kubernetes.io/component: nats-server-2.1.2
+    app.kubernetes.io/component: nats-client-metrics-1.0.1
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/revision: "{{ .Release.Revision }}"
     app.kubernetes.io/version: {{ .Chart.AppVersion }}
