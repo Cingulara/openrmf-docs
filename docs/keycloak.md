@@ -26,7 +26,9 @@ We had a contributor (KC) setup an automated way to define your realm in Keycloa
 ### Create your OpenRMF Realm in Keycloak first
 2. Create a new Realm for "openrmf" by moving your mouse to the top left and hovering over "Master" like below. Click Add Realm and 
 enter "openrmf" for the Name and fill in other details as you wish. The "openrmf" is important!
+
 ![Keycloak OpenRMF Realm Setup](/assets/keycloak/keycloak-setup-realm.png)
+
 3. Once the openrmf realm is created, on the General tab update the Display Name and make sure Enabled is turn to ON
 4. Click Save
 5. Go to Login and set User Registration to ON if you wish
