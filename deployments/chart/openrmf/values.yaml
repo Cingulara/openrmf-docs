@@ -25,22 +25,24 @@ installType: minikube
 
 # versions of container to adjust
 # examples: 0.8, 0.8.1, latest
-auditImage: 0.13.02
-auditmsgImage: 0.13.01
-checklistmsgImage: 0.13.01
-complianceImage: 0.13.01
-compliancemsgImage: 0.13.01
-controlImage: 0.13.01
-controlmsgImage: 0.13.01
-readImage: 0.13.02
-saveImage: 0.13.02
-scoremsgImage: 0.13.01
-scoringImage: 0.13.02
-templateImage: 0.13.02
-templatemsgImage: 0.13.01
-uploadImage: 0.13.02
-systemmsgImage: 0.13.01
-webuiImage: 0.13.02
+auditImage: 0.14.01
+auditmsgImage: 0.14.01
+checklistmsgImage: 0.14.01
+complianceImage: 0.14.01
+compliancemsgImage: 0.14.01
+controlImage: 0.14.02
+controlmsgImage: 0.14.01
+readImage: 0.14.01
+saveImage: 0.14.01
+scoremsgImage: 0.14.01
+scoringImage: 0.14.01
+templateImage: 0.14.01
+templatemsgImage: 0.14.01
+uploadImage: 0.14.01
+systemmsgImage: 0.14.01
+webuiImage: 0.14.01
+reportImage: 0.14.01
+reportmsgImage: 0.14.02
 mongoImage: 4.0.5
 natsImage: 2.1.2-linux
 
@@ -59,6 +61,7 @@ templateAPI:   http://openrmf.local/template
 complianceAPI: http://openrmf.local/compliance
 controlAPI:    http://openrmf.local/controls
 auditAPI:      http://openrmf.local/audit
+reportAPI:      http://openrmf.local/report
 
 # Service Types for Minikube and AWS separately
 # Examples: NodePort, LoadBalancer, etc.
@@ -77,9 +80,12 @@ scoreAppUser: openrmfscore
 scoreAppPassword: openrmf9876!
 auditAppUser: openrmfaudit
 auditAppPassword: openrmf4321!
+reportAppUser: openrmfaudit
+reportAppPassword: openrmf4321!
 
 # SECRET VALUES ARE TO BE IN base64
 # Example: echo -n 'openrmf' | base64 
+# Optionally use https://www.base64encode.net/
 # Above gives you a base64 encoded value to use here
 # More information can be found at https://kubernetes.io/docs/concepts/configuration/secret/
 
@@ -110,7 +116,7 @@ templateInitDBName: b3BlbnJtZnRlbXBsYXRl
 # mongodb://{{.Values.scoreAppUser}}:{{.Values.scoreAppPassword}}@openrmf-scoredb/{{.Values.scoreInitDBName}}?authSource={{.Values.scoreInitDBName}}
 templateAppConnection: bW9uZ29kYjovL29wZW5ybWZ0ZW1wbGF0ZTpvcGVucm1mNDMyMSFAb3BlbnJtZi10ZW1wbGF0ZWRiL29wZW5ybWZ0ZW1wbGF0ZT9hdXRoU291cmNlPW9wZW5ybWZ0ZW1wbGF0ZQ==
 
-# Template Database Secret Values
+# Audit Database Secret Values
 auditInitDBUser: cm9vdA==
 auditInitDBPassword: bVlwMnNzdzByZA==
 auditInitDBName: b3BlbnJtZmF1ZGl0
@@ -118,6 +124,15 @@ auditInitDBName: b3BlbnJtZmF1ZGl0
 # the user, password, and database name must match the initialization scripts above -- secrets however are base64 encoded
 # mongodb://{{.Values.scoreAppUser}}:{{.Values.scoreAppPassword}}@openrmf-scoredb/{{.Values.scoreInitDBName}}?authSource={{.Values.scoreInitDBName}}
 auditAppConnection: bW9uZ29kYjovL29wZW5ybWZhdWRpdDpvcGVucm1mNDMyMSFAb3BlbnJtZi1hdWRpdGRiL29wZW5ybWZhdWRpdD9hdXRoU291cmNlPW9wZW5ybWZhdWRpdA==
+
+# Audit Database Secret Values
+reportInitDBUser: cm9vdA==
+reportInitDBPassword: bVlwMnNzdzByZA==
+reportInitDBName: b3BlbnJtZnJlcG9ydA==
+# app connection must be in the form below with valid user, password, and database names
+# the user, password, and database name must match the initialization scripts above -- secrets however are base64 encoded
+# mongodb://{{.Values.scoreAppUser}}:{{.Values.scoreAppPassword}}@openrmf-scoredb/{{.Values.scoreInitDBName}}?authSource={{.Values.scoreInitDBName}}
+reportAppConnection: bW9uZ29kYjovL29wZW5ybWZyZXBvcnQ6b3BlbnJtZjQzMjEhQG9wZW5ybWYtcmVwb3J0ZGIvb3BlbnJtZnJlcG9ydD9hdXRoU291cmNlPW9wZW5ybWZyZXBvcnQ=
 
 # Jaeger Tracing Server setup from https://www.jaegertracing.io/docs/latest/sampling/
 jaegerSamplerType: probabilistic
@@ -142,4 +157,4 @@ useprometheusoperator: true
 #         release: prometheus-operator-1586292731
 
 servicemonitormatchlabelname: release
-servicemonitormatchlabelvalue: prometheus-operator-1586292731
+servicemonitormatchlabelvalue: prometheus-operator-xxxxxxxxxxxxxx
