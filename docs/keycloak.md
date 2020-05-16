@@ -1,38 +1,32 @@
-# Keycloak 7.0 setup for OpenRMF Login and RBAC
-OpenRMF uses Keycloak (OpenID) initially for login and password access as well as role based access control. You also can use Keycloak for linking to Identity Providers with Google, GitHub, Twitter, and others for access to OpenRMF. Feel free to follow these Keycloak directions or use another provider that can give you OpenID functionality. The Keycloak setup is below and should be similar to other OpenID applications. This setup below uses Keycloak 7.0. I have not tried it on version 6 or below. If you must use 6 then you will need to test to ensure it works 100%.
+---
+title: Keycloak Setup
+nav_order: 1000
+---
 
-## Running Keycloak in Docker
-You can use the below line to run Keycloak and use Postgres to save the configuration information. Please update your passwords appropriately in the [docker-compose.yml](scripts/keycloak/docker-compose.yml) file. We have a docker-compose file you can readily pull down and use in our scripts/keycloak directory for you to make this easy.
+# Setup Keycloak
+For the latest version of OpenRMF you must run Keycloak or a very similar OpenID AuthN/AuthZ provider.
 
-Mac/Linux:
-```
-./scripts/keycloak/start.sh
-```
+To run a local keycloak, go to the scripts/keycloak directory and run the `./startup.sh` or `./startup.cmd` to load Keycloak loally. Then follow the steps below to run Keycloak correctly. The docker-compose used persists the Keycloak database. So once this is setup you should be good to go.  
 
-Windows:
-```
-./scripts/keycloak/start.cmd
-```
-
-To stop this, run the "stop" script for the Mac/Linux (.sh) or Windows (.cmd) command you started.
+> _Note:_ you need to use the IP to reference Keycloak and the OpenRMF tool locally. "localhost" in the concept of a container is itself, not your local machine! I have stumbled on that so many times....so putting it here now. 
 
 ## Automated Script for Setting up Keycloak
 We had a contributor (KC) setup an automated way to define your realm in Keycloak with a script thankfully!  Make sure you `chmod +x` on one of the files linked below for your OS. Run the script and it asks you for the IP of the computer, the first user to make, and then connects to the jboss/keycloak container running. It adds the openrmf realm, client, password policy, roles, first administrator, as well as the default role for users to register.
 
 > Note: You MUST have Keycloak running locally in Docker on the machine where this is run for it to work as-is.
 
-* Mac Users can use [setup-realm-mac.sh](scripts/keycloak/setup-realm-mac.sh) file.
-* Linux users can use the [setup-realm-linux.sh](scripts/keycloak/setup-realm-linux.sh) file. 
+* Mac Users can use [setup-realm-mac.sh](https://github.com/Cingulara/openrmf-docs/blob/master/scripts/keycloak/setup-realm-mac.sh) file.
+* Linux users can use the [setup-realm-linux.sh](https://github.com/Cingulara/openrmf-docs/blob/master/scripts/keycloak/setup-realm-linux.sh) file. 
 * Windows users, stay tuned!
 
-## Step by Step Manual Directions
+## Setup Keycloak Manually
 
 1. Log in to your Keycloak instance, whether online or within containers (docker, kubernetes) or natively on your machine
 
 ### Create your OpenRMF Realm in Keycloak first
 2. Create a new Realm for "openrmf" by moving your mouse to the top left and hovering over "Master" like below. Click Add Realm and 
 enter "openrmf" for the Name and fill in other details as you wish. The "openrmf" is important!
-![Image](./img/keycloak/keycloak-setup-realm.png?raw=true)
+![Keycloak OpenRMF Realm Setup](/assets/keycloak/keycloak-setup-realm.png)
 3. Once the openrmf realm is created, on the General tab update the Display Name and make sure Enabled is turn to ON
 4. Click Save
 5. Go to Login and set User Registration to ON if you wish
@@ -43,7 +37,7 @@ enter "openrmf" for the Name and fill in other details as you wish. The "openrmf
 10. Click Save to set all password policies
 
 ### Password Policy Screenshot
-![Image](./img/keycloak/authentication-password-policy.png?raw=true)
+![Keycloak Password Policy](/assets/keycloak/authentication-password-policy.png)
 
 11. Click Roles on the far left menu
 12. Add the following roles: Administrator, Assessor, Download, Editor, Reader (use proper case)
@@ -60,7 +54,7 @@ enter "openrmf" for the Name and fill in other details as you wish. The "openrmf
 23. Click the Save button to save this initial setup
 
 ### Client Settings Screenshot
-![Image](./img/keycloak/keycloak-openrmf-settings.png?raw=true)
+![Keycloak Client Settings](/assets/keycloak/keycloak-openrmf-settings.png)
 
 24. Click on the Client Scopes tab to ensure the `roles` scope is in the right hand box to pass to OpenRMF upon login
 25. Click on the Mappers tab under the openrmf Client
@@ -73,11 +67,11 @@ enter "openrmf" for the Name and fill in other details as you wish. The "openrmf
 32. Save the mapper
 
 ### Roles Setup Screenshot
-![Image](./img/keycloak/keycloak-roles.png?raw=true)
+![Keycloak Roles](/assets/keycloak/keycloak-roles.png)
+
 
 ### Client Mapper Screenshot
-![Image](./img/keycloak/keycloak-openrmf-client-mapper-roles.png?raw=true)
-
+![Keycloak Client Mapper](/assets/keycloak/keycloak-openrmf-client-mapper-roles.png)
 
 Now you are finally done! Check the OpenRMF web application by creating a user and logging in. 
 
@@ -90,4 +84,14 @@ There are a few places when running in debug mode that you have to know the Keyc
 * auth.js file in the `js` folder of the openrmf-web project
 * all the API `.vscode/launch.json` files like the picture below.
 
-![Image](./img/keycloak/dotnet-core-keycloak-reference.png?raw=true)
+![OpenRMF Settings](/assets/keycloak/dotnet-core-keycloak-reference.png)
+
+Now you are finally done! Check the OpenRMF web application by creating a user and logging in. 
+
+> Remember the Redirect URIs cannot be "localhost" if you are running these components inside Docker. Localhost is local to the docker container!
+
+## Run OpenRMF Latest Development
+
+While in the develop branch, go to the scripts/edge directory. While in that directory run `./dev-start.sh` or `./dev-start.cmd` for your OS and let it spin up the containers for the database and website. You should see a message on how to go to port 8080 to run the application at the end. 
+
+Remember, use the IP address of your local machine to go to it. It should redirect you to go to Keycloak and login or create a user. Once your user is setup and you can log in, you should see OpenRMF correctly!
