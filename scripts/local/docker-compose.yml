@@ -1,6 +1,13 @@
 version : '3.2'
  
 services:
+  web:
+    image: nginx:1.18.0
+    ports:
+      - 8080:80
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+
   mongo:
     image: mongo:4.0.5
     container_name: mongodb
