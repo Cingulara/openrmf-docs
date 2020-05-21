@@ -3,7 +3,7 @@ version : '3.2'
 services:
 ### 1 Web Front End Container
   openrmf-web:
-    image: cingulara/openrmf-web:0.14.01
+    image: cingulara/openrmf-web:0.15.01
     container_name: openrmf-web
     ports:
       - 8080:80
