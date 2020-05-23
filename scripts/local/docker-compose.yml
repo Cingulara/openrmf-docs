@@ -3,6 +3,7 @@ version : '3.2'
 services:
   web:
     image: nginx:1.18.0
+    command: [nginx-debug, '-g', 'daemon off;']
     ports:
       - 8080:80
     volumes:
