@@ -1,5 +1,5 @@
 ---
-title: What's New in v0.14
+title: What's New in v0.15
 nav_order: 2
 ---
 
@@ -7,13 +7,18 @@ nav_order: 2
 
 Please refer to the <a href="https://github.com/Cingulara?tab=projects" target="_blank">OpenRMF Projects listing on GitHub</a> for more information on feature updates and timeline.
 
-The latest working version is version 0.14. The recent updates on that are below:
+The latest working version is version 0.15 and is the last update before going to version 1.0 of OpenRMF Core. The recent updates on that are below:
+* Migrating the Web UI and all APIs behind NGINX for a single port 8080
+* Automatically updating the checklist score on the page when editing a vulnerability status
+* Various small bug fixes
+
+The recent updates on version 0.14 are below:
 * A new Report API for certain reports, using eventual consistency for behind the scenes reporting and faster data.
 * Better indexing across all databases.
 * Caching of certain data to quicken retrieving (reports, control listing, list of values, etc.).
 * A new NATS Client Metrics exporter and Grafana dashboard we created to track metrics to the consumer level.
 
-The latest working version is version 0.13. The recent updates on that are below:
+The recent updates for version 0.13 are below:
 * Showing the CCI title and NIST related controls for each Vulnerability in a Checklist
 * Export the Compliance listing to MS Excel
 * Updated /healthz checks for Kubernetes for database connectivity
