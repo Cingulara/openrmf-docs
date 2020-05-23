@@ -14,6 +14,8 @@ services:
       - openrmfapi-upload
       - openrmfapi-read
       - openrmfapi-compliance
+    volumes:
+      - ../nginx.conf:/etc/nginx/nginx.conf:ro
     networks:
       - openrmf-dev
 
@@ -22,11 +24,11 @@ services:
     image: cingulara/openrmf-api-scoring
     container_name: openrmf-scoring-api
     ports:
-      - 8090:8080
+      - 8090
     env_file: .env
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://*:8080
+      - ASPNETCORE_URLS=http://*:8090
       - MONGODBCONNECTION=mongodb://openrmfscore:openrmf1234!@scoredb/openrmfscore?authSource=openrmfscore
       - MONGODB=openrmfscore
       - JAEGER_AGENT_HOST=jaeger
@@ -44,11 +46,11 @@ services:
     image: cingulara/openrmf-api-save
     container_name: openrmf-save-api
     ports:
-      - 8082:8080
+      - 8082
     env_file: .env
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://*:8080
+      - ASPNETCORE_URLS=http://*:8082
       - MONGODBCONNECTION=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
       - MONGODB=openrmf
       - NATSSERVERURL=nats://natsserver:4222
@@ -69,11 +71,11 @@ services:
     image: cingulara/openrmf-api-template
     container_name: openrmf-template-api
     ports:
-      - 8088:8080
+      - 8088
     env_file: .env
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://*:8080
+      - ASPNETCORE_URLS=http://*:8088
       - NATSSERVERURL=nats://natsserver:4222
       - MONGODBCONNECTION=mongodb://openrmftemplate:openrmf1234!@templatedb/openrmftemplate?authSource=openrmftemplate
       - MONGODB=openrmftemplate
@@ -92,11 +94,11 @@ services:
     image: cingulara/openrmf-api-upload
     container_name: openrmf-upload-api
     ports:
-      - 8086:8080
+      - 8086
     env_file: .env
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://*:8080
+      - ASPNETCORE_URLS=http://*:8086
       - MONGODBCONNECTION=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
       - MONGODB=openrmf
       - NATSSERVERURL=nats://natsserver:4222
@@ -117,11 +119,11 @@ services:
     image: cingulara/openrmf-api-read
     container_name: openrmf-read-api
     ports:
-      - 8084:8080
+      - 8084
     env_file: .env
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://*:8080
+      - ASPNETCORE_URLS=http://*:8084
       - MONGODBCONNECTION=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
       - MONGODB=openrmf
       - NATSSERVERURL=nats://natsserver:4222
@@ -140,11 +142,11 @@ services:
     image: cingulara/openrmf-api-compliance
     container_name: openrmf-compliance-api
     ports:
-      - 8092:8080
+      - 8092
     env_file: .env
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://*:8080
+      - ASPNETCORE_URLS=http://*:8092
       - NATSSERVERURL=nats://natsserver:4222
       - JAEGER_AGENT_HOST=jaeger
       - JAEGER_AGENT_PORT=6831
@@ -159,11 +161,11 @@ services:
     image: cingulara/openrmf-api-controls
     container_name: openrmf-controls-api
     ports:
-      - 8094:8080
+      - 8094
     env_file: .env
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://*:8080
+      - ASPNETCORE_URLS=http://*:8094
       - NATSSERVERURL=nats://natsserver:4222
       - JAEGER_AGENT_HOST=jaeger
       - JAEGER_AGENT_PORT=6831
@@ -178,11 +180,11 @@ services:
     image: cingulara/openrmf-api-audit
     container_name: openrmf-audit-api
     ports:
-      - 8096:8080
+      - 8096
     env_file: .env
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://*:8080
+      - ASPNETCORE_URLS=http://*:8096
       - MONGODBCONNECTION=mongodb://openrmfaudit:openrmf1234!@auditdb/openrmfaudit?authSource=openrmfaudit
       - MONGODB=openrmfaudit
       - NATSSERVERURL=nats://natsserver:4222
@@ -201,11 +203,11 @@ services:
     image: cingulara/openrmf-api-report
     container_name: openrmf-report-api
     ports:
-      - 8098:8080
+      - 8098
     env_file: .env
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://*:8080
+      - ASPNETCORE_URLS=http://*:8098
       - REPORTMONGODBCONNECTION=mongodb://openrmfreport:openrmf1234!@reportdb/openrmfreport?authSource=openrmfreport
       - REPORTMONGODB=openrmfreport
       - NATSSERVERURL=nats://natsserver:4222
@@ -364,6 +366,7 @@ services:
       - JAEGER_SAMPLER_PARAM=0.1
       - JAEGER_REPORTER_LOG_SPANS=true
     depends_on:
+      - checklistdb
       - reportdb
       - natsserver
     networks:
