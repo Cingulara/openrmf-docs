@@ -11,6 +11,11 @@ Read more about its genesis <a href="https://www.cingulara.com/opensource.html" 
 
 ![Image](./img/UI-dashboard.png?raw=true)
 
+## Get OpenRMF Core Running Locally
+If you want to get it running on your local laptop, desktop, or server follow these instructions. You need a good internet connection and Docker Desktop / Docker Community Edition to get this going.
+
+[Step by Step Instructions](step-by-step.md)
+
 ## Current Functionality
 - [x] Import SCAP scans (DISA STIGs) for automatic checklist documentation
 - [x] Import Nessus ACAS scans (patches and updates) for automated reporting and managing critical updates
@@ -71,29 +76,6 @@ This particular repository is the repo for all the docs as the OpenRMF project g
 You need a web browser that is fairly current. And you need Docker installed on your desktop (or Kubernetes/minikube) or server as this currently uses the Docker runtime to bring up all components with ` docker-compose ` via the included ".sh" shell (Linux / Mac) or ".cmd" command scripts (Windows).
 
 * Docker is available at <a href="https://docs.docker.com/install/" target="_blank">https://docs.docker.com/install/</a>.
-
-## Run OpenRMF locally
-The best way to run this application (once you have Docker installed) is to go to the Code -- Releases tab https://github.com/Cingulara/openrmf-docs/releases and pull down the latest release. Unzip the file and then run the ./start.sh or .\start.cmd file to pull the latest images and run OpenRMF. Then you can open a local browser to http://{ip-address}:8080/ and see what happens. If you want to change the ports you only have to edit the docker-compose.yml file locally. These files are in the [scripts](scripts) folder of this repo.
-
-Be sure to check out the [Keycloak information](#authentication-with-keycloak) because OpenRMF version 0.8 and beyond has RBAC for AuthN and AuthZ on the web and API calls. Or you could use another OpenID compliant application to provide AuthN and AuthZ. 
-
-> You need to setup Keycloak first before running OpenRMF.
-
-> The data is currently mapped to internal Docker-managed volumes for persistence. You can run the "docker volume rm" command below if you wish to remove and start over as you test.  If you want persistence you could change the connection strings to another MongoDB server and adjust the docker-compose.yml accordingly. Or use a volume in your docker-compose.yml or individual docker commands. 
-
-> *_IMPORTANT:_* You must look at the .env file to see we set the Keycloak/OpenID location and realm. Check the `.env` file in the [scripts](scripts) directory to see how to set those variables. The docker-compose stack YML files read that .env file to launch. These cannot be "localhost" as "localhost" inside a docker container is that container, not the host it is running on.
-
-```yaml
-JWT-AUTHORITY=http://xxx.xxx.xxx.xxx:9001/auth/realms/openrmf
-JWT-CLIENT=openrmf
-```
-
-## Run OpenRMF latest development
-For those that want to run the actual "latest" or "edge" of OpenRMF you should run `git clone https://github.com/Cingulara/openrmf-docs.git `, then `git checkout develop` to switch to the develop branch. Inside the scripts directory there is an [edge](scripts/edge/) directory with ./dev-start.sh (or .\dev-start.cmd on Windows) file to run to start and a corresponding ./dev-stop.sh (.\dev-stop.cmd on Windows) to run the latest development version. These operate on http://{ip-address}:9080 so as not to interfere with a running released version to compare/contrast. Note the docker-compose.yml has different ports and different database mount volumes as well. 
-
-> You must look at the YML files and see how we set the Keycloak/OpenID location and realm. Check the `.env` file in the [scripts](scripts) directory to see how to set those variables. The docker-compose stack YML files read that .env file to launch.
-
-> Please ensure you check the launch.json on the VSCode windows to point to your NATS and your Keycloak setup.
 
 ## Install in Air-Gapped / Disconnected Environment
 
