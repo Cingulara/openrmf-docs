@@ -28,8 +28,14 @@ We had a contributor (KC) setup an automated way to define your realm in Keycloa
 ## Step by Step Manual Directions
 
 1. Log in to your Keycloak instance, whether online or within containers (docker, kubernetes) or natively on your machine
-2. Create a new Realm for openrmf
-3. In General update the Display Name and make sure Enabled is turn to ON
+
+### Create your OpenRMF Realm in Keycloak first
+2. Create a new Realm for "openrmf" by moving your mouse to the top left and hovering over "Master" like below. Click Add Realm and 
+enter "openrmf" for the Name and fill in other details as you wish. The "openrmf" is important!
+
+![Image](./img/keycloak/keycloak-setup-realm.png?raw=true)
+
+3. Once the openrmf realm is created, on the General tab update the Display Name and make sure Enabled is turn to ON
 4. Click Save
 5. Go to Login and set User Registration to ON if you wish
 6. Set Require SSL appropriately (i.e. none for development locally only)

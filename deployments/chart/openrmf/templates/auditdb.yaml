@@ -38,6 +38,7 @@ data:
     db.Audits.createIndex({ created: -1 })
     db.Audits.createIndex({ username: 1 })
     db.Audits.createIndex({ program: 1 })
+    db.Audits.createIndex({ action: 1 })
 ---
 apiVersion: apps/v1
 kind: Deployment

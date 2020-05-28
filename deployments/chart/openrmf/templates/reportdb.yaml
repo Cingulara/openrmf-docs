@@ -1,0 +1,161 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: reportdbsecret
+  namespace: {{.Values.namespace}}
+  labels:
+    app.kubernetes.io/name: openrmf
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app.kubernetes.io/component: report-mongodb-secret
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/revision: "{{ .Release.Revision }}"
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: helm
+type: Opaque
+data:
+  initUsername: {{.Values.reportInitDBUser}}
+  initPassword: {{.Values.reportInitDBPassword}}
+  initDBName: {{.Values.reportInitDBName}}
+  appConnection: {{.Values.reportAppConnection}}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: reportdb-initconfig
+  namespace: {{.Values.namespace | default "openrmf"}}
+  labels:
+    app.kubernetes.io/name: openrmf
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app.kubernetes.io/component: reportdb-init-config
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/revision: "{{ .Release.Revision }}"
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: helm
+data:
+  mongo-init.js: |
+    db.createUser({ user: "{{.Values.reportAppUser}}" , pwd: "{{.Values.reportAppPassword}}", roles: [{ "role": "readWrite", "db": "{{.Values.reportAppUser}}"}]});
+    db.createCollection("ACASScanReport");
+    db.ACASScanReport.createIndex({ reportName: 1 })
+    db.ACASScanReport.createIndex({ hostname: 1 })
+    db.ACASScanReport.createIndex({ pluginId: 1 })
+    db.ACASScanReport.createIndex({ pluginName: 1 })
+    db.ACASScanReport.createIndex({ pluginType: 1 })
+    db.ACASScanReport.createIndex({ severity: -1 })
+    db.ACASScanReport.createIndex({ riskFactor: 1 })
+    db.createCollection("VulnerabilityReport");
+    db.VulnerabilityReport.createIndex({ vulnid: 1 })
+    db.VulnerabilityReport.createIndex({ hostname: 1 })
+    db.VulnerabilityReport.createIndex({ severityCategory: 1 })
+    db.VulnerabilityReport.createIndex({ status: 1 })
+    db.VulnerabilityReport.createIndex({ ruleTitle: 1 })
+    db.VulnerabilityReport.createIndex({ checklistType: 1 })
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openrmf-reportdb
+  namespace: {{.Values.namespace}}
+  labels:
+    app.kubernetes.io/name: openrmf
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app.kubernetes.io/component: report-mongodb
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/revision: "{{ .Release.Revision }}"
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: helm
+spec:
+  selector:
+    matchLabels:
+      run: openrmf-reportdb
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        run: openrmf-reportdb
+    spec:
+      containers:
+      - name: openrmf-reportdb
+        image: mongo:{{.Values.mongoImage}}
+        ports:
+        - containerPort: 27017
+        env:
+        - name: MONGO_INITDB_ROOT_USERNAME
+          valueFrom:  
+            secretKeyRef:
+              name: reportdbsecret
+              key: initUsername
+        - name: MONGO_INITDB_ROOT_PASSWORD
+          valueFrom:  
+            secretKeyRef:
+              name: reportdbsecret
+              key: initPassword
+        - name: MONGO_INITDB_DATABASE
+          valueFrom:  
+            secretKeyRef:
+              name: reportdbsecret
+              key: initDBName
+        resources:
+          requests:
+            memory: "500M"
+            cpu: "200m"
+        volumeMounts:
+        - mountPath: /data/db
+          name: mongodata-reportdb
+        - name: initconfig-volume
+          mountPath: /docker-entrypoint-initdb.d/mongo-init.js
+          subPath: mongo-init.js
+      restartPolicy: Always
+      volumes:
+      - name: mongodata-reportdb
+        persistentVolumeClaim:
+          claimName: openrmf-reportdb-claim
+      - name: initconfig-volume
+        configMap:
+          name: reportdb-initconfig
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: openrmf-reportdb
+  namespace: {{.Values.namespace}}
+  labels:
+    app.kubernetes.io/name: openrmf
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app.kubernetes.io/component: report-mongodb
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/revision: "{{ .Release.Revision }}"
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: helm
+spec:
+  ports:
+  - name: mongodb-reportdb
+    port: 27017
+    protocol: TCP
+    targetPort: 27017
+  selector:
+    run: openrmf-reportdb
+  sessionAffinity: None
+  clusterIP: None
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: {{.Values.namespace}}
+  name: openrmf-reportdb-claim
+  labels:
+    app.kubernetes.io/name: openrmf
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app.kubernetes.io/component: report-mongodb
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/revision: "{{ .Release.Revision }}"
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: helm
+spec:
+  storageClassName: {{.Values.storageClass}}
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi

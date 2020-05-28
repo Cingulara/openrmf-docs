@@ -21,12 +21,14 @@ of chart data and XLSX downloads.
 * https://github.com/Cingulara/openrmf-api-controls is a read-only lookup of NIST controls to match to CCI for the compliance API and other pieces that need to pull the NIST control descriptions for 800-53.
 * https://github.com/Cingulara/openrmf-api-compliance is for generating the compliance listing, matching NIST controls via CCI to 1 or more checklists in a System. This generates a table of controls and the checklists corresponding to the control from the system's group of checklists. The checklist is linked to the Checklist service and color coded by status.
 * https://github.com/Cingulara/openrmf-api-audit is a read-only lookup of Audit information for OpenRMF that only Administrators can access.
+* https://github.com/Cingulara/openrmf-api-reports is a read-only lookup of OpenRMF data for certain reports that use caching and eventual consistency of data (Nessus Patch Report and Host Vulnerability).
 * https://github.com/Cingulara/openrmf-msg-controls is a NATS client for responding to request/reply on a list of all RMF controls or get the information on a specific control (i.e. AC-1).
 * https://github.com/Cingulara/openrmf-msg-compliance is a NATS client for responding to request/reply on a list of all compliance listings mapping STIG vulnerability IDs to controls. Use this for a full listing based on a low/moderate/high level as well as if you are using personally identifiable information (PII) or similar data.
 * https://github.com/Cingulara/openrmf-msg-template is a NATS client for responding to request/reply on a request for a System template based on the title passed in.
 * https://github.com/Cingulara/openrmf-msg-checklist is a NATS client for responding to request/reply on a request for a checklist based on the Mongo DB record Id passed in.
 * https://github.com/Cingulara/openrmf-msg-system is a NATS client for responding to published messages for updating a System based on title, number of checklists, or running a compliance check.
 * https://github.com/Cingulara/openrmf-msg-audit is a NATS client for responding to published messages for recording auditable events through OpenRMF.
+* https://github.com/Cingulara/openrmf-msg-reports is a NATS client for responding to published messages for eventual consistency of OpenRMF data used for reporting.
 
 I started this project with separate microservices all over including messaging for API-to-API communication. Future enhancements are to organically add publish / subscribe pieces such as compliance, auditing, logging, etc. to make this more user and enterprise ready. Along with all the error trapping, checking for NATS connection, etc. that a production 1.0 application would have. 
 
@@ -39,7 +41,9 @@ OpenRMF uses NATS messaging to work eventual consistency as well as API-to-API c
 | openrmf.checklist.read | Request/Reply | Score (Msg Client), Compliance  | openrmf-msg-checklist | Ask for a full checklist/artifact record based on the ID passed in |
 | openrmf.system.checklists.read | Request/Reply | Compliance          | openrmf-msg-checklist | Ask for all checklist records for a given system title passed in |
 | openrmf.checklist.save.new | Subscribe | Upload | openrmf-msg-score | Grab the new uploaded checklist ID sent and generate the score of open, not applicable, not a finding, and not reviewed items across categories |
+| openrmf.checklist.save.new | Subscribe | Upload | openrmf-msg-reports | Grab the new uploaded checklist ID sent and generate the vulnerability data in the reports database, separated out by vulnerability ID |
 | openrmf.checklist.save.update | Subscribe | Upload | openrmf-msg-score | Grab the updated checklist ID sent and generate the score of open, not applicable, not a finding, and not reviewed items across categories |
+| openrmf.checklist.save.update | Subscribe | Upload | openrmf-msg-reports | Grab the new uploaded checklist ID sent and generate the vulnerability data in the reports database, separated out by vulnerability ID while removing the old vulnerability data for that checklist ID |
 | openrmf.checklist.delete | Subscribe | Save | openrmf-msg-score | Delete the score record for the passed in checklist ID  |
 | openrmf.score.read | Subscribe | Read | openrmf-msg-score | Read API calling for the score when generating an XLSX checklist download listing the score. |
 | openrmf.compliance.cci | Request/Reply | Compliance | openrmf-msg-compliance | Send back all CCI to NIST Major Controls listing. |
@@ -52,5 +56,8 @@ OpenRMF uses NATS messaging to work eventual consistency as well as API-to-API c
 | openrmf.system.update.{Id} | Subscribe | Save | openrmf-msg-system | When a system title is updated, make sure all references throughout the checklists are updated. We save the system group Id and the title with the checklists for easier usage throughout OpenRMF. The source-of-truth is the systemgroups collection in MongoDB. |
 | openrmf.system.count.> | Subscribe | Upload (add) and Save (delete) | openrmf-msg-system | Increments with a ".add" at the end of the subject or decrements if there is a ".delete" at the end of the subject. The payload is the system group Id. |
 | openrmf.system.compliance | Subscribe | Compliance | openrmf-msg-system | Stores the date of the last compliance check run into the system group record for display later. |
-
 | openrmf.compliance.cci.references | Request/Reply | Compliance | openrmf-msg-compliance | Passing in the CCI it returns the CCI title and NIST list of references for the CCI passed in to the Compliance API. |
+| openrmf.system.delete | Subscribe | Save | openrmf-msg-reports | Passing in the System Group ID, the reporting data for patch scanning and vulnerabilities are removed from the database. |
+| openrmf.system.patchscan | Subscribe | Save | openrmf-msg-reports | Passing in the System Group ID, the reporting data for patch scanning is pulled from the raw string data in the Artifact database, parsed, put into the right structure, and saved into the report database. |
+| openrmf.report.refresh.nessuspatchdata | Subscribe | Report | openrmf-msg-reports | Issue a command from the GUI as an Administrator to refresh all Nessus Patch Data in every System. |
+| openrmf.report.refresh.vulnerabilitydata | Subscribe | Report | openrmf-msg-reports | Issue a command from the GUI as an Administrator to refresh all Checklist Vulnerability on every checklist in every System. |
