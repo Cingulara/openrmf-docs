@@ -16,6 +16,10 @@ If you want to get it running on your local laptop, desktop, or server follow th
 
 [Step by Step Instructions](step-by-step.md)
 
+> Note that for Docker Desktop users, you need to have the File Sharing turned on to run OpenRMF the way it is designed in the docker-compose file. We use persistent volumes for MongoDB, Grafana, and Prometheus.
+
+> Tested with Docker Desktop 2.x onward with 6 CPUs, 6 GB RAM, 1 GB swap and 60 GB Disk Image. You will want more than the default 2 CPU and 2 GB RAM to maximize the use of OpenRMF specifically. Your machine age and hardware will make this vary some. If you see timeouts on Keycloak and OpenRMF when uploading, running reports, or web UI screens taking a long time to load you may want to check the Docker Desktop Resources of your machine.
+
 ## Current Functionality
 - [x] Import SCAP scans (DISA STIGs) for automatic checklist documentation
 - [x] Import Nessus ACAS scans (patches and updates) for automated reporting and managing critical updates
