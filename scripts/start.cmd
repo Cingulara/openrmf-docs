@@ -1,5 +1,5 @@
 REM Now run the latest development openRMF stack
-COMPOSE_PARALLEL_LIMIT=30 docker-compose up -d
+docker-compose up -d
 
 REM tell them the URL
 ECHO ""
