@@ -53,15 +53,15 @@ storageClass: standard
 # API URLs for the web client side calls, used in the web.yaml deployment for the UI
 # These are rewritted to the web pods in a ConfigMap for inclusion of client-side API calls
 # Examples: 'http://openrmf.local/read', https://read.openrmf.io
-readAPI:       http://openrmf.local/read
-scoreAPI:      http://openrmf.local/scoring
-saveAPI:       http://openrmf.local/save
-uploadAPI:     http://openrmf.local/upload
-templateAPI:   http://openrmf.local/template
-complianceAPI: http://openrmf.local/compliance
-controlAPI:    http://openrmf.local/controls
-auditAPI:      http://openrmf.local/audit
-reportAPI:      http://openrmf.local/report
+readAPI:       http://openrmf.local/read/
+scoreAPI:      http://openrmf.local/scoring/
+saveAPI:       http://openrmf.local/save/
+uploadAPI:     http://openrmf.local/upload/
+templateAPI:   http://openrmf.local/template/
+complianceAPI: http://openrmf.local/compliance/
+controlAPI:    http://openrmf.local/controls/
+auditAPI:      http://openrmf.local/audit/
+reportAPI:      http://openrmf.local/report/
 
 # Service Types for Minikube and AWS separately
 # Examples: NodePort, LoadBalancer, etc.
