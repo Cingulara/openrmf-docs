@@ -14,7 +14,7 @@ Follow these steps to at least have a running application locally.
 
 * on an Internet connection machine, run the "start.sh" from one of the OpenRMF release bundles
 * this will run docker-compose and pull all relevant software container images
-* you can use the docker save -o xxxxxxxxxxx filename type of command to save the image to a local file, i.e. `docker save -o cingulara-webui.image cingulara/openrmf-web:0.12.12` to save the web UI image to a file named cingulara-webui.image
+* you can use the docker save -o xxxxxxxxxxx filename type of command to save the image to a local file, i.e. `docker save -o cingulara-webui.image cingulara/openrmf-web:1.0` to save the web UI image to a file named cingulara-webui.image
 * do this for all the openrmf-xxxxx images listed below as well as the Mongo, Prometheus, Grafana, Jaeger, NATS images (if you do not want Jaeger, Prometheus and Grafana, comment them out in the docker-compose file on the new machine)
 
 ## Loading the images on an air-gapped machine
@@ -31,30 +31,34 @@ For Keycloak:
 * postgres:11.5
 * jboss/keycloak:7.0.0
 
-> Keycloak 8 or 9 may also work but for now, we use 7.0. We will upgrade in the summer of 2020. 
+> Keycloak 8, 9 or 10 may also work but for now, we use 7.0. We will upgrade to Keycloak 10.x with instructions for that in the summer of 2020. 
 
 For OpenRMF:
-* cingulara/openrmf-web:0.13.01
-* cingulara/openrmf-api-scoring:0.13.01
-* cingulara/openrmf-api-save:0.13.01
-* cingulara/openrmf-api-template:0.13.01
-* cingulara/openrmf-api-upload:0.13.01
-* cingulara/openrmf-api-read:0.13.01
-* cingulara/openrmf-api-compliance:0.13.01
-* cingulara/openrmf-api-controls:0.13.01
-* cingulara/openrmf-api-audit:0.13.01
-* cingulara/openrmf-msg-score:0.13.01
-* cingulara/openrmf-msg-checklist:0.13.01
-* cingulara/openrmf-msg-compliance:0.13.01
-* cingulara/openrmf-msg-controls:0.13.01
-* cingulara/openrmf-msg-template:0.13.01
-* cingulara/openrmf-msg-system:0.13.01
-* cingulara/openrmf-msg-audit:0.13.01
+* cingulara/openrmf-web:1.0
+* cingulara/openrmf-api-scoring:1.0
+* cingulara/openrmf-api-save:1.0
+* cingulara/openrmf-api-template:1.0
+* cingulara/openrmf-api-upload:1.0
+* cingulara/openrmf-api-read:1.0
+* cingulara/openrmf-api-compliance:1.0
+* cingulara/openrmf-api-controls:1.0
+* cingulara/openrmf-api-audit:1.0
+* cingulara/openrmf-api-report:1.0
+* cingulara/openrmf-msg-score:1.0
+* cingulara/openrmf-msg-checklist:1.0
+* cingulara/openrmf-msg-compliance:1.0
+* cingulara/openrmf-msg-controls:1.0
+* cingulara/openrmf-msg-template:1.0
+* cingulara/openrmf-msg-system:1.0
+* cingulara/openrmf-msg-audit:1.0
+* cingulara/openrmf-msg-report:1.0
 * mongo:4.0.5
 * nats:2.1.2-linux
 * synadia/prometheus-nats-exporter:latest
+* cingulara/nats-client-metrics:1.0.1
 * prom/prometheus
 * grafana/grafana
 * jaegertracing/all-in-one:latest
+* google/cadvisor:latest
 
 > The OpenRMF items have the current version. Yours may differ in the container "tag" but not the name. 
