@@ -10,7 +10,7 @@ dnsName: openrmf.local
 
 # The Identity Provider URL and Realm, i.e. using Keycloak for AuthN and AuthZ
 # Examples: https://keycloak.openrmf.io/auth, http://192.168.11.29:9001/auth
-identityProviderURL: http://192.168.11.29:9001/auth
+identityProviderURL: http://192.168.13.73:9001/auth
 # The Realm to use from the ID provider
 identityProviderRealm: openrmf
 # The Identity Provider Client Id to use
@@ -25,24 +25,24 @@ installType: minikube
 
 # versions of container to adjust
 # examples: 0.8, 0.8.1, latest
-auditImage: 0.15.01
-auditmsgImage: 0.15.01
-checklistmsgImage: 0.15.01
-complianceImage: 0.15.01
-compliancemsgImage: 0.15.01
-controlImage: 0.15.01
-controlmsgImage: 0.15.01
-readImage: 0.15.01
-saveImage: 0.15.01
-scoremsgImage: 0.15.01
-scoringImage: 0.15.01
-templateImage: 0.15.01
-templatemsgImage: 0.15.01
-uploadImage: 0.15.01
-systemmsgImage: 0.15.01
-webuiImage: 0.15.02
-reportImage: 0.15.01
-reportmsgImage: 0.15.01
+auditImage: 1.0
+auditmsgImage: 1.0
+checklistmsgImage: 1.0
+complianceImage: 1.0
+compliancemsgImage: 1.0
+controlImage: 1.0
+controlmsgImage: 1.0
+readImage: 1.0
+saveImage: 1.0
+scoremsgImage: 1.0
+scoringImage: 1.0
+templateImage: 1.0
+templatemsgImage: 1.0
+uploadImage: 1.0
+systemmsgImage: 1.0
+webuiImage: 1.0
+reportImage: 1.0
+reportmsgImage: 1.0
 mongoImage: 4.0.5
 natsImage: 2.1.2-linux
 

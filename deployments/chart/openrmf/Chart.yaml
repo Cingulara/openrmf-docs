@@ -13,5 +13,5 @@ maintainers:
   - name: David Gould
     email: dgould@tutelasec.com
 engine: gotpl 
-appVersion: 0.15.01
+appVersion: 1.0
 deprecated: false

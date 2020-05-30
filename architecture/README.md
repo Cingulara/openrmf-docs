@@ -1,5 +1,5 @@
 # OpenRMF Architecture
-This has the current architecture information for the OpenRMF application as of version 0.11 and beyond (current version).
+This has the current architecture information for the OpenRMF application as of version 0.11 and beyond to include the current 1.0 version.
 
 ![Image](./openRMF-Tool-Architecture.png?raw=true)
 
@@ -9,7 +9,8 @@ The January 2019 Phase 1 Vision / Concept as drawn on my whiteboard in my baseme
 
 ## Current Architecture
 
-The architecture was setup to do a few things for this tool and for myself actually:
+The architecture was setup to do a few things for this tool and for the team actually:
+
 * https://github.com/Cingulara/openrmf-web is the web UI pointing to all these APIs below to render checklists listings, data, vulnerabilities, reports, and allowing saving 
 of chart data and XLSX downloads.
 * https://github.com/Cingulara/openrmf-api-read is for listing, getting, and downloading a checklist and its metadata of title, description, type, and future user info. It also has an export to Excel function that is color coded for status thanks to a request by a good IA/CS friend of mine that needed that.
@@ -30,7 +31,7 @@ of chart data and XLSX downloads.
 * https://github.com/Cingulara/openrmf-msg-audit is a NATS client for responding to published messages for recording auditable events through OpenRMF.
 * https://github.com/Cingulara/openrmf-msg-reports is a NATS client for responding to published messages for eventual consistency of OpenRMF data used for reporting.
 
-I started this project with separate microservices all over including messaging for API-to-API communication. Future enhancements are to organically add publish / subscribe pieces such as compliance, auditing, logging, etc. to make this more user and enterprise ready. Along with all the error trapping, checking for NATS connection, etc. that a production 1.0 application would have. 
+We started this project with separate microservices all over including messaging for API-to-API communication. We also added organically several publish / subscribe pieces such as compliance, auditing, logging, etc. to make this more user and enterprise ready. Along with the error trapping, checking for NATS connection, etc. that a production 1.0 application would have. Just like any software we are continually updating and adding features, shaping code toward best practices, and including things such as Prometheus and Grafana for metrics as well as Jaeger for tracing calls.
 
 ## Current Messaging Architecture
 
