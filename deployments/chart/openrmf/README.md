@@ -70,31 +70,36 @@ individual images this is updated. Each one can be set individually just in case
 repos in the https://www.github.com/Cingulara/ area.
 
 ```yaml
-checklistmsgImage: 0.9
-complianceImage: 0.9
-compliancemsgImage: 0.9
-controlImage: 0.9
-controlmsgImage: 0.9
-readImage: 0.9
-saveImage: 0.9
-scoremsgImage: 0.9
-scoringImage: 0.9
-templateImage: 0.9
-templatemsgImage: 0.9
-uploadImage: 0.9
-webuiImage: 0.9
+auditImage: 1.0
+auditmsgImage: 1.0
+checklistmsgImage: 1.0
+complianceImage: 1.0
+compliancemsgImage: 1.0
+controlImage: 1.0
+controlmsgImage: 1.0
+readImage: 1.0
+saveImage: 1.0
+scoremsgImage: 1.0
+scoringImage: 1.0
+templateImage: 1.0
+templatemsgImage: 1.0
+uploadImage: 1.0
+systemmsgImage: 1.0
+webuiImage: 1.0
+reportImage: 1.0
+reportmsgImage: 1.0
 mongoImage: 4.0.5
-natsImage: 1.4.1-linux
+natsImage: 2.1.2-linux
 ```
 
 ## Persistent Volume Storage Class
 The storage class for the persistent volume claims (PVC) for the database containers (for now) is defined in this variable. The default is 
-standard. You also can use ebs-sc, efs-sc for AWS or other storage interfaces as they become available for your k8s installation.
+standard. You also can use ebs-sc, efs-sc, or gp2 for AWS or other storage interfaces as they become available for your k8s installation.
 ```yaml
-storageClass: standard
+storageClass: gp2
 ```
 
-## API URLs for the
+## API URLs for the Client Side Calls
 The Web UI makes client side API calls to APIs with a token for validating user access. These APIs are rewritten with a ConfigMap in k8s 
 when you run the web.yaml deployment. These APIs need to be the valid endpoints for the various Read, Score, Upload, etc. API endpoints 
 for the Web UI to run correctly. 
@@ -110,6 +115,7 @@ uploadAPI:     https://upload.openrmf.io
 templateAPI:   https://template.openrmf.io
 complianceAPI: https://compliance.openrmf.io
 controlAPI:    https://controls.openrmf.io
+reportAPI:     https://report.openrmf.io
 ```
 
 ## Service Types for Service definitions
