@@ -1,11 +1,15 @@
 ---
-title: What's New in v0.15
+title: What's New in v1.0
 nav_order: 2
 ---
 
 # What's New with OpenRMF
 
 Please refer to the <a href="https://github.com/Cingulara?tab=projects" target="_blank">OpenRMF Projects listing on GitHub</a> for more information on feature updates and timeline.
+
+The latest working version is version 1.0 of OpenRMF Core. The recent updates on that are below:
+* Fixing a bug on the Web UI updating Vulnerabilities via the web form in a checklist
+* Updating the version descriptions to 1.0 throughout the codebase
 
 The latest working version is version 0.15 and is the last update before going to version 1.0 of OpenRMF Core. The recent updates on that are below:
 * Migrating the Web UI and all APIs behind NGINX for a single port 8080
