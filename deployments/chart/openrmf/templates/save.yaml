@@ -59,6 +59,18 @@ spec:
             secretKeyRef:
               name: checklistdbsecret
               key: initDBName
+        - name: JAEGER_AGENT_HOST
+          valueFrom:
+            fieldRef:
+              fieldPath: status.hostIP
+        - name: JAEGER_AGENT_PORT
+          value: "6831"
+        - name: JAEGER_SERVICE_NAME
+          value: openrmfapi-save
+        - name: JAEGER_SAMPLER_TYPE
+          value: {{.Values.jaegerSamplerType}}
+        - name: JAEGER_SAMPLER_PARAM
+          value: "{{.Values.jaegerSamplerParam}}"
         resources:
           limits:
             memory: "750Mi"
@@ -155,4 +167,32 @@ spec:
     run: openrmf-save
   sessionAffinity: None
   type: {{.Values.serviceTypeAWS | default "LoadBalancer"}}
+{{ end }}
+{{ if .Values.useprometheusoperator }}
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: openrmf-save-api-metrics
+  namespace: {{.Values.namespace}}
+  labels:
+    app.kubernetes.io/name: openrmf
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app.kubernetes.io/component: save-api
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/revision: "{{ .Release.Revision }}"
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: helm
+    {{ .Values.servicemonitormatchlabelname }}: {{ .Values.servicemonitormatchlabelvalue }}
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: save-api
+  endpoints:
+  - port: https
+    interval: 15s
+    path: /metrics
+  namespaceSelector:
+    matchNames:
+    - {{.Values.namespace}}
 {{ end }}

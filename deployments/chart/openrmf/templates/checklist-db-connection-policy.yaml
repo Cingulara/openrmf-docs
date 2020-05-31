@@ -1,0 +1,28 @@
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  namespace: {{.Values.namespace}}
+  name: checklist-db-connection-policy
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/component: checklist-mongodb
+  ingress:
+  - ports:
+    - port: 27017
+    from:
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/component: checklist-nats-message-client
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/component: system-nats-message-client
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/component: read-api
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/component: save-api
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/component: upload-api

@@ -20,7 +20,7 @@ The data in the compliance report is presented in a filterable table that is com
 
 ![OpenRMF Compliance Details](/assets/compliance-detail.png)
 
-Each result is grouped per NIST major control and is color coded according to the overall status of that control within the checklist. Click on the checklist in the compliance result table to quickly view the checklist through the lens of *only* that control with a filtered vulnerability listing relevant only to that control. This allows you to view the vulnerability items that remain open or not reviewed to quickly tackle your RMF action items. 
+Each result is listed per NIST major control and checklist and is color coded according to the overall status of that control within the checklist. Click on the checklist in the compliance result table to quickly view the checklist through the lens of *only* that control with a filtered vulnerability listing relevant only to that control. This allows you to view the vulnerability items that remain open or not reviewed to quickly tackle your RMF action items. 
 
 ## Compliance Color Coding Rules
 

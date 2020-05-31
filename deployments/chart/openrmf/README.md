@@ -21,7 +21,7 @@ documentation on making persistent volumes.
 
 The values.yaml file has only 4 fields to configure. The defaults match up to the Keycloak documentation however you can make these whatever you want them to be. 
 
-> PLEASE CHANGE THE DATABASE NAMES, USER NAMES, AND PASSWORDS BEFORE YOU DEPLOY!
+> PLEASE CHANGE THE DATABASE NAMES, USER NAMES, AND PASSWORDS BEFORE YOU DEPLOY! You can use the https://www.base64encode.net/ tool to base64 encode your connections if you need to.
 
 ## main DNS name used to access the deployed app in k8s via DNS through an ingress controller
 ```yaml
@@ -70,31 +70,36 @@ individual images this is updated. Each one can be set individually just in case
 repos in the https://www.github.com/Cingulara/ area.
 
 ```yaml
-checklistmsgImage: 0.9
-complianceImage: 0.9
-compliancemsgImage: 0.9
-controlImage: 0.9
-controlmsgImage: 0.9
-readImage: 0.9
-saveImage: 0.9
-scoremsgImage: 0.9
-scoringImage: 0.9
-templateImage: 0.9
-templatemsgImage: 0.9
-uploadImage: 0.9
-webuiImage: 0.9
+auditImage: 1.0
+auditmsgImage: 1.0
+checklistmsgImage: 1.0
+complianceImage: 1.0
+compliancemsgImage: 1.0
+controlImage: 1.0
+controlmsgImage: 1.0
+readImage: 1.0
+saveImage: 1.0
+scoremsgImage: 1.0
+scoringImage: 1.0
+templateImage: 1.0
+templatemsgImage: 1.0
+uploadImage: 1.0
+systemmsgImage: 1.0
+webuiImage: 1.0
+reportImage: 1.0
+reportmsgImage: 1.0
 mongoImage: 4.0.5
-natsImage: 1.4.1-linux
+natsImage: 2.1.2-linux
 ```
 
 ## Persistent Volume Storage Class
 The storage class for the persistent volume claims (PVC) for the database containers (for now) is defined in this variable. The default is 
-standard. You also can use ebs-sc, efs-sc for AWS or other storage interfaces as they become available for your k8s installation.
+standard. You also can use ebs-sc, efs-sc, or gp2 for AWS or other storage interfaces as they become available for your k8s installation.
 ```yaml
-storageClass: standard
+storageClass: gp2
 ```
 
-## API URLs for the
+## API URLs for the Client Side Calls
 The Web UI makes client side API calls to APIs with a token for validating user access. These APIs are rewritten with a ConfigMap in k8s 
 when you run the web.yaml deployment. These APIs need to be the valid endpoints for the various Read, Score, Upload, etc. API endpoints 
 for the Web UI to run correctly. 
@@ -110,6 +115,7 @@ uploadAPI:     https://upload.openrmf.io
 templateAPI:   https://template.openrmf.io
 complianceAPI: https://compliance.openrmf.io
 controlAPI:    https://controls.openrmf.io
+reportAPI:     https://report.openrmf.io
 ```
 
 ## Service Types for Service definitions
@@ -142,4 +148,63 @@ checklistInitDBPassword: myp2ssw0rd
 checklistInitDBName: openrmf
 checklistAppUser: openrmf
 checklistAppPassword: openrmf1234!
+```
+
+## Network Policies
+
+There are a few network policies in the template directory as well. As an example, these can be used with the Calico CNI on AWS EKS https://docs.aws.amazon.com/eks/latest/userguide/calico.html following these instructions. 
+
+An example is below, used within the "openrmftest" namespace if setup. This basically says the Audit DB Mongo pod can talk over 27010 (MongoDB default port) with the Audit NATS messaging client and the Audit API. There are a few more in there with the "-policy.yaml" ending on the filename for you to use, apply, tweak, etc. 
+
+```
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  namespace: openrmftest
+  name: audit-db-connection-policy
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/component: audit-mongodb
+  ingress:
+  - ports:
+    - port: 27017
+    from:
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/component: audit-nats-message-client
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/component: audit-api
+```
+
+## Prometheus Operator
+There is a section in the Helm chart Values.yaml file that is for the Prometheus Operator available at https://github.com/helm/charts/tree/master/stable/prometheus-operator. If you use this in Kubernetes, and I highly recommend that you do,
+you can set the "use" to true and then the matchLabels part of your Prometheus setup you have
+in your cluster can go in here to quickly match the YAML for monitoring. See the 2 URLs for more 
+information.
+
+We have ServiceMonitor definitions for all APIs as well as the NATS messaging container as well so far
+with version 0.14. When you apply that operator you can run something like `kubectl --namespace default get pods -l "release=prometheus-operator-1586292731"` to get the status.  If you are going to run it, set the Values.yaml to
+true for using that operator. And then set the label name and value to use on the Prometheus Service Monitor 
+sections.
+
+You may very well still need to d/l the metrics information for Kubernetes and then run the `kubectl apply` against the metrics folder with all the YAML files. See https://docs.aws.amazon.com/eks/latest/userguide/metrics-server.html for more information there. 
+
+OpenRMF Helm Chart v3 Values section is below. Note the information about `kubectl get prometheus -o yaml --all-namespaces` to find the matchLabels section you defaulted or created so the ServiceMonitor pieces are lined up well. 
+
+```
+# do you use this operator
+useprometheusoperator: true
+
+# The label name and value in name: value setup to match what the Prometheus Operator is using
+# for it to know to pick up and use the ServiceMonitor setup
+# To find this, run 'kubectl get prometheus -o yaml --all-namespaces' and run through the YAML
+# Look for something like this that will show how it matches labels, and use that label setup
+#     serviceMonitorSelector:
+#       matchLabels:
+#         release: prometheus-operator-1586292731
+
+servicemonitormatchlabelname: release
+servicemonitormatchlabelvalue: prometheus-operator-1586292731
 ```

@@ -10,7 +10,7 @@ dnsName: openrmf.local
 
 # The Identity Provider URL and Realm, i.e. using Keycloak for AuthN and AuthZ
 # Examples: https://keycloak.openrmf.io/auth, http://192.168.11.29:9001/auth
-identityProviderURL: http://192.168.11.29:9001/auth
+identityProviderURL: http://192.168.13.73:9001/auth
 # The Realm to use from the ID provider
 identityProviderRealm: openrmf
 # The Identity Provider Client Id to use
@@ -25,40 +25,43 @@ installType: minikube
 
 # versions of container to adjust
 # examples: 0.8, 0.8.1, latest
-auditImage: 0.11
-auditmsgImage: 0.11
-checklistmsgImage: 0.11
-complianceImage: 0.11
-compliancemsgImage: 0.11
-controlImage: 0.11
-controlmsgImage: 0.11
-readImage: 0.11.1
-saveImage: 0.11
-scoremsgImage: 0.11
-scoringImage: 0.11
-templateImage: 0.11.1
-templatemsgImage: 0.11
-uploadImage: 0.11
-systemmsgImage: 0.11
-webuiImage: 0.11.1
+auditImage: 1.0
+auditmsgImage: 1.0
+checklistmsgImage: 1.0
+complianceImage: 1.0
+compliancemsgImage: 1.0
+controlImage: 1.0
+controlmsgImage: 1.0
+readImage: 1.0
+saveImage: 1.0
+scoremsgImage: 1.0
+scoringImage: 1.0
+templateImage: 1.0
+templatemsgImage: 1.0
+uploadImage: 1.0
+systemmsgImage: 1.0
+webuiImage: 1.0
+reportImage: 1.0
+reportmsgImage: 1.0
 mongoImage: 4.0.5
 natsImage: 2.1.2-linux
 
 # storage class name for PVC
-# examples: standard, ebs-sc, efs-sc
+# examples: standard, gp2, ebs-sc, efs-sc
 storageClass: standard
 
 # API URLs for the web client side calls, used in the web.yaml deployment for the UI
 # These are rewritted to the web pods in a ConfigMap for inclusion of client-side API calls
 # Examples: 'http://openrmf.local/read', https://read.openrmf.io
-readAPI:       http://openrmf.local/read
-scoreAPI:      http://openrmf.local/scoring
-saveAPI:       http://openrmf.local/save
-uploadAPI:     http://openrmf.local/upload
-templateAPI:   http://openrmf.local/template
-complianceAPI: http://openrmf.local/compliance
-controlAPI:    http://openrmf.local/controls
-auditAPI:      http://openrmf.local/audit
+readAPI:       http://openrmf.local/read/
+scoreAPI:      http://openrmf.local/scoring/
+saveAPI:       http://openrmf.local/save/
+uploadAPI:     http://openrmf.local/upload/
+templateAPI:   http://openrmf.local/template/
+complianceAPI: http://openrmf.local/compliance/
+controlAPI:    http://openrmf.local/controls/
+auditAPI:      http://openrmf.local/audit/
+reportAPI:      http://openrmf.local/report/
 
 # Service Types for Minikube and AWS separately
 # Examples: NodePort, LoadBalancer, etc.
@@ -75,11 +78,14 @@ templateAppUser: openrmftemplate
 templateAppPassword: openrmf4321!
 scoreAppUser: openrmfscore
 scoreAppPassword: openrmf9876!
-auditAppUser: openrmftemplate
+auditAppUser: openrmfaudit
 auditAppPassword: openrmf4321!
+reportAppUser: openrmfreport
+reportAppPassword: openrmf4321!
 
 # SECRET VALUES ARE TO BE IN base64
 # Example: echo -n 'openrmf' | base64 
+# Optionally use https://www.base64encode.net/
 # Above gives you a base64 encoded value to use here
 # More information can be found at https://kubernetes.io/docs/concepts/configuration/secret/
 
@@ -99,7 +105,7 @@ scoreInitDBName: b3BlbnJtZnNjb3Jl
 # app connection must be in the form below with valid user, password, and database names
 # the user, password, and database name must match the initialization scripts above -- secrets however are base64 encoded
 # mongodb://{{.Values.scoreAppUser}}:{{.Values.scoreAppPassword}}@openrmf-scoredb/{{.Values.scoreInitDBName}}?authSource={{.Values.scoreInitDBName}}
-scoreAppConnection: bW9uZ29kYjovL29wZW5ybWZzY29yZTpvcGVucm1mOTg3NiFAb3BlbnJtZi1jaGVja2xpc3RkYi9vcGVucm1mc2NvcmU/YXV0aFNvdXJjZT1vcGVucm1mc2NvcmU=
+scoreAppConnection: bW9uZ29kYjovL29wZW5ybWZzY29yZTpvcGVucm1mOTg3NiFAb3BlbnJtZi1zY29yZWRiL29wZW5ybWZzY29yZT9hdXRoU291cmNlPW9wZW5ybWZzY29yZQ==
 
 # Template Database Secret Values
 templateInitDBUser: cm9vdA==
@@ -110,7 +116,7 @@ templateInitDBName: b3BlbnJtZnRlbXBsYXRl
 # mongodb://{{.Values.scoreAppUser}}:{{.Values.scoreAppPassword}}@openrmf-scoredb/{{.Values.scoreInitDBName}}?authSource={{.Values.scoreInitDBName}}
 templateAppConnection: bW9uZ29kYjovL29wZW5ybWZ0ZW1wbGF0ZTpvcGVucm1mNDMyMSFAb3BlbnJtZi10ZW1wbGF0ZWRiL29wZW5ybWZ0ZW1wbGF0ZT9hdXRoU291cmNlPW9wZW5ybWZ0ZW1wbGF0ZQ==
 
-# Template Database Secret Values
+# Audit Database Secret Values
 auditInitDBUser: cm9vdA==
 auditInitDBPassword: bVlwMnNzdzByZA==
 auditInitDBName: b3BlbnJtZmF1ZGl0
@@ -118,3 +124,37 @@ auditInitDBName: b3BlbnJtZmF1ZGl0
 # the user, password, and database name must match the initialization scripts above -- secrets however are base64 encoded
 # mongodb://{{.Values.scoreAppUser}}:{{.Values.scoreAppPassword}}@openrmf-scoredb/{{.Values.scoreInitDBName}}?authSource={{.Values.scoreInitDBName}}
 auditAppConnection: bW9uZ29kYjovL29wZW5ybWZhdWRpdDpvcGVucm1mNDMyMSFAb3BlbnJtZi1hdWRpdGRiL29wZW5ybWZhdWRpdD9hdXRoU291cmNlPW9wZW5ybWZhdWRpdA==
+
+# Audit Database Secret Values
+reportInitDBUser: cm9vdA==
+reportInitDBPassword: bVlwMnNzdzByZA==
+reportInitDBName: b3BlbnJtZnJlcG9ydA==
+# app connection must be in the form below with valid user, password, and database names
+# the user, password, and database name must match the initialization scripts above -- secrets however are base64 encoded
+# mongodb://{{.Values.scoreAppUser}}:{{.Values.scoreAppPassword}}@openrmf-scoredb/{{.Values.scoreInitDBName}}?authSource={{.Values.scoreInitDBName}}
+reportAppConnection: bW9uZ29kYjovL29wZW5ybWZyZXBvcnQ6b3BlbnJtZjQzMjEhQG9wZW5ybWYtcmVwb3J0ZGIvb3BlbnJtZnJlcG9ydD9hdXRoU291cmNlPW9wZW5ybWZyZXBvcnQ=
+
+# Jaeger Tracing Server setup from https://www.jaegertracing.io/docs/latest/sampling/
+jaegerSamplerType: probabilistic
+jaegerSamplerParam: 0.1 # percentage to trace
+
+
+#########
+# Prometheus Operator Setup https://github.com/helm/charts/tree/master/stable/prometheus-operator and 
+# https://github.com/coreos/prometheus-operator
+# To use these you must have the prometheus operator installed from the links above
+#########
+
+# do you use this operator
+useprometheusoperator: true
+
+# The label name and value in name: value setup to match what the Prometheus Operator is using
+# for it to know to pick up and use the ServiceMonitor setup
+# To find this, run 'kubectl get prometheus -o yaml --all-namespaces' and run through the YAML
+# Look for something like this that will show how it matches labels, and use that label setup
+#     serviceMonitorSelector:
+#       matchLabels:
+#         release: prometheus-operator-1586292731
+
+servicemonitormatchlabelname: release
+servicemonitormatchlabelvalue: prometheus-operator-xxxxxxxxxxxxxx

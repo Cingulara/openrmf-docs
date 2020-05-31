@@ -22,6 +22,7 @@ data:
     var complianceAPI = '{{.Values.complianceAPI}}'
     var controlAPI = '{{.Values.controlAPI}}'
     var auditAPI = '{{.Values.auditAPI}}'
+    var reportAPI = '{{.Values.reportAPI}}'
 ---
 apiVersion: v1
 kind: ConfigMap

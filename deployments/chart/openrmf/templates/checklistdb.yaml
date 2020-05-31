@@ -35,7 +35,12 @@ data:
   mongo-init.js: |
     db.createUser({ user: "{{.Values.checklistAppUser}}" , pwd: "{{.Values.checklistAppPassword}}", roles: [{ "role": "readWrite", "db": "{{.Values.checklistAppUser}}"}]});
     db.createCollection("Artifacts");
+    db.Artifacts.createIndex({ systemGroupId: 1 })
+    db.Artifacts.createIndex({ stigType: 1 })
+    db.Artifacts.createIndex({ stigRelease: 1 })
+    db.Artifacts.createIndex({ version: 1 })
     db.createCollection("SystemGroups");
+    db.SystemGroups.createIndex({ title: 1 })
 ---
 apiVersion: apps/v1
 kind: Deployment
