@@ -6,7 +6,7 @@ services:
     image: cingulara/openrmf-web:1.0
     container_name: openrmf-web
     ports:
-      - 8080:80
+      - 8080:8080
     depends_on:
       - openrmfapi-scoring
       - openrmfapi-save
