@@ -10,7 +10,7 @@ services:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
 
   mongo:
-    image: mongo:4.0.5
+    image: cingulara/mongo:4.2.7-nonroot
     container_name: mongodb
     restart: always
     ports:
