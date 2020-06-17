@@ -1,6 +1,6 @@
 # Get OpenRMF Core Running Locally
 
-> Note that for Docker Desktop users, you need to have the File Sharing turned on to run OpenRMF the way it is designed in the docker-compose file. We use persistent volumes for MongoDB, Grafana, and Prometheus.
+> Note that for Docker Desktop users, you need to have the File Sharing turned on to run OpenRMF the way it is designed in the docker-compose file. We use persistent volumes for MongoDB, Grafana, and Prometheus. Also for anyone running on a system with any firewall (Windows Firewall, firewalld, iptables) you will need to have ports 8080 and 9001 accessible from external if you are not doing everything locally on the same box. If you plan to access the web interface from another connected machine, please ensure your firewall settings allow these ports coming in first.
 
 > Tested with Docker Desktop 2.x onward with 6 CPUs, 6 GB RAM, 1 GB swap and 60 GB Disk Image. You will want more than the default 2 CPU and 2 GB RAM to maximize the use of OpenRMF specifically. Your machine age and hardware will make this vary some. If you see timeouts on Keycloak and OpenRMF when uploading, running reports, or web UI screens taking a long time to load you may want to check the Docker Desktop Resources of your machine.
 
