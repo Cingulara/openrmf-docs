@@ -11,13 +11,19 @@ Once you have Keyloak setup, if you have a Linux or Mac you can automate the set
 
 ![Keycloak Setup Script](./img/keycloak/setup-script.png?raw=true)
 
-Now, you can launch the http://localhost:9001/auth URL in a browser. Click on the "Administrator Console" block on the bottom left and you are presented with a login prompt. Use the admin/admin login from the keycloak docker-compose file (or whatever you changed it to) to get into the Keycloak UI. Click the "View all users" button and then click on your user you just made (see below).
+Now, you can launch the http://localhost:9001/auth URL in a browser. 
+
+* Click on the "Administrator Console" block on the bottom left and you are presented with a login prompt. 
+* Use the admin/admin login from the keycloak docker-compose file (or whatever you changed it to) to get into the Keycloak UI. 
+* Click 'Users' under the Manage section on the left-side menu.
+* Click the "View all users" button.
+* Click on your user you just made (see below).
 
 ![Keycloak User Setup](./img/keycloak/keycloak-setup-users.png?raw=true)
 
 Optional: click the "x" next to "Update Password" and Save this first tab if you wish.
 
-Now you can click the Credentials tab, and then ente a new password that is 12 characters and follows the 2/2/2/2 rule. 2 upper, 2 lower, 2 special character and 2 numbers in the password. Click the "Temporary" if you want to turn that off. Then click "Reset Password" and verify.
+Now you can click the Credentials tab, and then enter a new password that is 12 characters and follows the 2/2/2/2 rule. 2 upper, 2 lower, 2 special character and 2 numbers in the password. Click the "Temporary" if you want to turn that off. Then click "Reset Password" and verify.
 
 ![Keycloak User Setup](./img/keycloak/user-credentials.png?raw=true)
 
