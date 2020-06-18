@@ -20,6 +20,11 @@ If you want to get it running on your local laptop, desktop, or server follow th
 
 > Tested with Docker Desktop 2.x onward with 6 CPUs, 6 GB RAM, 1 GB swap and 60 GB Disk Image. You will want more than the default 2 CPU and 2 GB RAM to maximize the use of OpenRMF specifically. Your machine age and hardware will make this vary some. If you see timeouts on Keycloak and OpenRMF when uploading, running reports, or web UI screens taking a long time to load you may want to check the Docker Desktop Resources of your machine.
 
+## Other OpenRMF Deployments
+If you want to run on AWS EKS, you can see the Helm Chart and Kubernetes specific information [here](./deployments/).
+
+@medined put up a great set of Ansible and Terraform script information at https://github.com/medined/openrmf-at-aws/ for work he is doing at the Container Working Group for the Veterans Administration. 
+
 ## Current Functionality
 - [x] Import SCAP scans (DISA STIGs) for automatic checklist documentation
 - [x] Import Nessus ACAS scans (patches and updates) for automated reporting and managing critical updates
