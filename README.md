@@ -43,6 +43,7 @@ If you want to run on AWS EKS, you can see the Helm Chart and Kubernetes specifi
 - [x] Exporting of various charts for download to PNG
 - [x] Filter Vulnerabilities on the Checklist page by status 
 - [x] *Live Editing of Checklist data through the web browser*
+- [x] Bulk Edits of Vulnerabilities across similar checklist types within your System grouping
 - [x] Filter vulnerabilities for your Compliance listing based on major controls
 - [x] Exporting your list of checklists and their score by status and category to MS Excel 
 - [x] Metrics exported to Prometheus for API endpoints and NATS messaging, quickly display in Grafana

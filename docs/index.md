@@ -35,6 +35,7 @@ Some of the high level features are below:
 * Single source of truth for your system checklists
 * Single source of truth for your latest Nessus patch scans
 * Live online editing of your checklist through your web browser with auditing of the changes
+* Bulk editing of Vulnerabilities across similar Checklist Types within a System
 * One-click creation of your POA&M for your entire system (all servers, devices, SCAP scans, manual checklists)
 * One-click creation of your Risk Assessment Report (RAR) for your entire system (all servers, devices, SCAP scans, manual checklists)
 * One-click creation of your Test Plan Summary for your entire system (all servers, devices, SCAP scans, manual checklists)

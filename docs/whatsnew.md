@@ -1,5 +1,5 @@
 ---
-title: What's New in v1.0
+title: What's New in v1.1
 nav_order: 2
 ---
 
@@ -7,15 +7,25 @@ nav_order: 2
 
 Please refer to the <a href="https://github.com/Cingulara?tab=projects" target="_blank">OpenRMF Projects listing on GitHub</a> for more information on feature updates and timeline.
 
+## Version 1.1
+Version 1.1 was a security fix primarily with some updated functionality as outlined below:
+* Rootless containers for APIs, messages, NGINX, and MongoDB databases
+* Updated jQuery, File Upload, Bootstrap and other JS components
+* Security Fixes from an active scan of the web application 
+* Upload an existing checklist for a given checklist type and host = update the info (it was just duplicating the information)
+* Allow Bulk Edits on Vulnerabilities across similar checklist types within a System grouping
+* Container "restart: always" on the Docker Compose file
+* All CSS, HTML, JS are local not reaching out over the public Internet
+
 ## Version 1.0
 
-The latest working version is version 1.0 of OpenRMF Core. The recent updates on that are below:
+Version 1.0 of OpenRMF Core has these updates below:
 * Fixing a bug on the Web UI updating Vulnerabilities via the web form in a checklist
 * Updating the version descriptions to 1.0 throughout the codebase
 
 ## Version 0.15
 
-The latest working version is version 0.15 and is the last update before going to version 1.0 of OpenRMF Core. The recent updates on that are below:
+Version 0.15 is the last update before going to version 1.0 of OpenRMF Core. The recent updates on that are below:
 * Migrating the Web UI and all APIs behind NGINX for a single port 8080
 * Automatically updating the checklist score on the page when editing a vulnerability status
 * Various small bug fixes

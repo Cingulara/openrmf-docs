@@ -60,7 +60,7 @@ services:
       - openrmf-local
 
   prometheus:
-    image: prom/prometheus:2.19.2
+    image: prom/prometheus:v2.19.2
     container_name: prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
