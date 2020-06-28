@@ -3,7 +3,7 @@ version : '3.2'
 services:
 ### 1 Web Front End Container
   openrmf-web:
-    image: openrmf-web:1.1
+    image: openrmf-web:1.01.01
     container_name: openrmf-web
     ports:
       - 8080:8080
@@ -21,7 +21,7 @@ services:
 
 ### 9 API Containers
   openrmfapi-scoring:
-    image: openrmf-api-scoring:1.1
+    image: openrmf-api-scoring:1.01.01
     container_name: openrmf-scoring-api
     ports:
       - 8090
@@ -43,7 +43,7 @@ services:
       - openrmf
   
   openrmfapi-save:
-    image: openrmf-api-save:1.1
+    image: openrmf-api-save:1.01.01
     container_name: openrmf-save-api
     ports:
       - 8082
@@ -68,7 +68,7 @@ services:
       - openrmf
 
   openrmfapi-template:
-    image: openrmf-api-template:1.1
+    image: openrmf-api-template:1.01.01
     container_name: openrmf-template-api
     ports:
       - 8088
@@ -91,7 +91,7 @@ services:
       - openrmf
 
   openrmfapi-upload:
-    image: openrmf-api-upload:1.1
+    image: openrmf-api-upload:1.01.01
     container_name: openrmf-upload-api
     ports:
       - 8086
@@ -116,7 +116,7 @@ services:
       - openrmf
 
   openrmfapi-read:
-    image: openrmf-api-read:1.1
+    image: openrmf-api-read:1.01.01
     container_name: openrmf-read-api
     ports:
       - 8084
@@ -139,7 +139,7 @@ services:
       - openrmf
 
   openrmfapi-compliance:
-    image: openrmf-api-compliance:1.1
+    image: openrmf-api-compliance:1.01.01
     container_name: openrmf-compliance-api
     ports:
       - 8092
@@ -158,7 +158,7 @@ services:
       - openrmf
 
   openrmfapi-controls:
-    image: openrmf-api-controls:1.1
+    image: openrmf-api-controls:1.01.01
     container_name: openrmf-controls-api
     ports:
       - 8094
@@ -177,7 +177,7 @@ services:
       - openrmf
 
   openrmfapi-audit:
-    image: openrmf-api-audit:1.1
+    image: openrmf-api-audit:1.01.01
     container_name: openrmf-audit-api
     ports:
       - 8096
@@ -200,7 +200,7 @@ services:
       - openrmf
 
   openrmfapi-report:
-    image: openrmf-api-report:1.1
+    image: openrmf-api-report:1.01.01
     container_name: openrmf-report-api
     ports:
       - 8098
@@ -224,7 +224,7 @@ services:
 
 ### 8 Messaging Containers
   openrmfmsg-score:
-    image: openrmf-msg-score:1.1
+    image: openrmf-msg-score:1.01.01
     container_name: openrmf-score-nats-message-client
     environment:
       - MONGODBCONNECTION=mongodb://openrmfscore:openrmf1234!@scoredb/openrmfscore?authSource=openrmfscore
@@ -243,7 +243,7 @@ services:
       - openrmf
 
   openrmfmsg-checklist:
-    image: openrmf-msg-checklist:1.1
+    image: openrmf-msg-checklist:1.01.01
     container_name: openrmf-checklist-nats-message-client
     environment:
       - MONGODBCONNECTION=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
@@ -262,7 +262,7 @@ services:
       - openrmf
 
   openrmfmsg-compliance:
-    image: openrmf-msg-compliance:1.1
+    image: openrmf-msg-compliance:1.01.01
     container_name: openrmf-compliance-nats-message-client
     environment:
       - NATSSERVERURL=nats://natsserver:4222
@@ -278,7 +278,7 @@ services:
       - openrmf
 
   openrmfmsg-controls:
-    image: openrmf-msg-controls:1.1
+    image: openrmf-msg-controls:1.01.01
     container_name: openrmf-controls-nats-message-client
     environment:
       - NATSSERVERURL=nats://natsserver:4222
@@ -294,7 +294,7 @@ services:
       - openrmf
 
   openrmfmsg-template:
-    image: openrmf-msg-template:1.1
+    image: openrmf-msg-template:1.01.01
     container_name: openrmf-template-nats-message-client
     environment:
       - MONGODBCONNECTION=mongodb://openrmftemplate:openrmf1234!@templatedb/openrmftemplate?authSource=openrmftemplate
@@ -313,7 +313,7 @@ services:
       - openrmf
 
   openrmfmsg-system:
-    image: openrmf-msg-system:1.1
+    image: openrmf-msg-system:1.01.01
     container_name: openrmf-system-nats-message-client
     environment:
       - MONGODBCONNECTION=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
@@ -332,7 +332,7 @@ services:
       - openrmf
 
   openrmfmsg-audit:
-    image: openrmf-msg-audit:1.1
+    image: openrmf-msg-audit:1.01.01
     container_name: openrmf-audit-nats-message-client
     environment:
       - MONGODBCONNECTION=mongodb://openrmfaudit:openrmf1234!@auditdb/openrmfaudit?authSource=openrmfaudit
@@ -351,7 +351,7 @@ services:
       - openrmf
 
   openrmfmsg-report:
-    image: openrmf-msg-report:1.1
+    image: openrmf-msg-report:1.01.01
     container_name: openrmf-report-nats-message-client
     environment:
       - SYSTEMMONGODBCONNECTION=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
@@ -460,7 +460,7 @@ services:
 
 ### NATS messaging container (internal)
   natsserver: 
-    image: nats:2.1.2-linux
+    image: nats:2.1.7-linux
     container_name: nats
     command: -m 8222
     restart: always
@@ -496,7 +496,7 @@ services:
       - openrmf
 
   prometheus:
-    image: prom/prometheus
+    image: prom/prometheus:2.19.2
     container_name: prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
@@ -511,7 +511,7 @@ services:
       - openrmf
 
   grafana: 
-    image: grafana/grafana
+    image: grafana/grafana:7.0.4
     container_name: grafana
     #command:
     environment:
@@ -525,7 +525,7 @@ services:
       - openrmf
 
   jaeger:
-    image: jaegertracing/all-in-one:latest
+    image: jaegertracing/all-in-one:1.18.1
     container_name: jaeger
     ports:
       - "5778:5778/tcp"
