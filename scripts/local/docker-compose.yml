@@ -2,15 +2,15 @@ version : '3.2'
  
 services:
   web:
-    image: nginx:1.18.0
+    image: nginxinc/nginx-unprivileged:1.18
     command: [nginx-debug, '-g', 'daemon off;']
     ports:
-      - 8080:80
+      - 8080:8080
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
 
   mongo:
-    image: mongo:4.0.5
+    image: cingulara/mongo:4.2.7-nonroot
     container_name: mongodb
     restart: always
     ports:
@@ -25,7 +25,7 @@ services:
       - openrmf-local
 
   nats: 
-    image: nats:2.1.2-linux
+    image: nats:2.1.7-linux
     container_name: nats
     command: -m 8222
     restart: always
@@ -60,7 +60,7 @@ services:
       - openrmf-local
 
   prometheus:
-    image: prom/prometheus
+    image: prom/prometheus:v2.19.2
     container_name: prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
@@ -74,7 +74,7 @@ services:
       - openrmf-local
 
   grafana: 
-    image: grafana/grafana
+    image: grafana/grafana:7.0.4
     container_name: grafana
     #command:
     environment:
@@ -86,8 +86,9 @@ services:
       - openrmf-local
 
   jaeger:
-    image: jaegertracing/all-in-one:latest
+    image: jaegertracing/all-in-one:1.18.1
     container_name: jaeger
+    restart: always
     ports:
       - "5778:5778/tcp"
       - "6831:6831/udp"
@@ -114,7 +115,7 @@ services:
       org.label-schema.group: "monitoring"
 
   mongo-express:
-    image: mongo-express:latest
+    image: mongo-express:0.54.0
     container_name: mongo-express
     restart: always
     ports:

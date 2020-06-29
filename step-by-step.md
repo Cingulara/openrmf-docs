@@ -11,10 +11,11 @@ Once you have Keyloak setup, if you have a Linux or Mac you can automate the set
 
 ![Keycloak Setup Script](./img/keycloak/setup-script.png?raw=true)
 
-Now, you can launch the http://localhost:9001/auth URL in a browser. 
+Now, you can launch the http://localhost:9001/auth URL in a browser.
 
-* Click on the "Administrator Console" block on the bottom left and you are presented with a login prompt. 
-* Use the admin/admin login from the keycloak docker-compose file (or whatever you changed it to) to get into the Keycloak UI. 
+* Click on the "Administrator Console" block on the bottom left and you are presented with a login prompt.
+* Use the admin/admin login from the keycloak docker-compose file (or whatever you changed it to) to get into the Keycloak UI.
+
 * Click 'Users' under the Manage section on the left-side menu.
 * Click the "View all users" button.
 * Click on your user you just made (see below).
