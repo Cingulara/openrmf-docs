@@ -15,17 +15,17 @@ you can set it and forget it.
 ## .NET Core Default Metrics
 Once you have Prometheus setup, you can use the https://grafana.com/grafana/dashboards/10427 to display .NET Core metrics like the below chart. 
 
-![Image](/assets/metrics-aspnet-core-default.png?raw=true)
+![Default Metrics](/assets/metrics-aspnet-core-default.png)
 
 ## .NET Core API Controller Metrics
 Once you have Prometheus setup, you can use the https://grafana.com/grafana/dashboards/10915 to display .NET Core metrics like the below chart. 
 
-![Image](/assets/metrics-api-controller-summary.png?raw=true)
+![API Metrics](/assets/metrics-api-controller-summary.png)
 
 ## NATS Server Metrics
 Once you have Prometheus setup and you deploy the container for https://github.com/nats-io/prometheus-nats-exporter, you can use the https://grafana.com/grafana/dashboards/2279 to display NATS Server Core metrics like the below chart. 
 
-![Image](/assets/metrics-nats-server.png?raw=true)
+![NATS Server Metrics](/assets/metrics-nats-server.png)
 
 ## NATS Client Connection Metrics
 I made a NATS metrics dashboard at https://github.com/Cingulara/nats-client-metrics that goes down to the client level. The default 

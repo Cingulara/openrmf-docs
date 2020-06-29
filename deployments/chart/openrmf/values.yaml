@@ -25,26 +25,26 @@ installType: minikube
 
 # versions of container to adjust
 # examples: 0.8, 0.8.1, latest
-auditImage: 1.0
-auditmsgImage: 1.0
-checklistmsgImage: 1.0
-complianceImage: 1.0
-compliancemsgImage: 1.0
-controlImage: 1.0
-controlmsgImage: 1.0
-readImage: 1.0
-saveImage: 1.0
-scoremsgImage: 1.0
-scoringImage: 1.0
-templateImage: 1.0
-templatemsgImage: 1.0
-uploadImage: 1.0
-systemmsgImage: 1.0
-webuiImage: 1.0
-reportImage: 1.0
-reportmsgImage: 1.0
-mongoImage: 4.0.5
-natsImage: 2.1.2-linux
+auditImage: 1.01.01
+auditmsgImage: 1.01.01
+checklistmsgImage: 11.01.01
+complianceImage: 1.01.01
+compliancemsgImage: 1.01.01
+controlImage: 1.01.01
+controlmsgImage: 1.01.01
+readImage: 1.01.01
+saveImage: 1.01.01
+scoremsgImage: 1.01.01
+scoringImage: 1.01.01
+templateImage: 1.01.01
+templatemsgImage: 1.01.01
+uploadImage: 1.01.01
+systemmsgImage: 1.01.01
+webuiImage: 1.01.01
+reportImage: 1.01.01
+reportmsgImage: 1.01.01
+mongoImage: 4.2.7-nonroot
+natsImage: 2.1.7-linux
 
 # storage class name for PVC
 # examples: standard, gp2, ebs-sc, efs-sc
@@ -53,15 +53,15 @@ storageClass: standard
 # API URLs for the web client side calls, used in the web.yaml deployment for the UI
 # These are rewritted to the web pods in a ConfigMap for inclusion of client-side API calls
 # Examples: 'http://openrmf.local/read', https://read.openrmf.io
-readAPI:       http://openrmf.local/read
-scoreAPI:      http://openrmf.local/scoring
-saveAPI:       http://openrmf.local/save
-uploadAPI:     http://openrmf.local/upload
-templateAPI:   http://openrmf.local/template
-complianceAPI: http://openrmf.local/compliance
-controlAPI:    http://openrmf.local/controls
-auditAPI:      http://openrmf.local/audit
-reportAPI:      http://openrmf.local/report
+readAPI:       http://openrmf.local/read/
+scoreAPI:      http://openrmf.local/scoring/
+saveAPI:       http://openrmf.local/save/
+uploadAPI:     http://openrmf.local/upload/
+templateAPI:   http://openrmf.local/template/
+complianceAPI: http://openrmf.local/compliance/
+controlAPI:    http://openrmf.local/controls/
+auditAPI:      http://openrmf.local/audit/
+reportAPI:      http://openrmf.local/report/
 
 # Service Types for Minikube and AWS separately
 # Examples: NodePort, LoadBalancer, etc.

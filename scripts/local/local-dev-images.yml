@@ -3,9 +3,8 @@ version : '3.2'
 services:
 ### 1 Web Front End Container
   openrmf-web:
-    image: cingulara/openrmf-web:1.01.01
+    image: openrmf-web:1.01.01
     container_name: openrmf-web
-    restart: always
     ports:
       - 8080:8080
     depends_on:
@@ -16,18 +15,17 @@ services:
       - openrmfapi-read
       - openrmfapi-compliance
     volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ../nginx.conf:/etc/nginx/nginx.conf:ro
     networks:
       - openrmf
 
 ### 9 API Containers
   openrmfapi-scoring:
-    image: cingulara/openrmf-api-scoring:1.01.01
+    image: openrmf-api-scoring:1.01.01
     container_name: openrmf-scoring-api
-    restart: always
     ports:
       - 8090
-    env_file: .env
+    env_file: ../.env
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8090
@@ -45,12 +43,11 @@ services:
       - openrmf
   
   openrmfapi-save:
-    image: cingulara/openrmf-api-save:1.01.01
+    image: openrmf-api-save:1.01.01
     container_name: openrmf-save-api
-    restart: always
     ports:
       - 8082
-    env_file: .env
+    env_file: ../.env
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8082
@@ -71,12 +68,11 @@ services:
       - openrmf
 
   openrmfapi-template:
-    image: cingulara/openrmf-api-template:1.01.01
+    image: openrmf-api-template:1.01.01
     container_name: openrmf-template-api
-    restart: always
     ports:
       - 8088
-    env_file: .env
+    env_file: ../.env
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8088
@@ -95,12 +91,11 @@ services:
       - openrmf
 
   openrmfapi-upload:
-    image: cingulara/openrmf-api-upload:1.01.01
+    image: openrmf-api-upload:1.01.01
     container_name: openrmf-upload-api
-    restart: always
     ports:
       - 8086
-    env_file: .env
+    env_file: ../.env
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8086
@@ -121,12 +116,11 @@ services:
       - openrmf
 
   openrmfapi-read:
-    image: cingulara/openrmf-api-read:1.01.01
+    image: openrmf-api-read:1.01.01
     container_name: openrmf-read-api
-    restart: always
     ports:
       - 8084
-    env_file: .env
+    env_file: ../.env
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8084
@@ -145,12 +139,11 @@ services:
       - openrmf
 
   openrmfapi-compliance:
-    image: cingulara/openrmf-api-compliance:1.01.01
+    image: openrmf-api-compliance:1.01.01
     container_name: openrmf-compliance-api
-    restart: always
     ports:
       - 8092
-    env_file: .env
+    env_file: ../.env
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8092
@@ -165,12 +158,11 @@ services:
       - openrmf
 
   openrmfapi-controls:
-    image: cingulara/openrmf-api-controls:1.01.01
+    image: openrmf-api-controls:1.01.01
     container_name: openrmf-controls-api
-    restart: always
     ports:
       - 8094
-    env_file: .env
+    env_file: ../.env
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8094
@@ -185,12 +177,11 @@ services:
       - openrmf
 
   openrmfapi-audit:
-    image: cingulara/openrmf-api-audit:1.01.01
+    image: openrmf-api-audit:1.01.01
     container_name: openrmf-audit-api
-    restart: always
     ports:
       - 8096
-    env_file: .env
+    env_file: ../.env
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8096
@@ -209,12 +200,11 @@ services:
       - openrmf
 
   openrmfapi-report:
-    image: cingulara/openrmf-api-report:1.01.01
+    image: openrmf-api-report:1.01.01
     container_name: openrmf-report-api
-    restart: always
     ports:
       - 8098
-    env_file: .env
+    env_file: ../.env
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8098
@@ -234,9 +224,8 @@ services:
 
 ### 8 Messaging Containers
   openrmfmsg-score:
-    image: cingulara/openrmf-msg-score:1.01.01
+    image: openrmf-msg-score:1.01.01
     container_name: openrmf-score-nats-message-client
-    restart: always
     environment:
       - MONGODBCONNECTION=mongodb://openrmfscore:openrmf1234!@scoredb/openrmfscore?authSource=openrmfscore
       - MONGODB=openrmfscore
@@ -254,9 +243,8 @@ services:
       - openrmf
 
   openrmfmsg-checklist:
-    image: cingulara/openrmf-msg-checklist:1.01.01
+    image: openrmf-msg-checklist:1.01.01
     container_name: openrmf-checklist-nats-message-client
-    restart: always
     environment:
       - MONGODBCONNECTION=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
       - MONGODB=openrmf
@@ -274,9 +262,8 @@ services:
       - openrmf
 
   openrmfmsg-compliance:
-    image: cingulara/openrmf-msg-compliance:1.01.01
+    image: openrmf-msg-compliance:1.01.01
     container_name: openrmf-compliance-nats-message-client
-    restart: always
     environment:
       - NATSSERVERURL=nats://natsserver:4222
       - JAEGER_AGENT_HOST=jaeger
@@ -291,9 +278,8 @@ services:
       - openrmf
 
   openrmfmsg-controls:
-    image: cingulara/openrmf-msg-controls:1.01.01
+    image: openrmf-msg-controls:1.01.01
     container_name: openrmf-controls-nats-message-client
-    restart: always
     environment:
       - NATSSERVERURL=nats://natsserver:4222
       - JAEGER_AGENT_HOST=jaeger
@@ -308,9 +294,8 @@ services:
       - openrmf
 
   openrmfmsg-template:
-    image: cingulara/openrmf-msg-template:1.01.01
+    image: openrmf-msg-template:1.01.01
     container_name: openrmf-template-nats-message-client
-    restart: always
     environment:
       - MONGODBCONNECTION=mongodb://openrmftemplate:openrmf1234!@templatedb/openrmftemplate?authSource=openrmftemplate
       - MONGODB=openrmftemplate
@@ -328,9 +313,8 @@ services:
       - openrmf
 
   openrmfmsg-system:
-    image: cingulara/openrmf-msg-system:1.01.01
+    image: openrmf-msg-system:1.01.01
     container_name: openrmf-system-nats-message-client
-    restart: always
     environment:
       - MONGODBCONNECTION=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
       - MONGODB=openrmf
@@ -348,9 +332,8 @@ services:
       - openrmf
 
   openrmfmsg-audit:
-    image: cingulara/openrmf-msg-audit:1.01.01
+    image: openrmf-msg-audit:1.01.01
     container_name: openrmf-audit-nats-message-client
-    restart: always
     environment:
       - MONGODBCONNECTION=mongodb://openrmfaudit:openrmf1234!@auditdb/openrmfaudit?authSource=openrmfaudit
       - MONGODB=openrmfaudit
@@ -368,9 +351,8 @@ services:
       - openrmf
 
   openrmfmsg-report:
-    image: cingulara/openrmf-msg-report:1.01.01
+    image: openrmf-msg-report:1.01.01
     container_name: openrmf-report-nats-message-client
-    restart: always
     environment:
       - SYSTEMMONGODBCONNECTION=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
       - SYSTEMMONGODB=openrmf
@@ -392,7 +374,7 @@ services:
 
 ### 5 MongoDB Containers
   checklistdb:
-    # image: mongo:4.0.5
+    #image: mongo:4.0.5
     image: cingulara/mongo:4.2.7-nonroot
     container_name: mongodb-checklist
     restart: always
@@ -404,7 +386,7 @@ services:
       - MONGO_INITDB_DATABASE=openrmf
     volumes:
       - checklist-data-volume:/data/db
-      - ./initializeChecklist.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      - ../initializeChecklist.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
     networks:
       - openrmf
 
@@ -421,7 +403,7 @@ services:
       - MONGO_INITDB_DATABASE=openrmfscore
     volumes:
       - score-data-volume:/data/db
-      - ./initializeScore.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      - ../initializeScore.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
     networks:
       - openrmf
 
@@ -438,7 +420,7 @@ services:
       - MONGO_INITDB_DATABASE=openrmftemplate
     volumes:
       - template-data-volume:/data/db
-      - ./initializeTemplate.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      - ../initializeTemplate.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
     networks:
       - openrmf
 
@@ -455,7 +437,7 @@ services:
       - MONGO_INITDB_DATABASE=openrmfaudit
     volumes:
       - audit-data-volume:/data/db
-      - ./initializeAudit.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      - ../initializeAudit.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
     networks:
       - openrmf
 
@@ -472,7 +454,7 @@ services:
       - MONGO_INITDB_DATABASE=openrmfreport
     volumes:
       - report-data-volume:/data/db
-      - ./initializeReport.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      - ../initializeReport.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
     networks:
       - openrmf
 
@@ -545,7 +527,6 @@ services:
   jaeger:
     image: jaegertracing/all-in-one:1.18.1
     container_name: jaeger
-    restart: always
     ports:
       - "5778:5778/tcp"
       - "6831:6831/udp"
