@@ -5,10 +5,21 @@ nav_order: 100
 
 # Uploading Checklists and Templates
 
-The Upload page is available to users with the Administrator or Editor role assigned. From this page you can upload a CKL checklist file made from the DISA Java Viewer. You can upload a SCAP (DoD or Nessus SCAP) scan result in XCCDF XML format. Or you can upload a CKL file as a User Template for others to start from and create their checklist for the appropriate system technology. 
+The Upload page is available to users with the Administrator or Editor role assigned. There are three things you can do from this page.  
+
+1. You can upload a CKL checklist file made from the DISA Java StigViewer. The process of making a CKL is outlined in Tutela's [blog post here](https://medium.com/@dgould_43957/how-to-use-disa-stig-viewer-tool-907358d17cea). 
+2. You also can upload a SCAP (DoD or Nessus SCAP) scan result in XCCDF XML format. 
+3. Or you can upload a CKL file as a User Template for others to start from and create their checklist for the appropriate system technology. 
+
+> Note: The Nessus Patch Management scan results file *.nessus is uploaded when you add or edit a System, not via the Upload page. 
+
+## Process of Uploading SCAP results (XCCDF format .xml) or DISA StigViewer CKL files (.ckl) in OpenRMF
+https://public.cyber.mil/stigs/scap/
+https://community.tenable.com/s/article/How-to-create-a-SCAP-scan
+
+![OpenRMF Upload of SCAP Scan Results](/assets/OpenRMF-SCAP-Process.png)
 
 ## Upload Checklists or SCAP XCCDF files
-
 ![OpenRMF Upload of Checklists](/assets/upload-checklist-xccdf.png)
 
 To upload a CKL file or XCCDF SCAP scan result file go to the Upload page. Use the top section to choose a System name and the file. You can now upload up to 10 files at a time. You can choose all 10 at once, or do 1 file at a time with the Choose Files button. 

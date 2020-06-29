@@ -62,3 +62,7 @@ OpenRMF uses NATS messaging to work eventual consistency as well as API-to-API c
 | openrmf.system.patchscan | Subscribe | Save | openrmf-msg-reports | Passing in the System Group ID, the reporting data for patch scanning is pulled from the raw string data in the Artifact database, parsed, put into the right structure, and saved into the report database. |
 | openrmf.report.refresh.nessuspatchdata | Subscribe | Report | openrmf-msg-reports | Issue a command from the GUI as an Administrator to refresh all Nessus Patch Data in every System. |
 | openrmf.report.refresh.vulnerabilitydata | Subscribe | Report | openrmf-msg-reports | Issue a command from the GUI as an Administrator to refresh all Checklist Vulnerability on every checklist in every System. |
+| openrmf.checklist.save.vulnerability.update | Subscribe | Save | openrmf-msg-reports | Passing in a dictionary of string/string 
+to update the vulnerability record in the report database based on an edit PUT to the Save API editing a checklist. |
+| openrmf.checklist.save.vulnerability.update | Subscribe | Save | openrmf-msg-score | Passing in a dictionary of string/string 
+to update the score calculations in the score database based on an edit PUT to the Save API editing a checklist. |

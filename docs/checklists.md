@@ -28,3 +28,8 @@ With the 0.12 version OpenRMF, if you are an Editor or Administrator (role) you 
 You also can edit each Vulnerability record with those roles. The following fields in the image below can be edited. Once saved, the data in the checklist is updated and the score is recalculated for the checklist and subsequently the system. 
 
 ![OpenRMF Edit Checklist Vulnerability Details](/assets/checklist-edit-vulnerability.png)
+
+## Bulk Edits on Similar Checklists
+As of version 1.1 you also can do a Bulk Edit on checklists within your system. This allows an edit on one checklist to be applied across all other checklists with the same Checklist Type within your system. i.e. an edit on Windows 2016 Member Server for a vulnerability to mark it as "Not a Finding" based on a group policy can be edited and then applied across all the Win2k16 checklists in your system with a click of a checkbox.
+
+This is a *big improvement* as it allows easy managing of multiple servers and checklists on hosts that are the same within your system. You must have a checklist per type per host for the RMF process artifacts. This allows much easier managing of similar hosts and workstations / servers in your system grouping.
