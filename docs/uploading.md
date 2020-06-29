@@ -14,8 +14,8 @@ The Upload page is available to users with the Administrator or Editor role assi
 > Note: The Nessus Patch Management scan results file *.nessus is uploaded when you add or edit a System, not via the Upload page. 
 
 ## Process of Uploading SCAP results (XCCDF format .xml) or DISA StigViewer CKL files (.ckl) in OpenRMF
-https://public.cyber.mil/stigs/scap/
-https://community.tenable.com/s/article/How-to-create-a-SCAP-scan
+* [DISA SCAP Scan Information](https://public.cyber.mil/stigs/scap/)
+* [Tennable's Nessus SCAP Scan Information](https://community.tenable.com/s/article/How-to-create-a-SCAP-scan)
 
 ![OpenRMF Upload of SCAP Scan Results](/assets/OpenRMF-SCAP-Process.png)
 
