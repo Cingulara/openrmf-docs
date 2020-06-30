@@ -47,6 +47,7 @@ docker exec $keycontainer /opt/jboss/keycloak/bin/kcadm.sh create roles -r openr
 ##END Create Roles
 
 ##BEGIN Create Client 
+echo
 echo "Creating the Keycloak Client..."
 cid=$(docker exec -i $keycontainer /opt/jboss/keycloak/bin/kcadm.sh create clients -r openrmf -s enabled=true -s clientId=openrmf -s publicClient=true -s 'description=openrmf login for Web and APIs' -s 'redirectUris=["http://'$keyip':8080/*"]' -s 'webOrigins=["*"]' -i)
 echo "$cid"
@@ -82,7 +83,7 @@ docker exec -i $keycontainer /opt/jboss/keycloak/bin/kcadm.sh add-roles --uusern
 
 ##BEGIN Password Policy of 2/2/2/2 12 characters and not the same as the username
 echo
-echo "Setting the password policy to 2 upper, 2 lower, 2 number, 2 special char"
+echo "Setting the password policy to 12 characters, 2 upper, 2 lower, 2 number, 2 special char"
 docker exec -i $keycontainer /opt/jboss/keycloak/bin/kcadm.sh update realms/openrmf -s 'passwordPolicy="hashIterations(27500) and specialChars(2) and upperCase(2) and digits(2) and notUsername(undefined) and length(12)"'
 ##END Password Policy
 
@@ -92,4 +93,6 @@ echo "Last Step - Adding Reader Role to Default Realm Roles..."
 docker exec -i $keycontainer /opt/jboss/keycloak/bin/kcadm.sh update realms/openrmf -f - <<EOF
 {"defaultRoles" :["offline_access", "uma_authorization", "Reader"]}
 EOF
+echo
+echo "Completed!"
 ##END Add Reader Role to Default Realm Roles  
