@@ -130,6 +130,8 @@ docker exec -i $keycontainer /opt/jboss/keycloak/bin/kcadm.sh add-roles --uusern
 ##END Create first openrmf admin
 
 ##BEGIN Password Policy of 2/2/2/2 12 characters and not the same as the username
+echo
+echo "Setting the password policy to 12 characters, 2 upper, 2 lower, 2 number, 2 special char"
 docker exec -i $keycontainer /opt/jboss/keycloak/bin/kcadm.sh update realms/openrmf -s 'passwordPolicy="hashIterations(27500) and specialChars(2) and upperCase(2) and digits(2) and notUsername(undefined) and length(12)"'
 ##END Password Policy
 
