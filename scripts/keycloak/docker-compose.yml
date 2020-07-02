@@ -16,14 +16,15 @@ services:
       - keycloak-postgres:/var/lib/postgresql/data
 
   keycloak: 
-    image: jboss/keycloak:7.0.0
+    image: jboss/keycloak:10.0.2
     restart: always
     ports:
       - 9001:8080
     environment:
       - KEYCLOAK_USER=admin 
       - KEYCLOAK_PASSWORD=admin 
-      - DB_VENDOR=postgres 
+      - DB_VENDOR=postgres
+      - DB_ADDR=postgres 
       - DB_USER=keycloak 
       - DB_PASSWORD=password
       - PROXY_ADDRESS_FORWARDING=true

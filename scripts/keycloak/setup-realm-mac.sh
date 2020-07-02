@@ -32,7 +32,7 @@ docker exec -i $keycontainer /opt/jboss/keycloak/bin/kcadm.sh update realms/open
 
 ##BEGIN Create Password Policy
 echo
-echo "Setting the password policy to 12 characters, 2 upper, 2 lower, 2 number, 2 special char"
+echo "Setting the Initial Password Policy..."
 docker exec $keycontainer /opt/jboss/keycloak/bin/kcadm.sh update realms/openrmf -s 'passwordPolicy="hashIterations and specialChars and upperCase and digits and notUsername and length"'
 ##END Create Password Policy 
 
