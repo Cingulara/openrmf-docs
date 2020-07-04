@@ -30,6 +30,8 @@ services:
       - PROXY_ADDRESS_FORWARDING=true
     depends_on:
       - postgres
+    volumes:
+      - ./themes/openrmf/:/opt/jboss/keycloak/themes/openrmf/:ro
     networks:
       - keycloak-network
 
