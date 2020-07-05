@@ -3,7 +3,6 @@
     <#if section = "title">
         ${msg("loginTitle",(realm.displayName!''))}
     <#elseif section = "header">
-        <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet"/>
         <link href="${url.resourcesPath}/img/favicon.png" rel="icon"/>
         <script>
             function togglePassword() {
@@ -44,6 +43,11 @@
                 <#list social.providers as p>
                 <input class="social-link-style" type="button" onclick="location.href='${p.loginUrl}';" value="${p.displayName}"/>
                 </#list>
+            </div>
+        </#if>
+        <#if realm.password && realm.registrationAllowed && !registrationDisabled??>
+            <div id="kc-registration">
+                <span>${msg("noAccount")} <a tabindex="6" href="${url.registrationUrl}">${msg("doRegister")}</a></span>
             </div>
         </#if>
         <div>
