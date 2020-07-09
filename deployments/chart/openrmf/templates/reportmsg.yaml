@@ -29,26 +29,30 @@ spec:
         env:
         - name: NATSSERVERURL
           value: nats://natsserver:4222
-        - name: REPORTMONGODBCONNECTION
+        - name: REPORTDBCONNECTION
           valueFrom:  
             secretKeyRef:
               name: reportdbsecret
               key: appConnection
-        - name: REPORTMONGODB
+        - name: REPORTDB
           valueFrom:  
             secretKeyRef:
               name: reportdbsecret
               key: initDBName
-        - name: SYSTEMMONGODBCONNECTION
+        - name: REPORTDBTYPE
+          value: {{.Values.reportdbtype}}
+        - name: SYSTEMDBCONNECTION
           valueFrom:  
             secretKeyRef:
               name: checklistdbsecret
               key: appConnection
-        - name: SYSTEMMONGODB
+        - name: SYSTEMDB
           valueFrom:  
             secretKeyRef:
               name: checklistdbsecret
               key: initDBName
+        - name: SYSTEMDBTYPE
+          value: {{.Values.reportdbtype}}
         resources:
           limits:
             memory: "750M"

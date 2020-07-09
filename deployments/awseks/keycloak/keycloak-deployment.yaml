@@ -25,13 +25,15 @@ spec:
           value: keycloak
         - name: DB_VENDOR
           value: postgres
+        - name: DB_ADDR
+          value: postgres
         - name: KEYCLOAK_PASSWORD
           value: 0okm9IJN8uhb7YGVcl0ak
         - name: KEYCLOAK_USER
           value: admin
         - name: PROXY_ADDRESS_FORWARDING
           value: "true" 
-        image: jboss/keycloak:7.0.0
+        image: jboss/keycloak:10.0.2
         name: keycloak
         ports:
         - containerPort: 8080

@@ -43,16 +43,18 @@ spec:
           value: Development
         - name: ASPNETCORE_URLS
           value: http://*:8080
-        - name: REPORTMONGODBCONNECTION
+        - name: DBCONNECTION
           valueFrom:  
             secretKeyRef:
               name: reportdbsecret
               key: appConnection
-        - name: REPORTMONGODB
+        - name: DB
           valueFrom:  
             secretKeyRef:
               name: reportdbsecret
               key: initDBName
+        - name: DBTYPE
+          value: {{.Values.reportdbtype}}
         - name: NATSSERVERURL
           value: nats://natsserver:4222
         - name: JWT-AUTHORITY

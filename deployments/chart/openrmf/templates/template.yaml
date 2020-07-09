@@ -45,16 +45,18 @@ spec:
           value: http://*:8080
         - name: NATSSERVERURL
           value: nats://natsserver:4222
-        - name: MONGODBCONNECTION
+        - name: DBCONNECTION
           valueFrom:  
             secretKeyRef:
               name: templatedbsecret
               key: appConnection
-        - name: MONGODB
+        - name: DB
           valueFrom:  
             secretKeyRef:
               name: templatedbsecret
               key: initDBName
+        - name: DBTYPE
+          value: {{.Values.templatedbtype}}
         - name: JWT-AUTHORITY
           value: {{.Values.identityProviderURL}}/realms/{{.Values.identityProviderRealm}}
         - name: JWT-CLIENT

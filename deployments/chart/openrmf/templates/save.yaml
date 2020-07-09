@@ -49,16 +49,18 @@ spec:
           value: {{.Values.identityProviderURL}}/realms/{{.Values.identityProviderRealm}}
         - name: JWT-CLIENT
           value: {{.Values.identityProviderClientId}}
-        - name: MONGODBCONNECTION
+        - name: DBCONNECTION
           valueFrom:  
             secretKeyRef:
               name: checklistdbsecret
               key: appConnection
-        - name: MONGODB
+        - name: DB
           valueFrom:  
             secretKeyRef:
               name: checklistdbsecret
               key: initDBName
+        - name: DBTYPE
+          value: {{.Values.checklistdbtype}}
         - name: JAEGER_AGENT_HOST
           valueFrom:
             fieldRef:

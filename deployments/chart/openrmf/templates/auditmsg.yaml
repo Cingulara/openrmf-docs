@@ -29,16 +29,18 @@ spec:
         env:
         - name: NATSSERVERURL
           value: nats://natsserver:4222
-        - name: MONGODBCONNECTION
+        - name: DBCONNECTION
           valueFrom:  
             secretKeyRef:
               name: auditdbsecret
               key: appConnection
-        - name: MONGODB
+        - name: DB
           valueFrom:  
             secretKeyRef:
               name: auditdbsecret
               key: initDBName
+        - name: DBTYPE
+          value: {{.Values.auditdbtype}}
         resources:
           limits:
             memory: "750M"
