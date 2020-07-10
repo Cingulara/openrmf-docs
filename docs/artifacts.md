@@ -1,4 +1,5 @@
 ---
+layout: default
 title: Step 6 - Generate RMF Artifacts
 nav_order: 450
 ---

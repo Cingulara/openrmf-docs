@@ -1,4 +1,5 @@
 ---
+layout: default
 title: Step 1 - Uploading
 nav_order: 100
 ---

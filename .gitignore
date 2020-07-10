@@ -5,3 +5,13 @@
 secrets/*
 
 testdeploy/*
+
+docs/_site/*
+
+docs/vendor/*
+
+Gemfile.lock
+
+docs/.bundle/*
+
+docs/.jekyll-cache/*

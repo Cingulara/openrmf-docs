@@ -1,4 +1,5 @@
 ---
+layout: default
 title: Keycloak Setup
 nav_order: 1000
 ---

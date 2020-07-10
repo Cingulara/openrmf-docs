@@ -1,4 +1,5 @@
 ---
+layout: default
 title: OpenRMF Reports
 nav_order: 600
 ---

@@ -1,4 +1,5 @@
 ---
+layout: default
 title: What's New in v1.1
 nav_order: 2
 ---

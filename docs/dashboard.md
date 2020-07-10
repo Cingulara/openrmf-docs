@@ -1,4 +1,5 @@
 ---
+layout: default
 title: Step 2 - Your Dashboard
 nav_order: 200
 ---

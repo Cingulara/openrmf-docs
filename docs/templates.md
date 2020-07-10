@@ -1,4 +1,5 @@
 ---
+layout: default
 title: Using Template Checklists
 nav_order: 500
 ---

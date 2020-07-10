@@ -1,4 +1,5 @@
 ---
+layout: default
 title: Navigation in OpenRMF
 nav_order: 10
 ---

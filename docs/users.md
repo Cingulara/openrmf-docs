@@ -1,4 +1,5 @@
 ---
+layout: default
 title: User Profile
 nav_order: 900
 ---

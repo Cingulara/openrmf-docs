@@ -1,4 +1,5 @@
 ---
+layout: default
 title: Step 3 - View Systems
 nav_order: 300
 ---

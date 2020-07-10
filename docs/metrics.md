@@ -1,4 +1,5 @@
 ---
+layout: default
 title: OpenRMF Metrics
 nav_order: 700
 ---

@@ -1,4 +1,5 @@
 ---
+layout: default
 title: Step 5 - Compliance Report
 nav_order: 400
 ---

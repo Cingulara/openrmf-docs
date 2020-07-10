@@ -1,4 +1,5 @@
 ---
+layout: default
 title: Step 4 - View Checklists
 nav_order: 350
 ---
