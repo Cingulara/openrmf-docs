@@ -60,7 +60,7 @@ echo "keycontainer: $keycontainer"
 ##BEGIN Authenticate to Keycloak server
 echo
 echo "Authenticating to Keycloak Master Realm..."
-docker exec $keycontainer /opt/jboss/keycloak/bin/kcadm.sh config credentials --server http://$keyip:8080/auth --realm master --user admin --password admin
+docker exec $keycontainer /opt/jboss/keycloak/bin/kcadm.sh config credentials --server http://localhost:8080/auth --realm master --user admin --password admin
 ##END Authenticate to Keycloak server
 
 ##BEGIN Create Realm
