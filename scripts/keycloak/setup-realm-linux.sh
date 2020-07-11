@@ -94,10 +94,7 @@ docker exec $keycontainer /opt/jboss/keycloak/bin/kcadm.sh create roles -r openr
 ##BEGIN Create Client
 echo
 echo "Creating client"
-cid=$(docker exec -i $keycontainer /opt/jboss/keycloak/bin/kcadm.sh get clients -r openrmf -q clientId=openrmf 2>/dev/null | jq --raw-output '.[0].id')
-if [ -z $cid ]; then
-  cid=$(docker exec -i $keycontainer /opt/jboss/keycloak/bin/kcadm.sh create clients -r openrmf -s enabled=true -s clientId=openrmf -s publicClient=true -s 'description=openrmf login for Web and APIs' -s 'redirectUris=["http://'$keyip':8080/*"]' -s 'webOrigins=["*"]' -i)
-fi
+cid=$(docker exec -i $keycontainer /opt/jboss/keycloak/bin/kcadm.sh create clients -r openrmf -s enabled=true -s clientId=openrmf -s publicClient=true -s 'description=openrmf login for Web and APIs' -s 'redirectUris=["http://'$keyip':8080/*"]' -s 'webOrigins=["*"]' -i)
 echo "Client ID: $cid"
 ##END Create Client
 
