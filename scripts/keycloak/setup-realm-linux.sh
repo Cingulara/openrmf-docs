@@ -1,15 +1,9 @@
 #!/bin/bash
 
-type jq > /dev/null
-if [ $? != 0 ]; then
-  echo "Please install jq from https://stedolan.github.io/jq/."
-  echo "  jq is needed to parse JSON."
-  exit
-fi
-
 #
-# I find a mixture of sudo and non-sudo, to be a source of bugs. So I've
-# added a sudo check and removed sudo from the command below this point.
+# You need to run this as sudo or root more than likely for it to work.
+# Unless you have allowed docker and docker-compose extra permissions for
+# your user.
 #
 
 NC="\e[0m"
