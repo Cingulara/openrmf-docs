@@ -55,10 +55,10 @@ REM cid=$(docker exec -i %keycontainer% /opt/jboss/keycloak/bin/kcadm.sh create 
 ECHO "%cid%"
 REM END Create Client
 
-REM BEGIN Create Protocol Mapper, which does not work yet :(
+REM BEGIN Create Protocol Mapper
 echo(
 ECHO "Creating the Client Protocol Mapper..." 
-docker exec -i %keycontainer% /opt/jboss/keycloak/bin/kcadm.sh create clients/%cid%/protocol-mappers/models -r openrmf -s "name=roles" -s "protocol=openid-connect" -s "protocolMapper=oidc-usermodel-realm-role-mapper" -s 'config."id.token.claim"=true' -s 'config."claim.name"=roles' -s 'config."jsonType.label"=String' -s 'config."multivalued"=true' -s 'config."userinfo.token.claim"=true' -s 'config."access.token.claim"=true'
+docker exec -i %keycontainer% /opt/jboss/keycloak/bin/kcadm.sh create clients/%cid%/protocol-mappers/models -r openrmf -f - < rolemapper.json 
 REM END Create Protocol Mapper
 
 REM BEGIN Create first admin
