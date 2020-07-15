@@ -3,7 +3,7 @@ version : '3.2'
 services:
 ### 1 Web Front End Container
   openrmf-web:
-    image: cingulara/openrmf-web:1.02.01
+    image: cingulara/openrmf-web:1.02.02
     container_name: openrmf-web
     restart: always
     ports:

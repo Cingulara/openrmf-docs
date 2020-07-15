@@ -40,7 +40,7 @@ templateImage: 1.02.01
 templatemsgImage: 1.02.01
 uploadImage: 1.02.01
 systemmsgImage: 1.02.01
-webuiImage: 1.02.01
+webuiImage: 1.02.02
 reportImage: 1.02.01
 reportmsgImage: 1.02.01
 mongoImage: 4.2.7-nonroot
