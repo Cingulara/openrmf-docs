@@ -1,5 +1,5 @@
 docker-compose down
 
 echo ''
-echo 'The OpenRMF Stack has been shut down.'
+echo 'The Keycloak Stack has been shut down.'
 echo ''

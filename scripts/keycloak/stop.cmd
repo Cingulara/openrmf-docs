@@ -1,7 +1,7 @@
 @echo off
-REM Now run the latest OpenRMF stack
+REM Now run the latest Keycloak stack
 docker-compose down
 
 echo(
-echo "The OpenRMF Stack has been shut down."
+echo "The Keycloak Stack has been shut down."
 echo(
