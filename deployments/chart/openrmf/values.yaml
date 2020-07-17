@@ -11,7 +11,7 @@ dnsName: openrmf.local
 # The Identity Provider URL and Realm, i.e. using Keycloak for AuthN and AuthZ
 # Examples: https://keycloak.openrmf.io/auth, http://192.168.11.29:9001/auth
 identityProviderURL: http://192.168.13.73:9001/auth
-# The Realm to use from the ID provider
+# The Realm to use from the Keycloak / OpenID provider
 identityProviderRealm: openrmf
 # The Identity Provider Client Id to use
 identityProviderClientId: openrmf
@@ -25,24 +25,24 @@ installType: minikube
 
 # versions of container to adjust
 # examples: 0.8, 0.8.1, latest
-auditImage: 1.01.01
-auditmsgImage: 1.01.01
-checklistmsgImage: 11.01.01
-complianceImage: 1.01.01
-compliancemsgImage: 1.01.01
-controlImage: 1.01.01
-controlmsgImage: 1.01.01
-readImage: 1.01.01
-saveImage: 1.01.01
-scoremsgImage: 1.01.01
-scoringImage: 1.01.01
-templateImage: 1.01.01
-templatemsgImage: 1.01.01
-uploadImage: 1.01.01
-systemmsgImage: 1.01.01
-webuiImage: 1.01.01
-reportImage: 1.01.01
-reportmsgImage: 1.01.01
+auditImage: 1.02.02
+auditmsgImage: 1.02.01
+checklistmsgImage: 1.02.01
+complianceImage: 1.02.02
+compliancemsgImage: 1.02.01
+controlImage: 1.02.02
+controlmsgImage: 1.02.01
+readImage: 1.02.02
+saveImage: 1.02.02
+scoremsgImage: 1.02.01
+scoringImage: 1.02.02
+templateImage: 1.02.02
+templatemsgImage: 1.02.01
+uploadImage: 1.02.02
+systemmsgImage: 1.02.01
+webuiImage: 1.02.02
+reportImage: 1.02.02
+reportmsgImage: 1.02.01
 mongoImage: 4.2.7-nonroot
 natsImage: 2.1.7-linux
 
@@ -61,7 +61,7 @@ templateAPI:   http://openrmf.local/template/
 complianceAPI: http://openrmf.local/compliance/
 controlAPI:    http://openrmf.local/controls/
 auditAPI:      http://openrmf.local/audit/
-reportAPI:      http://openrmf.local/report/
+reportAPI:     http://openrmf.local/report/
 
 # Service Types for Minikube and AWS separately
 # Examples: NodePort, LoadBalancer, etc.
@@ -70,6 +70,13 @@ serviceTypeAWS: LoadBalancer
 
 # AWS ACM Certificate ARN if used
 awsACM: arn:aws:acm:us-east-1:xxxxxxxxxxxxxx:certificate/xxxxxxxxxxxxxxxx
+
+# Database Types
+scoredbtype: mongo
+checklistdbtype: mongo
+auditdbtype: mongo
+reportdbtype: mongo
+templatedbtype: mongo
 
 # Database initialization Scripts
 checklistAppUser: openrmf

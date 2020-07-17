@@ -3,7 +3,7 @@ version : '3.2'
 services:
 ### 1 Web Front End Container
   openrmf-web:
-    image: cingulara/openrmf-web:1.01.01
+    image: cingulara/openrmf-web:1.02.02
     container_name: openrmf-web
     restart: always
     ports:
@@ -22,7 +22,7 @@ services:
 
 ### 9 API Containers
   openrmfapi-scoring:
-    image: cingulara/openrmf-api-scoring:1.01.01
+    image: cingulara/openrmf-api-scoring:1.02.02
     container_name: openrmf-scoring-api
     restart: always
     ports:
@@ -31,8 +31,9 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8090
-      - MONGODBCONNECTION=mongodb://openrmfscore:openrmf1234!@scoredb/openrmfscore?authSource=openrmfscore
-      - MONGODB=openrmfscore
+      - DBCONNECTION=mongodb://openrmfscore:openrmf1234!@scoredb/openrmfscore?authSource=openrmfscore
+      - DBTYPE=mongo
+      - DB=openrmfscore
       - JAEGER_AGENT_HOST=jaeger
       - JAEGER_AGENT_PORT=6831
       - JAEGER_SERVICE_NAME=openrmfapi-scoring
@@ -45,7 +46,7 @@ services:
       - openrmf
   
   openrmfapi-save:
-    image: cingulara/openrmf-api-save:1.01.01
+    image: cingulara/openrmf-api-save:1.02.02
     container_name: openrmf-save-api
     restart: always
     ports:
@@ -54,8 +55,9 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8082
-      - MONGODBCONNECTION=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
-      - MONGODB=openrmf
+      - DBCONNECTION=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
+      - DB=openrmf
+      - DBTYPE=mongo
       - NATSSERVERURL=nats://natsserver:4222
       - JAEGER_AGENT_HOST=jaeger
       - JAEGER_AGENT_PORT=6831
@@ -71,7 +73,7 @@ services:
       - openrmf
 
   openrmfapi-template:
-    image: cingulara/openrmf-api-template:1.01.01
+    image: cingulara/openrmf-api-template:1.02.02
     container_name: openrmf-template-api
     restart: always
     ports:
@@ -81,8 +83,9 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8088
       - NATSSERVERURL=nats://natsserver:4222
-      - MONGODBCONNECTION=mongodb://openrmftemplate:openrmf1234!@templatedb/openrmftemplate?authSource=openrmftemplate
-      - MONGODB=openrmftemplate
+      - DBCONNECTION=mongodb://openrmftemplate:openrmf1234!@templatedb/openrmftemplate?authSource=openrmftemplate
+      - DB=openrmftemplate
+      - DBTYPE=mongo
       - JAEGER_AGENT_HOST=jaeger
       - JAEGER_AGENT_PORT=6831
       - JAEGER_SERVICE_NAME=openrmfapi-template
@@ -95,7 +98,7 @@ services:
       - openrmf
 
   openrmfapi-upload:
-    image: cingulara/openrmf-api-upload:1.01.01
+    image: cingulara/openrmf-api-upload:1.02.02
     container_name: openrmf-upload-api
     restart: always
     ports:
@@ -104,8 +107,9 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8086
-      - MONGODBCONNECTION=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
-      - MONGODB=openrmf
+      - DBCONNECTION=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
+      - DB=openrmf
+      - DBTYPE=mongo
       - NATSSERVERURL=nats://natsserver:4222
       - JAEGER_AGENT_HOST=jaeger
       - JAEGER_AGENT_PORT=6831
@@ -121,7 +125,7 @@ services:
       - openrmf
 
   openrmfapi-read:
-    image: cingulara/openrmf-api-read:1.01.01
+    image: cingulara/openrmf-api-read:1.02.02
     container_name: openrmf-read-api
     restart: always
     ports:
@@ -130,8 +134,9 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8084
-      - MONGODBCONNECTION=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
-      - MONGODB=openrmf
+      - DBCONNECTION=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
+      - DB=openrmf
+      - DBTYPE=mongo
       - NATSSERVERURL=nats://natsserver:4222
       - JAEGER_AGENT_HOST=jaeger
       - JAEGER_AGENT_PORT=6831
@@ -145,7 +150,7 @@ services:
       - openrmf
 
   openrmfapi-compliance:
-    image: cingulara/openrmf-api-compliance:1.01.01
+    image: cingulara/openrmf-api-compliance:1.02.02
     container_name: openrmf-compliance-api
     restart: always
     ports:
@@ -165,7 +170,7 @@ services:
       - openrmf
 
   openrmfapi-controls:
-    image: cingulara/openrmf-api-controls:1.01.01
+    image: cingulara/openrmf-api-controls:1.02.02
     container_name: openrmf-controls-api
     restart: always
     ports:
@@ -185,7 +190,7 @@ services:
       - openrmf
 
   openrmfapi-audit:
-    image: cingulara/openrmf-api-audit:1.01.01
+    image: cingulara/openrmf-api-audit:1.02.02
     container_name: openrmf-audit-api
     restart: always
     ports:
@@ -194,8 +199,9 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8096
-      - MONGODBCONNECTION=mongodb://openrmfaudit:openrmf1234!@auditdb/openrmfaudit?authSource=openrmfaudit
-      - MONGODB=openrmfaudit
+      - DBCONNECTION=mongodb://openrmfaudit:openrmf1234!@auditdb/openrmfaudit?authSource=openrmfaudit
+      - DB=openrmfaudit
+      - DBTYPE=mongo
       - NATSSERVERURL=nats://natsserver:4222
       - JAEGER_AGENT_HOST=jaeger
       - JAEGER_AGENT_PORT=6831
@@ -209,7 +215,7 @@ services:
       - openrmf
 
   openrmfapi-report:
-    image: cingulara/openrmf-api-report:1.01.01
+    image: cingulara/openrmf-api-report:1.02.02
     container_name: openrmf-report-api
     restart: always
     ports:
@@ -218,8 +224,9 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8098
-      - REPORTMONGODBCONNECTION=mongodb://openrmfreport:openrmf1234!@reportdb/openrmfreport?authSource=openrmfreport
-      - REPORTMONGODB=openrmfreport
+      - DBCONNECTION=mongodb://openrmfreport:openrmf1234!@reportdb/openrmfreport?authSource=openrmfreport
+      - DB=openrmfreport
+      - DBTYPE=mongo
       - NATSSERVERURL=nats://natsserver:4222
       - JAEGER_AGENT_HOST=jaeger
       - JAEGER_AGENT_PORT=6831
@@ -234,12 +241,13 @@ services:
 
 ### 8 Messaging Containers
   openrmfmsg-score:
-    image: cingulara/openrmf-msg-score:1.01.01
+    image: cingulara/openrmf-msg-score:1.02.01
     container_name: openrmf-score-nats-message-client
     restart: always
     environment:
-      - MONGODBCONNECTION=mongodb://openrmfscore:openrmf1234!@scoredb/openrmfscore?authSource=openrmfscore
-      - MONGODB=openrmfscore
+      - DBCONNECTION=mongodb://openrmfscore:openrmf1234!@scoredb/openrmfscore?authSource=openrmfscore
+      - DBTYPE=mongo
+      - DB=openrmfscore
       - NATSSERVERURL=nats://natsserver:4222
       - JAEGER_AGENT_HOST=jaeger
       - JAEGER_AGENT_PORT=6831
@@ -254,12 +262,13 @@ services:
       - openrmf
 
   openrmfmsg-checklist:
-    image: cingulara/openrmf-msg-checklist:1.01.01
+    image: cingulara/openrmf-msg-checklist:1.02.01
     container_name: openrmf-checklist-nats-message-client
     restart: always
     environment:
-      - MONGODBCONNECTION=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
-      - MONGODB=openrmf
+      - DBCONNECTION=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
+      - DB=openrmf
+      - DBTYPE=mongo
       - NATSSERVERURL=nats://natsserver:4222
       - JAEGER_AGENT_HOST=jaeger
       - JAEGER_AGENT_PORT=6831
@@ -274,7 +283,7 @@ services:
       - openrmf
 
   openrmfmsg-compliance:
-    image: cingulara/openrmf-msg-compliance:1.01.01
+    image: cingulara/openrmf-msg-compliance:1.02.01
     container_name: openrmf-compliance-nats-message-client
     restart: always
     environment:
@@ -291,7 +300,7 @@ services:
       - openrmf
 
   openrmfmsg-controls:
-    image: cingulara/openrmf-msg-controls:1.01.01
+    image: cingulara/openrmf-msg-controls:1.02.01
     container_name: openrmf-controls-nats-message-client
     restart: always
     environment:
@@ -308,12 +317,13 @@ services:
       - openrmf
 
   openrmfmsg-template:
-    image: cingulara/openrmf-msg-template:1.01.01
+    image: cingulara/openrmf-msg-template:1.02.01
     container_name: openrmf-template-nats-message-client
     restart: always
     environment:
-      - MONGODBCONNECTION=mongodb://openrmftemplate:openrmf1234!@templatedb/openrmftemplate?authSource=openrmftemplate
-      - MONGODB=openrmftemplate
+      - DBCONNECTION=mongodb://openrmftemplate:openrmf1234!@templatedb/openrmftemplate?authSource=openrmftemplate
+      - DB=openrmftemplate
+      - DBTYPE=mongo
       - NATSSERVERURL=nats://natsserver:4222
       - JAEGER_AGENT_HOST=jaeger
       - JAEGER_AGENT_PORT=6831
@@ -328,12 +338,13 @@ services:
       - openrmf
 
   openrmfmsg-system:
-    image: cingulara/openrmf-msg-system:1.01.01
+    image: cingulara/openrmf-msg-system:1.02.01
     container_name: openrmf-system-nats-message-client
     restart: always
     environment:
-      - MONGODBCONNECTION=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
-      - MONGODB=openrmf
+      - DBCONNECTION=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
+      - DB=openrmf
+      - DBTYPE=mongo
       - NATSSERVERURL=nats://natsserver:4222
       - JAEGER_AGENT_HOST=jaeger
       - JAEGER_AGENT_PORT=6831
@@ -348,12 +359,13 @@ services:
       - openrmf
 
   openrmfmsg-audit:
-    image: cingulara/openrmf-msg-audit:1.01.01
+    image: cingulara/openrmf-msg-audit:1.02.01
     container_name: openrmf-audit-nats-message-client
     restart: always
     environment:
-      - MONGODBCONNECTION=mongodb://openrmfaudit:openrmf1234!@auditdb/openrmfaudit?authSource=openrmfaudit
-      - MONGODB=openrmfaudit
+      - DBCONNECTION=mongodb://openrmfaudit:openrmf1234!@auditdb/openrmfaudit?authSource=openrmfaudit
+      - DB=openrmfaudit
+      - DBTYPE=mongo
       - NATSSERVERURL=nats://natsserver:4222
       - JAEGER_AGENT_HOST=jaeger
       - JAEGER_AGENT_PORT=6831
@@ -368,14 +380,16 @@ services:
       - openrmf
 
   openrmfmsg-report:
-    image: cingulara/openrmf-msg-report:1.01.01
+    image: cingulara/openrmf-msg-report:1.02.01
     container_name: openrmf-report-nats-message-client
     restart: always
     environment:
-      - SYSTEMMONGODBCONNECTION=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
-      - SYSTEMMONGODB=openrmf
-      - REPORTMONGODBCONNECTION=mongodb://openrmfreport:openrmf1234!@reportdb/openrmfreport?authSource=openrmfreport
-      - REPORTMONGODB=openrmfreport
+      - SYSTEMDBCONNECTION=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
+      - SYSTEMDB=openrmf
+      - SYSTEMDBTYPE=mongo
+      - REPORTDBCONNECTION=mongodb://openrmfreport:openrmf1234!@reportdb/openrmfreport?authSource=openrmfreport
+      - REPORTDB=openrmfreport
+      - REPORTDBTYPE=mongo
       - NATSSERVERURL=nats://natsserver:4222
       - JAEGER_AGENT_HOST=jaeger
       - JAEGER_AGENT_PORT=6831
@@ -392,7 +406,6 @@ services:
 
 ### 5 MongoDB Containers
   checklistdb:
-    # image: mongo:4.0.5
     image: cingulara/mongo:4.2.7-nonroot
     container_name: mongodb-checklist
     restart: always
@@ -409,7 +422,6 @@ services:
       - openrmf
 
   scoredb:
-    #image: mongo:4.0.5
     image: cingulara/mongo:4.2.7-nonroot
     container_name: mongodb-score
     restart: always
@@ -426,7 +438,6 @@ services:
       - openrmf
 
   templatedb:
-    #image: mongo:4.0.5
     image: cingulara/mongo:4.2.7-nonroot
     container_name: mongodb-template
     restart: always
@@ -443,7 +454,6 @@ services:
       - openrmf
 
   auditdb:
-    #image: mongo:4.0.5
     image: cingulara/mongo:4.2.7-nonroot
     container_name: mongodb-audit
     restart: always
@@ -460,7 +470,6 @@ services:
       - openrmf
 
   reportdb:
-    #image: mongo:4.0.5
     image: cingulara/mongo:4.2.7-nonroot
     container_name: mongodb-report
     restart: always

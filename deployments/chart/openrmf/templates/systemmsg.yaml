@@ -29,16 +29,18 @@ spec:
         env:
         - name: NATSSERVERURL
           value: nats://natsserver:4222
-        - name: MONGODBCONNECTION
+        - name: DBCONNECTION
           valueFrom:  
             secretKeyRef:
               name: checklistdbsecret
               key: appConnection
-        - name: MONGODB
+        - name: DB
           valueFrom:  
             secretKeyRef:
               name: checklistdbsecret
               key: initDBName
+        - name: DBTYPE
+          value: {{.Values.checklistdbtype}}
         resources:
           limits:
             memory: "750M"

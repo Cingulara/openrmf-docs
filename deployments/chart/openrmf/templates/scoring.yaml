@@ -43,16 +43,18 @@ spec:
           value: Development
         - name: ASPNETCORE_URLS
           value: http://*:8080
-        - name: MONGODBCONNECTION
+        - name: DBCONNECTION
           valueFrom:  
             secretKeyRef:
               name: scoredbsecret
               key: appConnection
-        - name: MONGODB
+        - name: DB
           valueFrom:  
             secretKeyRef:
               name: scoredbsecret
               key: initDBName
+        - name: DBTYPE
+          value: {{.Values.scoredbtype}}
         - name: JWT-AUTHORITY
           value: {{.Values.identityProviderURL}}/realms/{{.Values.identityProviderRealm}}
         - name: JWT-CLIENT
