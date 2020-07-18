@@ -12,7 +12,7 @@ locally to setup YAML files you use to deploy later w/o tiller running in your c
 1. Run `kubectl apply -f ./deployments/kubernetes/namespace.yaml`from the root folder within the repo. This makes the namespace to run all the pieces in.
 2. For Minikube, run `kubectl apply -f ./deployments/kubernetes/pv.yaml`from the root folder within the repo. This makes the persistent volume to use. Adjust as necessary. Run this only if you need a new PV to use. For AWS or other providers see their 
 documentation on making persistent volumes.
-3. Run `helm install ./deployments/chart/openrmf`from the root folder within the repo. Optionally, run the `helm template chart/openrmf --output-dir DIR_NAME -n RELEASE_NAME --notes` command to generate valid YAML files to apply to your cluster.
+3. Run `helm install ./deployments/chart/openrmf`from the root folder within the repo. Optionally, run the `helm template chart/openrmf --output-dir DIR_NAME -n RELEASE_NAME` command to generate valid YAML files to apply to your cluster.
 4. Verify by going to the HTTP(S) path shown after a successful helm install to verify it is working.
 
 ---
