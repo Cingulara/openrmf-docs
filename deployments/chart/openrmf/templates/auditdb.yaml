@@ -9,7 +9,7 @@ metadata:
     app.kubernetes.io/component: audit-mongodb-secret
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/revision: "{{ .Release.Revision }}"
-    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/version: "{{ .Chart.AppVersion }}"
     app.kubernetes.io/managed-by: helm
 type: Opaque
 data:
@@ -29,7 +29,7 @@ metadata:
     app.kubernetes.io/component: auditdb-init-config
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/revision: "{{ .Release.Revision }}"
-    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/version: "{{ .Chart.AppVersion }}"
     app.kubernetes.io/managed-by: helm
 data:
   mongo-init.js: |
@@ -51,7 +51,7 @@ metadata:
     app.kubernetes.io/component: audit-mongodb
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/revision: "{{ .Release.Revision }}"
-    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/version: "{{ .Chart.AppVersion }}"
     app.kubernetes.io/managed-by: helm
 spec:
   selector:
@@ -116,7 +116,7 @@ metadata:
     app.kubernetes.io/component: audit-mongodb
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/revision: "{{ .Release.Revision }}"
-    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/version: "{{ .Chart.AppVersion }}"
     app.kubernetes.io/managed-by: helm
 spec:
   ports:
@@ -140,7 +140,7 @@ metadata:
     app.kubernetes.io/component: audit-mongodb
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/revision: "{{ .Release.Revision }}"
-    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/version: "{{ .Chart.AppVersion }}"
     app.kubernetes.io/managed-by: helm
 spec:
   storageClassName: {{.Values.storageClass}}
