@@ -8,7 +8,7 @@ nav_order: 2
 
 Please refer to the <a href="https://github.com/Cingulara?tab=projects" target="_blank">OpenRMF Projects listing on GitHub</a> for more information on feature updates and timeline.
 
-## Version 1.1
+## Version 1.2
 Version 1.2 was also a security fix primarily with some updated functionality as outlined below:
 * .NET Core 3.1 update with Debian 10 based containers
 * Updated .NET Core 3.1 components such as Jaeger client, Swashbuckle, etc.
