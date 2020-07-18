@@ -9,7 +9,7 @@ metadata:
     app.kubernetes.io/component: nats-server-2.1.0
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/revision: "{{ .Release.Revision }}"
-    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/version: "{{ .Chart.AppVersion }}"
     app.kubernetes.io/managed-by: helm
 spec:
   selector:
@@ -54,7 +54,7 @@ metadata:
     app.kubernetes.io/component: server-2.1.0
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/revision: "{{ .Release.Revision }}"
-    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/version: "{{ .Chart.AppVersion }}"
     app.kubernetes.io/managed-by: helm
 spec:
   ports:
@@ -82,7 +82,7 @@ metadata:
     app.kubernetes.io/component: nats-prometheus-exporter
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/revision: "{{ .Release.Revision }}"
-    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/version: "{{ .Chart.AppVersion }}"
     app.kubernetes.io/managed-by: helm
 spec:
   selector:
@@ -123,7 +123,7 @@ metadata:
     app.kubernetes.io/component: openrmf-natspromexporter
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/revision: "{{ .Release.Revision }}"
-    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/version: "{{ .Chart.AppVersion }}"
     app.kubernetes.io/managed-by: helm
 spec:
   ports:
@@ -148,7 +148,7 @@ metadata:
     app.kubernetes.io/component: nats-server-2.1.2
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/revision: "{{ .Release.Revision }}"
-    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/version: "{{ .Chart.AppVersion }}"
     app.kubernetes.io/managed-by: helm
     {{ .Values.servicemonitormatchlabelname }}: {{ .Values.servicemonitormatchlabelvalue }}
 spec:
@@ -175,7 +175,7 @@ metadata:
     app.kubernetes.io/component: nats-client-prometheus-exporter
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/revision: "{{ .Release.Revision }}"
-    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/version: "{{ .Chart.AppVersion }}"
     app.kubernetes.io/managed-by: helm
 spec:
   selector:
@@ -222,7 +222,7 @@ metadata:
     app.kubernetes.io/component: openrmf-natsclientpromexporter
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/revision: "{{ .Release.Revision }}"
-    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/version: "{{ .Chart.AppVersion }}"
     app.kubernetes.io/managed-by: helm
 spec:
   ports:
@@ -247,7 +247,7 @@ metadata:
     app.kubernetes.io/component: nats-client-metrics-1.0.1
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/revision: "{{ .Release.Revision }}"
-    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/version: "{{ .Chart.AppVersion }}"
     app.kubernetes.io/managed-by: helm
     {{ .Values.servicemonitormatchlabelname }}: {{ .Values.servicemonitormatchlabelvalue }}
 spec:

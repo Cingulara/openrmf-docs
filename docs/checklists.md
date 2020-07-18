@@ -1,35 +1,25 @@
 ---
-title: Step 4 - View Checklists
-nav_order: 350
+layout: default
+title: Using Checklists
+nav_order: 40
 ---
 
-# Checklist Detailed View
+# STIGs and STIG Checklists
+The Checklists in this process are the results of SCAP scans and manual processes to create information showing the security status of your system, application, network, host, firewall, server, etc. They are separate by topic such as Microsoft Windows 10, Oracle 12g, Application Security and Development, or CISCO firewall. The checklists have several (usually hundreds) of individual items describing a specific security setting/process/issue and allow you to specify 4 status: Open, Not a Finding (closed), Not Applicable and Not Reviewed. They also classify the security item as a Category 1 (high), Category 2 (medium) or Category 3 (low). Suffice it to say, the less High and Medium the better!
 
-![OpenRMF Checklist Details](/assets/checklist-record.png)
+## "The requirements of the STIGs become effective immediately."
+Be aware, new checklists come out usually quarterly but can come out in between major releases. As soon as a new checklist version is out you are responsible to use that one. It is not fair, it is just how they do it. As new checklist formats and versions/revisions are added to OpenRMF you will see an "Upgrade" button as you view your checklist. We wrote a routine to update and copy over your status, comments, findings, and security override information to the new version of the checklist. Otherwise, you are copying/pasting that information and it is HORRIBLE!
 
-The detailed Checklist page shows several things about the checklist. It shows the title, automatically named by the checklist uploaded. The format is "hostname"-"type of checklist"-"release and date of the checklist format". So a Windows 10 STIG from the Release 19 Oct 25 2019 of the STIG of the machine named "myserver" would be "MYSERVER-WIN 10 STIG-R19 dated 25 Oct 2019". 
+## STIG Checklist Templates
+The templates to create these checklists are available at <a href="https://public.cyber.mil/stigs/downloads/" target="_blank">https://public.cyber.mil/stigs/downloads/</a>. They are grouped by topics such as Operating System (OS), Mobile, Application Security, etc. and then further grouped by particular software tool, application, or specific OS. These templates are available in a ZIP file and the specific file you will need in the zip is a "xxxxxx_Manual-xccdf.xml" file (i.e. U_MS_Windows_10_STIG_V1R23_Manual-xccdf.xml). 
 
-The scoring of the checklist based on status is one of the first things you see as well. The total and then breakdown by category is shown with the relevant colors. There are also download links for the CKL file, an Excel version of the checklist to download, as well as a Delete button. These buttons depend on the Download role and Editor role respectively. Or if you have the Administrator role you get them all. 
+> This is a raw set of data, and is NOT a checklist file (CKL file). It must be read in and made into a checklist file.
 
-Each listing in the score table are linked to the Vulnerability Filter below it. For example, click the CAT 1 OPEN number, and you can filter your vulnerabilities below to only show Category 1 (High severity) Open items. This also affects the Export as you will export only those vulnerabilities shown on the page at that time. 
+You can import this file into the DISA STIG Viewer (see the URL below on Tutela's Medium blog post) and then create a checklist from it. Right now, if you are not creating a checklist from a SCAP scan this is the best way to create a checklist. An example of this would be the Application Security and Development (ASD) checklist you must create when you are developing a piece of software to run on a network. Whether a web application, static HTML pages, API, service, or something similar you will be required to do an ASD STIG. You can create a new one by adding the latest _Manual-xccdf.xml raw file to the STIG Viewer and then create your checklist from that. 
 
-![OpenRMF Checklist Vulnerability Details](/assets/checklist-record-detail.png)
+## OpenRMF Automatic Checklist Creation
+If you are using a SCAP scan to create or update a checklist, all you have to do is Upload that XCCDF format scan result and the process of matching the SCAP scan results to the right checklist is done for you. OpenRMF has 200+ checklist formats from DISA Public website in the tool to automatically match and create your checklist in seconds. Then put into your system and run the scoring, report generation, etc. against it automatically.
 
-The specific STIG title and asset information from the STIG checklist are shown next. Then the main section of the checklist is shown. On the left of the section is a list of every single vulnerability for this checklist, color coded by status. Click the vulnerability and the details of it show on the right.  You also can filter the vulnerabilities by status by checking / unchecking the 4 statuses to filter the list down accordingly.
 
-At the bottom of this page are quick visual graph representations of the status and category breakdown of the checklist as well. 
-
-## Editing the Checklist Vulnerability
-
-With the 0.12 version OpenRMF, if you are an Editor or Administrator (role) you can edit the main Checklist data at the top of the screen. The host name, domain name as well as the technology area, asset type and role of the machine for the checklist being viewed/edited. This data will be represented in the downloaded export XLSX as well as the CKL checklist file.
-
-![OpenRMF Edit Checklist Metadata](/assets/checklist-edit-asset.png)
-
-You also can edit each Vulnerability record with those roles. The following fields in the image below can be edited. Once saved, the data in the checklist is updated and the score is recalculated for the checklist and subsequently the system. 
-
-![OpenRMF Edit Checklist Vulnerability Details](/assets/checklist-edit-vulnerability.png)
-
-## Bulk Edits on Similar Checklists
-As of version 1.1 you also can do a Bulk Edit on checklists within your system. This allows an edit on one checklist to be applied across all other checklists with the same Checklist Type within your system. i.e. an edit on Windows 2016 Member Server for a vulnerability to mark it as "Not a Finding" based on a group policy can be edited and then applied across all the Win2k16 checklists in your system with a click of a checkbox.
-
-This is a *big improvement* as it allows easy managing of multiple servers and checklists on hosts that are the same within your system. You must have a checklist per type per host for the RMF process artifacts. This allows much easier managing of similar hosts and workstations / servers in your system grouping.
+## STIGs and the STIG Viewer
+There is a great Medium blog post by Tutela at <a href="https://medium.com/@dgould_43957/how-to-use-disa-stig-viewer-tool-907358d17cea" target="_blank">https://medium.com/@dgould_43957/how-to-use-disa-stig-viewer-tool-907358d17cea</a>. 

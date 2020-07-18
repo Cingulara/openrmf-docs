@@ -1,5 +1,6 @@
 ---
-title: What's New in v1.1
+layout: default
+title: What's New in v1.2
 nav_order: 2
 ---
 
@@ -7,6 +8,15 @@ nav_order: 2
 
 Please refer to the <a href="https://github.com/Cingulara?tab=projects" target="_blank">OpenRMF Projects listing on GitHub</a> for more information on feature updates and timeline.
 
+## Version 1.2
+Version 1.2 was also a security fix primarily with some updated functionality as outlined below:
+* .NET Core 3.1 update with Debian 10 based containers
+* Updated .NET Core 3.1 components such as Jaeger client, Swashbuckle, etc.
+* Keycloak 10 upgrade from 7.0
+* Keycloak theme for OpenRMF for seamless look-and-feel interaction
+* Header Security fixes from an active scan of the web application 
+* Compliance Summary buttons are interactive for filtering now
+* Help documentation is now local to the application, not up on github.io pages
 
 ## Version 1.1
 Version 1.1 was a security fix primarily with some updated functionality as outlined below:

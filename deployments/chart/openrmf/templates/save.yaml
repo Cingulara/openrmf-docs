@@ -9,7 +9,7 @@ metadata:
     app.kubernetes.io/component: save-api
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/revision: "{{ .Release.Revision }}"
-    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/version: "{{ .Chart.AppVersion }}"
     app.kubernetes.io/managed-by: helm
 spec:
   selector:
@@ -49,16 +49,18 @@ spec:
           value: {{.Values.identityProviderURL}}/realms/{{.Values.identityProviderRealm}}
         - name: JWT-CLIENT
           value: {{.Values.identityProviderClientId}}
-        - name: MONGODBCONNECTION
+        - name: DBCONNECTION
           valueFrom:  
             secretKeyRef:
               name: checklistdbsecret
               key: appConnection
-        - name: MONGODB
+        - name: DB
           valueFrom:  
             secretKeyRef:
               name: checklistdbsecret
               key: initDBName
+        - name: DBTYPE
+          value: {{.Values.checklistdbtype}}
         - name: JAEGER_AGENT_HOST
           valueFrom:
             fieldRef:
@@ -92,7 +94,7 @@ metadata:
     app.kubernetes.io/component: save-api
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/revision: "{{ .Release.Revision }}"
-    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/version: "{{ .Chart.AppVersion }}"
     app.kubernetes.io/managed-by: helm
 spec:
   ports:
@@ -144,7 +146,7 @@ metadata:
     app.kubernetes.io/component: save-api
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/revision: "{{ .Release.Revision }}"
-    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/version: "{{ .Chart.AppVersion }}"
     app.kubernetes.io/managed-by: helm
   annotations:
     # Note that the backend talks over HTTP.
@@ -181,7 +183,7 @@ metadata:
     app.kubernetes.io/component: save-api
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/revision: "{{ .Release.Revision }}"
-    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/version: "{{ .Chart.AppVersion }}"
     app.kubernetes.io/managed-by: helm
     {{ .Values.servicemonitormatchlabelname }}: {{ .Values.servicemonitormatchlabelvalue }}
 spec:

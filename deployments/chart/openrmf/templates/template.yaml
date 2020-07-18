@@ -9,7 +9,7 @@ metadata:
     app.kubernetes.io/component: template-api
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/revision: "{{ .Release.Revision }}"
-    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/version: "{{ .Chart.AppVersion }}"
     app.kubernetes.io/managed-by: helm
 spec:
   selector:
@@ -45,16 +45,18 @@ spec:
           value: http://*:8080
         - name: NATSSERVERURL
           value: nats://natsserver:4222
-        - name: MONGODBCONNECTION
+        - name: DBCONNECTION
           valueFrom:  
             secretKeyRef:
               name: templatedbsecret
               key: appConnection
-        - name: MONGODB
+        - name: DB
           valueFrom:  
             secretKeyRef:
               name: templatedbsecret
               key: initDBName
+        - name: DBTYPE
+          value: {{.Values.templatedbtype}}
         - name: JWT-AUTHORITY
           value: {{.Values.identityProviderURL}}/realms/{{.Values.identityProviderRealm}}
         - name: JWT-CLIENT
@@ -92,7 +94,7 @@ metadata:
     app.kubernetes.io/component: template-api
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/revision: "{{ .Release.Revision }}"
-    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/version: "{{ .Chart.AppVersion }}"
     app.kubernetes.io/managed-by: helm
 spec:
   ports:
@@ -116,7 +118,7 @@ metadata:
     app.kubernetes.io/component: template-api-ingress
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/revision: "{{ .Release.Revision }}"
-    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/version: "{{ .Chart.AppVersion }}"
     app.kubernetes.io/managed-by: helm
   annotations:
     kubernetes.io/ingress.class: nginx
@@ -146,7 +148,7 @@ metadata:
     app.kubernetes.io/component: template-api
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/revision: "{{ .Release.Revision }}"
-    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/version: "{{ .Chart.AppVersion }}"
     app.kubernetes.io/managed-by: helm
   annotations:
     # Note that the backend talks over HTTP.
@@ -183,7 +185,7 @@ metadata:
     app.kubernetes.io/component: template-api
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/revision: "{{ .Release.Revision }}"
-    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/version: "{{ .Chart.AppVersion }}"
     app.kubernetes.io/managed-by: helm
     {{ .Values.servicemonitormatchlabelname }}: {{ .Values.servicemonitormatchlabelvalue }}
 spec:

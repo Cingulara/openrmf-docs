@@ -1,4 +1,5 @@
 ---
+layout: default
 title: OpenRMF Introduction
 nav_order: 1
 ---
@@ -12,7 +13,7 @@ OpenRMF is the only web-based open source tool to manage your DoD STIG checklist
 
 Compare this to the manual way you have to manage STIG Checklists and SCAP scans, outlined in Tutela's [blog post here](https://medium.com/@dgould_43957/how-to-use-disa-stig-viewer-tool-907358d17cea). 
 
-See [What's New](./whatsnew.md) with the latest version.
+See [What's New](./whatsnew.html) with the latest version.
 
 ## What it does
 OpenRMF manages your RMF documentation and removes the Cybersecurity mystery! It allows management to view the status of checklists and RMF progress on their systems. 
