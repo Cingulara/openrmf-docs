@@ -1,5 +1,7 @@
-# Keycloak 7.0 setup for OpenRMF Login and RBAC
+# Keycloak 10.0.2 setup for OpenRMF Login and RBAC
 OpenRMF uses Keycloak (OpenID) initially for login and password access as well as role based access control. You also can use Keycloak for linking to Identity Providers with Google, GitHub, Twitter, and others for access to OpenRMF. Feel free to follow these Keycloak directions or use another provider that can give you OpenID functionality. The Keycloak setup is below and should be similar to other OpenID applications. This setup below uses Keycloak 7.0. I have not tried it on version 6 or below. If you must use 6 then you will need to test to ensure it works 100%.
+
+More information can be found in the [Online Documation](https://cingulara.github.io/openrmf-docs/keycloak.html).
 
 ## Running Keycloak in Docker
 You can use the below line to run Keycloak and use Postgres to save the configuration information. Please update your passwords appropriately in the [docker-compose.yml](scripts/keycloak/docker-compose.yml) file. We have a docker-compose file you can readily pull down and use in our scripts/keycloak directory for you to make this easy.
@@ -23,7 +25,7 @@ We had a contributor (KC) setup an automated way to define your realm in Keycloa
 
 * Mac Users can use [setup-realm-mac.sh](scripts/keycloak/setup-realm-mac.sh) file.
 * Linux users can use the [setup-realm-linux.sh](scripts/keycloak/setup-realm-linux.sh) file. 
-* Windows users, stay tuned!
+* Windows users, we are beta testing the [setup-realm-windows.cmd](scripts/keycloak/setup-realm-windows.cmd) file. Feedback welcome!
 
 ## Step by Step Manual Directions
 
@@ -84,6 +86,11 @@ enter "openrmf" for the Name and fill in other details as you wish. The "openrmf
 Now you are finally done! Check the OpenRMF web application by creating a user and logging in. 
 
 > Remember the Redirect URIs cannot be "localhost" if you are running these components inside Docker. Localhost is local to the docker container!
+
+## Advanced: Change to the OpenRMF Keycloak Theme
+You can go to the Realm Settings in Keycloak for OpenRMF, and then click the Themes tab near the top of the page. For the Login Theme, select the dropdown and choose "openrmf" to use the OpenRMF themed login and registration page. 
+
+> This is available in OpenRMF 1.2 and beyond.
 
 ## Application Settings for Keycloak for running in Debug Mode
 There are a few places when running in debug mode that you have to know the Keycloak URL and realm. They are listed below. Most of them deal with the APIs and validating login access to roles in the API code. And there is an Auth.js file in the web Javascript folder.  These places point to the exact URL of Keycloak to validate the login and get roles. This corresponds to the Valid Redirect URIs field in the client setup so they must be setup correctly. Otherwise you will receive an error on an invalid caller trying to authenticate your user.

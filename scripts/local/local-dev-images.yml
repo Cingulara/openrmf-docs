@@ -3,7 +3,7 @@ version : '3.2'
 services:
 ### 1 Web Front End Container
   openrmf-web:
-    image: openrmf-web:1.02.01
+    image: openrmf-web:1.02.02
     container_name: openrmf-web
     ports:
       - 8080:8080
@@ -21,7 +21,7 @@ services:
 
 ### 9 API Containers
   openrmfapi-scoring:
-    image: openrmf-api-scoring:1.02.01
+    image: openrmf-api-scoring:1.02.02
     container_name: openrmf-scoring-api
     ports:
       - 8090
@@ -44,7 +44,7 @@ services:
       - openrmf
   
   openrmfapi-save:
-    image: openrmf-api-save:1.02.01
+    image: openrmf-api-save:1.02.02
     container_name: openrmf-save-api
     ports:
       - 8082
@@ -70,7 +70,7 @@ services:
       - openrmf
 
   openrmfapi-template:
-    image: openrmf-api-template:1.02.01
+    image: openrmf-api-template:1.02.03
     container_name: openrmf-template-api
     ports:
       - 8088
@@ -94,7 +94,7 @@ services:
       - openrmf
 
   openrmfapi-upload:
-    image: openrmf-api-upload:1.02.01
+    image: openrmf-api-upload:1.02.02
     container_name: openrmf-upload-api
     ports:
       - 8086
@@ -120,7 +120,7 @@ services:
       - openrmf
 
   openrmfapi-read:
-    image: openrmf-api-read:1.02.01
+    image: openrmf-api-read:1.02.02
     container_name: openrmf-read-api
     ports:
       - 8084
@@ -144,7 +144,7 @@ services:
       - openrmf
 
   openrmfapi-compliance:
-    image: openrmf-api-compliance:1.02.01
+    image: openrmf-api-compliance:1.02.02
     container_name: openrmf-compliance-api
     ports:
       - 8092
@@ -163,7 +163,7 @@ services:
       - openrmf
 
   openrmfapi-controls:
-    image: openrmf-api-controls:1.02.01
+    image: openrmf-api-controls:1.02.02
     container_name: openrmf-controls-api
     ports:
       - 8094
@@ -182,7 +182,7 @@ services:
       - openrmf
 
   openrmfapi-audit:
-    image: openrmf-api-audit:1.02.01
+    image: openrmf-api-audit:1.02.02
     container_name: openrmf-audit-api
     ports:
       - 8096
@@ -206,7 +206,7 @@ services:
       - openrmf
 
   openrmfapi-report:
-    image: openrmf-api-report:1.02.01
+    image: openrmf-api-report:1.02.02
     container_name: openrmf-report-api
     ports:
       - 8098

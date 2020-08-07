@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Keycloak Setup
+title: Local Keycloak Setup
 nav_order: 1000
 ---
 
@@ -18,7 +18,7 @@ We had a contributor (KC) setup an automated way to define your realm in Keycloa
 
 * Mac Users can use [setup-realm-mac.sh](https://github.com/Cingulara/openrmf-docs/blob/master/scripts/keycloak/setup-realm-mac.sh) file.
 * Linux users can use the [setup-realm-linux.sh](https://github.com/Cingulara/openrmf-docs/blob/master/scripts/keycloak/setup-realm-linux.sh) file. 
-* Windows users, stay tuned!
+* Windows users, we are currently testing the [setup-realm-windows.cmd](https://github.com/Cingulara/openrmf-docs/blob/master/scripts/keycloak/setup-realm-windows.cmd) file. 
 
 ## OpenRMF Theme for Keycloak
 You can separately use the OpenRMF theme we created for login and user registration. Log into the Keycloak administration page and go to the OpenRMF realm. Under the Themes tab, you can select the "openrmf" Login Theme to use our theme for login and when a user registers for an account (if allowed).

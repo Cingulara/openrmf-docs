@@ -73,7 +73,7 @@ services:
       - openrmf
 
   openrmfapi-template:
-    image: cingulara/openrmf-api-template:1.02.02
+    image: cingulara/openrmf-api-template:1.02.03
     container_name: openrmf-template-api
     restart: always
     ports:

@@ -1,20 +1,10 @@
 # OpenRMF Documentation (v 1.2)
-
-## Introduction to OpenRMF
-OpenRMF is an open source tool for managing, viewing, and reporting of your DoD STIG checklists and Nessus Patch Scans in one web-based interface using your browser. It also generates a compliance listing of all your checklists across a whole system based on NIST 800-53 for your Risk Management Framework (RMF) documentation and process. This tool helps you manage multiple systems going through the RMF process and allows you to structure your data in a clean interface all in one location for your group or program. 
-
-It will save you _weeks_ of manually checking vulnerability-to-CCI-to-NIST controls and manually generating reports, so you can get on to the value-added work for your cybersecurity hygiene.
-
-When a team has poor visibility of their system’s risk data, it can result in bad decisions, errors, security risks and unforeseen issues. Teams must replace manual RMF and checklist methods that use spreadsheets and emails with an open, web-based solution that your team can leverage to plan, track and govern the entire RMF process. That is where OpenRMF helps you and your team!
-
-Read more about its genesis <a href="https://www.cingulara.com/opensource.html" target="_blank">here</a>.
-
-![Image](./img/UI-dashboard.png?raw=true)
+OpenRMF is an open source tool for managing, viewing, and reporting of your DoD STIG checklists, SCAP Scans and Nessus Patch Scans in one web-based interface using your browser. It also generates a compliance listing of all your checklists across a whole system based on NIST 800-53 for your Risk Management Framework (RMF) documentation and process. This tool helps you manage multiple systems going through the RMF process and allows you to structure your data in a clean interface all in one location for your group or program. 
 
 ## Get OpenRMF Core Running Locally
-If you want to get it running on your local laptop, desktop, or server follow these instructions. You need a good internet connection and Docker Desktop / Docker Community Edition to get this going.
+If you want to get it running on your local laptop, desktop, or server follow these instructions below. You need a fairly good internet connection and Docker Desktop / Docker Community Edition to get this going. And then go to the [latest release](https://github.com/Cingulara/openrmf-docs/releases) and download the Keycloak zip file and OpenRMF zip file. 
 
-[Step by Step Instructions](step-by-step.md)
+Next follow these [Step by Step Instructions](step-by-step.md).
 
 > Note that for Docker Desktop users, you need to have the File Sharing turned on to run OpenRMF the way it is designed in the docker-compose file. We use persistent volumes for MongoDB, Grafana, and Prometheus.
 
@@ -24,6 +14,17 @@ If you want to get it running on your local laptop, desktop, or server follow th
 If you want to run on AWS EKS, you can see the Helm Chart and Kubernetes specific information [here](./deployments/).
 
 @medined put up a great set of Ansible and Terraform script information at https://github.com/medined/openrmf-at-aws/ for work he is doing at the Container Working Group for the Veterans Administration. 
+
+## Why Use OpenRMF
+
+It will save you _weeks_ of manually checking vulnerability-to-CCI-to-NIST controls and manually generating reports, so you can get on to the value-added work for your cybersecurity hygiene.
+
+When a team has poor visibility of their system’s risk data, it can result in bad decisions, errors, security risks and unforeseen issues. Teams must replace manual RMF and checklist methods that use spreadsheets and emails with an open, web-based solution that your team can leverage to plan, track and govern the entire RMF process. That is where OpenRMF helps you and your team!
+
+Read more about its genesis <a href="https://www.cingulara.com/opensource.html" target="_blank">here</a>.
+
+![Image](./img/UI-dashboard.png?raw=true)
+
 
 ## Current Functionality
 - [x] Import SCAP scans (DISA STIGs) for automatic checklist documentation
@@ -70,7 +71,7 @@ If you want to run on AWS EKS, you can see the Helm Chart and Kubernetes specifi
 
 If we are missing something you want, please add it on our main <a href="https://github.com/Cingulara/openrmf-web/issues" target="_blank">GitHub Issues</a> page.
 
-## Description
+## TL;DR Description
 
 The OpenRMF tool is an advanced alternative to the [DISA STIGViewer.jar](https://iase.disa.mil/stigs/Pages/stig-viewing-guidance.aspx) and MS Excel hell we go through used for DoD STIG checklist files, SCAP Scans, Nessus ACAS scans, RMF process information, and the like. It is necessary to capture and report on this information, please _do not_ mistake what I say for not agreeing with securing services. However, the DISA Java tool itself is horribly designed and not conducive to today's environment and use. And it is only part of the story. Their Java tool has been like this for a loooooonnnnnngggg time and I have wanted to make something better (IMO) for almost as long. So this tool here is the start! It is a way (currently) to view, report on, dive into, manage, and export your STIG checklists no matter which checklist you are referring to. All the .CKL files have a common format and htis reads and displays/manages that in a web front end using .NET Core APIs, MongoDB and NATS messaging. [View the history](https://www.cingulara.com/opensource.html) of this tool on our website. 
 
