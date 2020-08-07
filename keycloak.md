@@ -1,6 +1,8 @@
 # Keycloak 10.0.2 setup for OpenRMF Login and RBAC
 OpenRMF uses Keycloak (OpenID) initially for login and password access as well as role based access control. You also can use Keycloak for linking to Identity Providers with Google, GitHub, Twitter, and others for access to OpenRMF. Feel free to follow these Keycloak directions or use another provider that can give you OpenID functionality. The Keycloak setup is below and should be similar to other OpenID applications. This setup below uses Keycloak 7.0. I have not tried it on version 6 or below. If you must use 6 then you will need to test to ensure it works 100%.
 
+More information can be found in the [Online Documation](https://cingulara.github.io/openrmf-docs/keycloak.html).
+
 ## Running Keycloak in Docker
 You can use the below line to run Keycloak and use Postgres to save the configuration information. Please update your passwords appropriately in the [docker-compose.yml](scripts/keycloak/docker-compose.yml) file. We have a docker-compose file you can readily pull down and use in our scripts/keycloak directory for you to make this easy.
 
