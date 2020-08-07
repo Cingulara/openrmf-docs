@@ -46,7 +46,7 @@ services:
       - openrmf
   
   openrmfapi-save:
-    image: cingulara/openrmf-api-save:1.02.02
+    image: cingulara/openrmf-api-save:1.02.03
     container_name: openrmf-save-api
     restart: always
     ports:
