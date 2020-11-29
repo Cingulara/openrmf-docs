@@ -1,6 +1,6 @@
 ---
 layout: default
-title: What's New in v1.2
+title: What's New in v1.3
 nav_order: 2
 ---
 
@@ -8,7 +8,14 @@ nav_order: 2
 
 Please refer to the <a href="https://github.com/Cingulara?tab=projects" target="_blank">OpenRMF Projects listing on GitHub</a> for more information on feature updates and timeline.
 
-## Version 1.1
+## Version 1.3
+Version 1.3 was a bug fix release primarily as outlined below:
+* Display the status of the vulnerability in the checklist/template view
+* Scoring a checklist now uses the Severity Override as the severity if it is filled in (API and MSG client)
+* Fixed a bug in the low/moderate/high loading of NIST 800.53 Controls
+* Fixed a bug where PII controls are always used in the Compliance engine -- now only if the checkbox is set
+
+## Version 1.2
 Version 1.2 was also a security fix primarily with some updated functionality as outlined below:
 * .NET Core 3.1 update with Debian 10 based containers
 * Updated .NET Core 3.1 components such as Jaeger client, Swashbuckle, etc.
