@@ -3,7 +3,7 @@ version : '3.2'
 services:
 ### 1 Web Front End Container
   openrmf-web:
-    image: cingulara/openrmf-web:1.02.02
+    image: cingulara/openrmf-web:1.03.00
     container_name: openrmf-web
     restart: always
     ports:
@@ -22,7 +22,7 @@ services:
 
 ### 9 API Containers
   openrmfapi-scoring:
-    image: cingulara/openrmf-api-scoring:1.02.02
+    image: cingulara/openrmf-api-scoring:1.03.00
     container_name: openrmf-scoring-api
     restart: always
     ports:
@@ -73,7 +73,7 @@ services:
       - openrmf
 
   openrmfapi-template:
-    image: cingulara/openrmf-api-template:1.02.03
+    image: cingulara/openrmf-api-template:1.03.00
     container_name: openrmf-template-api
     restart: always
     ports:
@@ -241,7 +241,7 @@ services:
 
 ### 8 Messaging Containers
   openrmfmsg-score:
-    image: cingulara/openrmf-msg-score:1.02.01
+    image: cingulara/openrmf-msg-score:1.03.00
     container_name: openrmf-score-nats-message-client
     restart: always
     environment:
@@ -300,7 +300,7 @@ services:
       - openrmf
 
   openrmfmsg-controls:
-    image: cingulara/openrmf-msg-controls:1.02.01
+    image: cingulara/openrmf-msg-controls:1.03.00
     container_name: openrmf-controls-nats-message-client
     restart: always
     environment:
