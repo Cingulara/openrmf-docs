@@ -12,7 +12,7 @@ You can use the Unprivileged NGINX container used for the OpenRMF Web UI to fron
 If you have a certificate server or use an online certificate, generate the certificate and get the KEY and CRT file available to use from the local container. I put mine into an "ssl" folder and mounted that to the /etc/nginx/certs/ folder. See the "Mounting the Certificates" link at the bottom of this page. 
 
 ## Update the Docker Compose file
-We use the unprivileged NGINX container, so you cannot use poret 80 and port 443 as some of the online articles tell you. You can however make :8080 redirect to :8443 and that works perfectly fine. We have done that ourselves with self-signed certificates. You must also expose port 8443 in the docker-compose file to ensure the redirection of 8080 to 8443 works correctly.
+We use the unprivileged NGINX container, so you cannot use port 80 and port 443 as some of the online articles tell you. You can however make :8080 redirect to :8443 and that works perfectly fine. We have done that ourselves with self-signed certificates. You must also expose port 8443 in the docker-compose file to ensure the redirection of 8080 to 8443 works correctly.
 
 ## Update Keycloak
 Your Keycloak should also be in HTTPS mode or the authentication mixture of using HTTP for Keycloak to log into an HTTPS site will not work. When your Keycloak is using HTTPS correctly, you can then add the https://xxxxxxxxxxxxxx:8443/* to the Valid Redirect URIs before you try to login. You also can set Realm Settings for OpenRMF to require SSL for external or for all client connections. See the Keycloak documentation for more on that. 
