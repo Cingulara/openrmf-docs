@@ -9,7 +9,7 @@ nav_order: 1000
 OpenRMF is setup to run locally on your local server, laptop, etc.  If you want to use that over a network you can use the Unprivileged NGINX container we setup for the OpenRMF Web UI to front your OpenRMF with HTTPS. You just need to have a few files for your certificate, update the docker-compose, update Keycloak for https, and then restart your stacks. See below for details. 
 
 ## Setup Your Certificate
-If you have a certificate server or use an online certificate, generate the certificate and get the KEY and CRT file available to use from the local container. I put mine into an "ssl" folder and mounted that to the /etc/nginx/certs/ folder. See the "Mounting the Certificates" link at the bottom of this page. 
+If you have a certificate server or use an online certificate, generate the certificate and get the KEY and CRT file available to use from the local container. I put mine into an "ssl" folder and mounted that to the /etc/nginx/certs/ folder. See the "Mounting the Certificates" link at the bottom of this page. You can do this with self-signed certificates as well but you have to figure out how to get the backend APIs to validate them correctly. 
 
 My setup involved making a key like the links at the bottom suggest, generating the snippets files, and then mounting them correctly.  I also had to modify my nginx.conf file I use to redirect 8080 to 8443, and include the snippets files and server_name as well. Again, see the NGINX links below as those folks do a great job explaining what I am talking on here. 
 
@@ -47,6 +47,13 @@ In the top OpenRMF web container area I did this, as I had an "nginx" folder I m
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
       - ./nginx/snippets/:/etc/nginx/snippets/:ro
       - ./ssl/:/etc/nginx/certs/ssl/:ro
+```
+
+Also for EVERY SINGLE container that is an API (there are 9), I had to add this as volumes in the docker-comopse.yml file. This allows all APIs to validate the self-signed certificate if you do not want to use a valid CA. You also could use a valid CA to generate certs, OR add the valid CA in here for your certificate in a similar manner. I leave that exercise to you!
+```
+    volumes:
+      - ./ssl/certs/self-signed.crt:/etc/ssl/certs/self-signed.crt.conf:ro
+      - ./ssl/private/self-signed.key:/etc/ssl/private/self-signed.key.conf:ro
 ```
 
 ![OpenRMF SSL Setup](/assets/sslsetup.png)
@@ -133,7 +140,9 @@ http {
 
 ## Putting it all together
 
-When you have the files setup and mounted to the cert path, 8443 used and exposed in the docker-compose.yml file, setup Keycloak to use HTTPS, updated the .env file in the OpenRMF directory, and updated your Valid Redirect URIs you can bring up the Keycloak stack and then the OpenRMF stack and test out your HTTPS configuration. It may still warn you "this is not a valid cert" if you did a self-signed cert. I did this and used Safari and said "it is OK" for this to work. Or you can add it to the list of valid certs in your machine if you wish. Chrome did not like the self-signed cert I did at first. 
+When you have the files setup and mounted to the cert path, 8443 used and exposed in the docker-compose.yml file, setup Keycloak to use HTTPS fronted by NGINX (or natively if you wish), updated the .env file in the OpenRMF directory, updated the OpenRMF docker-compose.yml file, and updated your Valid Redirect URIs you can bring up the Keycloak stack and then the OpenRMF stack and test out your HTTPS configuration. It may still warn you "this is not a valid cert" if you did a self-signed cert. I did this and used Safari and said "it is OK" for this to work. Or you can add it to the list of valid certs in your machine if you wish. Chrome did not like the self-signed cert I did at first. 
+
+This assumes your certificates are valid in your system. If you do the self-signed certificates you may have an issue with the backend APIs not validating your JWT because the https link in your .env file is not being used with a valid https certificate.
 
 You may want to run the "docker-compose up" without the "-d" as is in the SH/CMD startup scripts for OpenRMF to see the logs printed to the screen in case you need to debug your connections. You also can run ` docker logs openrmf-web ` for listing the logs of the OpenRMF web UI in NGINX out to the screen to help you troubleshoot.
 
