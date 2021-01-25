@@ -8,6 +8,11 @@ nav_order: 2
 
 Please refer to the <a href="https://github.com/Cingulara?tab=projects" target="_blank">OpenRMF Projects listing on GitHub</a> for more information on feature updates and timeline.
 
+## Version 1.3.1
+Version 1.3 was a bug fix release primarily as outlined below:
+* Fix a bug #203 on CAT 3 checklist Not a Finding counts not matching the checklist file
+* Updated to the Jan 22, 2021 DISA public STIG templates
+
 ## Version 1.3
 Version 1.3 was a bug fix release primarily as outlined below:
 * Display the status of the vulnerability in the checklist/template view
