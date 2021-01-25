@@ -73,7 +73,7 @@ services:
       - openrmf
 
   openrmfapi-template:
-    image: cingulara/openrmf-api-template:1.03.01
+    image: cingulara/openrmf-api-template:1.03.02
     container_name: openrmf-template-api
     restart: always
     ports:
@@ -241,7 +241,7 @@ services:
 
 ### 8 Messaging Containers
   openrmfmsg-score:
-    image: cingulara/openrmf-msg-score:1.03.00
+    image: cingulara/openrmf-msg-score:1.03.01
     container_name: openrmf-score-nats-message-client
     restart: always
     environment:
