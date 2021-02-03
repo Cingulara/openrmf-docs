@@ -1,6 +1,6 @@
 ---
 layout: default
-title: What's New in v1.3
+title: What's New in v1.4
 nav_order: 2
 ---
 
@@ -8,8 +8,17 @@ nav_order: 2
 
 Please refer to the <a href="https://github.com/Cingulara?tab=projects" target="_blank">OpenRMF Projects listing on GitHub</a> for more information on feature updates and timeline.
 
+## Version 1.4
+Version 1.4 included one added feature:
+* Feature #216: Ability to upload OpenSCAP results XCCDF XML file to create Checklists, along with Nessus and DISA SCAP XCCDF XML results
+
+## Version 1.3.2
+Version 1.3.2 was a bug fix release primarily as outlined below:
+* Fix score calculation bug #213 on checklists for Not a Finding counts
+* Added additional DISA public STIG Templates
+
 ## Version 1.3.1
-Version 1.3 was a bug fix release primarily as outlined below:
+Version 1.3.1 was a bug fix release primarily as outlined below:
 * Fix a bug #203 on CAT 3 checklist Not a Finding counts not matching the checklist file
 * Updated to the Jan 22, 2021 DISA public STIG templates
 

@@ -36,7 +36,9 @@ Keycloak is setup! On to Step 2.
 
 This is a VERY, VERY important step. In the OpenRMF zip file with all the scripts to run this locally, you have a .env file that is with the rest of the files. You need to expand that ZIP file into a separate directory just for OpenRMF scripts. 
 
-You may not see it if on Linux or Mac, so you will need to run `ls -al` or something similar to see it. You *must* edit this file that looks like the YAML below and in the 'xxx.xxx' area put your IP address that Keycloak is running on. It should be the same machine you are doing all this on more than likely. It is the same IP you entered in the "Enter your IP" step for Keycloak. This .env file is with the OpenRMF files separate from the rest. It is read in when you launch OpenRMF and put into an environment variable for the Docker Compose run containers specifically so the APIs can authenticate requests. 
+You may not see it if on Linux or Mac, so you will need to run `ls -al` or something similar to see it. You *must* edit this file that looks like the YAML below and in the 'xxx.xxx' area put your IP address that Keycloak is running on. It should be the same machine you are doing all this on more than likely. It is the same IP you entered in the "Enter your IP" step for Keycloak setup if you used one of the automated setup scripts for Keycloak. If you did the manual steps, use the IP address of the machine Keycloak is running on (run ` ipconfig ` or ` ifconfig `). 
+
+This .env file is with the OpenRMF files separate from the rest. It is read in when you launch OpenRMF and put into an environment variable for the Docker Compose run containers specifically so the APIs can authenticate requests. 
 
 ```yaml
 JWT-AUTHORITY=http://xxx.xxx.xxx.xxx:9001/auth/realms/openrmf
