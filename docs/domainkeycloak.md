@@ -12,11 +12,14 @@ If you follow these steps below you can make it use your existing Keycloak setup
 1. Log out of OpenRMF in your web browser. 
 2. Power down the OpenRMF stack with `stop.sh` or `stop.cmd` appropriately.
 3. Edit the .env file (it may be hidden) in the directory with the OpenRMF docker files and use the correct URL and client links.
+
 ```
 JWT-AUTHORITY=https://mykeycloak.mydomain.com/auth/realms/openrmf
 JWT-CLIENT=openrmf
 ```
+
 4. Create a new auth.js file and place in the same directory as the OpenRMF docker-compose file (see below) using your new URL base for Keycloak.
+
 ```
 var keycloak = Keycloak({
     url: 'https://mykeycloak.mydomain.com/auth/',
@@ -24,12 +27,15 @@ var keycloak = Keycloak({
     clientId: 'openrmf'
 });
 ```
+
 5. Edit the docker-compose.yml file in the OpenRMF directory and around line 19 where "volumes:" is used you need to add a new entry like below, pointing to your new local auth.js file you just made. It will look very similar to the nginx.conf line. 
+
 ```
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
       - ./auth.js:/usr/share/nginx/html/js/auth.js:ro
 ```
+
 6. Run the `start.sh` or `start.cmd` to bring back up the OpenRMF Stack.
 7. Go to your web browser and clear the cache and history to clean up older used OpenRMF files.
 8. Refresh your browser and go to the OpenRMF URL that you use. 
