@@ -24,8 +24,6 @@ spec:
       containers:
       - name: openrmf-msg-score
         image: cingulara/openrmf-msg-score:{{.Values.scoremsgImage}}
-        ports:
-        - containerPort: 8080
         env:
         - name: NATSSERVERURL
           value: nats://natsserver:4222
