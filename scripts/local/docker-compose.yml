@@ -2,7 +2,7 @@ version : '3.2'
  
 services:
   web:
-    image: nginxinc/nginx-unprivileged:1.18
+    image: nginxinc/nginx-unprivileged:1.19
     container_name: openrmf-web
     command: [nginx-debug, '-g', 'daemon off;']
     restart: always
@@ -27,7 +27,7 @@ services:
       - openrmf-local
 
   nats: 
-    image: nats:2.1.7-linux
+    image: nats:2.1.9
     container_name: nats
     command: -m 8222
     restart: always
@@ -62,7 +62,7 @@ services:
       - openrmf-local
 
   prometheus:
-    image: prom/prometheus:v2.19.2
+    image: prom/prometheus:v2.25.0
     container_name: prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
@@ -76,7 +76,7 @@ services:
       - openrmf-local
 
   grafana: 
-    image: grafana/grafana:7.0.4
+    image: grafana/grafana:7.4.2
     container_name: grafana
     #command:
     environment:
@@ -88,7 +88,7 @@ services:
       - openrmf-local
 
   jaeger:
-    image: jaegertracing/all-in-one:1.18.1
+    image: jaegertracing/all-in-one:1.21.0
     container_name: jaeger
     restart: always
     ports:
@@ -101,7 +101,7 @@ services:
       - openrmf-local
 
   cadvisor:
-    image: google/cadvisor:latest
+    image: google/cadvisor:v0.33.0
     container_name: cadvisor
     restart: always
     ports:
