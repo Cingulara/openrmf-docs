@@ -36,10 +36,11 @@ var keycloak = Keycloak({
       - ./auth.js:/usr/share/nginx/html/js/auth.js:ro
 ```
 
-6. Run the `start.sh` or `start.cmd` to bring back up the OpenRMF Stack.
-7. Go to your web browser and clear the cache and history to clean up older used OpenRMF files.
-8. Refresh your browser and go to the OpenRMF URL that you use. 
-9. You should see it go to your new URL for login. 
-10. As long as you set it up manually correctly you should be able to login, get your roles, redirect back to OpenRMF and continue on!
+6. Run ` chmod a+r ` or equivalent command across any files you do a ` git clone ` or ` git pull ` on as well as other files you make. So the container permissions allow the actual image to read the new or updated iles.
+7. Run the `start.sh` or `start.cmd` to bring back up the OpenRMF Stack.
+8. Go to your web browser and clear the cache and history to clean up older used OpenRMF files.
+9. Refresh your browser and go to the OpenRMF URL that you use. 
+10. You should see it go to your new URL for login. 
+11. As long as you set it up manually correctly you should be able to login, get your roles, redirect back to OpenRMF and continue on!
 
 > Don't worry, if you mess it up just go back to the https://github.com/Cingulara/openrmf-web/blob/master/js/auth.js main file and copy/paste to start over. 

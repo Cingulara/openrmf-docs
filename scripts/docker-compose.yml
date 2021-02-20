@@ -3,7 +3,7 @@ version : '3.2'
 services:
 ### 1 Web Front End Container
   openrmf-web:
-    image: cingulara/openrmf-web:1.05.00
+    image: cingulara/openrmf-web:1.05.01
     container_name: openrmf-web
     restart: always
     ports:
@@ -380,7 +380,7 @@ services:
       - openrmf
 
   openrmfmsg-reports:
-    image: cingulara/openrmf-msg-reports:1.03.00
+    image: cingulara/openrmf-msg-reports:1.03.01
     container_name: openrmf-report-nats-message-client
     restart: always
     environment:

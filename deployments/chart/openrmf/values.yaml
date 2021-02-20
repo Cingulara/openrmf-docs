@@ -40,9 +40,9 @@ templateImage: 1.05.00
 templatemsgImage: 1.03.00
 uploadImage: 1.05.00
 systemmsgImage: 1.03.00
-webuiImage: 1.05.00
+webuiImage: 1.05.01
 reportImage: 1.03.00
-reportmsgImage: 1.03.00
+reportmsgImage: 1.03.01
 mongoImage: 4.2.7-nonroot
 natsImage: 2.1.7-linux
 

@@ -84,6 +84,9 @@ services:
     restart: always
     ports:
       - 3000:3000
+    volumes:
+      - ../grafana/dashboards/:/etc/grafana/provisioning/dashboards/:ro
+      - ../grafana/datasources/:/etc/grafana/provisioning/datasources/:ro
     networks:
       - openrmf-local
 
