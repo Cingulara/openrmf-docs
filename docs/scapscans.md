@@ -11,7 +11,9 @@ SCAP stands for Security Content Automation Protocol.  SCAP scans compare the sy
 ## The SCAP Scan Process
 The SCAP benchmarks are available as ZIP downloads on this site as well. The DISA SCAP scan is only available to those with a DoD CAC and can be downloaded from the DoD Cyber Exchange NIPR site. See the URL above for more information.  You use the benchmark files to load into the SCAP scanner and that allows the scan to match against good known security standards.  The results of a SCAP scan can be exported as an XCCDF format XML file and then imported into a Checklist using a tool such as STIG viewer or OpenRMF to create an actual checklist of findings.
 
-Tennable's tool Nessus also has a SCAP scan capability for SCAP scans that covers a subset of the scans that the DISA SCAP Scanner can do. You also can export those files as XCCDF Format and import into OpenRMF to create a checklist of findings as well.
+Tennable's tool Nessus also has a SCAP scan capability for SCAP scans that covers a subset of the scans that the DISA SCAP Scanner can do. You also can export those files as XCCDF Format and import into OpenRMF to create a checklist of findings as well. 
+
+And the OpenSCAP tool at https://www.open-scap.org/ also produces SCAP results that OpenRMF can take in and use to create STIG Checklists from your scan results. This is as of version 1.4 and later of OpenRMF.
 
 ## Turning a SCAP Scan into a Checklist
 A scan by itself is great, however it needs to be turned into a checklist to show proof and get actionable results. There are a couple ways to do this, as outlined in Tutela's Medium blog post at <a  href="https://medium.com/@dgould_43957/how-to-use-disa-stig-viewer-tool-907358d17cea" target="_blank">https://medium.com/@dgould_43957/how-to-use-disa-stig-viewer-tool-907358d17cea</a>.

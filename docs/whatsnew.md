@@ -1,12 +1,19 @@
 ---
 layout: default
-title: What's New in v1.4
+title: What's New in v1.5
 nav_order: 2
 ---
 
 # What's New with OpenRMF
 
 Please refer to the <a href="https://github.com/Cingulara?tab=projects" target="_blank">OpenRMF Projects listing on GitHub</a> for more information on feature updates and timeline.
+
+## Version 1.5
+Version 1.5 included one added feature:
+* Updated base image and application container image to use Alpine and self-contained application executables for reduced scanning surface and size
+* Bug fix for the Reporting when you upgrade to a new STIG Checklist release with changing Vulnerability IDs
+* Auto-logoff after 15 minutes
+* Auto-refresh of the Keycloak token when on a page longer than 5 minutes
 
 ## Version 1.4
 Version 1.4 included one added feature:

@@ -146,6 +146,8 @@ This assumes your certificates are valid in your system. If you do the self-sign
 
 You may want to run the "docker-compose up" without the "-d" as is in the SH/CMD startup scripts for OpenRMF to see the logs printed to the screen in case you need to debug your connections. You also can run ` docker logs openrmf-web ` for listing the logs of the OpenRMF web UI in NGINX out to the screen to help you troubleshoot.
 
+> NOTE: You may want to run ` chmod a+r ` or equivalent command across any files you do a ` git clone ` or ` git pull ` on as well as other files you make. So the container permissions allow the actual image to read the new or updated iles.
+
 ## Generating a Certificate
 
 https://nickolaskraus.org/articles/how-to-create-a-self-signed-certificate-for-nginx-on-macos/
