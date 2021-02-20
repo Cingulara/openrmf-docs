@@ -548,6 +548,8 @@ services:
       - 3000:3000
     volumes:
       - openrmf-grafana-data-volume:/var/lib/grafana # persist the data
+      - ./grafana/dashboards/:/etc/grafana/provisioning/dashboards/:ro
+      - ./grafana/datasources/:/etc/grafana/provisioning/datasources/:ro
     networks:
       - openrmf
 
