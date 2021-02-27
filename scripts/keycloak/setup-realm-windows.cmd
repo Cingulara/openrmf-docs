@@ -1,11 +1,14 @@
 @echo off
 echo(
+ECHO "Please make sure your Keycloak containers have been up for at least 2 - 3 minutes as the initial setup and loading are completed. Otherwise this script will fail."
+ECHO "You should be able to go to http:{ip-address}:9001/auth/ and see the starting screen before running this."
+ECHO.
 set /p keyip=Enter the IP of the local Keycloak server (runs on port 9001): 
 
 echo(
 set /p openuser=Enter the Name of the first OpenRMF Administrator account: 
 
-ECHO ""
+ECHO.
 REM BEGIN Locate Keycloak Container ID
 ECHO "Discovering local Keycloak Docker Container"
 REM set keycontainer=('docker ps -aqf \"name=keycloak_keycloak_1\"')
@@ -29,6 +32,8 @@ REM BEGIN Disable SSL Requirement
 echo(
 ECHO "Setting Require SSL to none (off)..."
 docker exec -i %keycontainer% /opt/jboss/keycloak/bin/kcadm.sh update realms/openrmf --set "sslRequired=none"
+docker exec -i %keycontainer% /opt/jboss/keycloak/bin/kcadm.sh update realms/openrmf --set "displayName=OpenRMF OSS"
+docker exec -i %keycontainer% /opt/jboss/keycloak/bin/kcadm.sh update realms/openrmf --set "displayNameHtml=OpenRMF OSS"
 REM END Disable SSL Requirement
 
 REM BEGIN Create Password Policy
@@ -50,8 +55,7 @@ REM END Create Roles
 REM BEGIN Create Client 
 echo(
 ECHO "Creating the Keycloak Client..."
-FOR /F %%c IN ('docker exec -i %keycontainer% /opt/jboss/keycloak/bin/kcadm.sh create clients -r openrmf -s "enabled=true" -s "clientId=openrmf" -s "publicClient=true" -s "description=openrmf login for Web and APIs" -s "redirectUris=[\"http://%keyip%:8080/*\"]" -s "webOrigins=[\"*\"]" -i ') DO set cid=%%c
-REM cid=$(docker exec -i %keycontainer% /opt/jboss/keycloak/bin/kcadm.sh create clients -r openrmf -s enabled=true -s clientId=openrmf -s publicClient=true -s 'description=openrmf login for Web and APIs' -s 'redirectUris=["http://'$keyip':8080/*"]' -s 'webOrigins=["*"]' -i)
+FOR /F %%c IN ('docker exec -i %keycontainer% /opt/jboss/keycloak/bin/kcadm.sh create clients -r openrmf -s "enabled=true" -s "clientId=openrmf" -s "publicClient=true" -s "description=OpenRMF login for Web and APIs" -s "redirectUris=[\"http://%keyip%:8080/*\"]" -s "webOrigins=[\"*\"]" -i ') DO set cid=%%c
 ECHO "%cid%"
 REM END Create Client
 
@@ -83,5 +87,5 @@ echo(
 ECHO "Last Step - Adding Reader Role to Default Realm Roles..."
 docker exec -i %keycontainer% /opt/jboss/keycloak/bin/kcadm.sh update realms/openrmf -f - < defaultroles.json
 echo(
-ECHO "Completed!"
+ECHO "Congratulations! The OpenRMF OSS Keycloak realm has been created successfully!"
 REM END Add Reader Role to Default Realm Roles  

@@ -1,3 +1,7 @@
+echo
+echo "Please make sure your Keycloak containers have been up for at least 2 - 3 minutes as the initial setup and loading are completed. Otherwise this script will fail."
+echo "You should be able to go to http:{ip-address}:9001/auth/ and see the starting screen before running this."
+echo
 echo "Enter the IP of the local Keycloak server (runs on port 9001):"
 read keyip #>> $pathtohome/openrmf-Install.log
 
@@ -26,8 +30,10 @@ docker exec -i $keycontainer /opt/jboss/keycloak/bin/kcadm.sh create realms -s r
 
 ##BEGIN Disable SSL Requirement
 echo
-echo "Setting Require SSL to none (off)..."
+echo "Setting OpenRMF Realm Options (SSL off, Display Name)..."
 docker exec -i $keycontainer /opt/jboss/keycloak/bin/kcadm.sh update realms/openrmf --set 'sslRequired=none'
+docker exec -i $keycontainer /opt/jboss/keycloak/bin/kcadm.sh update realms/openrmf --set 'displayName=OpenRMF OSS'
+docker exec -i $keycontainer /opt/jboss/keycloak/bin/kcadm.sh update realms/openrmf --set 'displayNameHtml=OpenRMF OSS'
 ##END Disable SSL Requirement
 
 ##BEGIN Create Password Policy

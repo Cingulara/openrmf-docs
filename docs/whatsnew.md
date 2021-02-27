@@ -8,8 +8,13 @@ nav_order: 2
 
 Please refer to the <a href="https://github.com/Cingulara?tab=projects" target="_blank">OpenRMF Projects listing on GitHub</a> for more information on feature updates and timeline.
 
-## Version 1.5
-Version 1.5 included one added feature:
+## Version 1.5.2
+Version 1.5.2 included one update:
+* Update to Keycloak v 12.0.3
+* Fix for Keycloak Windows-based realm creation script
+
+## Version 1.5.1
+Version 1.5.1 included a few updated features:
 * Updated base image and application container image to use Alpine and self-contained application executables for reduced scanning surface and size
 * Bug fix for the Reporting when you upgrade to a new STIG Checklist release with changing Vulnerability IDs
 * Auto-logoff after 15 minutes
