@@ -406,7 +406,7 @@ services:
 
 ### 5 MongoDB Containers
   checklistdb:
-    image: cingulara/mongo:4.2.7-nonroot
+    image: cingulara/mongo:4.4.4-nonroot
     container_name: mongodb-checklist
     restart: always
     ports:
@@ -422,7 +422,7 @@ services:
       - openrmf
 
   scoredb:
-    image: cingulara/mongo:4.2.7-nonroot
+    image: cingulara/mongo:4.4.4-nonroot
     container_name: mongodb-score
     restart: always
     ports:
@@ -438,7 +438,7 @@ services:
       - openrmf
 
   templatedb:
-    image: cingulara/mongo:4.2.7-nonroot
+    image: cingulara/mongo:4.4.4-nonroot
     container_name: mongodb-template
     restart: always
     ports:
@@ -454,7 +454,7 @@ services:
       - openrmf
 
   auditdb:
-    image: cingulara/mongo:4.2.7-nonroot
+    image: cingulara/mongo:4.4.4-nonroot
     container_name: mongodb-audit
     restart: always
     ports:
@@ -470,7 +470,7 @@ services:
       - openrmf
 
   reportdb:
-    image: cingulara/mongo:4.2.7-nonroot
+    image: cingulara/mongo:4.4.4-nonroot
     container_name: mongodb-report
     restart: always
     ports:

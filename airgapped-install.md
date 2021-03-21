@@ -34,31 +34,31 @@ For Keycloak:
 > Keycloak 8, 9 or 10 may also work but for now, we use 7.0. We will upgrade to Keycloak 10.x with instructions for that in the summer of 2020. 
 
 For OpenRMF:
-* cingulara/openrmf-web:1.0
-* cingulara/openrmf-api-scoring:1.0
-* cingulara/openrmf-api-save:1.0
-* cingulara/openrmf-api-template:1.0
-* cingulara/openrmf-api-upload:1.0
-* cingulara/openrmf-api-read:1.0
-* cingulara/openrmf-api-compliance:1.0
-* cingulara/openrmf-api-controls:1.0
-* cingulara/openrmf-api-audit:1.0
-* cingulara/openrmf-api-report:1.0
-* cingulara/openrmf-msg-score:1.0
-* cingulara/openrmf-msg-checklist:1.0
-* cingulara/openrmf-msg-compliance:1.0
-* cingulara/openrmf-msg-controls:1.0
-* cingulara/openrmf-msg-template:1.0
-* cingulara/openrmf-msg-system:1.0
-* cingulara/openrmf-msg-audit:1.0
-* cingulara/openrmf-msg-report:1.0
-* mongo:4.0.5
-* nats:2.1.2-linux
-* synadia/prometheus-nats-exporter:latest
+* cingulara/openrmf-web:1.05.01
+* cingulara/openrmf-api-scoring:1.04.00
+* cingulara/openrmf-api-save:1.04.00
+* cingulara/openrmf-api-template:1.05.00
+* cingulara/openrmf-api-upload:1.05.00
+* cingulara/openrmf-api-read:1.03.00
+* cingulara/openrmf-api-compliance:1.03.00
+* cingulara/openrmf-api-controls:1.03.00
+* cingulara/openrmf-api-audit:1.03.00
+* cingulara/openrmf-api-report:1.03.00
+* cingulara/openrmf-msg-score:1.04.00
+* cingulara/openrmf-msg-checklist:1.03.00
+* cingulara/openrmf-msg-compliance:1.03.00
+* cingulara/openrmf-msg-controls:1.04.00
+* cingulara/openrmf-msg-template:1.03.00
+* cingulara/openrmf-msg-system:1.03.00
+* cingulara/openrmf-msg-audit:1.03.00
+* cingulara/openrmf-msg-report:1.03.01
+* mongo:4.4.4-nonroot
+* nats:2.1.9
+* synadia/prometheus-nats-exporter:0.6.2
 * cingulara/nats-client-metrics:1.0.1
-* prom/prometheus
-* grafana/grafana
-* jaegertracing/all-in-one:latest
-* google/cadvisor:latest
+* prom/prometheus:v2.25.0
+* grafana/grafana:7.4.2
+* jaegertracing/all-in-one:1.21.0
+* google/cadvisor:v0.33.0
 
 > The OpenRMF items have the current version. Yours may differ in the container "tag" but not the name. 
