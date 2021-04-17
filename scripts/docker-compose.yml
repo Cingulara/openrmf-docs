@@ -22,7 +22,7 @@ services:
 
 ### 9 API Containers
   openrmfapi-scoring:
-    image: cingulara/openrmf-api-scoring:1.04.00
+    image: cingulara/openrmf-api-scoring:1.05.01
     container_name: openrmf-scoring-api
     restart: always
     ports:
@@ -46,7 +46,7 @@ services:
       - openrmf
   
   openrmfapi-save:
-    image: cingulara/openrmf-api-save:1.04.00
+    image: cingulara/openrmf-api-save:1.05.01
     container_name: openrmf-save-api
     restart: always
     ports:
@@ -73,7 +73,7 @@ services:
       - openrmf
 
   openrmfapi-template:
-    image: cingulara/openrmf-api-template:1.05.01
+    image: cingulara/openrmf-api-template:1.05.02
     container_name: openrmf-template-api
     restart: always
     ports:
@@ -98,7 +98,7 @@ services:
       - openrmf
 
   openrmfapi-upload:
-    image: cingulara/openrmf-api-upload:1.05.00
+    image: cingulara/openrmf-api-upload:1.05.01
     container_name: openrmf-upload-api
     restart: always
     ports:
@@ -125,7 +125,7 @@ services:
       - openrmf
 
   openrmfapi-read:
-    image: cingulara/openrmf-api-read:1.05.01
+    image: cingulara/openrmf-api-read:1.05.02
     container_name: openrmf-read-api
     restart: always
     ports:
@@ -150,7 +150,7 @@ services:
       - openrmf
 
   openrmfapi-compliance:
-    image: cingulara/openrmf-api-compliance:1.03.00
+    image: cingulara/openrmf-api-compliance:1.05.01
     container_name: openrmf-compliance-api
     restart: always
     ports:
@@ -170,7 +170,7 @@ services:
       - openrmf
 
   openrmfapi-controls:
-    image: cingulara/openrmf-api-controls:1.03.00
+    image: cingulara/openrmf-api-controls:1.05.01
     container_name: openrmf-controls-api
     restart: always
     ports:
@@ -190,7 +190,7 @@ services:
       - openrmf
 
   openrmfapi-audit:
-    image: cingulara/openrmf-api-audit:1.03.00
+    image: cingulara/openrmf-api-audit:1.05.01
     container_name: openrmf-audit-api
     restart: always
     ports:
@@ -215,7 +215,7 @@ services:
       - openrmf
 
   openrmfapi-report:
-    image: cingulara/openrmf-api-report:1.03.00
+    image: cingulara/openrmf-api-report:1.05.01
     container_name: openrmf-report-api
     restart: always
     ports:
