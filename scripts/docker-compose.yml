@@ -3,7 +3,7 @@ version : '3.8'
 services:
 ### 1 Web Front End Container
   openrmf-web:
-    image: cingulara/openrmf-web:1.05.01
+    image: cingulara/openrmf-web:1.05.03
     container_name: openrmf-web
     restart: always
     ports:
@@ -73,7 +73,7 @@ services:
       - openrmf
 
   openrmfapi-template:
-    image: cingulara/openrmf-api-template:1.05.00
+    image: cingulara/openrmf-api-template:1.05.01
     container_name: openrmf-template-api
     restart: always
     ports:
@@ -125,7 +125,7 @@ services:
       - openrmf
 
   openrmfapi-read:
-    image: cingulara/openrmf-api-read:1.03.00
+    image: cingulara/openrmf-api-read:1.05.01
     container_name: openrmf-read-api
     restart: always
     ports:
