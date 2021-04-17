@@ -1,5 +1,6 @@
 echo
-echo "Please make sure your Keycloak containers have been up for at least 2 - 3 minutes as the initial setup and loading are completed. Otherwise this script will fail."
+echo "Please make sure your Keycloak containers have been up for at least 2 - 3 minutes as the initial setup and loading are time consuming. Otherwise this script will fail."
+echo
 echo "You should be able to go to http:{ip-address}:9001/auth/ and see the starting screen before running this."
 echo
 echo "Enter the IP of the local Keycloak server (runs on port 9001):"

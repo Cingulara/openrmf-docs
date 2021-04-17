@@ -25,8 +25,12 @@ fi
 echo
 echo -e "${BOLD}Keycloak Server IP${NORMAL}"
 echo -e "$CYAN"
+echo "  Please make sure your Keycloak containers have been up for "
+echo "  at least 2 - 3 minutes as the initial setup and loading are "
+echo "  time consuming. Otherwise this script will fail."
+echo " "
 echo "  The Keycloak container is running in a docker container. It is"
-echo "  probably called 'keycloak_keycloak_1' or something similiar."
+echo "  probably called 'openrmf-keycloak' or something similiar."
 echo
 echo "  In 'docker ps' it shows as listening on port 9001."
 echo -e "$NC"
