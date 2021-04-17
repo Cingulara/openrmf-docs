@@ -1,4 +1,4 @@
-# OpenRMF Documentation (v 1.5)
+# OpenRMF Documentation (v 1.5.3)
 OpenRMF is an open source tool for managing, viewing, and reporting of your DoD STIG checklists, SCAP Scans and Nessus Patch Scans in one web-based interface using your browser. It also generates a compliance listing of all your checklists across a whole system based on NIST 800-53 for your Risk Management Framework (RMF) documentation and process. This tool helps you manage multiple systems going through the RMF process and allows you to structure your data in a clean interface all in one location for your group or program. 
 
 ## Get OpenRMF Core Running Locally
@@ -24,7 +24,6 @@ When a team has poor visibility of their system’s risk data, it can result in 
 Read more about its genesis <a href="https://www.cingulara.com/opensource.html" target="_blank">here</a>.
 
 ![Image](./img/UI-dashboard.png?raw=true)
-
 
 ## Current Functionality
 - [x] Import SCAP scans (DISA STIGs) for automatic checklist documentation

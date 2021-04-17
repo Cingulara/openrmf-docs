@@ -34,12 +34,12 @@ For Keycloak:
 > Keycloak 8, 9 or 10 may also work but for now, we use 7.0. We will upgrade to Keycloak 10.x with instructions for that in the summer of 2020. 
 
 For OpenRMF:
-* cingulara/openrmf-web:1.05.01
+* cingulara/openrmf-web:1.05.03
 * cingulara/openrmf-api-scoring:1.04.00
 * cingulara/openrmf-api-save:1.04.00
-* cingulara/openrmf-api-template:1.05.00
+* cingulara/openrmf-api-template:1.05.01
 * cingulara/openrmf-api-upload:1.05.00
-* cingulara/openrmf-api-read:1.03.00
+* cingulara/openrmf-api-read:1.05.01
 * cingulara/openrmf-api-compliance:1.03.00
 * cingulara/openrmf-api-controls:1.03.00
 * cingulara/openrmf-api-audit:1.03.00
@@ -52,7 +52,7 @@ For OpenRMF:
 * cingulara/openrmf-msg-system:1.03.00
 * cingulara/openrmf-msg-audit:1.03.00
 * cingulara/openrmf-msg-report:1.03.01
-* mongo:4.4.4-nonroot
+* cingulara/mongo:4.4.4-nonroot
 * nats:2.1.9
 * synadia/prometheus-nats-exporter:0.6.2
 * cingulara/nats-client-metrics:1.0.1
