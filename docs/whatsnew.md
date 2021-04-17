@@ -8,6 +8,16 @@ nav_order: 2
 
 Please refer to the <a href="https://github.com/Cingulara?tab=projects" target="_blank">OpenRMF Projects listing on GitHub</a> for more information on feature updates and timeline.
 
+## Version 1.5.3
+Version 1.5.3 included these updates:
+* Keycloak v 12.0.3 OpenRMF Theme
+* Download All CKL into ZIP for a System Package
+* Merge POAM and RAR fields into one for XLSX download
+* Table cell click for filtering Checklists and Templates Vulnerabilities listing
+* Color code reports for status
+* Improved UI on messaging and spacing
+* Various small bug fixes
+
 ## Version 1.5.2
 Version 1.5.2 included one update:
 * Update to Keycloak v 12.0.3
