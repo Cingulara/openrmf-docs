@@ -90,35 +90,6 @@ services:
     networks:
       - openrmf-local
 
-  jaeger:
-    image: jaegertracing/all-in-one:1.21.0
-    container_name: jaeger
-    restart: always
-    ports:
-      - "5778:5778/tcp"
-      - "6831:6831/udp"
-      - "16686:16686"
-      - "16687:16687" # Query Service and UI Metrics
-      - "14271:14271" # Agent Metrics
-    networks:
-      - openrmf-local
-
-  cadvisor:
-    image: google/cadvisor:v0.33.0
-    container_name: cadvisor
-    restart: always
-    ports:
-      - 9080:8080
-    volumes:
-      - /:/rootfs:ro
-      - /var/run:/var/run:rw
-      - /sys:/sys:ro
-      - /var/lib/docker/:/var/lib/docker:ro
-    networks:
-      - openrmf-local
-    labels:
-      org.label-schema.group: "monitoring"
-
   mongo-express:
     image: mongo-express:0.54.0
     container_name: mongo-express

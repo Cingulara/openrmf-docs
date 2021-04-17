@@ -35,6 +35,10 @@ echo "Setting OpenRMF Realm Options (SSL off, Display Name)..."
 docker exec -i $keycontainer /opt/jboss/keycloak/bin/kcadm.sh update realms/openrmf --set 'sslRequired=none'
 docker exec -i $keycontainer /opt/jboss/keycloak/bin/kcadm.sh update realms/openrmf --set 'displayName=OpenRMF OSS'
 docker exec -i $keycontainer /opt/jboss/keycloak/bin/kcadm.sh update realms/openrmf --set 'displayNameHtml=OpenRMF OSS'
+docker exec -i $keycontainer /opt/jboss/keycloak/bin/kcadm.sh update realms/openrmf --set 'loginTheme=openrmf'
+docker exec -i $keycontainer /opt/jboss/keycloak/bin/kcadm.sh update realms/openrmf --set 'accountTheme=openrmf'
+docker exec -i $keycontainer /opt/jboss/keycloak/bin/kcadm.sh update realms/master --set 'accountTheme=openrmf'
+docker exec -i $keycontainer /opt/jboss/keycloak/bin/kcadm.sh update realms/openrmf --set 'adminTheme=openrmf'
 ##END Disable SSL Requirement
 
 ##BEGIN Create Password Policy

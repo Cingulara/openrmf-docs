@@ -34,6 +34,12 @@ ECHO Setting Require SSL to none (off)...
 docker exec -i %keycontainer% /opt/jboss/keycloak/bin/kcadm.sh update realms/openrmf --set "sslRequired=none"
 docker exec -i %keycontainer% /opt/jboss/keycloak/bin/kcadm.sh update realms/openrmf --set "displayName=OpenRMF OSS"
 docker exec -i %keycontainer% /opt/jboss/keycloak/bin/kcadm.sh update realms/openrmf --set "displayNameHtml=OpenRMF OSS"
+docker exec -i %keycontainer% /opt/jboss/keycloak/bin/kcadm.sh update realms/openrmf --set "displayName=OpenRMF OSS"
+docker exec -i %keycontainer% /opt/jboss/keycloak/bin/kcadm.sh update realms/openrmf --set "displayNameHtml=OpenRMF OSS"
+docker exec -i %keycontainer% /opt/jboss/keycloak/bin/kcadm.sh update realms/openrmf --set "loginTheme=openrmf"
+docker exec -i %keycontainer% /opt/jboss/keycloak/bin/kcadm.sh update realms/openrmf --set "accountTheme=openrmf"
+docker exec -i %keycontainer% /opt/jboss/keycloak/bin/kcadm.sh update realms/master --set "accountTheme=openrmf"
+docker exec -i %keycontainer% /opt/jboss/keycloak/bin/kcadm.sh update realms/openrmf --set "adminTheme=openrmf"
 REM END Disable SSL Requirement
 
 REM BEGIN Create Password Policy

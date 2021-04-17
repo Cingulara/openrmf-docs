@@ -34,6 +34,7 @@ services:
       - postgres
     volumes:
       - ./themes/openrmf/:/opt/jboss/keycloak/themes/openrmf/:ro
+      - ./standalone-ha.xml:/opt/jboss/keycloak/standalone/configuration/standalone-ha.xml:ro
     networks:
       - keycloak-network
 
