@@ -3,7 +3,7 @@ version : '3.8'
 services:
 ### 1 Web Front End Container
   openrmf-web:
-    image: cingulara/openrmf-web:1.05.01
+    image: cingulara/openrmf-web:1.05.03
     container_name: openrmf-web
     restart: always
     ports:
@@ -22,7 +22,7 @@ services:
 
 ### 9 API Containers
   openrmfapi-scoring:
-    image: cingulara/openrmf-api-scoring:1.04.00
+    image: cingulara/openrmf-api-scoring:1.05.01
     container_name: openrmf-scoring-api
     restart: always
     ports:
@@ -34,19 +34,19 @@ services:
       - DBCONNECTION=mongodb://openrmfscore:openrmf1234!@scoredb/openrmfscore?authSource=openrmfscore
       - DBTYPE=mongo
       - DB=openrmfscore
-      - JAEGER_AGENT_HOST=jaeger
-      - JAEGER_AGENT_PORT=6831
-      - JAEGER_SERVICE_NAME=openrmfapi-scoring
-      - JAEGER_SAMPLER_TYPE=probabilistic
-      - JAEGER_SAMPLER_PARAM=0.1
-      - JAEGER_REPORTER_LOG_SPANS=true
+      # - JAEGER_AGENT_HOST=jaeger
+      # - JAEGER_AGENT_PORT=6831
+      # - JAEGER_SERVICE_NAME=openrmfapi-scoring
+      # - JAEGER_SAMPLER_TYPE=probabilistic
+      # - JAEGER_SAMPLER_PARAM=0.1
+      # - JAEGER_REPORTER_LOG_SPANS=true
     depends_on:
       - scoredb
     networks:
       - openrmf
   
   openrmfapi-save:
-    image: cingulara/openrmf-api-save:1.04.00
+    image: cingulara/openrmf-api-save:1.05.01
     container_name: openrmf-save-api
     restart: always
     ports:
@@ -59,12 +59,12 @@ services:
       - DB=openrmf
       - DBTYPE=mongo
       - NATSSERVERURL=nats://natsserver:4222
-      - JAEGER_AGENT_HOST=jaeger
-      - JAEGER_AGENT_PORT=6831
-      - JAEGER_SERVICE_NAME=openrmfapi-save
-      - JAEGER_SAMPLER_TYPE=probabilistic
-      - JAEGER_SAMPLER_PARAM=0.1
-      - JAEGER_REPORTER_LOG_SPANS=true
+      # - JAEGER_AGENT_HOST=jaeger
+      # - JAEGER_AGENT_PORT=6831
+      # - JAEGER_SERVICE_NAME=openrmfapi-save
+      # - JAEGER_SAMPLER_TYPE=probabilistic
+      # - JAEGER_SAMPLER_PARAM=0.1
+      # - JAEGER_REPORTER_LOG_SPANS=true
     depends_on:
       - openrmfmsg-score
       - checklistdb
@@ -73,7 +73,7 @@ services:
       - openrmf
 
   openrmfapi-template:
-    image: cingulara/openrmf-api-template:1.05.00
+    image: cingulara/openrmf-api-template:1.05.02
     container_name: openrmf-template-api
     restart: always
     ports:
@@ -86,19 +86,19 @@ services:
       - DBCONNECTION=mongodb://openrmftemplate:openrmf1234!@templatedb/openrmftemplate?authSource=openrmftemplate
       - DB=openrmftemplate
       - DBTYPE=mongo
-      - JAEGER_AGENT_HOST=jaeger
-      - JAEGER_AGENT_PORT=6831
-      - JAEGER_SERVICE_NAME=openrmfapi-template
-      - JAEGER_SAMPLER_TYPE=probabilistic
-      - JAEGER_SAMPLER_PARAM=0.1
-      - JAEGER_REPORTER_LOG_SPANS=true
+      # - JAEGER_AGENT_HOST=jaeger
+      # - JAEGER_AGENT_PORT=6831
+      # - JAEGER_SERVICE_NAME=openrmfapi-template
+      # - JAEGER_SAMPLER_TYPE=probabilistic
+      # - JAEGER_SAMPLER_PARAM=0.1
+      # - JAEGER_REPORTER_LOG_SPANS=true
     depends_on:
       - templatedb
     networks:
       - openrmf
 
   openrmfapi-upload:
-    image: cingulara/openrmf-api-upload:1.05.00
+    image: cingulara/openrmf-api-upload:1.05.01
     container_name: openrmf-upload-api
     restart: always
     ports:
@@ -111,12 +111,12 @@ services:
       - DB=openrmf
       - DBTYPE=mongo
       - NATSSERVERURL=nats://natsserver:4222
-      - JAEGER_AGENT_HOST=jaeger
-      - JAEGER_AGENT_PORT=6831
-      - JAEGER_SERVICE_NAME=openrmfapi-upload
-      - JAEGER_SAMPLER_TYPE=probabilistic
-      - JAEGER_SAMPLER_PARAM=0.1
-      - JAEGER_REPORTER_LOG_SPANS=true
+      # - JAEGER_AGENT_HOST=jaeger
+      # - JAEGER_AGENT_PORT=6831
+      # - JAEGER_SERVICE_NAME=openrmfapi-upload
+      # - JAEGER_SAMPLER_TYPE=probabilistic
+      # - JAEGER_SAMPLER_PARAM=0.1
+      # - JAEGER_REPORTER_LOG_SPANS=true
     depends_on:
       - openrmfmsg-score
       - checklistdb
@@ -125,7 +125,7 @@ services:
       - openrmf
 
   openrmfapi-read:
-    image: cingulara/openrmf-api-read:1.03.00
+    image: cingulara/openrmf-api-read:1.05.02
     container_name: openrmf-read-api
     restart: always
     ports:
@@ -138,19 +138,19 @@ services:
       - DB=openrmf
       - DBTYPE=mongo
       - NATSSERVERURL=nats://natsserver:4222
-      - JAEGER_AGENT_HOST=jaeger
-      - JAEGER_AGENT_PORT=6831
-      - JAEGER_SERVICE_NAME=openrmfapi-read
-      - JAEGER_SAMPLER_TYPE=probabilistic
-      - JAEGER_SAMPLER_PARAM=0.1
-      - JAEGER_REPORTER_LOG_SPANS=true
+      # - JAEGER_AGENT_HOST=jaeger
+      # - JAEGER_AGENT_PORT=6831
+      # - JAEGER_SERVICE_NAME=openrmfapi-read
+      # - JAEGER_SAMPLER_TYPE=probabilistic
+      # - JAEGER_SAMPLER_PARAM=0.1
+      # - JAEGER_REPORTER_LOG_SPANS=true
     depends_on:
       - checklistdb
     networks:
       - openrmf
 
   openrmfapi-compliance:
-    image: cingulara/openrmf-api-compliance:1.03.00
+    image: cingulara/openrmf-api-compliance:1.05.01
     container_name: openrmf-compliance-api
     restart: always
     ports:
@@ -160,17 +160,17 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8092
       - NATSSERVERURL=nats://natsserver:4222
-      - JAEGER_AGENT_HOST=jaeger
-      - JAEGER_AGENT_PORT=6831
-      - JAEGER_SERVICE_NAME=openrmfapi-compliance
-      - JAEGER_SAMPLER_TYPE=probabilistic
-      - JAEGER_SAMPLER_PARAM=0.1
-      - JAEGER_REPORTER_LOG_SPANS=true
+      # - JAEGER_AGENT_HOST=jaeger
+      # - JAEGER_AGENT_PORT=6831
+      # - JAEGER_SERVICE_NAME=openrmfapi-compliance
+      # - JAEGER_SAMPLER_TYPE=probabilistic
+      # - JAEGER_SAMPLER_PARAM=0.1
+      # - JAEGER_REPORTER_LOG_SPANS=true
     networks:
       - openrmf
 
   openrmfapi-controls:
-    image: cingulara/openrmf-api-controls:1.03.00
+    image: cingulara/openrmf-api-controls:1.05.01
     container_name: openrmf-controls-api
     restart: always
     ports:
@@ -180,17 +180,17 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8094
       - NATSSERVERURL=nats://natsserver:4222
-      - JAEGER_AGENT_HOST=jaeger
-      - JAEGER_AGENT_PORT=6831
-      - JAEGER_SERVICE_NAME=openrmfapi-controls
-      - JAEGER_SAMPLER_TYPE=probabilistic
-      - JAEGER_SAMPLER_PARAM=0.1
-      - JAEGER_REPORTER_LOG_SPANS=true
+      # - JAEGER_AGENT_HOST=jaeger
+      # - JAEGER_AGENT_PORT=6831
+      # - JAEGER_SERVICE_NAME=openrmfapi-controls
+      # - JAEGER_SAMPLER_TYPE=probabilistic
+      # - JAEGER_SAMPLER_PARAM=0.1
+      # - JAEGER_REPORTER_LOG_SPANS=true
     networks:
       - openrmf
 
   openrmfapi-audit:
-    image: cingulara/openrmf-api-audit:1.03.00
+    image: cingulara/openrmf-api-audit:1.05.01
     container_name: openrmf-audit-api
     restart: always
     ports:
@@ -203,19 +203,19 @@ services:
       - DB=openrmfaudit
       - DBTYPE=mongo
       - NATSSERVERURL=nats://natsserver:4222
-      - JAEGER_AGENT_HOST=jaeger
-      - JAEGER_AGENT_PORT=6831
-      - JAEGER_SERVICE_NAME=openrmfapi-audit
-      - JAEGER_SAMPLER_TYPE=probabilistic
-      - JAEGER_SAMPLER_PARAM=0.1
-      - JAEGER_REPORTER_LOG_SPANS=true
+      # - JAEGER_AGENT_HOST=jaeger
+      # - JAEGER_AGENT_PORT=6831
+      # - JAEGER_SERVICE_NAME=openrmfapi-audit
+      # - JAEGER_SAMPLER_TYPE=probabilistic
+      # - JAEGER_SAMPLER_PARAM=0.1
+      # - JAEGER_REPORTER_LOG_SPANS=true
     depends_on:
       - auditdb
     networks:
       - openrmf
 
   openrmfapi-report:
-    image: cingulara/openrmf-api-report:1.03.00
+    image: cingulara/openrmf-api-report:1.05.01
     container_name: openrmf-report-api
     restart: always
     ports:
@@ -228,12 +228,12 @@ services:
       - DB=openrmfreport
       - DBTYPE=mongo
       - NATSSERVERURL=nats://natsserver:4222
-      - JAEGER_AGENT_HOST=jaeger
-      - JAEGER_AGENT_PORT=6831
-      - JAEGER_SERVICE_NAME=openrmfapi-report
-      - JAEGER_SAMPLER_TYPE=probabilistic
-      - JAEGER_SAMPLER_PARAM=0.1
-      - JAEGER_REPORTER_LOG_SPANS=true
+      # - JAEGER_AGENT_HOST=jaeger
+      # - JAEGER_AGENT_PORT=6831
+      # - JAEGER_SERVICE_NAME=openrmfapi-report
+      # - JAEGER_SAMPLER_TYPE=probabilistic
+      # - JAEGER_SAMPLER_PARAM=0.1
+      # - JAEGER_REPORTER_LOG_SPANS=true
     depends_on:
       - reportdb
     networks:
@@ -249,12 +249,6 @@ services:
       - DBTYPE=mongo
       - DB=openrmfscore
       - NATSSERVERURL=nats://natsserver:4222
-      - JAEGER_AGENT_HOST=jaeger
-      - JAEGER_AGENT_PORT=6831
-      - JAEGER_SERVICE_NAME=openrmfmsg-score
-      - JAEGER_SAMPLER_TYPE=probabilistic
-      - JAEGER_SAMPLER_PARAM=0.1
-      - JAEGER_REPORTER_LOG_SPANS=true
     depends_on:
       - scoredb
       - natsserver
@@ -270,12 +264,6 @@ services:
       - DB=openrmf
       - DBTYPE=mongo
       - NATSSERVERURL=nats://natsserver:4222
-      - JAEGER_AGENT_HOST=jaeger
-      - JAEGER_AGENT_PORT=6831
-      - JAEGER_SERVICE_NAME=openrmfmsg-checklist
-      - JAEGER_SAMPLER_TYPE=probabilistic
-      - JAEGER_SAMPLER_PARAM=0.1
-      - JAEGER_REPORTER_LOG_SPANS=true
     depends_on:
       - checklistdb
       - natsserver
@@ -288,12 +276,6 @@ services:
     restart: always
     environment:
       - NATSSERVERURL=nats://natsserver:4222
-      - JAEGER_AGENT_HOST=jaeger
-      - JAEGER_AGENT_PORT=6831
-      - JAEGER_SERVICE_NAME=openrmfmsg-compliance
-      - JAEGER_SAMPLER_TYPE=probabilistic
-      - JAEGER_SAMPLER_PARAM=0.1
-      - JAEGER_REPORTER_LOG_SPANS=true
     depends_on:
       - natsserver
     networks:
@@ -305,12 +287,6 @@ services:
     restart: always
     environment:
       - NATSSERVERURL=nats://natsserver:4222
-      - JAEGER_AGENT_HOST=jaeger
-      - JAEGER_AGENT_PORT=6831
-      - JAEGER_SERVICE_NAME=openrmfmsg-controls
-      - JAEGER_SAMPLER_TYPE=probabilistic
-      - JAEGER_SAMPLER_PARAM=0.1
-      - JAEGER_REPORTER_LOG_SPANS=true
     depends_on:
       - natsserver
     networks:
@@ -325,12 +301,6 @@ services:
       - DB=openrmftemplate
       - DBTYPE=mongo
       - NATSSERVERURL=nats://natsserver:4222
-      - JAEGER_AGENT_HOST=jaeger
-      - JAEGER_AGENT_PORT=6831
-      - JAEGER_SERVICE_NAME=openrmfmsg-template
-      - JAEGER_SAMPLER_TYPE=probabilistic
-      - JAEGER_SAMPLER_PARAM=0.1
-      - JAEGER_REPORTER_LOG_SPANS=true
     depends_on:
       - templatedb
       - natsserver
@@ -346,12 +316,6 @@ services:
       - DB=openrmf
       - DBTYPE=mongo
       - NATSSERVERURL=nats://natsserver:4222
-      - JAEGER_AGENT_HOST=jaeger
-      - JAEGER_AGENT_PORT=6831
-      - JAEGER_SERVICE_NAME=openrmfmsg-system
-      - JAEGER_SAMPLER_TYPE=probabilistic
-      - JAEGER_SAMPLER_PARAM=0.1
-      - JAEGER_REPORTER_LOG_SPANS=true
     depends_on:
       - checklistdb
       - natsserver
@@ -367,12 +331,6 @@ services:
       - DB=openrmfaudit
       - DBTYPE=mongo
       - NATSSERVERURL=nats://natsserver:4222
-      - JAEGER_AGENT_HOST=jaeger
-      - JAEGER_AGENT_PORT=6831
-      - JAEGER_SERVICE_NAME=openrmfmsg-audit
-      - JAEGER_SAMPLER_TYPE=probabilistic
-      - JAEGER_SAMPLER_PARAM=0.1
-      - JAEGER_REPORTER_LOG_SPANS=true
     depends_on:
       - auditdb
       - natsserver
@@ -391,12 +349,6 @@ services:
       - REPORTDB=openrmfreport
       - REPORTDBTYPE=mongo
       - NATSSERVERURL=nats://natsserver:4222
-      - JAEGER_AGENT_HOST=jaeger
-      - JAEGER_AGENT_PORT=6831
-      - JAEGER_SERVICE_NAME=openrmfmsg-reports
-      - JAEGER_SAMPLER_TYPE=probabilistic
-      - JAEGER_SAMPLER_PARAM=0.1
-      - JAEGER_REPORTER_LOG_SPANS=true
     depends_on:
       - checklistdb
       - reportdb
@@ -406,7 +358,7 @@ services:
 
 ### 5 MongoDB Containers
   checklistdb:
-    image: cingulara/mongo:4.2.7-nonroot
+    image: cingulara/mongo:4.4.4-nonroot
     container_name: mongodb-checklist
     restart: always
     ports:
@@ -422,7 +374,7 @@ services:
       - openrmf
 
   scoredb:
-    image: cingulara/mongo:4.2.7-nonroot
+    image: cingulara/mongo:4.4.4-nonroot
     container_name: mongodb-score
     restart: always
     ports:
@@ -438,7 +390,7 @@ services:
       - openrmf
 
   templatedb:
-    image: cingulara/mongo:4.2.7-nonroot
+    image: cingulara/mongo:4.4.4-nonroot
     container_name: mongodb-template
     restart: always
     ports:
@@ -454,7 +406,7 @@ services:
       - openrmf
 
   auditdb:
-    image: cingulara/mongo:4.2.7-nonroot
+    image: cingulara/mongo:4.4.4-nonroot
     container_name: mongodb-audit
     restart: always
     ports:
@@ -470,7 +422,7 @@ services:
       - openrmf
 
   reportdb:
-    image: cingulara/mongo:4.2.7-nonroot
+    image: cingulara/mongo:4.4.4-nonroot
     container_name: mongodb-report
     restart: always
     ports:
@@ -553,34 +505,34 @@ services:
     networks:
       - openrmf
 
-  jaeger:
-    image: jaegertracing/all-in-one:1.21.0
-    container_name: jaeger
-    restart: always
-    ports:
-      - "5778:5778/tcp"
-      - "6831:6831/udp"
-      - "16686:16686" # Query Service and UI Metrics
-      - "16687:16687" 
-      - "14271:14271" # Agent Metrics
-    networks:
-      - openrmf
+  # jaeger:
+  #   image: jaegertracing/all-in-one:1.21.0
+  #   container_name: jaeger
+  #   restart: always
+  #   ports:
+  #     - "5778:5778/tcp"
+  #     - "6831:6831/udp"
+  #     - "16686:16686" # Query Service and UI Metrics
+  #     - "16687:16687" 
+  #     - "14271:14271" # Agent Metrics
+  #   networks:
+  #     - openrmf
 
-  cadvisor:
-    image: google/cadvisor:v0.33.0
-    container_name: cadvisor
-    restart: always
-    ports:
-      - 9080:8080
-    volumes:
-      - /:/rootfs:ro
-      - /var/run:/var/run:rw
-      - /sys:/sys:ro
-      - /var/lib/docker/:/var/lib/docker:ro
-    networks:
-      - openrmf
-    labels:
-      org.label-schema.group: "monitoring"
+  # cadvisor:
+  #   image: google/cadvisor:v0.33.0
+  #   container_name: cadvisor
+  #   restart: always
+  #   ports:
+  #     - 9080:8080
+  #   volumes:
+  #     - /:/rootfs:ro
+  #     - /var/run:/var/run:rw
+  #     - /sys:/sys:ro
+  #     - /var/lib/docker/:/var/lib/docker:ro
+  #   networks:
+  #     - openrmf
+  #   labels:
+  #     org.label-schema.group: "monitoring"
 
 ### put all the volume listings here for persistent data
 volumes:

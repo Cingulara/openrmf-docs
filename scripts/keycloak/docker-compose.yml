@@ -2,6 +2,7 @@ version : '3.8'
  
 services:
   postgres:
+    container_name: openrmf-postgres
     image: postgres:11.5
     restart: always
     ports:
@@ -16,6 +17,7 @@ services:
       - keycloak-postgres:/var/lib/postgresql/data
 
   keycloak: 
+    container_name: openrmf-keycloak
     image: jboss/keycloak:12.0.3
     restart: always
     ports:
@@ -32,6 +34,7 @@ services:
       - postgres
     volumes:
       - ./themes/openrmf/:/opt/jboss/keycloak/themes/openrmf/:ro
+      - ./standalone-ha.xml:/opt/jboss/keycloak/standalone/configuration/standalone-ha.xml:ro
     networks:
       - keycloak-network
 

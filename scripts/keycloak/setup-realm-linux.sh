@@ -25,8 +25,12 @@ fi
 echo
 echo -e "${BOLD}Keycloak Server IP${NORMAL}"
 echo -e "$CYAN"
+echo "  Please make sure your Keycloak containers have been up for "
+echo "  at least 2 - 3 minutes as the initial setup and loading are "
+echo "  time consuming. Otherwise this script will fail."
+echo " "
 echo "  The Keycloak container is running in a docker container. It is"
-echo "  probably called 'keycloak_keycloak_1' or something similiar."
+echo "  probably called 'openrmf-keycloak' or something similiar."
 echo
 echo "  In 'docker ps' it shows as listening on port 9001."
 echo -e "$NC"
@@ -67,6 +71,12 @@ docker exec -i $keycontainer /opt/jboss/keycloak/bin/kcadm.sh create realms -s r
 echo
 echo "Setting Require SSL to none (off)..."
 docker exec -i $keycontainer /opt/jboss/keycloak/bin/kcadm.sh update realms/openrmf --set 'sslRequired=none'
+docker exec -i $keycontainer /opt/jboss/keycloak/bin/kcadm.sh update realms/openrmf --set 'displayName=OpenRMF OSS'
+docker exec -i $keycontainer /opt/jboss/keycloak/bin/kcadm.sh update realms/openrmf --set 'displayNameHtml=OpenRMF OSS'
+docker exec -i $keycontainer /opt/jboss/keycloak/bin/kcadm.sh update realms/openrmf --set 'loginTheme=openrmf'
+docker exec -i $keycontainer /opt/jboss/keycloak/bin/kcadm.sh update realms/openrmf --set 'accountTheme=openrmf'
+docker exec -i $keycontainer /opt/jboss/keycloak/bin/kcadm.sh update realms/master --set 'accountTheme=openrmf'
+docker exec -i $keycontainer /opt/jboss/keycloak/bin/kcadm.sh update realms/openrmf --set 'adminTheme=openrmf'
 ##END Disable SSL Requirement
 
 ##BEGIN Create Password Policy
