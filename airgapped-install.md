@@ -27,23 +27,25 @@ Take all the image files from above and put onto a DVD / CD / USB (if allowed) a
 > Note: if the machine is connected to nothing, you may need to plug it into a disconnected switch just to have it sense a network connection. We have had to do this on a disconnected MacBook. And remember to set a manual IP address to use. Ensure Keycloak is setup to allow using that IP for the client setup. 
 
 ## Application Container Images you will need to have
+Please check the scripts/keycloak/docker-compose.yml for the latest information.
+
 For Keycloak:
 * postgres:11.5
-* jboss/keycloak:7.0.0
+* jboss/keycloak:12.0.3
 
-> Keycloak 8, 9 or 10 may also work but for now, we use 7.0. We will upgrade to Keycloak 10.x with instructions for that in the summer of 2020. 
+> Keycloak 10 may also work but for now, we use 12.0. 
 
-For OpenRMF:
-* cingulara/openrmf-web:1.05.03
-* cingulara/openrmf-api-scoring:1.04.00
-* cingulara/openrmf-api-save:1.04.00
-* cingulara/openrmf-api-template:1.05.01
-* cingulara/openrmf-api-upload:1.05.00
-* cingulara/openrmf-api-read:1.05.01
-* cingulara/openrmf-api-compliance:1.03.00
-* cingulara/openrmf-api-controls:1.03.00
-* cingulara/openrmf-api-audit:1.03.00
-* cingulara/openrmf-api-report:1.03.00
+For OpenRMF (Please check the scripts/docker-compose.yml for the latest information.):
+* cingulara/openrmf-web:1.05.04
+* cingulara/openrmf-api-scoring:1.05.01
+* cingulara/openrmf-api-save:1.05.01
+* cingulara/openrmf-api-template:1.05.04
+* cingulara/openrmf-api-upload:1.05.01
+* cingulara/openrmf-api-read:1.05.02
+* cingulara/openrmf-api-compliance:1.05.01
+* cingulara/openrmf-api-controls:1.05.01
+* cingulara/openrmf-api-audit:1.05.01
+* cingulara/openrmf-api-report:1.05.01
 * cingulara/openrmf-msg-score:1.04.00
 * cingulara/openrmf-msg-checklist:1.03.00
 * cingulara/openrmf-msg-compliance:1.03.00

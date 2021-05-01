@@ -8,6 +8,9 @@ nav_order: 2
 
 Please refer to the <a href="https://github.com/Cingulara?tab=projects" target="_blank">OpenRMF Projects listing on GitHub</a> for more information on feature updates and timeline.
 
+## Version 1.5.4
+Version 1.5.4 added the updated DISA Templates from April 27 and April 28 2021. These allow you to match on SCAP scan uploads to automatically create checklists.
+
 ## Version 1.5.3
 Version 1.5.3 included these updates:
 * Keycloak v 12.0.3 OpenRMF Theme
