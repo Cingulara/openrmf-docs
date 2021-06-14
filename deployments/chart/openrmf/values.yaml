@@ -41,7 +41,7 @@ templateImage: 1.05.04
 templatemsgImage: 1.03.00
 uploadImage: 1.05.01
 systemmsgImage: 1.03.00
-webuiImage: 1.05.04
+webuiImage: 1.05.05
 reportImage: 1.05.01
 reportmsgImage: 1.03.01
 mongoImage: 4.4.4-nonroot

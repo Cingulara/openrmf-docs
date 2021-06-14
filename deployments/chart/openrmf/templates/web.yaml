@@ -23,6 +23,8 @@ data:
     var controlAPI = '{{.Values.controlAPI}}'
     var auditAPI = '{{.Values.auditAPI}}'
     var reportAPI = '{{.Values.reportAPI}}'
+    var urlKeycloakMenuLink = '{{.Values.identityProviderURL}}';
+    var urlMetricsMenuLink = '{{.Values.urlMetricsMenu}}';
 ---
 apiVersion: v1
 kind: ConfigMap
