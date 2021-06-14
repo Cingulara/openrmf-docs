@@ -15,6 +15,8 @@ documentation on making persistent volumes.
 3. Run `helm install ./deployments/chart/openrmf`from the root folder within the repo. Optionally, run the `helm template chart/openrmf --output-dir DIR_NAME -n RELEASE_NAME` command to generate valid YAML files to apply to your cluster.
 4. Verify by going to the HTTP(S) path shown after a successful helm install to verify it is working.
 
+Note: Until the databases and NATS are live you will get errors in those pods connecting. If you want, deploy the databases and NATS and Keycloak first and get them setup. THEN do the rest.
+
 ---
 
 # Values.yaml for your MUX AEW install

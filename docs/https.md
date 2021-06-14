@@ -148,6 +148,24 @@ You may want to run the "docker-compose up" without the "-d" as is in the SH/CMD
 
 > NOTE: You may want to run ` chmod a+r ` or equivalent command across any files you do a ` git clone ` or ` git pull ` on as well as other files you make. So the container permissions allow the actual image to read the new or updated iles.
 
+## Self-signed CAs
+You need to include the full certificate chain for this. Thank you to "tjmullicani" in GitHub for this!
+
+```
+  $ cat rootca.crt intermediateca.crt servercert.crt > servercert_bundle.crt
+
+  - ./ssl/certs/servercert_bundle.crt:/etc/ssl/certs/servercert_bundle.crt:ro
+```
+or
+
+```
+  - ./ssl/certs/rootca.crt:/etc/ssl/certs/rootca.crt:ro
+
+  - ./ssl/certs/intermediate.crt:/etc/ssl/certs/intermediateca.crt:ro
+
+  - ./ssl/certs/servercert.crt:/etc/ssl/certs/servercert.crt:ro
+```
+
 ## Generating a Certificate
 
 https://nickolaskraus.org/articles/how-to-create-a-self-signed-certificate-for-nginx-on-macos/

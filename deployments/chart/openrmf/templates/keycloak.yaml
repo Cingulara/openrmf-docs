@@ -1,0 +1,239 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: openrmf-keycloak-postgres-pvc
+  namespace: {{.Values.namespace | default "openrmf"}}
+  labels:
+    app.kubernetes.io/name: openrmf
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app.kubernetes.io/component: openrmf-keycloak
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/revision: "{{ .Release.Revision }}"
+    app.kubernetes.io/version: "{{ .Chart.AppVersion }}"
+    app.kubernetes.io/managed-by: helm
+spec:
+  storageClassName: {{.Values.storageClass}}
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: "100Mi"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openrmf-keycloak
+  namespace: {{.Values.namespace | default "openrmf"}}
+  labels:
+    app.kubernetes.io/name: openrmf
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app.kubernetes.io/component: openrmf-keycloak
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/revision: "{{ .Release.Revision }}"
+    app.kubernetes.io/version: "{{ .Chart.AppVersion }}"
+    app.kubernetes.io/managed-by: helm
+spec:
+  selector:
+    matchLabels:
+      run: openrmf-keycloak
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        run: openrmf-keycloak
+    spec:
+      imagePullSecrets:
+      - name: {{.Values.imageRegistryCredential}}
+      containers:
+      - env:
+        - name: DB_PASSWORD
+          value: 1qaz2WSX3edc4RFVcl0ak
+        - name: DB_USER
+          value: keycloak
+        - name: DB_VENDOR
+          value: postgres
+        - name: DB_ADDR
+          value: openrmf-postgres # the name of the postgres deployment
+        - name: KEYCLOAK_PASSWORD
+          value: myl0ngPassw0rd
+        - name: KEYCLOAK_USER
+          value: admin
+        - name: PROXY_ADDRESS_FORWARDING
+          value: "true" 
+        image: jboss/keycloak:12.0.3
+        name: openrmf-keycloak
+        readinessProbe:
+          httpGet:
+            path: /auth/realms/master
+            port: 8080
+          initialDelaySeconds: 30
+          timeoutSeconds: 30   
+        ports:
+        - containerPort: 8080
+      restartPolicy: Always
+{{ if and .Values.installType (eq .Values.installType "minikube") }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: openrmf-keycloak
+  namespace: {{.Values.namespace | default "openrmf"}}
+  labels:
+    app.kubernetes.io/name: openrmf
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app.kubernetes.io/component: openrmf-keycloak
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/revision: "{{ .Release.Revision }}"
+    app.kubernetes.io/version: "{{ .Chart.AppVersion }}"
+    app.kubernetes.io/managed-by: helm
+spec:
+  ports:
+  - name: http
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  - name: https
+    port: 443
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    run: openrmf-keycloak
+  sessionAffinity: None
+  type: {{.Values.serviceType | default "NodePort"}}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: openrmf-keycloak-ingress
+  namespace: {{.Values.namespace | default "openrmf"}}
+  labels:
+    app: openrmf
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    component: openrmf-keycloak
+    release: {{ .Release.Name }}
+    revision: "{{ .Release.Revision }}"
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    #nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  rules:
+  - host: {{.Values.dnsNameKeycloak}}
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: openrmf-keycloak
+            port:
+              number: 8080
+{{ end }}
+{{/* Use this service definition and Load Balancer type setup if AWS EKS */}}
+{{ if and .Values.installType (eq .Values.installType "awseks") }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: openrmf-keycloak
+  namespace: {{.Values.namespace | default "openrmf"}}
+  labels:
+    app.kubernetes.io/name: openrmf
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app.kubernetes.io/component: openrmf-keycloak
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/revision: "{{ .Release.Revision }}"
+    app.kubernetes.io/version: "{{ .Chart.AppVersion }}"
+    app.kubernetes.io/managed-by: helm
+  annotations:
+    # Note that the backend talks over HTTP.
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
+    # The ARN of your certificate.
+    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: {{.Values.awsACMKeycloak}}
+    # Only run SSL on the port named "https" below.
+    service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "https"
+spec:
+  ports:
+  - name: https
+    port: 443
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    run: openrmf-keycloak
+  sessionAffinity: None
+  type: LoadBalancer
+{{ end }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openrmf-postgres
+  namespace: {{.Values.namespace | default "openrmf"}}
+  labels:
+    app.kubernetes.io/name: openrmf
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app.kubernetes.io/component: openrmf-postgres
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/revision: "{{ .Release.Revision }}"
+    app.kubernetes.io/version: "{{ .Chart.AppVersion }}"
+    app.kubernetes.io/managed-by: helm
+spec:
+  selector:
+    matchLabels:
+      run: openrmf-postgres
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        run: openrmf-postgres
+    spec:
+      imagePullSecrets:
+      - name: {{.Values.imageRegistryCredential}}
+      containers:
+      - env:
+        - name: POSTGRES_DB
+          value: keycloak
+        - name: POSTGRES_PASSWORD
+          value: 1qaz2WSX3edc4RFVcl0ak
+        - name: POSTGRES_USER
+          value: keycloak
+        - name: PGDATA
+          value: /var/lib/postgresql/data/dbfiles/
+        image: postgres:11.5
+        name: openrmf-postgres
+        ports:
+        - containerPort: 5432
+        volumeMounts:
+        - mountPath: /var/lib/postgresql/data
+          name: openrmf-keycloak-postgres-data
+      restartPolicy: Always
+      volumes:
+      - name: openrmf-keycloak-postgres-data
+        persistentVolumeClaim:
+          claimName: openrmf-keycloak-postgres-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: openrmf-postgres
+  namespace: {{.Values.namespace | default "openrmf"}}
+  labels:
+    app.kubernetes.io/name: openrmf
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app.kubernetes.io/component: openrmf-postgres
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/revision: "{{ .Release.Revision }}"
+    app.kubernetes.io/version: "{{ .Chart.AppVersion }}"
+    app.kubernetes.io/managed-by: helm
+spec:
+  ports:
+  - name: "5432"
+    port: 5432
+    targetPort: 5432
+  selector:
+    run: openrmf-postgres
+  sessionAffinity: None
+  type: {{.Values.serviceType | default "NodePort"}}

@@ -61,18 +61,6 @@ spec:
           value: {{.Values.identityProviderURL}}/realms/{{.Values.identityProviderRealm}}
         - name: JWT-CLIENT
           value: {{.Values.identityProviderClientId}}
-        - name: JAEGER_AGENT_HOST
-          valueFrom:
-            fieldRef:
-              fieldPath: status.hostIP
-        - name: JAEGER_AGENT_PORT
-          value: "6831"
-        - name: JAEGER_SERVICE_NAME
-          value: openrmfapi-report
-        - name: JAEGER_SAMPLER_TYPE
-          value: {{.Values.jaegerSamplerType}}
-        - name: JAEGER_SAMPLER_PARAM
-          value: "{{.Values.jaegerSamplerParam}}"
         resources:
           limits:
             memory: "750Mi"
@@ -107,7 +95,7 @@ spec:
   sessionAffinity: None
   type: {{.Values.serviceType}}
 ---
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: openrmf-report-ingress
@@ -124,15 +112,20 @@ metadata:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/rewrite-target: /$2
     nginx.ingress.kubernetes.io/cors-allow-methods: "GET, POST, PUT, OPTIONS"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/proxy-body-size: 5m
 spec:
   rules:
   - host: {{.Values.dnsName}}
     http:
       paths:
-      - path: /report(/|$)(.*)
+      - path: /api/report(/|$)(.*)
+        pathType: Prefix
         backend:
-          serviceName: openrmf-report
-          servicePort: 8080
+          service:
+            name: openrmf-report
+            port:
+              number: 8080
 {{ end }}
 {{/* Use this service definition and Load Balancer type setup if AWS EKS */}}
 {{ if and .Values.installType (eq .Values.installType "awseks") }}
