@@ -1,9 +1,9 @@
-#!/bin/bash
+!/bin/bash
 
 ##BEGIN Authenticate to Keycloak server
 echo
 echo "Authenticating to Keycloak Master Realm..."
-kubectl exec -n $1 $2 -- /opt/jboss/keycloak/bin/kcadm.sh config credentials --server http://localhost:8080/auth --realm master --user admin --password myl0ngPassw0rd
+kubectl exec -n $1 $2 -- /opt/jboss/keycloak/bin/kcadm.sh config credentials --server http://localhost:8080/auth --realm master --user admin --password 1qaz\@WSX3edc\$RFVrmf1
 ##END Authenticate to Keycloak server
 
 ##BEGIN Create Realm

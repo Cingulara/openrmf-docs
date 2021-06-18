@@ -6,19 +6,19 @@
 # if running locally, you may need to edit your "hosts" file under /etc/hosts or the 
 # /windows/system32/drivers/etc/hosts file in Windows
 # Examples: openrmf.local, demo.openrmf.io, openrmf.mycompany.com
-dnsName: openrmf.192.168.99.101.nip.io
-dnsNameKeycloak: keycloak.192.168.99.101.nip.io
+dnsName: demo.mydomain.com
+dnsNameKeycloak: keycloak.mydomain.com
 
 # The Identity Provider URL and Realm, i.e. using Keycloak for AuthN and AuthZ
 # Examples: https://keycloak.openrmf.io/auth, http://192.168.11.29:9001/auth
-identityProviderURL: http://keycloak.192.168.99.101.nip.io/auth
+identityProviderURL: https://keycloak.mydomain.com/auth
 # The Realm to use from the Keycloak / OpenID provider
 identityProviderRealm: openrmf
 # The Identity Provider Client Id to use
 identityProviderClientId: openrmf
 
 # the namespace to put all of this in
-namespace: openrmfoss
+namespace: openrmf
 
 # Installation type
 # Examples: awseks, minikube
@@ -69,8 +69,8 @@ reportAPI:     /api/report/
 serviceType: NodePort
 
 # AWS ACM Certificate ARN if used
-awsACMOpenRMF: arn:aws:acm:us-east-1:xxxxxxxxxxxxxx:certificate/xxxxxxxxxxxxxxxx
-awsACMKeycloak: arn:aws:acm:us-east-1:xxxxxxxxxxxxxx:certificate/xxxxxxxxxxxxxxxx
+awsACMOpenRMF: arn:aws:acm:us-east-2:xxxxxxxxxxxxxxxx:certificate/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+awsACMKeycloak: arn:aws:acm:us-east-2:xxxxxxxxxxxxxxxx:certificate/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 # Database Types
 scoredbtype: mongo
@@ -141,11 +141,6 @@ reportInitDBName: b3BlbnJtZnJlcG9ydA==
 # the user, password, and database name must match the initialization scripts above -- secrets however are base64 encoded
 # mongodb://{{.Values.scoreAppUser}}:{{.Values.scoreAppPassword}}@openrmf-scoredb/{{.Values.scoreInitDBName}}?authSource={{.Values.scoreInitDBName}}
 reportAppConnection: bW9uZ29kYjovL29wZW5ybWZyZXBvcnQ6b3BlbnJtZjQzMjEhQG9wZW5ybWYtcmVwb3J0ZGIvb3BlbnJtZnJlcG9ydD9hdXRoU291cmNlPW9wZW5ybWZyZXBvcnQ=
-
-# Jaeger Tracing Server setup from https://www.jaegertracing.io/docs/latest/sampling/
-jaegerSamplerType: probabilistic
-jaegerSamplerParam: 0.1 # percentage to trace
-
 
 #########
 # Prometheus Operator Setup https://github.com/helm/charts/tree/master/stable/prometheus-operator and 

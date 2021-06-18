@@ -66,8 +66,6 @@ spec:
           requests:
             memory: "250Mi"
             cpu: "125m"
-{{/* Use this service definition and NGINX controller setup if minikube */}}
-{{ if and .Values.installType (eq .Values.installType "minikube") }}
 ---
 apiVersion: v1
 kind: Service
@@ -91,7 +89,7 @@ spec:
   selector:
     run: openrmf-scoring
   sessionAffinity: None
-  type: {{.Values.serviceType}}
+  type: {{.Values.serviceType | default "NodePort"}}
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -123,45 +121,6 @@ spec:
             name: openrmf-scoring
             port:
               number: 8080
-{{ end }}
-{{/* Use this service definition and Load Balancer type setup if AWS EKS */}}
-{{ if and .Values.installType (eq .Values.installType "awseks") }}
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: openrmf-scoring
-  namespace: {{.Values.namespace}}
-  labels:
-    app.kubernetes.io/name: openrmf
-    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
-    app.kubernetes.io/component: scoring-api
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/revision: "{{ .Release.Revision }}"
-    app.kubernetes.io/version: "{{ .Chart.AppVersion }}"
-    app.kubernetes.io/managed-by: helm
-  annotations:
-    # Note that the backend talks over HTTP.
-    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
-    # The ARN of your certificate.
-    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: {{.Values.awsACM}}
-    # Only run SSL on the port named "https" below.
-    service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "https"
-spec:
-  ports:
-  - name: http
-    port: 80
-    protocol: TCP
-    targetPort: 8080
-  - name: https
-    port: 443
-    protocol: TCP
-    targetPort: 8080
-  selector:
-    run: openrmf-scoring
-  sessionAffinity: None
-  type: {{.Values.serviceTypeAWS | default "LoadBalancer"}}
-{{ end }}
 {{ if .Values.useprometheusoperator }}
 ---
 apiVersion: monitoring.coreos.com/v1

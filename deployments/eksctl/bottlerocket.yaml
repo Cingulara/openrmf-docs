@@ -1,0 +1,26 @@
+---
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: xxxxxxxxxxxxxxxxxxxx
+  region: us-east-2
+  version: '1.19'
+
+nodeGroups:
+  - name: openrmf-demo-ng1-public
+    instanceType: t3.medium
+    minSize: 2
+    desiredCapacity: 2
+    maxSize: 3
+    amiFamily: Bottlerocket
+    labels:
+      "role": "worker"
+    iam:
+      withAddonPolicies:
+        ebs: true
+        fsx: true
+        efs: true
+        albIngress: true
+# availabilityZones: ["us-east-1a","us-east-1b","us-east-1c","us-east-1d","us-east-1f"]
+# amiFamily: Bottlerocket
