@@ -1,0 +1,20 @@
+{{ if and .Values.installType (eq .Values.installType "awseks") }}
+controller:
+  # publishService required to Allow ELB Alias for DNS registration w/ external-dns
+  publishService:
+    enabled: true
+  tcp:
+    configNameSpace: $(POD_NAMESPACE)/tcp-services
+  udp:
+    configNameSpace: $(POD_NAMESPACE)/udp-services
+  service:
+    # AWS Annotations for LoadBalaner with Certificate ARN
+    annotations:
+      service.beta.kubernetes.io/aws-load-balancer-ssl-cert: "{{.Values.awsACMOpenRMF}}"
+      service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "http"
+      service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "443"
+      service.beta.kubernetes.io/aws-load-balancer-connection-idle-timeout: "60"
+    # TLS (https) terminated at ELB, so internal endpoint is 'http'
+    targetPorts:
+      https: http
+{{ end }}

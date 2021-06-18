@@ -43,7 +43,7 @@ Follow the directions at https://github.com/elsonrodriguez/minikube-lb-patch to 
 There is a hiden gem here https://github.com/kubernetes/ingress-nginx/blob/master/docs/examples/rewrite/README.md on how to setup the ingress controllers especiall if you have sub paths. This below has a $2 in the rewrite target. This means "add the extra stuff on the end". So in this example, if I call http://openrmf.local/controls/healthz/ it will add the /healthz/ to the root of the API call internally. Otherwise it was always just dropping it and calling root no matter what "sub path" of the URL I was calling.
 
 ```yaml
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: openrmf-controls-ingress
@@ -51,7 +51,7 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/rewrite-target: /$2
-    nginx.ingress.kubernetes.io/cors-allow-methods: "GET, OPTIONS"
+    nginx.ingress.kubernetes.io/cors-allow-methods: "GET, OPTIONS, POST, PUT, DELETE"
 spec:
   rules:
   - host: openrmf.local
@@ -79,7 +79,6 @@ spec:
           servicePort: 8080
 ```
 
-<<<<<<< HEAD
 ## How to setup your k8s to run OpenRMF (manually w/o Helm)
 
 Use the [Helm Chart](../chart/openrmf/) and generate a single file template to deploy locally/manually without a running rooted Tiller in your cluster.
@@ -90,3 +89,7 @@ Other things you can do to make this work well while testing:
 2. Run `kubectl get pods -o wide` to make sure things are coming up correctly
 3. Run `kubectl get pvc` to make sure the persistent volume claims are AOK
 4. Run `kubectl describe node minikube` to make sure CPU and disk pressure are not stopping you
+
+## Setup of Keycloak in Kubernetes
+
+From the installation root folder run cd keycloak to go to the Keycloak folder. Run `./setup-realm.sh NAMEOFNAMESPACE   NAMEOFKEYCLOAKCONTAINER    OPENRMFDNSNAME   OPENRMFADMIN` where the name of the Keycloak container can be found by the information above. The OPENRMFDNSNAME is the same DNS name to OpenRMF Professional you put into the values.yaml file in a previous step for the value dnsName:. And the OPENRMFADMIN is the initial login for OpenRMF Professional that will have full Administrator rights across the application for setup. The script defaults to allow http://OPENRMFDNSNAME/* to call Keycloak for authentication. If you are going to use HTTPS we will need to update that in the Client setup in a later step here.

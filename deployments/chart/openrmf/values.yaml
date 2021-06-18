@@ -6,18 +6,19 @@
 # if running locally, you may need to edit your "hosts" file under /etc/hosts or the 
 # /windows/system32/drivers/etc/hosts file in Windows
 # Examples: openrmf.local, demo.openrmf.io, openrmf.mycompany.com
-dnsName: openrmf.local
+dnsName: demo.mydomain.com
+dnsNameKeycloak: keycloak.mydomain.com
 
 # The Identity Provider URL and Realm, i.e. using Keycloak for AuthN and AuthZ
 # Examples: https://keycloak.openrmf.io/auth, http://192.168.11.29:9001/auth
-identityProviderURL: http://xxx.xxx.xxx.xxx:9001/auth
+identityProviderURL: https://keycloak.mydomain.com/auth
 # The Realm to use from the Keycloak / OpenID provider
 identityProviderRealm: openrmf
 # The Identity Provider Client Id to use
 identityProviderClientId: openrmf
 
 # the namespace to put all of this in
-namespace: openrmfdev
+namespace: openrmf
 
 # Installation type
 # Examples: awseks, minikube
@@ -25,26 +26,26 @@ installType: minikube
 
 # versions of container to adjust
 # examples: 0.8, 0.8.1, latest
-auditImage: 1.03.00
+auditImage: 1.05.01
 auditmsgImage: 1.03.00
 checklistmsgImage: 1.03.00
-complianceImage: 1.03.00
+complianceImage: 1.05.01
 compliancemsgImage: 1.03.00
-controlImage: 1.03.00
+controlImage: 1.05.01
 controlmsgImage: 1.04.00
-readImage: 1.03.00
-saveImage: 1.04.00
+readImage: 1.05.02
+saveImage: 1.05.01
 scoremsgImage: 1.04.00
-scoringImage: 1.04.00
-templateImage: 1.05.00
+scoringImage: 1.05.01
+templateImage: 1.05.04
 templatemsgImage: 1.03.00
-uploadImage: 1.05.00
+uploadImage: 1.05.01
 systemmsgImage: 1.03.00
-webuiImage: 1.05.01
-reportImage: 1.03.00
+webuiImage: 1.05.05
+reportImage: 1.05.01
 reportmsgImage: 1.03.01
-mongoImage: 4.2.7-nonroot
-natsImage: 2.1.7-linux
+mongoImage: 4.4.4-nonroot
+natsImage: 2.1.9
 
 # storage class name for PVC
 # examples: standard, gp2, ebs-sc, efs-sc
@@ -53,23 +54,23 @@ storageClass: standard
 # API URLs for the web client side calls, used in the web.yaml deployment for the UI
 # These are rewritted to the web pods in a ConfigMap for inclusion of client-side API calls
 # Examples: 'http://openrmf.local/read', https://read.openrmf.io
-readAPI:       http://openrmf.local/read/
-scoreAPI:      http://openrmf.local/scoring/
-saveAPI:       http://openrmf.local/save/
-uploadAPI:     http://openrmf.local/upload/
-templateAPI:   http://openrmf.local/template/
-complianceAPI: http://openrmf.local/compliance/
-controlAPI:    http://openrmf.local/controls/
-auditAPI:      http://openrmf.local/audit/
-reportAPI:     http://openrmf.local/report/
+readAPI:       /api/read/
+scoreAPI:      /api/scoring/
+saveAPI:       /api/save/
+uploadAPI:     /api/upload/
+templateAPI:   /api/template/
+complianceAPI: /api/compliance/
+controlAPI:    /api/controls/
+auditAPI:      /api/audit/
+reportAPI:     /api/report/
 
 # Service Types for Minikube and AWS separately
-# Examples: NodePort, LoadBalancer, etc.
-serviceTypeMinikube: NodePort
-serviceTypeAWS: LoadBalancer
+# Examples: NodePort, LoadBalancer, ClusterIP, etc.
+serviceType: NodePort
 
 # AWS ACM Certificate ARN if used
-awsACM: arn:aws:acm:us-east-1:xxxxxxxxxxxxxx:certificate/xxxxxxxxxxxxxxxx
+awsACMOpenRMF: arn:aws:acm:us-east-2:xxxxxxxxxxxxxxxx:certificate/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+awsACMKeycloak: arn:aws:acm:us-east-2:xxxxxxxxxxxxxxxx:certificate/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 # Database Types
 scoredbtype: mongo
@@ -141,11 +142,6 @@ reportInitDBName: b3BlbnJtZnJlcG9ydA==
 # mongodb://{{.Values.scoreAppUser}}:{{.Values.scoreAppPassword}}@openrmf-scoredb/{{.Values.scoreInitDBName}}?authSource={{.Values.scoreInitDBName}}
 reportAppConnection: bW9uZ29kYjovL29wZW5ybWZyZXBvcnQ6b3BlbnJtZjQzMjEhQG9wZW5ybWYtcmVwb3J0ZGIvb3BlbnJtZnJlcG9ydD9hdXRoU291cmNlPW9wZW5ybWZyZXBvcnQ=
 
-# Jaeger Tracing Server setup from https://www.jaegertracing.io/docs/latest/sampling/
-jaegerSamplerType: probabilistic
-jaegerSamplerParam: 0.1 # percentage to trace
-
-
 #########
 # Prometheus Operator Setup https://github.com/helm/charts/tree/master/stable/prometheus-operator and 
 # https://github.com/coreos/prometheus-operator
@@ -153,7 +149,7 @@ jaegerSamplerParam: 0.1 # percentage to trace
 #########
 
 # do you use this operator
-useprometheusoperator: true
+useprometheusoperator: false
 
 # The label name and value in name: value setup to match what the Prometheus Operator is using
 # for it to know to pick up and use the ServiceMonitor setup
@@ -165,3 +161,8 @@ useprometheusoperator: true
 
 servicemonitormatchlabelname: release
 servicemonitormatchlabelvalue: prometheus-operator-xxxxxxxxxxxxxx
+
+###############################################################
+# The URLs for a Metrics UI like Grafana (if any)
+###############################################################
+urlMetricsMenu: 

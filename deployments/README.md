@@ -28,13 +28,6 @@ namespace you made in step 1 are the same!
 ## Kubernetes
 For a straight kubernetes (k8s) installation w/o helm go to the [kubernetes](./kubernetes) folder and make the namespace with the `kubectl apply -f ./namespace.yaml`. Then deploy all the pieces locally. You may have to adjust the services based on your setup.
 
-## Jaeger
-These APIs push out tracing information to Jaeger in Kubernetes. Based on https://github.com/jaegertracing/jaeger-kubernetes you need to run the below to put the Jaeger operator in place. When it is done you can run ` kubectl get service jaeger-query ` to see the URL for it. The APIs right now will fail if they do not have Jaeger specifics setup. We will in the future put an option in the helm chart to use / not use them. 
-
-```
-kubectl create -f https://raw.githubusercontent.com/jaegertracing/jaeger-kubernetes/master/jaeger-production-template.yml
-```
-
 ## Generating Secrets
 To use secrets in the YAML file you need to generate the values in base64 encoding. The username, initial root password, database name, 
 etc. are all used in other places through the API YAMLs and database YAML files to bring up and connect to MongoDB.

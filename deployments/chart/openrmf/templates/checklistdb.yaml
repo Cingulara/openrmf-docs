@@ -93,7 +93,7 @@ spec:
             memory: "500M"
             cpu: "200m"
         volumeMounts:
-        - mountPath: /data/db
+        - mountPath: /data/db/openrmf/
           name: mongodata-checklistdb
         - name: initconfig-volume
           mountPath: /docker-entrypoint-initdb.d/mongo-init.js
