@@ -33,6 +33,7 @@ docker exec -i $keycontainer /opt/jboss/keycloak/bin/kcadm.sh create realms -s r
 echo
 echo "Setting OpenRMF Realm Options (SSL off, Display Name)..."
 docker exec -i $keycontainer /opt/jboss/keycloak/bin/kcadm.sh update realms/openrmf --set 'sslRequired=none'
+docker exec -i $keycontainer /opt/jboss/keycloak/bin/kcadm.sh update realms/master --set 'sslRequired=none'
 docker exec -i $keycontainer /opt/jboss/keycloak/bin/kcadm.sh update realms/openrmf --set 'displayName=OpenRMF OSS'
 docker exec -i $keycontainer /opt/jboss/keycloak/bin/kcadm.sh update realms/openrmf --set 'displayNameHtml=OpenRMF OSS'
 docker exec -i $keycontainer /opt/jboss/keycloak/bin/kcadm.sh update realms/openrmf --set 'loginTheme=openrmf'
