@@ -67,3 +67,8 @@ scrape_configs:
     # replace the IP with your local IP for development
     # localhost is not it, as that is w/in the container :)
     - targets: ['openrmfapi-audit:8098']
+  - job_name: 'openrmf-web'
+    scrape_interval: 1m
+    metrics_path: '/metrics'
+    static_configs:
+      - targets: ['nginx-metrics:9113']
