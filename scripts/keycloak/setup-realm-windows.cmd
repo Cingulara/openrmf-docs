@@ -36,11 +36,12 @@ docker exec -i %keycontainer% /opt/jboss/keycloak/bin/kcadm.sh update realms/mas
 docker exec -i %keycontainer% /opt/jboss/keycloak/bin/kcadm.sh update realms/openrmf --set "displayName=OpenRMF OSS"
 docker exec -i %keycontainer% /opt/jboss/keycloak/bin/kcadm.sh update realms/openrmf --set "displayNameHtml=OpenRMF OSS"
 docker exec -i %keycontainer% /opt/jboss/keycloak/bin/kcadm.sh update realms/openrmf --set "displayName=OpenRMF OSS"
-docker exec -i %keycontainer% /opt/jboss/keycloak/bin/kcadm.sh update realms/openrmf --set "displayNameHtml=OpenRMF OSS"
+docker exec -i %keycontainer% /opt/jboss/keycloak/bin/kcadm.sh update realms/openrmf --set "displayNameHtml=OpenRMF<sup>&reg;</sup> OSS"
 docker exec -i %keycontainer% /opt/jboss/keycloak/bin/kcadm.sh update realms/openrmf --set "loginTheme=openrmf"
 docker exec -i %keycontainer% /opt/jboss/keycloak/bin/kcadm.sh update realms/openrmf --set "accountTheme=openrmf"
 docker exec -i %keycontainer% /opt/jboss/keycloak/bin/kcadm.sh update realms/master --set "accountTheme=openrmf"
 docker exec -i %keycontainer% /opt/jboss/keycloak/bin/kcadm.sh update realms/openrmf --set "adminTheme=openrmf"
+docker exec -i %keycontainer% /opt/jboss/keycloak/bin/kcadm.sh update realms/master --set "displayNameHtml=OpenRMF<sup>&reg;</sup> OSS User Administration"
 REM END Disable SSL Requirement
 
 REM BEGIN Create Password Policy

@@ -8,6 +8,19 @@ nav_order: 2
 
 Please refer to the <a href="https://github.com/Cingulara?tab=projects" target="_blank">OpenRMF Projects listing on GitHub</a> for more information on feature updates and timeline.
 
+## Version 1.7
+Version 1.7 has the latest DISA templates for SCAP scan matching up to December 24, 2021 as well as the following feature updates:
+* updated base container image for vulnerability fixes
+* updated NGINX container for the web UI for vulnerability fixes
+* easier editing of vulnerabilities, all on one page w/o a popup
+* fixing a bug removing \n from Template formatting
+* fixing loading of HTML / XML characters in checklist details listings
+* adding the NGINX prometheus exporter for tracking metrics of the web UI
+* allow tagging of checklists (one at a time)
+
+## Version 1.6
+Version 1.6 fixed the POSIX bug after updating to Docker Desktop where the .env file and APIs read the environment variables but they had a "-" in them. That was breaking it. 
+
 ## Version 1.5.4
 Version 1.5.4 added the updated DISA Templates from April 27 and April 28 2021. These allow you to match on SCAP scan uploads to automatically create checklists.
 
