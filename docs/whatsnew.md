@@ -17,6 +17,9 @@ Version 1.7 has the latest DISA templates for SCAP scan matching up to December 
 * fixing loading of HTML / XML characters in checklist details listings
 * adding the NGINX prometheus exporter for tracking metrics of the web UI
 * allow tagging of checklists (one at a time)
+* listing all templates, including internal ones from DISA's public site
+* better formatting of plugin description for Nessus report
+* better formatting for vulnerability detail on reports and chekclist vulnerability listings
 
 ## Version 1.6
 Version 1.6 fixed the POSIX bug after updating to Docker Desktop where the .env file and APIs read the environment variables but they had a "-" in them. That was breaking it. 
