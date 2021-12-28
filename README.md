@@ -1,4 +1,4 @@
-# OpenRMF<sup>&reg;</sup> Documentation (v 1.6.0)
+# OpenRMF<sup>&reg;</sup> Documentation (v 1.7.0)
 OpenRMF<sup>&reg;</sup> is an open source tool for managing, viewing, and reporting of your DoD STIG checklists, SCAP Scans and Nessus Patch Scans in one web-based interface using your browser. It also generates a compliance listing of all your checklists across a whole system based on NIST 800-53 for your Risk Management Framework (RMF) documentation and process. This tool helps you manage multiple systems going through the RMF process and allows you to structure your data in a clean interface all in one location for your group or program. 
 
 ## Get OpenRMF<sup>&reg;</sup> Core Running Locally
@@ -8,7 +8,7 @@ Next follow these [Step by Step Instructions](step-by-step.md).
 
 > Note that for Docker Desktop users, you need to have the File Sharing turned on to run OpenRMF<sup>&reg;</sup> the way it is designed in the docker-compose file. We use persistent volumes for MongoDB, Grafana, and Prometheus.
 
-> Tested with Docker Desktop 2.x onward with 6 CPUs, 6 GB RAM, 1 GB swap and 60 GB Disk Image. You will want more than the default 2 CPU and 2 GB RAM to maximize the use of OpenRMF<sup>&reg;</sup> specifically. Your machine age and hardware will make this vary some. If you see timeouts on Keycloak and OpenRMF<sup>&reg;</sup> when uploading, running reports, or web UI screens taking a long time to load you may want to check the Docker Desktop Resources of your machine.
+> Tested with Docker Desktop 4.x onward with 6 CPUs, 6 GB RAM, 1 GB swap and 60 GB Disk Image. You will want more than the default 2 CPU and 2 GB RAM to maximize the use of OpenRMF<sup>&reg;</sup> specifically. Your machine age and hardware will make this vary some. If you see timeouts on Keycloak and OpenRMF<sup>&reg;</sup> when uploading, running reports, or web UI screens taking a long time to load you may want to check the Docker Desktop Resources of your machine.
 
 ## Other OpenRMF<sup>&reg;</sup> Deployments
 If you want to run on AWS EKS, you can see the Helm Chart and Kubernetes specific information [here](./deployments/).

@@ -3,7 +3,7 @@ version : '3.8'
 services:
 ### 1 Web Front End Container
   openrmf-web:
-    image: cingulara/openrmf-web:1.05.06
+    image: cingulara/openrmf-web:1.07.01
     container_name: openrmf-web
     restart: always
     ports:
@@ -22,7 +22,7 @@ services:
 
 ### 9 API Containers
   openrmfapi-scoring:
-    image: cingulara/openrmf-api-scoring:1.06.00
+    image: cingulara/openrmf-api-scoring:1.07.00
     container_name: openrmf-scoring-api
     restart: always
     ports:
@@ -40,7 +40,7 @@ services:
       - openrmf
   
   openrmfapi-save:
-    image: cingulara/openrmf-api-save:1.06.00
+    image: cingulara/openrmf-api-save:1.07.00
     container_name: openrmf-save-api
     restart: always
     ports:
@@ -61,7 +61,7 @@ services:
       - openrmf
 
   openrmfapi-template:
-    image: cingulara/openrmf-api-template:1.06.00
+    image: cingulara/openrmf-api-template:1.07.00
     container_name: openrmf-template-api
     restart: always
     ports:
@@ -80,7 +80,7 @@ services:
       - openrmf
 
   openrmfapi-upload:
-    image: cingulara/openrmf-api-upload:1.06.00
+    image: cingulara/openrmf-api-upload:1.07.00
     container_name: openrmf-upload-api
     restart: always
     ports:
@@ -101,7 +101,7 @@ services:
       - openrmf
 
   openrmfapi-read:
-    image: cingulara/openrmf-api-read:1.06.00
+    image: cingulara/openrmf-api-read:1.07.00
     container_name: openrmf-read-api
     restart: always
     ports:
@@ -120,7 +120,7 @@ services:
       - openrmf
 
   openrmfapi-compliance:
-    image: cingulara/openrmf-api-compliance:1.06.00
+    image: cingulara/openrmf-api-compliance:1.07.00
     container_name: openrmf-compliance-api
     restart: always
     ports:
@@ -134,7 +134,7 @@ services:
       - openrmf
 
   openrmfapi-controls:
-    image: cingulara/openrmf-api-controls:1.06.00
+    image: cingulara/openrmf-api-controls:1.07.00
     container_name: openrmf-controls-api
     restart: always
     ports:
@@ -148,7 +148,7 @@ services:
       - openrmf
 
   openrmfapi-audit:
-    image: cingulara/openrmf-api-audit:1.06.00
+    image: cingulara/openrmf-api-audit:1.07.00
     container_name: openrmf-audit-api
     restart: always
     ports:
@@ -167,7 +167,7 @@ services:
       - openrmf
 
   openrmfapi-report:
-    image: cingulara/openrmf-api-report:1.06.00
+    image: cingulara/openrmf-api-report:1.07.00
     container_name: openrmf-report-api
     restart: always
     ports:
@@ -187,7 +187,7 @@ services:
 
 ### 8 Messaging Containers
   openrmfmsg-score:
-    image: cingulara/openrmf-msg-score:1.06.00
+    image: cingulara/openrmf-msg-score:1.07.00
     container_name: openrmf-score-nats-message-client
     restart: always
     environment:
@@ -202,7 +202,7 @@ services:
       - openrmf
 
   openrmfmsg-checklist:
-    image: cingulara/openrmf-msg-checklist:1.03.00
+    image: cingulara/openrmf-msg-checklist:1.07.00
     container_name: openrmf-checklist-nats-message-client
     restart: always
     environment:
@@ -217,7 +217,7 @@ services:
       - openrmf
 
   openrmfmsg-compliance:
-    image: cingulara/openrmf-msg-compliance:1.03.00
+    image: cingulara/openrmf-msg-compliance:1.07.00
     container_name: openrmf-compliance-nats-message-client
     restart: always
     environment:
@@ -228,7 +228,7 @@ services:
       - openrmf
 
   openrmfmsg-controls:
-    image: cingulara/openrmf-msg-controls:1.04.00
+    image: cingulara/openrmf-msg-controls:1.07.00
     container_name: openrmf-controls-nats-message-client
     restart: always
     environment:
@@ -239,7 +239,7 @@ services:
       - openrmf
 
   openrmfmsg-template:
-    image: cingulara/openrmf-msg-template:1.03.00
+    image: cingulara/openrmf-msg-template:1.07.00
     container_name: openrmf-template-nats-message-client
     restart: always
     environment:
@@ -254,7 +254,7 @@ services:
       - openrmf
 
   openrmfmsg-system:
-    image: cingulara/openrmf-msg-system:1.06.00
+    image: cingulara/openrmf-msg-system:1.07.00
     container_name: openrmf-system-nats-message-client
     restart: always
     environment:
@@ -269,7 +269,7 @@ services:
       - openrmf
 
   openrmfmsg-audit:
-    image: cingulara/openrmf-msg-audit:1.03.00
+    image: cingulara/openrmf-msg-audit:1.07.00
     container_name: openrmf-audit-nats-message-client
     restart: always
     environment:
@@ -284,7 +284,7 @@ services:
       - openrmf
 
   openrmfmsg-reports:
-    image: cingulara/openrmf-msg-reports:1.06.00
+    image: cingulara/openrmf-msg-reports:1.07.00
     container_name: openrmf-report-nats-message-client
     restart: always
     environment:
@@ -385,7 +385,7 @@ services:
 
 ### NATS messaging container (internal)
   natsserver: 
-    image: nats:2.1.9
+    image: nats:2.2.6-alpine
     container_name: nats
     command: -m 8222
     restart: always
@@ -433,7 +433,7 @@ services:
       - openrmf
 
   prometheus:
-    image: prom/prometheus:v2.30.3
+    image: prom/prometheus:v2.32.1
     container_name: prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
@@ -448,7 +448,7 @@ services:
       - openrmf
 
   grafana: 
-    image: grafana/grafana:8.2.2
+    image: grafana/grafana:8.3.3
     container_name: grafana
     #command:
     environment:

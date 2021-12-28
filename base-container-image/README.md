@@ -4,7 +4,7 @@ The DoD uses their own CA root certificates. We need them in the APIs since the 
 ## Create the base image to use in all the APIs
 
 ```
-docker build -t openrmf-base-api:1.3 .
+docker build -t openrmf-base:1.04.00 .
 ```
 
 ## How to get the CRT files from the CER files

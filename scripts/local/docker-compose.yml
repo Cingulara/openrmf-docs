@@ -67,7 +67,7 @@ services:
     restart: always
     command:
       - -nginx.scrape-uri
-      - http://web:8080/status
+      - http://openrmf-web:8080/status
     ports:
       - 9113:9113
     networks:

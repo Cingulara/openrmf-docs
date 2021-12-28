@@ -15,6 +15,8 @@ Compare this to the manual way you have to manage STIG Checklists and SCAP scans
 
 See [What's New](./whatsnew.html) with the latest version.
 
+> This is for AMD / Intel based computers and servers to run in a Docker environment. The AMD chipsets may not run this stack correctly based on the way the containers are built.
+
 ## What it does
 OpenRMF manages your RMF documentation and removes the Cybersecurity mystery! It allows management to view the status of checklists and RMF progress on their systems. 
 
