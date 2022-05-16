@@ -2,7 +2,7 @@ version : '3.8'
  
 services:
   web:
-    image: nginxinc/nginx-unprivileged:1.20
+    image: nginxinc/nginx-unprivileged:1.20.2-alpine
     container_name: openrmf-web
     command: [nginx-debug, '-g', 'daemon off;']
     restart: always
@@ -12,7 +12,7 @@ services:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
 
   mongo:
-    image: cingulara/mongo:4.4.4-nonroot
+    image: cingulara/mongo:5.0.6-nonroot
     container_name: mongodb
     restart: always
     ports:
@@ -27,7 +27,7 @@ services:
       - openrmf-local
 
   nats: 
-    image: nats:2.2.6-alpine
+    image: nats:2.8.1-alpine3.15
     container_name: nats
     command: -m 8222
     restart: always
@@ -74,7 +74,7 @@ services:
       - openrmf-local
 
   prometheus:
-    image: prom/prometheus:v2.30.3
+    image: prom/prometheus:v2.35.0
     container_name: prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
@@ -88,7 +88,7 @@ services:
       - openrmf-local
 
   grafana: 
-    image: grafana/grafana:8.2.2
+    image: grafana/grafana:8.5.0
     container_name: grafana
     #command:
     environment:
