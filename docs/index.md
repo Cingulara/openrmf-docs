@@ -7,9 +7,9 @@ nav_order: 1
 # OpenRMF Introduction
 
 Welcome to the OpenRMF Docs site. This site contains help screens, scenarios, screenshots and 
-other useful information to use the OpenRMF tool fo you and your team. 
+other useful information to use the OpenRMF tool for you and your team. This is a container-based application you can download locally and run on a laptop, server, VM, cloud instance, even Kubernetes if you wish.
 
-OpenRMF is the only web-based open source tool to manage your DoD STIG checklists, generate NIST compliance, keep track of your security items that are Open or Not Reviewed, and massively shrink your timeline to collect data and submit for an ATO!
+OpenRMF is the only web-based open source tool to manage your DoD STIG checklists, generate NIST compliance, keep track of your security items that are Open or Not Reviewed, and massively shrink your timeline to collect data and submit for an ATO! You can use the application to manage your checklists, track compliance, and then export CKL files, a test plan XLSX and a POAM XLSX for your use. 
 
 Compare this to the manual way you have to manage STIG Checklists and SCAP scans, outlined in Tutela's [blog post here](https://medium.com/@dgould_43957/how-to-use-disa-stig-viewer-tool-907358d17cea). 
 
@@ -72,6 +72,6 @@ With coming updates such as automating the Risk Assessment Report, automating th
 More information can be found in our <a href="https://www.openrmf.io/doc/OpenRMF-Product-Information.pdf" target="_blank">product PDF</a> on our website.
 
 ## Architecture
-Below is the top level architecture as of version 0.11 and beyond, drawn via <a href="https://app.diagrams.net/" target="_blank">Draw.io</a>'s great tool (now Diagrams.net). 
+Below is the top level architecture as of version 1.8 and beyond, drawn via <a href="https://app.diagrams.net/" target="_blank">Draw.io</a>'s great tool (now Diagrams.net). 
 
 ![OpenRMF v0.11 Architecture and beyond](/assets/openRMF-Tool-Architecture.png)

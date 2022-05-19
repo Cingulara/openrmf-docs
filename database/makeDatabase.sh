@@ -1,1 +1,1 @@
-docker build -f ./Dockerfile.MongoDB -t mongo:4.4.4-nonroot .
+docker build -f ./Dockerfile.MongoDB -t mongo:5.0.6-nonroot .
