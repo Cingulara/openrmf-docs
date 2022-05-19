@@ -1,12 +1,28 @@
 ---
 layout: default
-title: What's New in v1.5
+title: What's New in v1.8
 nav_order: 2
 ---
 
 # What's New with OpenRMF
 
 Please refer to the <a href="https://github.com/Cingulara?tab=projects" target="_blank">OpenRMF Projects listing on GitHub</a> for more information on feature updates and timeline.
+
+## Version 1.8
+Version 1.8 has the latest DISA templates (438) for SCAP scan matching up to May 10, 2022 as well as the following feature updates:
+* Allow creating a new checklist from a template from the template checklist page
+* Allow removing a Nessus patch scan from a system package record
+* Updated the POAM to DoD format for use in eMASS and other applications
+* Show the checklist template version and release on the template listing page
+* Updated button help throughout
+* Updated XLSX formatting with merged cells and borders
+* Logging configurable with LOGLEVEL environment variable 0 - 5 (Trace through Critical), defaulting to Warn = 3
+* MongoDB 5.0
+* Keycloak 15.0
+* NATS 2.8
+* .NET Core 6 runtime
+* consolidated 4 APIs into 1
+* consolidated 2 MSG clients into 1
 
 ## Version 1.7
 Version 1.7 has the latest DISA templates for SCAP scan matching up to December 24, 2021 as well as the following feature updates:

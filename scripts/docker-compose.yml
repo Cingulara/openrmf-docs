@@ -3,7 +3,7 @@ version : '3.8'
 services:
 ### 1 Web Front End Container
   openrmf-web:
-    image: cingulara/openrmf-web:1.07.02
+    image: cingulara/openrmf-web:1.08.00
     container_name: openrmf-web
     restart: always
     ports:
@@ -20,9 +20,9 @@ services:
     networks:
       - openrmf
 
-### 9 API Containers
+### 6 API Containers
   openrmfapi-scoring:
-    image: cingulara/openrmf-api-scoring:1.07.00
+    image: cingulara/openrmf-api-scoring:1.08.00
     container_name: openrmf-scoring-api
     restart: always
     ports:
@@ -34,34 +34,14 @@ services:
       - DBCONNECTION=mongodb://openrmfscore:openrmf1234!@scoredb/openrmfscore?authSource=openrmfscore
       - DBTYPE=mongo
       - DB=openrmfscore
+      - LOGLEVEL=3
     depends_on:
       - scoredb
     networks:
       - openrmf
   
-  openrmfapi-save:
-    image: cingulara/openrmf-api-save:1.07.00
-    container_name: openrmf-save-api
-    restart: always
-    ports:
-      - 8082
-    env_file: .env
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://*:8082
-      - DBCONNECTION=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
-      - DB=openrmf
-      - DBTYPE=mongo
-      - NATSSERVERURL=nats://natsserver:4222
-    depends_on:
-      - openrmfmsg-score
-      - checklistdb
-      - natsserver
-    networks:
-      - openrmf
-
   openrmfapi-template:
-    image: cingulara/openrmf-api-template:1.07.03
+    image: cingulara/openrmf-api-template:1.08.00
     container_name: openrmf-template-api
     restart: always
     ports:
@@ -74,34 +54,14 @@ services:
       - DBCONNECTION=mongodb://openrmftemplate:openrmf1234!@templatedb/openrmftemplate?authSource=openrmftemplate
       - DB=openrmftemplate
       - DBTYPE=mongo
+      - LOGLEVEL=3
     depends_on:
       - templatedb
     networks:
       - openrmf
 
-  openrmfapi-upload:
-    image: cingulara/openrmf-api-upload:1.07.01
-    container_name: openrmf-upload-api
-    restart: always
-    ports:
-      - 8086
-    env_file: .env
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://*:8086
-      - DBCONNECTION=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
-      - DB=openrmf
-      - DBTYPE=mongo
-      - NATSSERVERURL=nats://natsserver:4222
-    depends_on:
-      - openrmfmsg-score
-      - checklistdb
-      - natsserver
-    networks:
-      - openrmf
-
   openrmfapi-read:
-    image: cingulara/openrmf-api-read:1.07.00
+    image: cingulara/openrmf-api-read:1.08.00
     container_name: openrmf-read-api
     restart: always
     ports:
@@ -110,31 +70,18 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8084
+      - NATSSERVERURL=nats://natsserver:4222
       - DBCONNECTION=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
       - DB=openrmf
       - DBTYPE=mongo
-      - NATSSERVERURL=nats://natsserver:4222
+      - LOGLEVEL=3
     depends_on:
       - checklistdb
     networks:
       - openrmf
 
-  openrmfapi-compliance:
-    image: cingulara/openrmf-api-compliance:1.07.00
-    container_name: openrmf-compliance-api
-    restart: always
-    ports:
-      - 8092
-    env_file: .env
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://*:8092
-      - NATSSERVERURL=nats://natsserver:4222
-    networks:
-      - openrmf
-
   openrmfapi-controls:
-    image: cingulara/openrmf-api-controls:1.07.00
+    image: cingulara/openrmf-api-controls:1.08.00
     container_name: openrmf-controls-api
     restart: always
     ports:
@@ -144,11 +91,12 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8094
       - NATSSERVERURL=nats://natsserver:4222
+      - LOGLEVEL=3
     networks:
       - openrmf
 
   openrmfapi-audit:
-    image: cingulara/openrmf-api-audit:1.07.00
+    image: cingulara/openrmf-api-audit:1.08.00
     container_name: openrmf-audit-api
     restart: always
     ports:
@@ -161,13 +109,14 @@ services:
       - DB=openrmfaudit
       - DBTYPE=mongo
       - NATSSERVERURL=nats://natsserver:4222
+      - LOGLEVEL=3
     depends_on:
       - auditdb
     networks:
       - openrmf
 
   openrmfapi-report:
-    image: cingulara/openrmf-api-report:1.07.00
+    image: cingulara/openrmf-api-report:1.08.00
     container_name: openrmf-report-api
     restart: always
     ports:
@@ -180,14 +129,15 @@ services:
       - DB=openrmfreport
       - DBTYPE=mongo
       - NATSSERVERURL=nats://natsserver:4222
+      - LOGLEVEL=3
     depends_on:
       - reportdb
     networks:
       - openrmf
 
-### 8 Messaging Containers
+### 7 Messaging Containers
   openrmfmsg-score:
-    image: cingulara/openrmf-msg-score:1.07.00
+    image: cingulara/openrmf-msg-score:1.08.00
     container_name: openrmf-score-nats-message-client
     restart: always
     environment:
@@ -195,51 +145,39 @@ services:
       - DBTYPE=mongo
       - DB=openrmfscore
       - NATSSERVERURL=nats://natsserver:4222
+      - LOGLEVEL=3
     depends_on:
       - scoredb
       - natsserver
     networks:
       - openrmf
 
-  openrmfmsg-checklist:
-    image: cingulara/openrmf-msg-checklist:1.07.00
-    container_name: openrmf-checklist-nats-message-client
-    restart: always
-    environment:
-      - DBCONNECTION=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
-      - DB=openrmf
-      - DBTYPE=mongo
-      - NATSSERVERURL=nats://natsserver:4222
-    depends_on:
-      - checklistdb
-      - natsserver
-    networks:
-      - openrmf
-
   openrmfmsg-compliance:
-    image: cingulara/openrmf-msg-compliance:1.07.00
+    image: cingulara/openrmf-msg-compliance:1.08.00
     container_name: openrmf-compliance-nats-message-client
     restart: always
     environment:
       - NATSSERVERURL=nats://natsserver:4222
+      - LOGLEVEL=3
     depends_on:
       - natsserver
     networks:
       - openrmf
 
   openrmfmsg-controls:
-    image: cingulara/openrmf-msg-controls:1.07.00
+    image: cingulara/openrmf-msg-controls:1.08.00
     container_name: openrmf-controls-nats-message-client
     restart: always
     environment:
       - NATSSERVERURL=nats://natsserver:4222
+      - LOGLEVEL=3
     depends_on:
       - natsserver
     networks:
       - openrmf
 
   openrmfmsg-template:
-    image: cingulara/openrmf-msg-template:1.07.01
+    image: cingulara/openrmf-msg-template:1.08.00
     container_name: openrmf-template-nats-message-client
     restart: always
     environment:
@@ -247,6 +185,7 @@ services:
       - DB=openrmftemplate
       - DBTYPE=mongo
       - NATSSERVERURL=nats://natsserver:4222
+      - LOGLEVEL=3
     depends_on:
       - templatedb
       - natsserver
@@ -254,7 +193,7 @@ services:
       - openrmf
 
   openrmfmsg-system:
-    image: cingulara/openrmf-msg-system:1.07.00
+    image: cingulara/openrmf-msg-system:1.08.00
     container_name: openrmf-system-nats-message-client
     restart: always
     environment:
@@ -262,6 +201,7 @@ services:
       - DB=openrmf
       - DBTYPE=mongo
       - NATSSERVERURL=nats://natsserver:4222
+      - LOGLEVEL=3
     depends_on:
       - checklistdb
       - natsserver
@@ -269,7 +209,7 @@ services:
       - openrmf
 
   openrmfmsg-audit:
-    image: cingulara/openrmf-msg-audit:1.07.00
+    image: cingulara/openrmf-msg-audit:1.08.00
     container_name: openrmf-audit-nats-message-client
     restart: always
     environment:
@@ -277,6 +217,7 @@ services:
       - DB=openrmfaudit
       - DBTYPE=mongo
       - NATSSERVERURL=nats://natsserver:4222
+      - LOGLEVEL=3
     depends_on:
       - auditdb
       - natsserver
@@ -284,7 +225,7 @@ services:
       - openrmf
 
   openrmfmsg-reports:
-    image: cingulara/openrmf-msg-reports:1.07.00
+    image: cingulara/openrmf-msg-reports:1.08.00
     container_name: openrmf-report-nats-message-client
     restart: always
     environment:
@@ -295,6 +236,7 @@ services:
       - REPORTDB=openrmfreport
       - REPORTDBTYPE=mongo
       - NATSSERVERURL=nats://natsserver:4222
+      - LOGLEVEL=3
     depends_on:
       - checklistdb
       - reportdb
@@ -304,7 +246,7 @@ services:
 
 ### 5 MongoDB Containers
   checklistdb:
-    image: cingulara/mongo:4.4.4-nonroot
+    image: cingulara/mongo:5.0.6-nonroot
     container_name: mongodb-checklist
     restart: always
     ports:
@@ -320,7 +262,7 @@ services:
       - openrmf
 
   scoredb:
-    image: cingulara/mongo:4.4.4-nonroot
+    image: cingulara/mongo:5.0.6-nonroot
     container_name: mongodb-score
     restart: always
     ports:
@@ -336,7 +278,7 @@ services:
       - openrmf
 
   templatedb:
-    image: cingulara/mongo:4.4.4-nonroot
+    image: cingulara/mongo:5.0.6-nonroot
     container_name: mongodb-template
     restart: always
     ports:
@@ -352,7 +294,7 @@ services:
       - openrmf
 
   auditdb:
-    image: cingulara/mongo:4.4.4-nonroot
+    image: cingulara/mongo:5.0.6-nonroot
     container_name: mongodb-audit
     restart: always
     ports:
@@ -368,7 +310,7 @@ services:
       - openrmf
 
   reportdb:
-    image: cingulara/mongo:4.4.4-nonroot
+    image: cingulara/mongo:5.0.6-nonroot
     container_name: mongodb-report
     restart: always
     ports:
@@ -385,7 +327,7 @@ services:
 
 ### NATS messaging container (internal)
   natsserver: 
-    image: nats:2.2.6-alpine
+    image: nats:2.8.1-alpine3.15
     container_name: nats
     command: -m 8222
     restart: always
@@ -433,7 +375,7 @@ services:
       - openrmf
 
   prometheus:
-    image: prom/prometheus:v2.32.1
+    image: prom/prometheus:v2.35.0
     container_name: prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
@@ -448,7 +390,7 @@ services:
       - openrmf
 
   grafana: 
-    image: grafana/grafana:8.3.3
+    image: grafana/grafana:8.5.0
     container_name: grafana
     #command:
     environment:
