@@ -1,0 +1,5 @@
+docker exec -it mongodb-checklist mongo --username root --password myp2ssw0rd --eval "db.adminCommand( { getParameter: 1, featureCompatibilityVersion: 1 } ); db.adminCommand( { setFeatureCompatibilityVersion: \"4.4\" } );"
+docker exec -it mongodb-score mongo --username root --password myp2ssw0rd --eval "db.adminCommand( { getParameter: 1, featureCompatibilityVersion: 1 } ); db.adminCommand( { setFeatureCompatibilityVersion: \"4.4\" } );"
+docker exec -it mongodb-template mongo --username root --password myp2ssw0rd --eval "db.adminCommand( { getParameter: 1, featureCompatibilityVersion: 1 } ); db.adminCommand( { setFeatureCompatibilityVersion: \"4.4\" } );"
+docker exec -it mongodb-audit mongo --username root --password myp2ssw0rd --eval "db.adminCommand( { getParameter: 1, featureCompatibilityVersion: 1 } ); db.adminCommand( { setFeatureCompatibilityVersion: \"4.4\" } );"
+docker exec -it mongodb-report mongo --username root --password myp2ssw0rd --eval "db.adminCommand( { getParameter: 1, featureCompatibilityVersion: 1 } ); db.adminCommand( { setFeatureCompatibilityVersion: \"4.4\" } );"
