@@ -10,11 +10,11 @@ services:
       - 8080:8080
     depends_on:
       - openrmfapi-scoring
-      - openrmfapi-save
       - openrmfapi-template
-      - openrmfapi-upload
       - openrmfapi-read
-      - openrmfapi-compliance
+      - openrmfapi-controls
+      - openrmfapi-audit
+      - openrmfapi-report
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
     networks:
@@ -257,7 +257,7 @@ services:
       - MONGO_INITDB_DATABASE=openrmf
     volumes:
       - checklist-data-volume:/data/db
-      - ./initializeChecklist.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      - ./initializeChecklist.js:/docker-entrypoint-initdb.d/initialize.js:ro
     networks:
       - openrmf
 
@@ -273,7 +273,7 @@ services:
       - MONGO_INITDB_DATABASE=openrmfscore
     volumes:
       - score-data-volume:/data/db
-      - ./initializeScore.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      - ./initializeScore.js:/docker-entrypoint-initdb.d/initialize.js:ro
     networks:
       - openrmf
 
@@ -289,7 +289,7 @@ services:
       - MONGO_INITDB_DATABASE=openrmftemplate
     volumes:
       - template-data-volume:/data/db
-      - ./initializeTemplate.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      - ./initializeTemplate.js:/docker-entrypoint-initdb.d/initialize.js:ro
     networks:
       - openrmf
 
@@ -305,7 +305,7 @@ services:
       - MONGO_INITDB_DATABASE=openrmfaudit
     volumes:
       - audit-data-volume:/data/db
-      - ./initializeAudit.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      - ./initializeAudit.js:/docker-entrypoint-initdb.d/initialize.js:ro
     networks:
       - openrmf
 
@@ -321,7 +321,7 @@ services:
       - MONGO_INITDB_DATABASE=openrmfreport
     volumes:
       - report-data-volume:/data/db
-      - ./initializeReport.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      - ./initializeReport.js:/docker-entrypoint-initdb.d/initialize.js:ro
     networks:
       - openrmf
 
