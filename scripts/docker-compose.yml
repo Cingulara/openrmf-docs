@@ -193,7 +193,7 @@ services:
       - openrmf
 
   openrmfmsg-system:
-    image: cingulara/openrmf-msg-system:1.08.00
+    image: cingulara/openrmf-msg-system:1.08.01
     container_name: openrmf-system-nats-message-client
     restart: always
     environment:
