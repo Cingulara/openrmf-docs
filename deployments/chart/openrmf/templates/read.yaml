@@ -59,7 +59,7 @@ spec:
           value: nats://natsserver:4222
         - name: JWTAUTHORITY
           value: {{.Values.identityProviderURL}}/realms/{{.Values.identityProviderRealm}}
-        - name: JWT-CLIENT
+        - name: JWTCLIENT
           value: {{.Values.identityProviderClientId}}
         resources:
           limits:

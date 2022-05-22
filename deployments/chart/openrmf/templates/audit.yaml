@@ -57,7 +57,7 @@ spec:
           value: {{.Values.auditdbtype}}
         - name: JWTAUTHORITY
           value: {{.Values.identityProviderURL}}/realms/{{.Values.identityProviderRealm}}
-        - name: JWT-CLIENT
+        - name: JWTCLIENT
           value: {{.Values.identityProviderClientId}}
         resources:
           limits:
