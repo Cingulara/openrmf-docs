@@ -55,7 +55,7 @@ spec:
               key: initDBName
         - name: DBTYPE
           value: {{.Values.scoredbtype}}
-        - name: JWT-AUTHORITY
+        - name: JWTAUTHORITY
           value: {{.Values.identityProviderURL}}/realms/{{.Values.identityProviderRealm}}
         - name: JWT-CLIENT
           value: {{.Values.identityProviderClientId}}

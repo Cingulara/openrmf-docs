@@ -45,7 +45,7 @@ spec:
           value: http://*:8080
         - name: NATSSERVERURL
           value: nats://natsserver:4222
-        - name: JWT-AUTHORITY
+        - name: JWTAUTHORITY
           value: {{.Values.identityProviderURL}}/realms/{{.Values.identityProviderRealm}}
         - name: JWT-CLIENT
           value: {{.Values.identityProviderClientId}}
