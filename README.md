@@ -3,6 +3,16 @@ OpenRMF<sup>&reg;</sup> is an open source application for managing, viewing, and
 
 You can export your checklists as CKL files and your test plan and POAM as MS Excel properly formatted files as well.
 
+If you need more than the OSS version, check out <a target="_blank" href="https://www.soteriasoft.com/products/openrmf-professional.html">OpenRMF<sup>&reg;</sup> Professional</a>. 
+
+* CIS scans
+* Parsing patch vulnerabilities for hardware, software, PPSM
+* history and trends
+* deeper level of security on system packages
+* live POAM
+* Compliance down to the subcontrol level, overlays, tailoring, compliance statements
+* and more...
+
 ## Get OpenRMF<sup>&reg;</sup> Core Running Locally
 If you want to get it running on your local laptop, desktop, or server follow these instructions below. You need a fairly good internet connection and Docker Desktop / Docker Community Edition to get this going. And then go to the [latest release](https://github.com/Cingulara/openrmf-docs/releases) and download the Keycloak zip file and OpenRMF<sup>&reg;</sup> zip file. 
 

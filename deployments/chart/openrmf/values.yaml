@@ -26,26 +26,22 @@ installType: minikube
 
 # versions of container to adjust
 # examples: 0.8, 0.8.1, latest
-auditImage: 1.05.01
-auditmsgImage: 1.03.00
-checklistmsgImage: 1.03.00
-complianceImage: 1.05.01
-compliancemsgImage: 1.03.00
-controlImage: 1.05.01
-controlmsgImage: 1.04.00
-readImage: 1.05.02
-saveImage: 1.05.01
-scoremsgImage: 1.04.00
-scoringImage: 1.05.01
-templateImage: 1.05.04
-templatemsgImage: 1.03.00
-uploadImage: 1.05.01
-systemmsgImage: 1.03.00
-webuiImage: 1.05.05
-reportImage: 1.05.01
-reportmsgImage: 1.03.01
-mongoImage: 4.4.4-nonroot
-natsImage: 2.1.9
+auditImage: 1.08.00
+auditmsgImage: 1.08.00
+compliancemsgImage: 1.08.00
+controlImage: 1.08.00
+controlmsgImage: 1.08.00
+readImage: 1.08.01
+scoremsgImage: 1.08.00
+scoringImage: 1.08.00
+templateImage: 1.08.00
+templatemsgImage: 1.08.00
+systemmsgImage: 1.08.01
+webuiImage: 1.08.01
+reportImage: 1.08.00
+reportmsgImage: 1.08.00
+mongoImage: 5.0.6-nonroot
+natsImage: 2.8.1-alpine3.15
 
 # storage class name for PVC
 # examples: standard, gp2, ebs-sc, efs-sc
@@ -54,12 +50,12 @@ storageClass: standard
 # API URLs for the web client side calls, used in the web.yaml deployment for the UI
 # These are rewritted to the web pods in a ConfigMap for inclusion of client-side API calls
 # Examples: 'http://openrmf.local/read', https://read.openrmf.io
-readAPI:       /api/read/
+readAPI:       /api/read/artifact/
 scoreAPI:      /api/scoring/
-saveAPI:       /api/save/
-uploadAPI:     /api/upload/
+saveAPI:       /api/read/save/
+uploadAPI:     /api/read/upload/
 templateAPI:   /api/template/
-complianceAPI: /api/compliance/
+complianceAPI: /api/read/compliance/
 controlAPI:    /api/controls/
 auditAPI:      /api/audit/
 reportAPI:     /api/report/
