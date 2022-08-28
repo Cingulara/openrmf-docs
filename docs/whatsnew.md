@@ -1,12 +1,22 @@
 ---
 layout: default
-title: What's New in v1.8
+title: What's New in v1.8.2
 nav_order: 2
 ---
 
-# What's New with OpenRMF
+# What's New with OpenRMF OSS
 
 Please refer to the <a href="https://github.com/Cingulara?tab=projects" target="_blank">OpenRMF Projects listing on GitHub</a> for more information on feature updates and timeline.
+
+## Version 1.8.2
+Version 1.8.2 has the latest DISA templates (460) for SCAP scan matching up to August 28, 2022 as well as updated base images for web and service components for vulnerability issues.
+
+
+## Version 1.8.1
+Version 1.8.1 had some small fixes in it immediately after v1.8 went public:
+* Fix the Nessus SCAP parser to pull results correctly
+* Fix the msg-system consolidated code from msg-checklist to score new checklists correctly
+* Please see the note on v1.8.0 release on updating the MongoDB compatibility before upgrading from 1.7.2 or earlier
 
 ## Version 1.8
 Version 1.8 has the latest DISA templates (438) for SCAP scan matching up to May 10, 2022 as well as the following feature updates:
