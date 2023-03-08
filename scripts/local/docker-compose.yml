@@ -2,19 +2,23 @@ version : '3.8'
  
 services:
   web:
-    image: nginxinc/nginx-unprivileged:1.20.2-alpine
+    image: nginxinc/nginx-unprivileged:1.23-alpine
     container_name: openrmf-web
     command: [nginx-debug, '-g', 'daemon off;']
-    restart: always
+    restart: on-failure:10
     ports:
       - 8080:8080
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - keycloak
+    networks:
+      - openrmf-local
 
   mongo:
     image: cingulara/mongo:5.0.6-nonroot
     container_name: mongodb
-    restart: always
+    restart: on-failure:10
     ports:
       - 27017:27017
     environment:
@@ -30,7 +34,7 @@ services:
     image: nats:2.8.1-alpine3.15
     container_name: nats
     command: -m 8222
-    restart: always
+    restart: on-failure:10
     ports:
       - 4222:4222
       - 6222:6222
@@ -42,7 +46,7 @@ services:
     image: synadia/prometheus-nats-exporter:0.6.2
     container_name: nats-exporter-prometheus
     command: -varz -connz -subz http://nats:8222
-    restart: always
+    restart: on-failure:10
     ports:
       - 7777:7777
     networks:
@@ -51,7 +55,7 @@ services:
   nats-client-metrics: 
     image: cingulara/nats-client-metrics:1.0.1
     container_name: nats-client-metrics
-    restart: always
+    restart: on-failure:10
     ports:
       - 7778:7778
     environment:
@@ -64,7 +68,7 @@ services:
   nginx-metrics: 
     image: nginx/nginx-prometheus-exporter:0.9.0
     container_name: nginx-metrics
-    restart: always
+    restart: on-failure:1000
     command:
       - -nginx.scrape-uri
       - http://openrmf-web:8080/status
@@ -79,7 +83,7 @@ services:
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--web.enable-lifecycle'
-    restart: always
+    restart: on-failure:10
     ports:
       - 9090:9090
     volumes:
@@ -90,10 +94,10 @@ services:
   grafana: 
     image: grafana/grafana:8.5.0
     container_name: grafana
-    #command:
+    env_file: .grafana
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=1qaz2WSX3edc4RFVgr@fana
-    restart: always
+    restart: on-failure:10
     ports:
       - 3000:3000
     volumes:
@@ -105,7 +109,7 @@ services:
   mongo-express:
     image: mongo-express:0.54.0
     container_name: mongo-express
-    restart: always
+    restart: on-failure:10
     ports:
       - 8081:8081
     environment:
@@ -115,6 +119,52 @@ services:
     networks:
       - openrmf-local
 
+  postgres:
+    container_name: openrmf-postgres
+    image: postgres:11.5
+    restart: on-failure:10
+    ports:
+      - "5432"
+    environment:
+      - POSTGRES_DB=openrmf-keycloak 
+      - POSTGRES_USER=openrmf-keycloak 
+      - POSTGRES_PASSWORD=p2sst1rn0g
+    networks:
+      - openrmf-local
+    volumes:
+      - keycloak-postgres:/var/lib/postgresql/data
+
+  keycloak: 
+    container_name: openrmf-keycloak
+    image: cingulara/keycloak-openrmf:20.0.3
+    restart: on-failure:10
+    command:
+      - start
+      - --spi-theme-welcome-theme=openrmf
+    ports:
+      - "8080"
+    environment:
+      - KC_DB=postgres
+      - KC_DB_URL=jdbc:postgresql://openrmf-postgres:5432/openrmf-keycloak
+      - KC_DB_USERNAME=openrmf-keycloak
+      - KC_DB_PASSWORD=p2sst1rn0g
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+      - KC_HOSTNAME_STRICT=false
+      - KC_HOSTNAME_STRICT_HTTPS=false
+      - KC_PROXY=passthrough
+      - KC_HTTP_RELATIVE_PATH=/auth
+      - KC_HTTP_ENABLED=true
+      - KC_HTTP_PORT=8080
+    depends_on:
+      - postgres
+    networks:
+      - openrmf-local
+
 ### put all the networks here
 networks:
   openrmf-local:
+
+### put all the volume listings here for persistent data
+volumes:
+  keycloak-postgres:
