@@ -28,6 +28,8 @@ Now you can click the Credentials tab, and then enter a new password that is 12 
 
 ![Keycloak User Setup](./img/keycloak/user-credentials.png?raw=true)
 
+Next make sure that the OpenRMF Realm is created in Keycloak. To do this: execute the setup-realm script from the Keycloak directory that you unzipped previously. It will ask you for the IP address that you bound KeyCloak to. Use the IP address you see in your browser window when opening the Keycloak GUI.
+
 Keycloak is setup! On to Step 2.
 
 > You also possibly use another OpenID compliant application to provide AuthN and AuthZ. I have not tested any other than Keycloak for now. 
