@@ -3,9 +3,9 @@ version : '3.8'
 services:
 ### 1 Web Front End Container
   openrmf-web:
-    image: cingulara/openrmf-web:1.08.03
+    image: cingulara/openrmf-web:1.09.01
     container_name: openrmf-web
-    restart: always
+    restart: on-failure:5
     ports:
       - 8080:8080
     depends_on:
@@ -22,11 +22,11 @@ services:
 
 ### 6 API Containers
   openrmfapi-scoring:
-    image: cingulara/openrmf-api-scoring:1.08.02
+    image: cingulara/openrmf-api-scoring:1.09.01
     container_name: openrmf-scoring-api
-    restart: always
+    restart: on-failure:5
     ports:
-      - 8090
+      - "8090"
     env_file: .env
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
@@ -41,11 +41,11 @@ services:
       - openrmf
   
   openrmfapi-template:
-    image: cingulara/openrmf-api-template:1.08.02
+    image: cingulara/openrmf-api-template:1.09.01
     container_name: openrmf-template-api
-    restart: always
+    restart: on-failure:5
     ports:
-      - 8088
+      - "8088"
     env_file: .env
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
@@ -61,11 +61,11 @@ services:
       - openrmf
 
   openrmfapi-read:
-    image: cingulara/openrmf-api-read:1.08.03
+    image: cingulara/openrmf-api-read:1.09.01
     container_name: openrmf-read-api
-    restart: always
+    restart: on-failure:5
     ports:
-      - 8084
+      - "8084"
     env_file: .env
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
@@ -81,11 +81,11 @@ services:
       - openrmf
 
   openrmfapi-controls:
-    image: cingulara/openrmf-api-controls:1.08.02
+    image: cingulara/openrmf-api-controls:1.09.01
     container_name: openrmf-controls-api
-    restart: always
+    restart: on-failure:5
     ports:
-      - 8094
+      - "8094"
     env_file: .env
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
@@ -96,11 +96,11 @@ services:
       - openrmf
 
   openrmfapi-audit:
-    image: cingulara/openrmf-api-audit:1.08.02
+    image: cingulara/openrmf-api-audit:1.09.01
     container_name: openrmf-audit-api
-    restart: always
+    restart: on-failure:5
     ports:
-      - 8096
+      - "8096"
     env_file: .env
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
@@ -116,11 +116,11 @@ services:
       - openrmf
 
   openrmfapi-report:
-    image: cingulara/openrmf-api-report:1.08.02
+    image: cingulara/openrmf-api-report:1.09.01
     container_name: openrmf-report-api
-    restart: always
+    restart: on-failure:5
     ports:
-      - 8098
+      - "8098"
     env_file: .env
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
@@ -137,9 +137,9 @@ services:
 
 ### 7 Messaging Containers
   openrmfmsg-score:
-    image: cingulara/openrmf-msg-score:1.08.02
+    image: cingulara/openrmf-msg-score:1.09.01
     container_name: openrmf-score-nats-message-client
-    restart: always
+    restart: on-failure:5
     environment:
       - DBCONNECTION=mongodb://openrmfscore:openrmf1234!@scoredb/openrmfscore?authSource=openrmfscore
       - DBTYPE=mongo
@@ -153,9 +153,9 @@ services:
       - openrmf
 
   openrmfmsg-compliance:
-    image: cingulara/openrmf-msg-compliance:1.08.02
+    image: cingulara/openrmf-msg-compliance:1.09.01
     container_name: openrmf-compliance-nats-message-client
-    restart: always
+    restart: on-failure:5
     environment:
       - NATSSERVERURL=nats://natsserver:4222
       - LOGLEVEL=3
@@ -165,9 +165,9 @@ services:
       - openrmf
 
   openrmfmsg-controls:
-    image: cingulara/openrmf-msg-controls:1.08.02
+    image: cingulara/openrmf-msg-controls:1.09.01
     container_name: openrmf-controls-nats-message-client
-    restart: always
+    restart: on-failure:5
     environment:
       - NATSSERVERURL=nats://natsserver:4222
       - LOGLEVEL=3
@@ -177,9 +177,9 @@ services:
       - openrmf
 
   openrmfmsg-template:
-    image: cingulara/openrmf-msg-template:1.08.02
+    image: cingulara/openrmf-msg-template:1.09.01
     container_name: openrmf-template-nats-message-client
-    restart: always
+    restart: on-failure:5
     environment:
       - DBCONNECTION=mongodb://openrmftemplate:openrmf1234!@templatedb/openrmftemplate?authSource=openrmftemplate
       - DB=openrmftemplate
@@ -193,9 +193,9 @@ services:
       - openrmf
 
   openrmfmsg-system:
-    image: cingulara/openrmf-msg-system:1.08.03
+    image: cingulara/openrmf-msg-system:1.09.01
     container_name: openrmf-system-nats-message-client
-    restart: always
+    restart: on-failure:5
     environment:
       - DBCONNECTION=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
       - DB=openrmf
@@ -209,9 +209,9 @@ services:
       - openrmf
 
   openrmfmsg-audit:
-    image: cingulara/openrmf-msg-audit:1.08.02
+    image: cingulara/openrmf-msg-audit:1.09.01
     container_name: openrmf-audit-nats-message-client
-    restart: always
+    restart: on-failure:5
     environment:
       - DBCONNECTION=mongodb://openrmfaudit:openrmf1234!@auditdb/openrmfaudit?authSource=openrmfaudit
       - DB=openrmfaudit
@@ -225,9 +225,9 @@ services:
       - openrmf
 
   openrmfmsg-reports:
-    image: cingulara/openrmf-msg-reports:1.08.02
+    image: cingulara/openrmf-msg-reports:1.09.01
     container_name: openrmf-report-nats-message-client
-    restart: always
+    restart: on-failure:5
     environment:
       - SYSTEMDBCONNECTION=mongodb://openrmf:openrmf1234!@checklistdb/openrmf?authSource=openrmf
       - SYSTEMDB=openrmf
@@ -248,9 +248,9 @@ services:
   checklistdb:
     image: cingulara/mongo:5.0.6-nonroot
     container_name: mongodb-checklist
-    restart: always
+    restart: on-failure:5
     ports:
-      - 27017
+      - "27017"
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=myp2ssw0rd
@@ -264,9 +264,9 @@ services:
   scoredb:
     image: cingulara/mongo:5.0.6-nonroot
     container_name: mongodb-score
-    restart: always
+    restart: on-failure:5
     ports:
-      - 27017
+      - "27017"
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=myp2ssw0rd
@@ -280,9 +280,9 @@ services:
   templatedb:
     image: cingulara/mongo:5.0.6-nonroot
     container_name: mongodb-template
-    restart: always
+    restart: on-failure:5
     ports:
-      - 27017
+      - "27017"
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=myp2ssw0rd
@@ -296,9 +296,9 @@ services:
   auditdb:
     image: cingulara/mongo:5.0.6-nonroot
     container_name: mongodb-audit
-    restart: always
+    restart: on-failure:5
     ports:
-      - 27017
+      - "27017"
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=myp2ssw0rd
@@ -312,9 +312,9 @@ services:
   reportdb:
     image: cingulara/mongo:5.0.6-nonroot
     container_name: mongodb-report
-    restart: always
+    restart: on-failure:5
     ports:
-      - 27017
+      - "27017"
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=myp2ssw0rd
@@ -330,11 +330,11 @@ services:
     image: nats:2.8.1-alpine3.15
     container_name: nats
     command: -m 8222
-    restart: always
+    restart: on-failure:5
     ports:
-      - 4222
-      - 6222
-      - 8222
+      - "4222"
+      - "6222"
+      - "8222"
     networks:
       - openrmf
 
@@ -343,18 +343,18 @@ services:
     image: synadia/prometheus-nats-exporter:0.6.2
     container_name: nats-prometheus-exporter
     command: -varz -connz -subz http://natsserver:8222
-    restart: always
+    restart: on-failure:5
     ports:
-      - 7777
+      - "7777"
     networks:
       - openrmf
 
   nats-client-metrics: 
     image: cingulara/nats-client-metrics:1.0.1
     container_name: nats-client-metrics
-    restart: always
+    restart: on-failure:5
     ports:
-      - 7778
+      - "7778"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:7778
@@ -365,12 +365,12 @@ services:
   nginx-metrics: 
     image: nginx/nginx-prometheus-exporter:0.9.0
     container_name: nginx-metrics
-    restart: always
+    restart: on-failure:1000
     command:
       - -nginx.scrape-uri
       - http://openrmf-web:8080/status
     ports:
-      - 9113
+      - "9113"
     networks:
       - openrmf
 
@@ -380,9 +380,9 @@ services:
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--web.enable-lifecycle'
-    restart: always
+    restart: on-failure:5
     ports:
-      - 9090
+      - "9090"
     volumes:
       - openrmf-prometheus-data-volume:/prometheus # persist the data
       - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
@@ -392,16 +392,56 @@ services:
   grafana: 
     image: grafana/grafana:8.5.0
     container_name: grafana
-    #command:
-    environment:
-      - GF_SECURITY_ADMIN_PASSWORD=1qaz2WSX3edc4RFVgr@fana
-    restart: always
+    env_file: .grafana
+    restart: on-failure:5
     ports:
-      - 3000:3000
+      - "3000"
     volumes:
       - openrmf-grafana-data-volume:/var/lib/grafana # persist the data
       - ./grafana/dashboards/:/etc/grafana/provisioning/dashboards/:ro
       - ./grafana/datasources/:/etc/grafana/provisioning/datasources/:ro
+    networks:
+      - openrmf
+
+  postgres:
+    container_name: openrmf-postgres
+    image: postgres:11.5
+    restart: on-failure:10
+    ports:
+      - "5432"
+    environment:
+      - POSTGRES_DB=openrmf-keycloak 
+      - POSTGRES_USER=openrmf-keycloak 
+      - POSTGRES_PASSWORD=p2sst1rn0g
+    networks:
+      - openrmf
+    volumes:
+      - keycloak-postgres:/var/lib/postgresql/data
+
+  keycloak: 
+    container_name: openrmf-keycloak
+    image: cingulara/keycloak-openrmf:20.0.3
+    restart: on-failure:10
+    command:
+      - start
+      - --spi-theme-welcome-theme=openrmf
+    ports:
+      - "8080"
+    environment:
+      - KC_DB=postgres
+      - KC_DB_URL=jdbc:postgresql://openrmf-postgres:5432/openrmf-keycloak
+      - KC_DB_USERNAME=openrmf-keycloak
+      - KC_DB_PASSWORD=p2sst1rn0g
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+      - KC_HOSTNAME_STRICT=false
+      - KC_HOSTNAME_STRICT_HTTPS=false
+      - KC_PROXY=passthrough
+      - KC_HTTP_RELATIVE_PATH=/auth
+      - KC_HTTP_ENABLED=true
+      - KC_HTTP_PORT=8080
+    depends_on:
+      - postgres
     networks:
       - openrmf
 
@@ -414,6 +454,7 @@ volumes:
   report-data-volume:
   openrmf-prometheus-data-volume:
   openrmf-grafana-data-volume:
+  keycloak-postgres:
 
 ### put all the networks here
 networks:

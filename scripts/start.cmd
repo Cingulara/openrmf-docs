@@ -1,6 +1,6 @@
 @echo off
 REM Now run the latest development openRMF stack
-docker-compose up -d
+docker compose up -d
 
 REM tell them the URL
 echo(
