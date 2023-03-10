@@ -12,7 +12,7 @@ Follow these steps to at least have a running application locally.
 * this will run docker compose and pull all relevant software container images
 * you can use the docker save -o xxxxxxxxxxx filename type of command to save the image to a local file, i.e. `docker save -o cingulara-webui.image cingulara/openrmf-web:1.0` to save the web UI image to a file named cingulara-webui.image
 * do this for all the openrmf-xxxxx images listed below as well as the Mongo, Prometheus, Grafana, Jaeger, NATS images (if you do not want Jaeger, Prometheus and Grafana, comment them out in the docker-compose file on the new machine)
-* Note, if you are using podman then substitute `podman` for `docker` and `podman-compose` for `docker compose` as well -- see minimum requirements for more information
+* Note, if you are using podman then substitute `podman` for `docker` and `podman-compose` for `docker compose` as well -- see [Minimum Requirements](./minimim-requirements.md) for more information.
 
 ## Loading the images on an air-gapped machine
 Take all the image files from above and put onto a DVD / CD / USB (if allowed) and then copy them onto the air-gapped machine. Then follow these instructions. 
@@ -24,7 +24,7 @@ Take all the image files from above and put onto a DVD / CD / USB (if allowed) a
 > Note: if the machine is connected to nothing, you may need to plug it into a disconnected switch just to have it sense a network connection. We have had to do this on a disconnected MacBook. And remember to set a manual IP address to use. Ensure Keycloak is setup to allow using that IP for the client setup. 
 
 ## Application Container Images you will need to have
-For OpenRMF OSS (Please check the scripts/docker-compose.yml for the latest information.):
+For OpenRMF<sup>&reg;</sup> OSS (Please check the scripts/docker-compose.yml for the latest information.):
 * cingulara/openrmf-web:1.09.01
 * cingulara/openrmf-api-scoring:1.09.01
 * cingulara/openrmf-api-template:1.09.01
@@ -49,4 +49,4 @@ For OpenRMF OSS (Please check the scripts/docker-compose.yml for the latest info
 * postgres:11.5
 * cingulara/keycloak-openrmf:20.0.3
 
-> The OpenRMF items have the current version. Yours may differ in the container "tag" but not the name. 
+> The `cingulara/xxx` OpenRMF<sup>&reg;</sup> OSS items have the current version. Yours may differ in the container "tag" but not the name. 

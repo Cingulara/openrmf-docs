@@ -1,4 +1,4 @@
-# Get OpenRMF Core Running Locally
+# Get OpenRMF<sup>&reg;</sup> OSS Core Running Locally
 
 > Note that for Docker Desktop users, you need to have the File Sharing turned on to run OpenRMF the way it is designed in the docker-compose file. We use persistent volumes for MongoDB, Grafana, and Prometheus. Also for anyone running on a system with any firewall (Windows Firewall, firewalld, iptables) you will need to have ports 8080 and 9001 accessible from external if you are not doing everything locally on the same box. If you plan to access the web interface from another connected machine, please ensure your firewall settings allow these ports coming in first.
 

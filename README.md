@@ -39,6 +39,10 @@ Please read the [Minimum Requirements](./minimim-requirements.md) for OpenRMF<su
 
 There are [separate instructions](airgapped-install.md) in the included air-gapped installation MD file.
 
+## Running over HTTPS
+
+There are [separate instructions](running-https.md) in the included HTTPS setup instructions for running OpenRMF<sup>&reg;</sup> OSS v1.9 or higher over HTTPS. This assumes the full configuration all in one YML file for the software, versus the v1.8.x and earlier separate Keycloak and software YML files in combination. 
+
 ## Other OpenRMF<sup>&reg;</sup> OSS Deployments
 If you want to run on AWS EKS, you can see the Helm Chart and Kubernetes specific information [here](./deployments/).
 
@@ -101,7 +105,7 @@ If we are missing something you want, please add it on our main <a href="https:/
 
 ## Metrics Tracking with Prometheus and Grafana
 
-Starting with version 0.10.7 we include metrics tracking for all our major subsystems. See the [OpenRMF Metrics](metrics.md) document for more information.
+We include metrics tracking for all our major subsystems. See the [OpenRMF Metrics](metrics.md) document for more information.
 
 ## Cleaning up the Docker volumes and such every so often
 If you want to remove all data from volumes you can run the below. Do at your own risk and know the consequences! I do this on my development machine to clear ALL volumes including those not for OpenRMF<sup>&reg;</sup>. 
