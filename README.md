@@ -31,7 +31,7 @@ This particular repository is the repo for all the docs as the OpenRMF<sup>&reg;
 ## Get OpenRMF<sup>&reg;</sup> OSS Running Locally
 If you want to get it running on your local laptop, desktop, or server follow these instructions below. You need a fairly good internet connection and Docker Desktop / Docker Community Edition to get this going. And then go to the [latest release](https://github.com/Cingulara/openrmf-docs/releases) and download the Keycloak zip file and OpenRMF<sup>&reg;</sup> zip file. 
 
-Please read the [Minimum Requirements](./minimim-requirements.html) for OpenRMF<sup>&reg;</sup> OSS. And then follow these [Step by Step Instructions](step-by-step.md).
+Please read the [Minimum Requirements](./minimim-requirements.md) for OpenRMF<sup>&reg;</sup> OSS. And then follow these [Step by Step Instructions](step-by-step.md).
 
 > Note that for Docker Desktop users, you need to have the File Sharing turned on to run OpenRMF<sup>&reg;</sup> OSS the way it is designed in the docker-compose file. We use persistent volumes for MongoDB, Grafana, and Prometheus.
 
