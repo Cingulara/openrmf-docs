@@ -1,14 +1,14 @@
-# Install OpenRMF in an Air-Gapped System
+# Install OpenRMF<sup>&reg;</sup> OSS in an Air-Gapped System
 
 Given who this application is for, you may very well have a "disconnected from the Internet" type of setup. You can still use all these containers and such on that system. However, you will need to do a bit of work as outlined below. you also will still need the ZIP file contents from one of the releases that has the start scripts, docker-compose, Prometheus file, and initialization scripts. Including the .env file that has to have a pointer to the Keycloak server setup as well. 
 
-> Note: you must have Docker and Docker Compose or Podman and Podman-Compose currently to run OpenRMF in this manner. The other option is to pull down individual APIs, Message Clients, MongoDB, NATS, Keycloak, Prometheus, Grafana, Jaeger and PostgreSQL to setup manually. That would be a PITA. But it can be done. Ask in our [Slack Channel](https://join.slack.com/t/openrmftool/shared_invite/zt-ck8lqld0-8LD7k66mzj7WsIno9YFrMg) for more information on that if we can help. 
+> Note: you must have Docker and Docker Compose or Podman and Podman-Compose currently to run OpenRMF<sup>&reg;</sup> OSS in this manner. The other option is to pull down individual APIs, Message Clients, MongoDB, NATS, Keycloak, Prometheus, Grafana, Jaeger and PostgreSQL to setup manually. That would be a PITA. But it can be done. Ask in our [Slack Channel](https://join.slack.com/t/openrmftool/shared_invite/zt-ck8lqld0-8LD7k66mzj7WsIno9YFrMg) for more information on that if we can help. 
 
 
 ## Getting the application container images downloaded
 Follow these steps to at least have a running application locally. 
 
-* on an Internet connection machine, run the "start.sh" from one of the OpenRMF release bundles
+* on an Internet connection machine, run the "start.sh" from one of the OpenRMF<sup>&reg;</sup> OSS release bundles
 * this will run docker compose and pull all relevant software container images
 * you can use the docker save -o xxxxxxxxxxx filename type of command to save the image to a local file, i.e. `docker save -o cingulara-webui.image cingulara/openrmf-web:1.0` to save the web UI image to a file named cingulara-webui.image
 * do this for all the openrmf-xxxxx images listed below as well as the Mongo, Prometheus, Grafana, Jaeger, NATS images (if you do not want Jaeger, Prometheus and Grafana, comment them out in the docker-compose file on the new machine)
