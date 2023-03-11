@@ -7,8 +7,8 @@ services:
     container_name: openrmf-web
     restart: on-failure:5
     ports:
-      # - 8080:8080
-      - 8443:8443
+      - 8080:8080
+      # - 8443:8443
     depends_on:
       - openrmfapi-scoring
       - openrmfapi-template
@@ -18,7 +18,7 @@ services:
       - openrmfapi-report
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:Z
-      - ./ssl/:/etc/ssl/:Z
+      # - ./ssl/:/etc/ssl/:Z
     networks:
       - openrmf
 
@@ -370,12 +370,12 @@ services:
     restart: on-failure:1000
     command:
       - -nginx.scrape-uri
-      # - http://openrmf-web:8080/status
-      - https://openrmf-web:8443/status
+      - http://openrmf-web:8080/status
+      # - https://openrmf-web:8443/status
     ports:
       - "9113"
-    environment:
-      - SSL_VERIFY=false # do not verify on any SSL self signed cert for the web UI
+    # environment:
+    #   - SSL_VERIFY=false # do not verify on any SSL self signed cert for the web UI
     networks:
       - openrmf
 
