@@ -30,7 +30,7 @@ Under the Valid redirect URI and the post logout URI add one for your same IP/DN
 
 Click Save at the bottom to save those settings and allow HTTPS now. It is easier to do this first then try to remember later. 
 
-![Step 2 - setup Keycloak login for HTTPS](/assets/https/step2-keycloakhttps.png?raw=true)
+![Step 2 - setup Keycloak login for HTTPS](/assets/https/step2-keycloakhttps.png)
 
 ## Step 3 -- Generate your server certificate
 There are articles below on how you setup a certificate, mount into NGINX, etc. so I will not bore you with that. You need to generate one to do HTTPS of course. You can do the normal generate CSR, submit, get it back, get the CA crt and your crt and private key and make it fully operational. OR for now, you can do a self-signed cert. 
@@ -57,7 +57,7 @@ In the root of your OpenRMF<sup>&reg;</sup> OSS folder, make an `ssl` directory 
 
 Move the .crt file into ./ssl/certs/ and the .key file into ./ssl/private/ as shown below. 
 
-![Step 4 - generating your SSL cert and files](/assets/https/step4-sslcert.png?raw=true)
+![Step 4 - generating your SSL cert and files](/assets/https/step4-sslcert.png)
 
 If you are going to use a CA cert and your server SSL cert, you will need to put them into a single file to use for the hierarchy that NGINX can reference and use. See below for an example and make sure the order is correct. See the links near the end of this for other references to how you can setup NGINX and HTTPS. 
 
@@ -75,7 +75,7 @@ openssl dhparam -out ./ssl/certs/dhparam.pem 2048
 
 The screen will look like this for a while and then you will see your file. 
 
-![Step 4 - generating your SSL cert and files](/assets/https/step5-dhparam.png?raw=true)
+![Step 4 - generating your SSL cert and files](/assets/https/step5-dhparam.png)
 
 Note that on some REL 8 and other Linux boxes, you may have to do something like this to get the same file. Search for your OS to get it right. Or use the `genpkey` command to get something similar and test that.
 
@@ -115,7 +115,7 @@ In your `docker-compose.yml` file you need to setup the top `openrmf-web` YML ar
       - openrmf
 ```
 
-![Step 7 - setup the web UI for HTTPS](/assets/https/step7-webhttps.png?raw=true)
+![Step 7 - setup the web UI for HTTPS](/assets/https/step7-webhttps.png)
 
 Also setup the `nginx-metrics` area to point to the new openrmf-web:8443/ internal path and if you are using a self-signed cert or non-Internet type of main Certificate Authority you may need that `environment:` section with `SSL_VERIFY=false` as well.
 
@@ -136,7 +136,7 @@ Also setup the `nginx-metrics` area to point to the new openrmf-web:8443/ intern
       - openrmf
 ```
 
-![Step 7 - setup the NGINX metrics for HTTPS](/assets/https/step7-metricshttps.png?raw=true)
+![Step 7 - setup the NGINX metrics for HTTPS](/assets/https/step7-metricshttps.png)
 
 ## Step 8 -- setup NGINX configuration for HTTPS
 In the `nginx.conf` file where it has ` listen 8080;` replace that with the below information. It will replace that 8080 line and be just before the `root /usr/share/nginx/html;` line. This tells the `openrmf-web` container that is running the NGINX proxy and the OpenRMF<sup>&reg;</sup> OSS web UI to run on HTTPS over 8443 with the certificate files you just made.
