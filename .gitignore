@@ -15,3 +15,7 @@ Gemfile.lock
 docs/.bundle/*
 
 docs/.jekyll-cache/*
+
+scripts/ssl/certs/*.crt
+
+scripts/ssl/private/*.key
