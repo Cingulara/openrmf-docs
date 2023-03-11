@@ -84,12 +84,23 @@ In a separate browser tab (you can leave the Keycloak one up and running to lear
 
 Log in with that initial application administrator login/pwd combination and you should see the main page of OpenRMF<sup>&reg;</sup> OSS ready for you! 
 
-![Step 7 - use OpenRMF OSS](./img/install/step7-login.png?raw=true)
+![Step 7 - log into OpenRMF OSS](./img/install/step7-login.png?raw=true)
 
 ## Step 8 - Use OpenRMF<sup>&reg;</sup> OSS
 From here, now you can create System Packages, upload checklist CKL files, upload raw SCAP XCCDF results .xml files and get organized around your RMF package. 
 
 A System Package here = an ATO, accreditation boundary, etc. that has all your checklists, patch vulnerability scans, SCAP scans, etc. where you are looking for approval to run. And where you probably are doing some kind of ConMon (continuous monitoring) as well. 
+
+For the first setup:
+
+* click System Package
+* add a System Package
+* on the System Package Dashboard click Upload
+* load up some CKL or SCAP XCCDF .xml files
+* go back to the System Packages
+* see results
+
+![Step 8 - use OpenRMF OSS](./img/install/step8-useopenrmfoss.png?raw=true)
 
 ## A Note on OpenRMF<sup>&reg;</sup> Professional
 
