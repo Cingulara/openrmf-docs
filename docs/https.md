@@ -6,7 +6,19 @@ nav_order: 1000
 
 # Running OpenRMF over HTTPS v HTTP
 
-OpenRMF is setup to run locally on your local server, laptop, etc.  If you want to use that over a network you can use the Unprivileged NGINX container we setup for the OpenRMF Web UI to front your OpenRMF with HTTPS. You just need to have a few files for your certificate, update the docker-compose, update Keycloak for https, and then restart your stacks. See below for details. 
+OpenRMF is setup to run locally on your local server, laptop, etc.  If you want to use that over a network you can use the Unprivileged NGINX container we setup for the OpenRMF Web UI to front your OpenRMF with HTTPS. You just need to have a few files for your certificate, update the docker-compose, and then restart your stacks. 
+
+There are a few steps here to make this work:
+* take a good backup / snapshot of your setup
+* run `./stop.sh` to stop the software stack
+* generate your server certificate
+* combine your server cert and CA cert into a bundle
+* get your unencrypted server key 
+* setup the `nginx.conf` file to listen for 8443 with proper cert paths
+* setup Keycloak to pass to internal KC behind NGINX over HTTPS
+* run the `openrmf-web` on port 8443 to match the NGINX configuration
+* run `./start.sh` to start the software stack
+* ensure the `openrmf-web` is working correctly with `docker logs openrmf-web` and looking for errors
 
 ## Setup Your Certificate
 If you have a certificate server or use an online certificate, generate the certificate and get the KEY and CRT file available to use from the local container. I put mine into an "ssl" folder and mounted that to the /etc/nginx/certs/ folder. See the "Mounting the Certificates" link at the bottom of this page. You can do this with self-signed certificates as well but you have to figure out how to get the backend APIs to validate them correctly. 

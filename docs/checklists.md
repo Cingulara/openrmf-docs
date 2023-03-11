@@ -7,7 +7,7 @@ nav_order: 40
 # STIGs and STIG Checklists
 The Checklists in this process are the results of SCAP scans, Evaluate-STIG scans  and manual processes to create information showing the security status of your system, application, network, host, firewall, server, etc. They are separate by topic such as Microsoft Windows 10, Oracle 12g, Application Security and Development, or CISCO firewall. The checklists have several (usually hundreds) of individual items describing a specific security setting/process/issue and allow you to specify 4 status: Open, Not a Finding (closed), Not Applicable and Not Reviewed. They also classify the security item as a Category 1 (high), Category 2 (medium) or Category 3 (low). Suffice it to say, the less High and Medium the better!
 
-## "The requirements of the STIGs become effective immediately."
+## The requirements of the STIGs become effective almost immediately
 Be aware, new checklists come out usually quarterly but can come out in between major releases. As soon as a new checklist version is out you are usually responsible to use that one within a 30-day time period. Check with your cyber folks. It is not fair, it does not have to be, it is just how they do it. 
 
 As new checklist formats and versions/revisions are added to OpenRMF<sup>&reg;</sup> OSS you will see an "Upgrade" button as you view your checklist. We wrote a routine to update and copy over your status, comments, findings, and security override information to the new version of the checklist. Otherwise, you are copying/pasting that information and it is HORRIBLE!

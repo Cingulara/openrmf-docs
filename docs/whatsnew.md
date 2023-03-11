@@ -19,6 +19,7 @@ Version 1.9 has the following feature updates:
 * use of `docker compose` versus `docker-compose` in scripts
 
 > BREAKING CHANGE of Keycloak 20 with new configuration, all under a single port 8080 / 8443
+
 > BREAKING CHANGE of Grafana under a single port 8080 / 8443
 
 ## Version 1.8.2
