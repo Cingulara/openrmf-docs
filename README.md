@@ -5,13 +5,16 @@ You can export your checklists as CKL files and your test plan and POAM as MS Ex
 
 If you need more than the OSS version, check out <a target="_blank" href="https://www.soteriasoft.com/products/openrmf-professional.html">OpenRMF<sup>&reg;</sup> Professional</a>. 
 
+* custom checklist templates
 * CIS scans
 * Parsing patch vulnerabilities for hardware, software, PPSM
 * history and trends
 * deeper level of security on system packages
 * live POAM
+* bulk editing and locking vulnerabilities and checklists
 * Compliance down to the subcontrol level, overlays, tailoring, compliance statements
 * Generate SSP, SAR, RAR, CCRI documents
+* add in tracking of other vulnerabilities (software, container, infrastructure-as-code, etc.)
 * and more...
 
 ## TL;DR Description
