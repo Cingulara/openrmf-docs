@@ -15,6 +15,11 @@ Alternatively, podman information is available at https://podman.io/ and the pod
 ## Minimum resources to run
 The OpenRMF<sup>&reg;</sup> OSS stack uses several database, message, security, and performance services that require good resources.  If you are installing on Mac OS X or Windows native operating systems, you need to check the CPU, memory and swap resources available to your computer and your Docker engine if your version allows that. We recommend a minimum of 6 CPUs and 8 GB of memory for resources. For hard drive space, OpenRMF® Professional uses the files generated, database volumes, and the container images that Docker / Podman downloads.  We recommend 40GB hard drive space for future growth. 
 
+Below is the recommendation on CPU, memory, and HDD for just the software running OpenRMF<sup>&reg;</sup> OSS. 
+* 6 CPU cores
+* 8 GB Ram
+* 40 GB HDD
+
 The resources allowed by your laptop, server or virtual machine will differ so please ensure the application performs correctly. Your amount of usage, users, and access may also have you adjust resources to the application based on performance metrics.
 
 Linux environments and the Windows Subsystem Linux (WSL) setting in Windows desktop and server operating systems use memory and CPU within the host settings for Docker. Please see the operating system information on setting CPU and memory usage limits for WSL and Linux as it pertains to Docker and container runtimes. 
@@ -25,8 +30,3 @@ Make sure port 8080 (or 8443 if you eventually run HTTPS) on your machine is all
 ## Persistent Volumes
 
 Note that OpenRMF<sup>&reg;</sup> OSS uses persistent volumes. On Linux those are stored in the /var space so please ensure your hard drive space volumes are large enough to allow OpenRMF<sup>&reg;</sup> OSS and any other applications you run within Docker. With a minimum of 20 GB in the /var partition you will see 60% usage with OpenRMF<sup>&reg;</sup> OSS.
-
-Below is the recommendation on CPU, memory, and HDD for just the software running OpenRMF<sup>&reg;</sup> OSS. 
-* 6 CPU cores
-* 8 GB Ram
-* 40 GB HDD

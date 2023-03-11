@@ -4,6 +4,8 @@ OpenRMF tracks metrics used by Prometheus. We currently use the https://github.c
 
 The docker-compose file for running OpenRMF locally uses a container definition for Prometheus and Grafana locally behind the /metrics/ URL. The Kubernetes deployment does not. For Kubernetes you can hook to your existing Prometheus and Grafana setup. Or you can deploy separately to namespaces within Kubernetes and then setup the data sources there.
 
+The default login is `admin` and the password is found in the YML file or the `.grafana` file for your configuration.
+
 ## .NET Core Default Metrics
 Once you have Prometheus setup, you can use the https://grafana.com/grafana/dashboards/10427 to display .NET Core metrics like the below chart. 
 
