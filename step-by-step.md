@@ -7,9 +7,51 @@
 ## Step 1 - Setup your .env file
 To run OpenRMF<sup>&reg;</sup> OSS you need to edit your `.env` file and replace the `xxx.xxx.xxx.xxx` with your IP address or DNS name of your host machine. Then save and exit. 
 
-![Step 1 - setup your ENV](./img/install/step1-env.png?raw=true)
+> *_DO NOT USE `localhost` or `127.0.0.1` because in containerland, that means "yourself"._*
+
+![Step 1 - setup your .env file](./img/install/step1-env.png?raw=true)
 
 ## Step 2 - Setup your .grafana file
 To run OpenRMF<sup>&reg;</sup> OSS you need to edit your `.grafana` file and replace the `xxx.xxx.xxx.xxx` with your IP address or DNS name of your host machine. Then save and exit. 
 
-![Step 2 - setup your Grafana ENV](./img/install/step2-grafana.png?raw=true)
+> *_DO NOT USE `localhost` or `127.0.0.1` because in containerland, that means "yourself"._*
+
+![Step 2 - setup your Grafana .grafana file](./img/install/step2-grafana.png?raw=true)
+
+## Step 3 - Start the OpenRMF<sup>&reg;</sup> OSS Software Stack
+
+![Step 3 - start the software](./img/install/step3-start.png?raw=true)
+
+
+![Step 3 - let it finish standing up](./img/install/step3-finishrunning.png?raw=true)
+
+## Step 4 - Setup Keycloak 20
+
+![Step 4 - setup Keycloak](./img/install/step4-keycloaksetup.png?raw=true)
+
+
+![Step 4 - finish Keycloak setup](./img/install/step4-keycloakdone.png?raw=true)
+
+
+## Step 5 - Configure Keycloak 20
+
+![Step 5 - Keycloak configuration](./img/install/step5-keycloakconfig.png?raw=true)
+
+
+![Step 5 - Keycloak realm setup](./img/install/step5-keycloakrealm.png?raw=true)
+
+
+![Step 5 - Keycloak login logout URL](./img/install/step5-keycloaklogouturl.png?raw=true)
+
+
+## Step 6 - Configure Keycloak Users
+
+![Step 6 - Keycloak configuration](./img/install/step6-userconfig.png?raw=true)
+
+
+![Step 6 - Keycloak configuration](./img/install/step6-userpassword.png?raw=true)
+
+
+## Step 7 - Login and Use!
+
+![Step 7 - use OpenRMF OSS](./img/install/step7-login.png?raw=true)
