@@ -445,6 +445,7 @@ services:
       - KC_HTTP_RELATIVE_PATH=/auth
       - KC_HTTP_ENABLED=true
       - KC_HTTP_PORT=8080
+      # - KC_LOG_LEVEL=DEBUG
     depends_on:
       - postgres
     networks:

@@ -207,8 +207,6 @@ Log in with that initial application administrator login/pwd combination and you
 
 > If you used a self-signed certificate you may have to say that "accept certificate" or add it to your allowed HTTPS certs to continue. That is up to you and how you configured your HTTPS setup.
 
-![Step 11 - log into OpenRMF OSS over HTTPS](/assets/install/step7-login.png?raw=true)
-
 ## Generating a Certificate
 
 https://nickolaskraus.org/articles/how-to-create-a-self-signed-certificate-for-nginx-on-macos/
