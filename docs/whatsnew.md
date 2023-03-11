@@ -1,6 +1,6 @@
 ---
 layout: default
-title: What's New in v1.8.2
+title: What's New in v1.9
 nav_order: 2
 ---
 
@@ -8,9 +8,22 @@ nav_order: 2
 
 Please refer to the <a href="https://github.com/Cingulara?tab=projects" target="_blank">OpenRMF Projects listing on GitHub</a> for more information on feature updates and timeline.
 
+## Version 1.9
+Version 1.9 has the following feature updates:
+* Fix for SCAP Scans featuring enhanced information from SCC tool
+* Fix for hostname filter to be case insensitive on system package checklist listing
+* Allow searching Vulnerability from Reports with a partial VULN ID match
+* Updated base container images for vulnerability fixes
+* latest DISA templates (480) for SCAP scan matching up to March 08, 2023
+* support for `podman` and `podman-compose`
+* use of `docker compose` versus `docker-compose` in scripts
+
+> BREAKING CHANGE of Keycloak 20 with new configuration, all under a single port 8080 / 8443
+
+> BREAKING CHANGE of Grafana under a single port 8080 / 8443
+
 ## Version 1.8.2
 Version 1.8.2 has the latest DISA templates (460) for SCAP scan matching up to August 28, 2022 as well as updated base images for web and service components for vulnerability issues.
-
 
 ## Version 1.8.1
 Version 1.8.1 had some small fixes in it immediately after v1.8 went public:

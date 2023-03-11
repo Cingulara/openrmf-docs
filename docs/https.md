@@ -4,167 +4,208 @@ title: Run HTTPS
 nav_order: 1000
 ---
 
-# Running OpenRMF over HTTPS v HTTP
+# Get OpenRMF<sup>&reg;</sup> OSS Running Behind HTTPS
 
-OpenRMF is setup to run locally on your local server, laptop, etc.  If you want to use that over a network you can use the Unprivileged NGINX container we setup for the OpenRMF Web UI to front your OpenRMF with HTTPS. You just need to have a few files for your certificate, update the docker-compose, update Keycloak for https, and then restart your stacks. See below for details. 
+There are a few steps here to make this work:
+* run `./stop.sh` to stop the software stack
+* take a good backup / snapshot of your setup
+* update Keycloak for Valid URI entries
+* generate your server certificate
+* combine your server cert and CA cert into a bundle
+* get your unencrypted server key 
+* setup the `nginx.conf` file to listen for 8443 with proper cert paths
+* setup Keycloak to pass to internal KC behind NGINX over HTTPS
+* run the `openrmf-web` on port 8443 to match the NGINX configuration
+* run `./start.sh` to start the software stack
+* ensure the `openrmf-web` is working correctly with `docker logs openrmf-web` and looking for errors
 
-## Setup Your Certificate
-If you have a certificate server or use an online certificate, generate the certificate and get the KEY and CRT file available to use from the local container. I put mine into an "ssl" folder and mounted that to the /etc/nginx/certs/ folder. See the "Mounting the Certificates" link at the bottom of this page. You can do this with self-signed certificates as well but you have to figure out how to get the backend APIs to validate them correctly. 
 
-My setup involved making a key like the links at the bottom suggest, generating the snippets files, and then mounting them correctly.  I also had to modify my nginx.conf file I use to redirect 8080 to 8443, and include the snippets files and server_name as well. Again, see the NGINX links below as those folks do a great job explaining what I am talking on here. 
+## Step 1 -- Stop OpenRMF<sup>&reg;</sup> OSS and take a good backup/snapshot
+The first step always before you update any configuration, is to back this current one up. So run `./stop.sh` and do that.
 
-self-signed.conf example
-```
-ssl_certificate /etc/nginx/certs/ssl/certs/self-signed.crt;
-ssl_certificate_key /etc/nginx/certs/ssl/private/self-signed.key;
-```
+## Step 2 -- Allow Keycloak HTTPS Valid Redirect URIs
+Now go back into the Keycloak setup for the `openrmf` realm and go to Clients. Then click the `openrmf` client. 
 
-ssl-params.conf example
-```
-ssl_protocols TLSv1.1 TLSv1.2;
-ssl_prefer_server_ciphers on;
-ssl_ciphers "EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH";
-ssl_ecdh_curve secp384r1;
-ssl_session_cache shared:SSL:10m;
-ssl_session_tickets off;
-ssl_stapling on;
-ssl_stapling_verify on;
-resolver 8.8.8.8 8.8.4.4 valid=300s;
-resolver_timeout 5s;
-add_header Strict-Transport-Security "max-age=63072000; includeSubdomains";
-add_header X-Frame-Options DENY;
-add_header X-Content-Type-Options nosniff;
-ssl_dhparam /etc/nginx/certs/ssl/certs/dhparam.pem;
-```
+Under the Valid redirect URI and the post logout URI add one for your same IP/DNS, but use `https` and end it with `:8443/*` for the secure port. Then click the "Add valid URI" link underneath where you enter them to put them in there.
 
-## Update the Docker Compose file
-We use the unprivileged NGINX container, so you cannot use port 80 and port 443 as some of the online articles tell you. You can however make :8080 redirect to :8443 and that works perfectly fine. We have done that ourselves with self-signed certificates. You must also expose port 8443 in the docker-compose file to ensure the redirection of 8080 to 8443 works correctly.
+Click Save at the bottom to save those settings and allow HTTPS now. It is easier to do this first then try to remember later. 
 
-In the top OpenRMF web container area I did this, as I had an "nginx" folder I made in where all my OpenRMF docker-compose files are. The snippets folder files also point to the ssl folder I have in the same root OpenRMF main folder I use. The ssl folder has the certs/ and private/ folders for the files I generated for my certificate to run the OpenRMF part as https.
+![Step 2 - setup Keycloak login for HTTPS](/assets/https/step2-keycloakhttps.png?raw=true)
+
+## Step 3 -- Generate your server certificate
+There are articles below on how you setup a certificate, mount into NGINX, etc. so I will not bore you with that. You need to generate one to do HTTPS of course. You can do the normal generate CSR, submit, get it back, get the CA crt and your crt and private key and make it fully operational. OR for now, you can do a self-signed cert. 
+
+We will do the latter here for the example. 
 
 ```
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./nginx/snippets/:/etc/nginx/snippets/:ro
-      - ./ssl/:/etc/nginx/certs/ssl/:ro
+openssl req -x509 -out myserver.crt -keyout myserver.key -newkey rsa:2048 -nodes -sha256 -subj '/CN=192.168.1.25' -extensions EXT -config <( printf "[dn]\nCN=OpenRMF OSS\n[req]\ndistinguished_name = dn\n[EXT]\nsubjectAltName=DNS:192.168.1.25\nkeyUsage=digitalSignature\nextendedKeyUsage=serverAuth") 
 ```
 
-Also for EVERY SINGLE container that is an API (there are 9), I had to add this as volumes in the docker-comopse.yml file. This allows all APIs to validate the self-signed certificate if you do not want to use a valid CA. You also could use a valid CA to generate certs, OR add the valid CA in here for your certificate in a similar manner. I leave that exercise to you!
+You will get output something like this:
 ```
-    volumes:
-      - ./ssl/certs/self-signed.crt:/etc/ssl/certs/self-signed.crt.conf:ro
-      - ./ssl/private/self-signed.key:/etc/ssl/private/self-signed.key.conf:ro
+Generating a 2048 bit RSA private key
+...........................+++++
+.+++++
+writing new private key to 'myserver.key'
+-----
 ```
 
-![OpenRMF SSL Setup](/assets/sslsetup.png)
+In this example you have a myserver.crt and a myserver.key file. 
 
-## Update Keycloak
-Your Keycloak should also be in HTTPS mode or the authentication mixture of using HTTP for Keycloak to log into an HTTPS site will not work. When your Keycloak is using HTTPS correctly, you can then add the https://xxxxxxxxxxxxxx:8443/* to the Valid Redirect URIs before you try to login with OpenRMF over https. If you do not you will get the "invalid redirect" message which is easy to fix by adding the URI. You also can set Realm Settings for OpenRMF to require SSL for external or for all client connections. 
+## Step 4 -- Move the files into an ssl/ folder
+In the root of your OpenRMF<sup>&reg;</sup> OSS folder, make an `ssl` directory and `certs` and `private` subdirectories under that. We will reference these in our YML and `nginx.conf` file soon.
 
-You can go to the information to setup Keycloak for SSL, following the steps in https://www.keycloak.org/docs/latest/server_installation/#enabling-ssl-https-for-the-keycloak-server. I chose to front Keycloak with NGINX in a similar way to how I am fronting it for the OpenRMF pieces. That information is below. I used the same SSL certs and config files, but the nginx.conf was a little different.
+Move the .crt file into ./ssl/certs/ and the .key file into ./ssl/private/ as shown below. 
 
-### Keycloak docker-compose.yml file updates
-I modified the docker-compose for Keycloak to add the nginx-unprivileged container and mounted the same snipps and certs used in OpenRMF. But my nginx.conf is a bit different.  The keycloak entry in this docker-compose.yml file just had the 9001 port mapping removed so Keycloak runs on 8080 internally.
+![Step 4 - generating your SSL cert and files](/assets/https/step4-sslcert.png?raw=true)
+
+If you are going to use a CA cert and your server SSL cert, you will need to put them into a single file to use for the hierarchy that NGINX can reference and use. See below for an example and make sure the order is correct. See the links near the end of this for other references to how you can setup NGINX and HTTPS. 
+
 ```
-services:
-  keycloakproxy:
-    image: nginxinc/nginx-unprivileged:1.18-alpine
-    restart: always
+cat ./ssl/certs/server.crt ./ssl/certs/ca.cert.crt > ./ssl/certs/servercert_bundle.crt
+```
+
+## Step 5 -- Generate the Diffie-Hellman (DH) Group dhparam File
+
+In the root of your OpenRMF<sup>&reg;</sup> OSS directory, run the following command to generate the file we will reference for stronger security in our `nginx.conf` file.
+
+```
+openssl dhparam -out ./ssl/certs/dhparam.pem 2048
+```
+
+The screen will look like this for a while and then you will see your file. 
+
+![Step 4 - generating your SSL cert and files](/assets/https/step5-dhparam.png?raw=true)
+
+Note that on some REL 8 and other Linux boxes, you may have to do something like this to get the same file. Search for your OS to get it right. Or use the `genpkey` command to get something similar and test that.
+
+```
+openssl dhparam -out ./ssl/certs/dhparam.pem -text -5 2048
+```
+## Step 6 -- Make sure read permissions are on all certificate files
+
+Run the following (or equivalent) command from the root OpenRMF OSS folder to make sure permissions are correct:
+
+```
+chmod -R 755 ssl
+```
+
+## Step 7 -- Update the docker-compose.yml file for HTTPS
+In your `docker-compose.yml` file you need to setup the top `openrmf-web` YML area to look like the below. Note that the internal and external port will be ` 8443 ` and there is a volume mount of ` ./ssl/ ` in there as well. This makes sure the web starts on port 8443 that will match `nginx.conf` shortly and exposes the same. And that you can reference the certificate and key information in the setup when we restart with full HTTPS support.
+
+```
+  openrmf-web:
+    image: cingulara/openrmf-web:1.09.01
+    container_name: openrmf-web
+    restart: on-failure:5
     ports:
-      - 9001:8443
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./nginx/snippets/:/etc/nginx/snippets/:ro
-      - ./ssl/:/etc/nginx/certs/ssl/:ro
-    networks:
-      - keycloak-network
+      # - 8080:8080
+      - 8443:8443
     depends_on:
-      - keycloak
+      - openrmfapi-scoring
+      - openrmfapi-template
+      - openrmfapi-read
+      - openrmfapi-controls
+      - openrmfapi-audit
+      - openrmfapi-report
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:Z
+      - ./ssl/:/etc/ssl/:Z
+    networks:
+      - openrmf
+```
 
-  keycloak: 
-    image: jboss/keycloak:10.0.2
-    restart: always
+![Step 7 - setup the web UI for HTTPS](/assets/https/step7-webhttps.png?raw=true)
+
+Also setup the `nginx-metrics` area to point to the new openrmf-web:8443/ internal path and if you are using a self-signed cert or non-Internet type of main Certificate Authority you may need that `environment:` section with `SSL_VERIFY=false` as well.
+
+```
+  nginx-metrics: 
+    image: nginx/nginx-prometheus-exporter:0.9.0
+    container_name: nginx-metrics
+    restart: on-failure:1000
+    command:
+      - -nginx.scrape-uri
+      # - http://openrmf-web:8080/status
+      - https://openrmf-web:8443/status
     ports:
-      - 8080
+      - "9113"
+    environment:
+      - SSL_VERIFY=false # do not verify on any SSL self signed cert for the web UI
+    networks:
+      - openrmf
 ```
 
-### Keycloak NGINX configuration file
-Replace the "xxx.xxx.xxx.xxx" with your IP address or name below. 
+![Step 7 - setup the NGINX metrics for HTTPS](/assets/https/step7-metricshttps.png?raw=true)
+
+## Step 8 -- setup NGINX configuration for HTTPS
+In the `nginx.conf` file where it has ` listen 8080;` replace that with the below information. It will replace that 8080 line and be just before the `root /usr/share/nginx/html;` line. This tells the `openrmf-web` container that is running the NGINX proxy and the OpenRMF<sup>&reg;</sup> OSS web UI to run on HTTPS over 8443 with the certificate files you just made.
+
+Of course replace `xxx.xxx.xxx.xxx` below for the `server_name` with your IP or DNS name. 
 
 ```
-worker_processes 4;
- 
-pid /tmp/nginx.pid; # Changed from /var/run/nginx.pid
+# listen 8080;
 
-events { worker_connections 4096; }
- 
-http {
- 
-    sendfile on;
-    client_max_body_size 60M;
-    include /etc/nginx/mime.types;
-    keepalive_timeout  65;
-    proxy_http_version 1.1;
+###########################################################################
+listen 8443 http2 ssl;
+listen [::]:8443 http2 ssl;
 
- 
-    # configure nginx server to redirect to HTTPS
-    # server {
-    #     listen       9001;
-    #     server_name  xxx.xxx.xxx.xxx;
-    #     return 302 https://$server_name:9001;
-    # }
-    
-    server {
-        listen 8443 ssl http2;
-        server_name  xxx.xxx.xxx.xxx;
-        include snippets/self-signed.conf;
-        include snippets/ssl-params.conf;
+ssl_protocols TLSv1.2;
+add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
 
-        # # don't send the nginx version number in error pages and Server header
-        server_tokens off;
+server_name xxx.xxx.xxx.xxx;
 
-        proxy_set_header        Host $host:9001;
-        proxy_set_header        X-Real-IP $remote_addr;
-        proxy_set_header        X-Real-IP $remote_addr;
-        # proxy_set_header        X-Forwarded-For $host;
-        proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header        X-Forwarded-Proto $scheme;
-        
-        location / {
-            proxy_pass http://keycloak:8080;
-            add_header X-Frame-Options "ALLOWALL";
-        }
-    }
+ssl_certificate /etc/ssl/certs/myserver.crt;
+ssl_certificate_key /etc/ssl/private/myserver.key;
+ssl_dhparam /etc/ssl/certs/dhparam.pem;
+###########################################################################
+```
+
+The other area we have to update is to tell Keycloak to make sure it allows 8443 via the NGINX proxy settings we have. Keycloak already has the ENV to allow HTTP and HTTPS via proxy passthrough. And that the name internal can be different than the external name being called since we are behind the NGINX proxy. 
+
+Basically you replace the "Host" entry and use `$host:8443;` instead of the 8080. Make sure it looks like the below before continuing. 
+
+```
+location /auth/ {
+    # proxy_set_header   Host              $host:8080;
+    proxy_set_header   Host              $host:8443;
+    proxy_set_header   X-Real-IP         $remote_addr;
+    proxy_set_header   X-Forwarded-For   $proxy_add_x_forwarded_for;
+    proxy_set_header   X-Forwarded-Proto $scheme;
+    proxy_set_header   X-NginX-Proxy     true;
+    proxy_set_header   X-Forwarded-Port  $server_port;
+    proxy_pass         http://openrmf-keycloak:8080;
+    add_header         X-Frame-Options   "ALLOWALL";
 }
 ```
 
-## Putting it all together
-
-When you have the files setup and mounted to the cert path, 8443 used and exposed in the docker-compose.yml file, setup Keycloak to use HTTPS fronted by NGINX (or natively if you wish), updated the .env file in the OpenRMF directory, updated the OpenRMF docker-compose.yml file, and updated your Valid Redirect URIs you can bring up the Keycloak stack and then the OpenRMF stack and test out your HTTPS configuration. It may still warn you "this is not a valid cert" if you did a self-signed cert. I did this and used Safari and said "it is OK" for this to work. Or you can add it to the list of valid certs in your machine if you wish. Chrome did not like the self-signed cert I did at first. 
-
-This assumes your certificates are valid in your system. If you do the self-signed certificates you may have an issue with the backend APIs not validating your JWT because the https link in your .env file is not being used with a valid https certificate.
-
-You may want to run the "docker-compose up" without the "-d" as is in the SH/CMD startup scripts for OpenRMF to see the logs printed to the screen in case you need to debug your connections. You also can run ` docker logs openrmf-web ` for listing the logs of the OpenRMF web UI in NGINX out to the screen to help you troubleshoot.
-
-> NOTE: You may want to run ` chmod a+r ` or equivalent command across any files you do a ` git clone ` or ` git pull ` on as well as other files you make. So the container permissions allow the actual image to read the new or updated iles.
-
-## Self-signed CAs
-You need to include the full certificate chain for this. Thank you to "tjmullicani" in GitHub for this!
+## Step 9 -- update your .env file
+Now that all the HTTPS stuff is set we need to update the ` .env ` file that references the JWTAUTHORITY for validating tokens from Keycloak passed into OpenRMF<sup>&reg;</sup> OSS. To do that replace `http` with `https` and replace `8080` with `8443` as shown below. The `xxx.xxx.xxx.xxx` will be your IP or DNS you specified earlier when running under HTTP.
 
 ```
-  $ cat rootca.crt intermediateca.crt servercert.crt > servercert_bundle.crt
-
-  - ./ssl/certs/servercert_bundle.crt:/etc/ssl/certs/servercert_bundle.crt:ro
+JWTAUTHORITY=https://xxx.xxx.xxx.xxx:8443/auth/realms/openrmf
+JWTCLIENT=openrmf
 ```
-or
 
-```
-  - ./ssl/certs/rootca.crt:/etc/ssl/certs/rootca.crt:ro
+## Step 10 -- restart the OpenRMF<sup>&reg;</sup> OSS Stack
 
-  - ./ssl/certs/intermediate.crt:/etc/ssl/certs/intermediateca.crt:ro
+With all that now done in the `docker-compose`, `nginx.conf`, and `.env` files you can stop and restart the stack. 
 
-  - ./ssl/certs/servercert.crt:/etc/ssl/certs/servercert.crt:ro
-```
+Run `./stop.sh` and let it all power down. Then run `./start.sh` and let it all come back up. 
+
+You can run the `docker logs openrmf-web` and `docker logs openrmf-keycloak` to view logs and make sure they are starting up, permissions are correct and nothing is choking. Also run `docker ps` to make sure all the containers are running. 
+
+> Note substitute `podman` for `docker` if you are using a Podman 4.x setup.
+
+## Step 11 -- Log in to OpenRMF<sup>&reg;</sup> OSS
+
+After giving it a couple minutes to restart and get everything connnected...
+
+In a browser tab go to that new HTTPS URL you setup enter your URL https://&lt;ip-address-or-dns&gt;:8080/ and you should get the same login image below. 
+
+Log in with that initial application administrator login/pwd combination and you should see the main page of OpenRMF<sup>&reg;</sup> OSS ready for you behind HTTPS! 
+
+> If you used a self-signed certificate you may have to say that "accept certificate" or add it to your allowed HTTPS certs to continue. That is up to you and how you configured your HTTPS setup.
 
 ## Generating a Certificate
 

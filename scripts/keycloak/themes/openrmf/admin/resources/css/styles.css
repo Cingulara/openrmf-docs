@@ -190,6 +190,20 @@ th.w-40 {
     height: 26px;
 }
 
+.select2-container-single {
+    padding: 0;
+    margin: 0;
+}
+
+.select2-container-single .form-group {
+    width: 100%;
+    margin: 0;
+}
+
+.select2-container-single .form-group .input-group {
+    width: 100%;
+}
+
 /*********** html select ********/
 .overflow-select {
     overflow: auto;
@@ -197,17 +211,14 @@ th.w-40 {
 
 
 /*********** New Menu ***********/
-.sidebar-pf .nav-category h2 {
-    color: black;
-    font-weight: 500;
-}
+
 
 .sidebar-pf-left{
-  background: #a6a6a7;
+  background: #292e34;
 }
 
 .sidebar-pf .nav-pills > li a i, .sidebar-pf .nav-pills > li a span{
-  color:  #248354e0;
+  color:  #72767b;
   display: inline-block;
   margin-right: 10px;
 }
@@ -215,16 +226,16 @@ th.w-40 {
   color: #dbdada;
   padding: 0px 20px 0 30px!important;
   line-height: 30px;
-  /* border-left-width: 12px;
+  border-left-width: 12px;
   border-left-style:  solid;
-  border-left-color: #134f31e0; */
+  border-left-color: #292e34;
   margin-left: -6px;
 }
 
 .sidebar-pf .nav-pills > li > a:hover{
-  background: #248354e0;
-  border-color:#248354e0;
-  border-left-color: #248354e0;
+  background: #393f44;
+  border-color:#292e34;
+  border-left-color: #393f44;
   color: #fff;
 }
 
@@ -235,14 +246,14 @@ th.w-40 {
 
 .sidebar-pf .nav-pills > li.active > a {
   color: #fff;
-  background: #248354e0!important;
+  background: #393f44!important;
   border-bottom: 1px solid #000!important;
   border-top: 1px solid #000!important;
-  border-left-color: #248354e0!important;
+  border-left-color: #39a5dc!important;
 }
 
 .sidebar-pf .nav-pills > li.active a i, .sidebar-pf .nav-pills > li.active a span{
-  color: #000000;
+  color: #39a5dc;
 }
 
 /*********** Realm selector ***********/
@@ -310,7 +321,6 @@ th.w-40 {
 
 .navbar-pf{
   border-top: none!important;
-  background-color: #4f71b1;
 }
 
 .navbar-pf .navbar-brand {
@@ -318,19 +328,10 @@ th.w-40 {
   height: 56px;
   line-height: 56px;
   background-position: center center;
-  background-image: url('../img/logo-banner.png');
-  background-size: 78px 55px;
+  background-image: url('../img/keyclok-logo.png');
+  background-size: 148px 30px;
   background-repeat: no-repeat;
   width: 148px;
-}
-
-.navbar-pf .navbar-utility>li>a {
-    font-weight: 400;
-    font-size: 14px;
-    vertical-align: middle;
-    padding-top: 0px !important;
-    padding-bottom: 10px !important;
-    border: 0px;
 }
 
 .navbar-pf .navbar-utility .dropdown-toggle {
@@ -424,6 +425,10 @@ table.kc-authz-table-expanded {
 .password-conceal {
   font-family: 'text-security-disc';
   font-size: 14px;
+}
+
+.input-map input.form-control {
+  width: 50%;
 }
 
 /* Deactivation styles for user-group membership tree models */

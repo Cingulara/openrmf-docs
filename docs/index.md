@@ -4,12 +4,12 @@ title: OpenRMF Introduction
 nav_order: 1
 ---
 
-# OpenRMF Introduction
+# OpenRMF<sup>&reg;</sup> OSS Introduction
 
-Welcome to the OpenRMF Docs site. This site contains help screens, scenarios, screenshots and 
-other useful information to use the OpenRMF tool for you and your team. This is a container-based application you can download locally and run on a laptop, server, VM, cloud instance, even Kubernetes if you wish.
+Welcome to the OpenRMF<sup>&reg;</sup> OSS Docs site. This site contains help screens, scenarios, screenshots and 
+other useful information to use the OpenRMF<sup>&reg;</sup> OSS application for you and your team. This is a container-based application you can download locally and run on a laptop, server, VM, cloud instance, even Kubernetes if you wish.
 
-OpenRMF is the only web-based open source tool to manage your DoD STIG checklists, generate NIST compliance, keep track of your security items that are Open or Not Reviewed, and massively shrink your timeline to collect data and submit for an ATO! You can use the application to manage your checklists, track compliance, and then export CKL files, a test plan XLSX and a POAM XLSX for your use. 
+OpenRMF<sup>&reg;</sup> OSS is the only web-based open source tool to manage your DoD STIG checklists, generate NIST compliance, keep track of your security items that are Open or Not Reviewed, and massively shrink your timeline to collect data and submit for an ATO! You can use the application to manage your checklists, track compliance, and then export CKL files, a test plan XLSX and a POAM XLSX for your use. 
 
 Compare this to the manual way you have to manage STIG Checklists and SCAP scans, outlined in Tutela's [blog post here](https://medium.com/@dgould_43957/how-to-use-disa-stig-viewer-tool-907358d17cea). 
 
@@ -18,7 +18,7 @@ See [What's New](./whatsnew.html) with the latest version.
 > This is for AMD / Intel based computers and servers to run in a Docker environment. The AMD chipsets may not run this stack correctly based on the way the containers are built.
 
 ## What it does
-OpenRMF manages your RMF documentation and removes the Cybersecurity mystery! It allows management to view the status of checklists and RMF progress on their systems. 
+OpenRMF<sup>&reg;</sup> OSS manages your RMF documentation and removes the Cybersecurity mystery! It allows management to view the status of checklists and RMF progress on their systems. 
 
 It allows IT administrators and developers to store their checklists and scans in a single place. 
 
@@ -51,14 +51,14 @@ Some of the high level features are below:
 * Run on premise, on a local machine, or in the cloud (testing on Raspberry Pi 4 now)
 * Containerized to run locally, in a container runtime, or in Kubernetes
 
-## Why use OpenRMF
+## Why use OpenRMF<sup>&reg;</sup> OSS
 The current way to implement the Risk Management Framework for your DoD Authority to Operate is VERY manual and VERY, VERY slow. VERY slow.  It is driven by disparate pieces of a Java Viewer for checklists, massive amounts of MS Excel spreadsheets for viewing the checklists for management, MS Word documents, various PDF files, your own home grown applications to help automate pieces of this process, and more. Information is shared (hopefully!) via email and shared folders. And there is no one central place for developers, operations, management, and cybersecurity analysts to see the most up to date information that is needed to eventually submit to eMASS. 
 
-That changes with OpenRMF!
+That changes with OpenRMF<sup>&reg;</sup> OSS!
 
-OpenRMF solves this dilemma. All you need is a web browser to view the pertinent information on your checklists within your system. Checklists are grouped by system and quickly show information such as the number of Category 1, 2, and 3 items as well as the number of Open items versus the Not a Finding "closed" items. Without having to open every single checklist file in the heavy Java viewer DISA provides. 
+OpenRMF<sup>&reg;</sup> OSS solves this dilemma. All you need is a web browser to view the pertinent information on your checklists within your system. Checklists are grouped by system and quickly show information such as the number of Category 1, 2, and 3 items as well as the number of Open items versus the Not a Finding "closed" items. Without having to open every single checklist file in the heavy Java viewer DISA provides. 
 
-OpenRMF helps in several ways:
+OpenRMF<sup>&reg;</sup> OSS helps in several ways:
 * It is 100% browser based for all the major browsers (Chrome, Edge, Firefox, Safari, IE 11)
 * You can import multiple checklists for a single source-of-truth for all checklists
 * You can organize and manage your data by systems for a quicker, less stress filled way to see your system's risk profile
@@ -67,11 +67,11 @@ OpenRMF helps in several ways:
 * You can export any checklists to Excel or download a CKL file for viewing in the DISA Java Viewer
 * You can drill down to your problem areas across all your checklists quickly with a few clicks and get actionable data quickly
 
-With coming updates such as automating the Risk Assessment Report, automating the POA&M on fixes, as well as online editing of checklist status and comments OpenRMF is the app any DoD IT / Developer / Operations / Cybersecurity professional needs!
+With coming updates such as automating the Risk Assessment Report, automating the POA&M on fixes, as well as online editing of checklist status and comments OpenRMF<sup>&reg;</sup> OSS is the app any DoD IT / Developer / Operations / Cybersecurity professional needs!
 
 More information can be found in our <a href="https://www.openrmf.io/doc/OpenRMF-Product-Information.pdf" target="_blank">product PDF</a> on our website.
 
 ## Architecture
 Below is the top level architecture as of version 1.8 and beyond, drawn via <a href="https://app.diagrams.net/" target="_blank">Draw.io</a>'s great tool (now Diagrams.net). 
 
-![OpenRMF v0.11 Architecture and beyond](/assets/openRMF-Tool-Architecture.png)
+![OpenRMF OSS v0.11 Architecture and beyond](/assets/openRMF-Tool-Architecture.png)

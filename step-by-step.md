@@ -1,114 +1,123 @@
-# Get OpenRMF Core Running Locally
+# Get OpenRMF<sup>&reg;</sup> OSS v1.9 or higher Running
+Please read the [Minimum Requirements](./minimim-requirements.md) for OpenRMF<sup>&reg;</sup> OSS before you get going.  Know that starting with v1.9 we are using `docker compose` versus `docker-compose` as the `docker` executable with the compose plugin can be used all-in-one. 
 
-> Note that for Docker Desktop users, you need to have the File Sharing turned on to run OpenRMF the way it is designed in the docker-compose file. We use persistent volumes for MongoDB, Grafana, and Prometheus. Also for anyone running on a system with any firewall (Windows Firewall, firewalld, iptables) you will need to have ports 8080 and 9001 accessible from external if you are not doing everything locally on the same box. If you plan to access the web interface from another connected machine, please ensure your firewall settings allow these ports coming in first.
+And this version of OpenRMF<sup>&reg;</sup> OSS now supports `podman` and `podman-compose` as well by updating the YML and setup!
 
-> Tested with Docker Desktop 2.x onward with 6 CPUs, 6 GB RAM, 1 GB swap and 60 GB Disk Image. You will want more than the default 2 CPU and 2 GB RAM to maximize the use of OpenRMF specifically. Your machine age and hardware will make this vary some. If you see timeouts on Keycloak and OpenRMF when uploading, running reports, or web UI screens taking a long time to load you may want to check the Docker Desktop Resources of your machine.
+If you are upgrading from a version 1.8.x or earlier of OpenRMF<sup>&reg;</sup> OSS you will need to at least do the Keycloak setup listed here. And please clear your web cache as the openrmf.js file has also been updated with version 1.9 and higher. 
 
-## Step 1 - Get Keycloak Running
-To run OpenRMF you first need Keycloak running. I have a ZIP file under the [latest release](https://github.com/Cingulara/openrmf-docs/releases) just for the Keycloak setup. Download that and unzip it into its own directory. Then run the `start.sh` or `start.cmd` file to run it. If you do not have Keycloak and Postgres (they work together for this) as containers, this script will also help download them. Then run them. 
+> Note that for Docker Desktop users, you need to have the File Sharing turned on to run OpenRMF<sup>&reg;</sup> OSS the way it is designed in the docker-compose file. We use persistent volumes for MongoDB, Grafana, and Prometheus. Also for anyone running on a system with any firewall (Windows Firewall, firewalld, iptables) you will need to have ports 8080 accessible from external if you are not doing everything locally on the same box. If you plan to access the web interface from another connected machine, please ensure your firewall settings allow these ports coming in first.
 
-Once you have Keyloak setup, if you have a Linux or Mac you can automate the setup. A Windows setup script is coming. For Windows users, check the [Keycloak manual steps](keycloak.md) file and then come back here. Everyone else, run that script locally and enter the IP of your machine (it looks locally for the Keycloak container) and then enter a starting user. The rest is done for you. The results should look like the below. 
+> Tested with Docker Desktop 2.x onward with 6 CPUs, 8 GB RAM, 1 GB swap and 60 GB Disk Image. You will want more than the default 2 CPU and 2 GB RAM to maximize the use of OpenRMF<sup>&reg;</sup> OSS specifically. Your machine age and hardware will make this vary some. If you see timeouts on Keycloak and OpenRMF<sup>&reg;</sup> OSS when uploading, running reports, or web UI screens taking a long time to load you may want to check the Docker Desktop Resources of your machine.
 
-![Keycloak Setup Script](./img/keycloak/setup-script.png?raw=true)
+## Step 1 - Setup your .env file
+To run OpenRMF<sup>&reg;</sup> OSS you need to edit your `.env` file and replace the `xxx.xxx.xxx.xxx` with your IP address or DNS name of your host machine. Then save and exit. 
 
-Now, you can launch the http://localhost:9001/auth URL in a browser.
+> *_DO NOT USE `localhost` or `127.0.0.1` because in containerland, that means "yourself"._*
 
-* Click on the "Administrator Console" block on the bottom left and you are presented with a login prompt.
-* Use the admin/admin login from the keycloak docker-compose file (or whatever you changed it to) to get into the Keycloak UI.
+![Step 1 - setup your .env file](./img/install/step1-env.png?raw=true)
 
-* Click 'Users' under the Manage section on the left-side menu.
-* Click the "View all users" button.
-* Click on your user you just made (see below).
+## Step 2 - Setup your .grafana file
+To run OpenRMF<sup>&reg;</sup> OSS you need to edit your `.grafana` file and replace the `xxx.xxx.xxx.xxx` with your IP address or DNS name of your host machine. Then save and exit. 
 
-![Keycloak User Setup](./img/keycloak/keycloak-setup-users.png?raw=true)
+> *_DO NOT USE `localhost` or `127.0.0.1` because in containerland, that means "yourself"._*
 
-Optional: click the "x" next to "Update Password" and Save this first tab if you wish.
+![Step 2 - setup your Grafana .grafana file](./img/install/step2-grafana.png?raw=true)
 
-Now you can click the Credentials tab, and then enter a new password that is 12 characters and follows the 2/2/2/2 rule. 2 upper, 2 lower, 2 special character and 2 numbers in the password. Click the "Temporary" if you want to turn that off. Then click "Reset Password" and verify.
+## Step 3 - Start the OpenRMF<sup>&reg;</sup> OSS Software Stack
+Run `./start.sh` to start the software stack. If you do not have the images locally, it will pull from docker.io and download then spin up all the containers within the `docker-compose.yml` file.
 
-![Keycloak User Setup](./img/keycloak/user-credentials.png?raw=true)
+![Step 3 - start the software](./img/install/step3-start.png?raw=true)
 
-Next make sure that the OpenRMF Realm is created in Keycloak. To do this: execute the setup-realm script from the Keycloak directory that you unzipped previously. It will ask you for the IP address that you bound KeyCloak to. Use the IP address you see in your browser window when opening the Keycloak GUI.
+When done it will tell you to go to the starting URL to use it as pictured in the screenshot below. 
 
-Keycloak is setup! On to Step 2.
+![Step 3 - let it finish standing up](./img/install/step3-finishrunning.png?raw=true)
 
-> You also possibly use another OpenID compliant application to provide AuthN and AuthZ. I have not tested any other than Keycloak for now. 
+But first, you must setup Keycloak for the AuthN/AuthZ of OpenRMF<sup>&reg;</sup> OSS. 
 
-## Step 2 - Edit your .env file
+## Step 4 - Setup Keycloak 20
+From wherever your connecting into 
 
-This is a VERY, VERY important step. In the OpenRMF zip file with all the scripts to run this locally, you have a .env file that is with the rest of the files. You need to expand that ZIP file into a separate directory just for OpenRMF scripts. 
+> Make sure port 8080 on your machine is allowed to run, it not running anything else, and is not blocked by firewall from any external machine that wants to use your OpenRMF<sup>&reg;</sup> OSS to connect.
 
-You may not see it if on Linux or Mac, so you will need to run `ls -al` or something similar to see it. You *must* edit this file that looks like the YAML below and in the 'xxx.xxx' area put your IP address that Keycloak is running on. It should be the same machine you are doing all this on more than likely. It is the same IP you entered in the "Enter your IP" step for Keycloak setup if you used one of the automated setup scripts for Keycloak. If you did the manual steps, use the IP address of the machine Keycloak is running on (run ` ipconfig ` or ` ifconfig `). 
+Run the `./setup-realm-linux.sh` or similar command for your OS and let it start up. It will ask you for:
+* your DNS or IP address so enter it correctly
+* your initial username for the application administrator account (you will setup the password later)
 
-This .env file is with the OpenRMF files separate from the rest. It is read in when you launch OpenRMF and put into an environment variable for the Docker Compose run containers specifically so the APIs can authenticate requests. 
+![Step 4 - setup Keycloak](./img/install/step4-keycloaksetup.png?raw=true)
 
-```yaml
-JWT-AUTHORITY=http://xxx.xxx.xxx.xxx:9001/auth/realms/openrmf
-JWT-CLIENT=openrmf
-```
+Press enter after that and the script will update roles, client configuration, protocols, password policy and default information. When done it will look like the below and be ready for you to log into Keycloak to finish the configuration steps. 
 
-Ok, now that you have setup Keycloak and you have the .env file setup right, you can go on to Step 3. Running OpenRMF!
+![Step 4 - finish Keycloak setup](./img/install/step4-keycloakdone.png?raw=true)
 
-## Step 3 - Run the OpenRMF Start script
+## Step 5 - Configure Keycloak 20
+> Note that now in OpenRMF<sup>&reg;</sup> OSS v1.9 or later, EVERYTHING RUNNING is under a single port and single YML file. 
 
-Now, where you have the .env file from above and all the scripts and YML files, you can run `start.sh` or `start.cmd` for OpenRMF to start. This will pull down any containers from DockerHub you need and then launch them all. There are several APIs, message clients, MongoDB databases, metrics exporters, Grafana, and the web interface to put together and run. All of this is in the docker-compose.yml file that is run. Let it start all the pieces up and get everything working. There are a lot of pieces here, so you may want to up your allowable Memory for Docker Desktop to 4GB if you can. And possibly 4 or 6 CPUs depending on your setup. You will need to play with your settings for performance. 
+To connect to Keycloak, now you go to the http://&lt;ip-address-or-dns&gt;:8080/auth/ URL (port 8080 slash auth slash) and the screen below comes up. Click the Administration Console and then log in with the default `admin` login and PWD found in the YML file. 
 
-When all the pieces are running you will see a message on "open a local browser to http://{ip-address}:8080/". That means you are ready to go. Open a web browser, point to that URL, and you should get a Keycloak login page. Make sure you *DO NOT* use http://localhost/ as "localhost" means something specific with Docker images. Use the IP of the machine with all these pieces running. 
+![Step 5 - Keycloak configuration](./img/install/step5-keycloakconfig.png?raw=true)
 
-> The data is currently mapped to internal Docker-managed volumes for persistence. You can run the "docker volume rm" command below if you wish to remove and start over as you test.  If you want persistence you could change the connection strings to another MongoDB server and adjust the docker-compose.yml accordingly. Or use a volume in your docker-compose.yml or individual docker commands. 
+Once here, click on the top left area where it has `master` for the realm and choose `openrmf` to let the screen go to our realm. 
 
-## Step 4 - Log In and Add a new System 
+![Step 5 - Keycloak realm setup](./img/install/step5-keycloakrealm.png?raw=true)
 
-Enter your Login username/password combination and you should get to the OpenRMF Dashboard page. If this is a new setup you will have no data at all. It will show 0 systems, 0 checklists, 0 user templates, etc.  Click on the Systems menu or the green Systems listing on the Dashboard. That takes you to the System page. 
+From there, click the Clients menu on the left and then click `openrmf` in the list of clients to get to the below screen. From here, scroll down a bit and under the highlighted area show below for "Valid redirect URIs" and "Valid post logout redirect URIs" enter your URL http://&lt;ip-address-or-dns&gt;:8080/* and make sure it ends in the ` * `. 
 
-You will see a note on "There are no Systems in here. Please add your first System or Upload your first checklist to get started.". To do that click the blue "Add" button near the top right of that page. (If you do not see it, your permissions are not setup for Editor or Administrator. Fix that in Keycloak for your user roles.) Enter a title and description, and add a Nessus ACAS export XML file if you have one. Then click Save Changes. 
+That will say "this realm can be used by any application coming from this address as the root for login/logout" in essence. 
 
-![Setup your First System](./img/setup-add-a-system.png?raw=true)
+We tell folks to click the "+ Add valid redirect URIs" button underneath each so they are set correctly. Then scroll down to click the Save button and you are good here. 
 
-You are now at the System information screen but you have 0 checklists. To add a checklist, you either need the .CKL file from the DISA Java Viewer or another tool. Or you need a SCAP scan XCCDF results XML file. 
+![Step 5 - Keycloak login logout URL](./img/install/step5-keycloaklogouturl.png?raw=true)
 
-> If you do not have any checklist files, visit https://github.com/Cingulara/openrmf-web/tree/master/examples to get some examples to use and download the raw files. 
+Almost there...now on to setup that application administrator user password and get ready to log in.
 
-## Step 5 - Add some Checklist files or SCAP scan results
-When you have at least one of those types of files, you can click the Upload button in the System Information area of the System screen. You will go to the Upload page referencing your System.  
+## Step 6 - Configure Keycloak Users
+Click on the Users menu on the far left, and then find the user you made in Step 4 above. You should be able to see it in the listing. Click on that user (in the example below created a user ` openrmf-admin `) and then note you should enter the email, first name, and last name information and save it here. 
 
-On the Upload page, make sure your system is selected in the dropdown and click the "Choose Files" button. You can add up to 10 files at a time on this screen. When done it will tell you how many files were successful, and list any that may have problems for you to fix and try again later. 
+![Step 6 - Keycloak configuration](./img/install/step6-userconfig.png?raw=true)
 
-![Upload Checklists](./img/upload-checklists-result.png?raw=true)
+Then click on the Credentials tab and set your first password.  Make sure the "Temporary" slider is off or you will have to change it AGAIN when you first login. Save the password and now you are set to go.
 
-## Step 6 - Open the System and List Checklists
-When done uploading click the Systems menu at the top left of OpenRMF. You will see your System listed, with the number of checklists uploaded and your total overall "Score". The score in OpenRMF shows the number of open, not a finding, not reviewed, and not applicable items per checklist or for the whole system. This is the whole system view. 
+> The password policy is 2/2/2/2 and minimum 12 characters by default. The exercise to find that and update it we leave to you! Learning how Keycloak works is a great exercise. 
 
-Click the System title linked and you go back to the System page. You should see the score pie chart, buttons to generate documents, and then your list of checklists along with a checklist filter. Check / un-check options on the filter and click Apply to show checklists that have those kinds of categories and status on vulnerabilities. 
+![Step 6 - Keycloak configuration](./img/install/step6-userpassword.png?raw=true)
 
-Click on the checklist green plus sign to see a breakdown of its vulnerability listings. Click the checklist name linked to open a screen to see all the items for that checklist.
+## Step 7 - Login and Use!
+In a separate browser tab (you can leave the Keycloak one up and running to learn it) go to that URL you setup enter your URL http://&lt;ip-address-or-dns&gt;:8080/ and you should get the image below. 
 
-![Upload Checklists](./img/checklist-listing.png?raw=true)
+Log in with that initial application administrator login/pwd combination and you should see the main page of OpenRMF<sup>&reg;</sup> OSS ready for you! 
 
-## Step 7 - View your Checklists
-Once you view the checklist you can see the title, the host, the version and release of the checklist and other information on the left. On the right you see a table of the score for checklist vulnerabilities. Each number is hyperlinked to the list of vulnerabilities below to quickly filter your listing for what you are looking for. 
+![Step 7 - log into OpenRMF OSS](./img/install/step7-login.png?raw=true)
 
-You are also notified if your version or release of the checklist has an update from DISA. If so, you can click a button to upgrade it to the latest and all data/notes/status is copied from the older one to the newer one! Yes you read that correctly! :^)
+## Step 8 - Use OpenRMF<sup>&reg;</sup> OSS
+From here, now you can create System Packages, upload checklist CKL files, upload raw SCAP XCCDF results .xml files and get organized around your RMF package. 
 
-![Checklist View](./img/checklist-view.png?raw=true)
+A System Package here = an ATO, accreditation boundary, etc. that has all your checklists, patch vulnerability scans, SCAP scans, etc. where you are looking for approval to run. And where you probably are doing some kind of ConMon (continuous monitoring) as well. 
 
-Where the vulnerabilities are listed, you can click the vulnerability and the details loads as well as the NIST RMF controls referenced. The Status and Comments area shows that data. If you have Edit or Admin rights, you can click Edit and update the finding details, comments, status, and other data. Saving this data will automatically update the score and reporting data if the status is changed. 
+For the first setup:
 
-![Checklist Vulnerabilities](./img/checklist-vulnerability.png?raw=true)
+* click System Package
+* add a System Package
+* on the System Package Dashboard click Upload
+* load up some CKL or SCAP XCCDF .xml files
+* go back to the System Packages
+* see results
 
-## Step 8 - Run Reports and Compliance, View Audit data, etc.
+![Step 8 - use OpenRMF OSS](./img/install/step8-useopenrmfoss.png?raw=true)
 
-Now that you have data loaded, you can hunt around the rest of the application to see what it has! 
+## A Note on OpenRMF<sup>&reg;</sup> Professional
 
-On the reports page you can click on each report to run that report and see what data returns. 
+OpenRMF<sup>&reg;</sup> OSS is free to use, reuse, install all over the place, etc. You just cannot charge people to install or use it. This application will be free to use as long as we are in charge of it. 
 
-The Audit page shows when people add systems, upload checklists, etc. 
+While using it, if you need more than the OSS version, check out <a target="_blank" href="https://www.soteriasoft.com/products/openrmf-professional.html">OpenRMF<sup>&reg;</sup> Professional</a>. 
 
-The Compliance page lets you specify a system, the impact level (right now just Low, Medium, and High) and specify if you need the PII and Privacy data controls applied. Click the Generate button and the controls will go against every single checklist in your system and map all vulnerability items per status into a map and listing for you within minutes (or less!).
-
-![Checklist Vulnerabilities](./img/compliance-listing.png?raw=true)
-
-## Run OpenRMF latest development
-For those that want to run the actual "latest" or "edge" of OpenRMF you should run `git clone https://github.com/Cingulara/openrmf-docs.git `, then `git checkout develop` to switch to the develop branch. Inside the scripts directory there is an [edge](scripts/edge/) directory with ./dev-start.sh (or .\dev-start.cmd on Windows) file to run to start and a corresponding ./dev-stop.sh (.\dev-stop.cmd on Windows) to run the latest development version. These operate on http://{ip-address}:8080 as well. Note the docker-compose.yml has different database mount volumes as well. 
-
-This would take the place of Step 3 above. All the rest of the steps are the same in the right order. 
+* custom checklist templates
+* CIS scans
+* Parsing patch vulnerabilities for hardware, software, PPSM
+* history and trends
+* deeper level of security on system packages
+* live POAM
+* bulk editing and locking vulnerabilities and checklists
+* Compliance down to the subcontrol level, overlays, tailoring, compliance statements
+* Generate SSP, SAR, RAR, CCRI documents
+* add in tracking of other vulnerabilities (software, container, infrastructure-as-code, etc.)
+* and more...

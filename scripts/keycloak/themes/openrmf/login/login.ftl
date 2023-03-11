@@ -1,6 +1,6 @@
 <#import "template.ftl" as layout>
 <div>
-    <img class="logo" src="${url.resourcesPath}/img/logo-large.png" alt="OpenRMF Professional">
+    <img class="logo" src="${url.resourcesPath}/img/logo.png" alt="OpenRMF Professional">
 </div>
 <@layout.registrationLayout displayMessage=!messagesPerField.existsError('username','password') displayInfo=realm.password && realm.registrationAllowed && !registrationDisabled??; section>
     <#if section = "header">
