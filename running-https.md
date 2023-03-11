@@ -13,7 +13,6 @@ There are a few steps here to make this work:
 * run `./start.sh` to start the software stack
 * ensure the `openrmf-web` is working correctly with `docker logs openrmf-web` and looking for errors
 
-
 ## Step 1 -- Stop OpenRMF<sup>&reg;</sup> OSS and take a good backup/snapshot
 The first step always before you update any configuration, is to back this current one up. So run `./stop.sh` and do that.
 
@@ -193,12 +192,15 @@ You can run the `docker logs openrmf-web` and `docker logs openrmf-keycloak` to 
 
 ## Step 11 -- Log in to OpenRMF<sup>&reg;</sup> OSS
 
+After giving it a couple minutes to restart and get everything connnected...
+
 In a browser tab go to that new HTTPS URL you setup enter your URL https://&lt;ip-address-or-dns&gt;:8080/ and you should get the same login image below. 
 
 Log in with that initial application administrator login/pwd combination and you should see the main page of OpenRMF<sup>&reg;</sup> OSS ready for you behind HTTPS! 
 
 > If you used a self-signed certificate you may have to say that "accept certificate" or add it to your allowed HTTPS certs to continue. That is up to you and how you configured your HTTPS setup.
 
+![Step 11 - log into OpenRMF OSS over HTTPS](./img/install/step7-login.png?raw=true)
 
 ## Generating a Certificate
 
