@@ -14,7 +14,14 @@ Before you do any of these steps please take a full backup or snapshot of your s
 To run it perform the following command. You may need “sudo” in front of it depending on your login and permissions. This will load the Portainer interface on port 9005. You can change that to whatever port you wish that is accessible to you and is not already running. 
 
 ```
-docker run -p 9005:9000 --rm --name=portainer -v /var/run/docker.sock:/var/run/docker.sock -v ~/container_data/portainer:/data portainer/portainer-ce:2.9.0-alpine
+docker run -p 9005:9000 --rm --name=portainer -v /var/run/docker.sock:/var/run/docker.sock portainer/portainer-ce:2.9.0-alpine
+```
+
+or
+```
+systemctl enable --now podman.socket
+
+podman run -d -p 9443:9443 --privileged --rm --name=portainer -v /run/podman/podman.sock:/var/run/docker.sock:Z portainer/portainer-ce:2.13.1
 ```
 
 Then open a browser window to that hostname / IP address using http://xxxxxxxxxxx:9005/ or whatever port you used. On first login you will need to create an administrator account and password to connect to your local Docker registry. Once done click the Local instance and you will see a menu like below. There are a few things to review for cleaning up. It will be best if you are running OpenRMF<sup>&reg;</sup> OSS fully when doing this so you do not remove any running container. If you accidentally remove one, you can always log into SoteriaSoft.Jfrog.io and pull the image again. 

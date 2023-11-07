@@ -1,4 +1,4 @@
-# OpenRMF<sup>&reg;</sup> Documentation (v 1.9)
+# OpenRMF<sup>&reg;</sup> Documentation (v 1.10)
 OpenRMF<sup>&reg;</sup> is an open source application for managing, viewing, and reporting of your DoD STIG checklists, SCAP Scans and Nessus Patch Scans in one web-based interface using your browser. It also generates a compliance listing of all your checklists across a whole system based on NIST 800-53 for your Risk Management Framework (RMF) documentation and process. This tool helps you manage multiple systems going through the RMF process and allows you to structure your data in a clean interface all in one location for your group or program. 
 
 You can export your checklists as CKL files and your test plan and POAM as MS Excel properly formatted files as well.
@@ -19,7 +19,7 @@ If you need more than the OSS version, check out <a target="_blank" href="https:
 
 ## TL;DR Description
 
-The OpenRMF<sup>&reg;</sup> OSS application is an advanced alternative to the [DISA STIGViewer.jar](https://iase.disa.mil/stigs/Pages/stig-viewing-guidance.aspx) and MS Excel hell we go through used for DoD STIG checklist files, SCAP Scans, Nessus ACAS scans, RMF process information, and the like. It is necessary to capture and report on this information, please _do not_ mistake what I say for not agreeing with securing services. However, the DISA Java tool itself is horribly designed and not conducive to today's environment and use. And it is only part of the story. Their Java tool has been like this for a loooooonnnnnngggg time and I have wanted to make something better (IMO) for almost as long. So this tool here is the start! 
+The OpenRMF<sup>&reg;</sup> OSS application is a highly advanced alternative to the [DISA STIGViewer.jar](https://iase.disa.mil/stigs/Pages/stig-viewing-guidance.aspx) and MS Excel hell we go through used for DoD STIG checklist files, SCAP Scans, Nessus ACAS scans, RMF process information, and the like. It is necessary to capture and report on this information, please _do not_ mistake what I say for not agreeing with securing services. However, the DISA Java tool itself is horribly designed and not conducive to today's environment and use. And it is only part of the story. Their Java tool has been like this for a loooooonnnnnngggg time and I have wanted to make something better (IMO) for almost as long. So this tool here is the start! 
 
 It is a way (currently) to view, report on, dive into, manage, and export your STIG checklists no matter which checklist you are referring to. All the .CKL files have a common format and htis reads and displays/manages that in a web front end using .NET Core APIs, MongoDB and NATS messaging. [View the history](https://www.cingulara.com/opensource.html) of this tool on our website. 
 

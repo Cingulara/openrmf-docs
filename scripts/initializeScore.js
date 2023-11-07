@@ -1,6 +1,20 @@
 db.createUser({ user: "openrmfscore" , pwd: "openrmf1234!", roles: [{ "role": "readWrite", "db": "openrmfscore"}]});
 db.createCollection("Scores");
-db.Scores.createIndex({ artifactId: 1 })
-db.Scores.createIndex({ systemGroupId: 1 })
-db.Scores.createIndex({ hostName: 1 })
-db.Scores.createIndex({ stigType: 1 })
+db.Scores.createIndex({ artifactId: 1 });
+db.Scores.createIndex({ systemGroupId: 1 });
+db.Scores.createIndex({ hostName: 1 });
+db.Scores.createIndex({ stigType: 1 });
+db.Scores.createIndex({ created: -1 });
+db.Scores.createIndex({ updatedOn: -1 });
+db.Scores.createIndex({ totalCat1Open: 1 });
+db.Scores.createIndex({ totalCat1NotApplicable: 1 });
+db.Scores.createIndex({ totalCat1NotAFinding: 1 });
+db.Scores.createIndex({ totalCat1NotReviewed: 1 });
+db.Scores.createIndex({ totalCat2Open: 1 });
+db.Scores.createIndex({ totalCat2NotApplicable: 1 });
+db.Scores.createIndex({ totalCat2NotAFinding: 1 });
+db.Scores.createIndex({ totalCat2NotReviewed: 1 });
+db.Scores.createIndex({ totalCat3Open: 1 });
+db.Scores.createIndex({ totalCat3NotApplicable: 1 });
+db.Scores.createIndex({ totalCat3NotAFinding: 1 });
+db.Scores.createIndex({ totalCat3NotReviewed: 1 });

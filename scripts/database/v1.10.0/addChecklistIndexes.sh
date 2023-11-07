@@ -1,0 +1,2 @@
+# Add Checklist and System Package indexes
+docker exec mongodb-checklist mongo --username root --password "$1" --eval "db = db.getSiblingDB('openrmf'); db.Artifacts.createIndex({ hostName: 1 }); db.Artifacts.createIndex({ created: -1 }); db.Artifacts.createIndex({ updatedOn: -1 }); db.SystemGroups.createIndex({ created: -1 }); db.SystemGroups.createIndex({ updatedOn: -1 }); db.SystemGroups.createIndex({ numberOfChecklists: 1 });"
