@@ -1,12 +1,22 @@
 ---
 layout: default
-title: What's New in v1.9
+title: What's New
 nav_order: 2
 ---
 
 # What's New with OpenRMF<sup>&reg;</sup> OSS
 
 Please refer to the <a href="https://github.com/Cingulara?tab=projects" target="_blank">OpenRMF Projects listing on GitHub</a> for more information on feature updates and timeline.
+
+## Version 1.11 (Security and Performance Update)
+Version 1.11 has the following added features and fixes:
+* Updated base images for web, code
+* Updated 3rd party infrastructure images
+* Updated matching SCAP to DISA Checklist Templates on naming conventions
+* Removed Jaeger and OpenTracing older code not used
+* Removed build warnings on NLog and throwing extra exceptions
+* Sped up loading of report and template data
+* Latest DISA Templates as of April 18, 2024
 
 ## Version 1.10 (Performance, Reports, Fixes and Updated Templates)
 Version 1.10 has the following added features and fixes:
