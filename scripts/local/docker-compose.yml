@@ -31,7 +31,7 @@ services:
       - openrmf-local
 
   nats: 
-    image: nats:2.8.1-alpine3.15
+    image: nats:2.10.12-alpine3.18
     container_name: nats
     command: -m 8222
     restart: on-failure:10
@@ -66,7 +66,7 @@ services:
       - openrmf-local
 
   nginx-metrics: 
-    image: nginx/nginx-prometheus-exporter:1.1
+    image: nginx/nginx-prometheus-exporter:1.1.0
     container_name: nginx-metrics
     restart: on-failure:1000
     command:
@@ -138,7 +138,7 @@ services:
 
   keycloak: 
     container_name: openrmf-keycloak
-    image: soteriasoft.jfrog.io/openrmfpro/keycloak-openrmfpro:23.0.7
+    image: cingulara/keycloak-openrmf:23.0.7
     restart: on-failure:10
     command:
       - start
