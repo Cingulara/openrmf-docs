@@ -31,7 +31,7 @@ services:
       - openrmf-local
 
   nats: 
-    image: nats:2.10.12-alpine3.18
+    image: nats:2.10.12-alpine3.19
     container_name: nats
     command: -m 8222
     restart: on-failure:10

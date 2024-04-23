@@ -10,6 +10,10 @@ Please refer to the <a href="https://github.com/Cingulara?tab=projects" target="
 
 ## Version 1.11 (Security and Performance Update)
 Version 1.11 has the following added features and fixes:
+* Added MARKING, HOST IP, HOST MAC, Web or Database Fields for display and editing
+* Get Host IP, MAC, FQDN from the SCAP scan results, if there, for a checklist
+* Read for Not Applicable in SCAP scan results, and fill in CKL record accordingly
+* Updated Keycloak `KC_PROXY` environment variable from `passthrough` to `edge` for HTTPS setup later
 * Updated base images for web, code
 * Updated 3rd party infrastructure images
 * Updated matching SCAP to DISA Checklist Templates on naming conventions

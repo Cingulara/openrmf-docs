@@ -4,6 +4,7 @@ services:
 ### 1 Web Front End Container
   openrmf-web:
     image: cingulara/openrmf-web:1.11.00
+    # image: cingulara/openrmf-web:1.11.00-privileged # this is to eventually make HTTPS 443 in a non-privileged manner
     container_name: openrmf-web
     restart: on-failure:5
     ports:
@@ -329,7 +330,7 @@ services:
 
 ### NATS messaging container (internal)
   natsserver: 
-    image: nats:2.10.12-alpine3.18
+    image: nats:2.10.12-alpine3.19
     container_name: nats
     command: -m 8222
     restart: on-failure:5
