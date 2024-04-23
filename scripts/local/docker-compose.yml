@@ -2,7 +2,7 @@ version : '3.8'
  
 services:
   web:
-    image: nginxinc/nginx-unprivileged:1.23-alpine
+    image: nginxinc/nginx-unprivileged:1.25.4-alpine
     container_name: openrmf-web
     command: [nginx-debug, '-g', 'daemon off;']
     restart: on-failure:10
@@ -31,7 +31,7 @@ services:
       - openrmf-local
 
   nats: 
-    image: nats:2.8.1-alpine3.15
+    image: nats:2.10.12-alpine3.19
     container_name: nats
     command: -m 8222
     restart: on-failure:10
@@ -43,7 +43,7 @@ services:
       - openrmf-local
 
   natspromexporter: 
-    image: synadia/prometheus-nats-exporter:0.6.2
+    image: natsio/prometheus-nats-exporter:0.14.0
     container_name: nats-exporter-prometheus
     command: -varz -connz -subz http://nats:8222
     restart: on-failure:10
@@ -53,7 +53,7 @@ services:
       - openrmf-local
 
   nats-client-metrics: 
-    image: cingulara/nats-client-metrics:1.0.1
+    image: cingulara/nats-client-metrics:2.0.1
     container_name: nats-client-metrics
     restart: on-failure:10
     ports:
@@ -66,7 +66,7 @@ services:
       - openrmf-local
 
   nginx-metrics: 
-    image: nginx/nginx-prometheus-exporter:0.9.0
+    image: nginx/nginx-prometheus-exporter:1.1.0
     container_name: nginx-metrics
     restart: on-failure:1000
     command:
@@ -78,7 +78,7 @@ services:
       - openrmf-local
 
   prometheus:
-    image: prom/prometheus:v2.35.0
+    image: prom/prometheus:v2.51.2
     container_name: prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
@@ -92,7 +92,7 @@ services:
       - openrmf-local
 
   grafana: 
-    image: grafana/grafana:8.5.0
+    image: grafana/grafana:9.5.18
     container_name: grafana
     env_file: .grafana
     environment:
@@ -107,7 +107,7 @@ services:
       - openrmf-local
 
   mongo-express:
-    image: mongo-express:0.54.0
+    image: mongo-express:1.0.2-20-alpine3.19
     container_name: mongo-express
     restart: on-failure:10
     ports:
@@ -116,12 +116,14 @@ services:
       - ME_CONFIG_MONGODB_SERVER=mongo
       - ME_CONFIG_MONGODB_ADMINUSERNAME=root
       - ME_CONFIG_MONGODB_ADMINPASSWORD=myp2ssw0rd
+      - ME_CONFIG_BASICAUTH_USERNAME=admin
+      - ME_CONFIG_BASICAUTH_PASSWORD=admin
     networks:
       - openrmf-local
 
   postgres:
     container_name: openrmf-postgres
-    image: postgres:11.5
+    image: postgres:11.22-alpine3.19
     restart: on-failure:10
     ports:
       - "5432"
@@ -136,7 +138,7 @@ services:
 
   keycloak: 
     container_name: openrmf-keycloak
-    image: cingulara/keycloak-openrmf:20.0.3
+    image: cingulara/keycloak-openrmf:23.0.7
     restart: on-failure:10
     command:
       - start
@@ -152,7 +154,7 @@ services:
       - KEYCLOAK_ADMIN_PASSWORD=admin
       - KC_HOSTNAME_STRICT=false
       - KC_HOSTNAME_STRICT_HTTPS=false
-      - KC_PROXY=passthrough
+      - KC_PROXY=edge
       - KC_HTTP_RELATIVE_PATH=/auth
       - KC_HTTP_ENABLED=true
       - KC_HTTP_PORT=8080

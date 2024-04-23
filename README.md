@@ -1,5 +1,5 @@
-# OpenRMF<sup>&reg;</sup> Documentation (v 1.10)
-OpenRMF<sup>&reg;</sup> is an open source application for managing, viewing, and reporting of your DoD STIG checklists, SCAP Scans and Nessus Patch Scans in one web-based interface using your browser. It also generates a compliance listing of all your checklists across a whole system based on NIST 800-53 for your Risk Management Framework (RMF) documentation and process. This tool helps you manage multiple systems going through the RMF process and allows you to structure your data in a clean interface all in one location for your group or program. 
+# OpenRMF<sup>&reg;</sup> OSS Documentation (v 1.11)
+OpenRMF<sup>&reg;</sup> OSS is an open source application for managing, viewing, and reporting of your DoD STIG checklists, SCAP Scans and Nessus Patch Scans in one web-based interface using your browser. It also generates a compliance listing of all your checklists across a whole system based on NIST 800-53 for your Risk Management Framework (RMF) documentation and process. This tool helps you manage multiple systems going through the RMF process and allows you to structure your data in a clean interface all in one location for your group or program. 
 
 You can export your checklists as CKL files and your test plan and POAM as MS Excel properly formatted files as well.
 
@@ -29,10 +29,10 @@ OpenRMF<sup>&reg;</sup> OSS also is a single pane of glass for your DISA SCAP sc
 3. Know what is left to do
 4. Know what your Critical and High items are so you can track and attack them
 
-This particular repository is the repo for all the docs as the OpenRMF<sup>&reg;</sup> project goes along.  Documentation on the OpenRMF<sup>&reg;</sup> OSS application will be here in MD files and reference images and other documents as well as GH markdown. This application idea has been brewing in my head for well over a decade and specifically since July 4th weekend 2018 when I started to put down code. Then in January 2019 when I scrapped all that July stuff and went for web APIs, microservices, eventual consistency, CQRS (command query responsibility segregation to scale separately), using MongoDB and NATS.
+This particular repository is the repo for all the docs as the OpenRMF<sup>&reg;</sup> OSS project goes along.  Documentation on the OpenRMF<sup>&reg;</sup> OSS application will be here in MD files and reference images and other documents as well as GH markdown. This application idea has been brewing in my head for well over a decade and specifically since July 4th weekend 2018 when I started to put down code. Then in January 2019 when I scrapped all that July stuff and went for web APIs, microservices, eventual consistency, CQRS (command query responsibility segregation to scale separately), using MongoDB and NATS.
 
 ## Get OpenRMF<sup>&reg;</sup> OSS Running Locally
-If you want to get it running on your local laptop, desktop, or server follow these instructions below. You need a fairly good internet connection and Docker Desktop / Docker Community Edition to get this going. And then go to the [latest release](https://github.com/Cingulara/openrmf-docs/releases) and download the Keycloak zip file and OpenRMF<sup>&reg;</sup> zip file. 
+If you want to get it running on your local laptop, desktop, or server follow these instructions below. You need a fairly good internet connection and Docker Desktop / Docker Community Edition to get this going. And then go to the [latest release](https://github.com/Cingulara/openrmf-docs/releases) and download the Keycloak zip file and OpenRMF<sup>&reg;</sup> OSS zip file. 
 
 Please read the [Minimum Requirements](./minimim-requirements.md) for OpenRMF<sup>&reg;</sup> OSS. And then follow these [Step by Step Instructions](step-by-step.md).
 
@@ -55,7 +55,7 @@ If you want to run on AWS EKS, you can see the Helm Chart and Kubernetes specifi
 
 It will save you _weeks_ of manually checking vulnerability-to-CCI-to-NIST controls and manually generating reports, so you can get on to the value-added work for your cybersecurity hygiene.
 
-When a team has poor visibility of their system’s risk data, it can result in bad decisions, errors, security risks and unforeseen issues. Teams must replace manual RMF and checklist methods that use spreadsheets and emails with an open, web-based solution that your team can leverage to plan, track and govern the entire RMF process. That is where OpenRMF<sup>&reg;</sup> helps you and your team!
+When a team has poor visibility of their system’s risk data, it can result in bad decisions, errors, security risks and unforeseen issues. Teams must replace manual RMF and checklist methods that use spreadsheets and emails with an open, web-based solution that your team can leverage to plan, track and govern the entire RMF process. That is where OpenRMF<sup>&reg;</sup> OSS helps you and your team!
 
 Read more about its genesis <a href="https://www.cingulara.com/opensource.html" target="_blank">here</a>.
 
@@ -97,7 +97,7 @@ Read more about its genesis <a href="https://www.cingulara.com/opensource.html" 
 - [x] Make the Keycloak setup easier (scripted)
 - [x] Included Jaeger Tracing setup
 - [x] Grafana and Prometheus included setup
-- [x] External API access to certain functions in OpenRMF<sup>&reg;</sup> (ext-api-score)
+- [x] External API access to certain functions in OpenRMF<sup>&reg;</sup> OSS (ext-api-score)
 - [x] Export Compliance Report to XLSX
 - [x] Meaningful Health Checks in APIs and MSG clients
 - [x] Performance improvements
@@ -108,17 +108,17 @@ If we are missing something you want, please add it on our main <a href="https:/
 
 ## Metrics Tracking with Prometheus and Grafana
 
-We include metrics tracking for all our major subsystems. See the [OpenRMF Metrics](metrics.md) document for more information.
+We include metrics tracking for all our major subsystems. See the [OpenRMF OSS Metrics](metrics.md) document for more information.
 
 ## Cleaning up the Docker volumes and such every so often
-If you want to remove all data from volumes you can run the below. Do at your own risk and know the consequences! I do this on my development machine to clear ALL volumes including those not for OpenRMF<sup>&reg;</sup>. 
+If you want to remove all data from volumes you can run the below. Do at your own risk and know the consequences! I do this on my development machine to clear ALL volumes including those not for OpenRMF<sup>&reg;</sup> OSS. 
 
 * run `docker volume rm $(docker volume ls -qf dangling=true)` 
 * run `docker system prune` and then enter `y` and press Enter when asked
 
 ## Screenshots of the UI
 
-The OpenRMF<sup>&reg;</sup> Dashboard for all Systems
+The OpenRMF<sup>&reg;</sup> OSS Dashboard for all Systems
 ![Image](./img/UI-dashboard.png?raw=true)
 
 The System Listing

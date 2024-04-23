@@ -17,11 +17,11 @@ The templates to create these checklists are available at <a href="https://publi
 
 > This is a raw set of data, and is NOT a checklist file (CKL file). It must be read in and made into a checklist file.
 
-You can import this file into the DISA STIG Viewer (see the URL below on Tutela's Medium blog post) and then create a checklist from it. Right now, if you are not creating a checklist from a SCAP scan this is the best way to create a checklist. An example of this would be the Application Security and Development (ASD) checklist you must create when you are developing a piece of software to run on a network. Whether a web application, static HTML pages, API, service, or something similar you will be required to do an ASD STIG. You can create a new one by adding the latest _Manual-xccdf.xml raw file to the STIG Viewer and then create your checklist from that. 
+You can import this file into the NIWC STIGViewer (see the URL below on Tutela's Medium blog post) and then create a checklist from it. Right now, if you are not creating a checklist from a SCAP scan this is the best way to create a checklist. An example of this would be the Application Security and Development (ASD) checklist you must create when you are developing a piece of software to run on a network. Whether a web application, static HTML pages, API, service, or something similar you will be required to do an ASD STIG. You can create a new one by adding the latest _Manual-xccdf.xml raw file to the NIWC STIGViewer and then create your checklist from that. 
 
 ## OpenRMF<sup>&reg;</sup> OSS Automatic Checklist Creation
 If you are using a SCAP scan to create or update a checklist, all you have to do is Upload that XCCDF format scan result and the process of matching the SCAP scan results to the right checklist is done for you. OpenRMF<sup>&reg;</sup> OSS has 400+ checklist formats from DISA Public website in the tool to automatically match and create your checklist in seconds. Then put into your system and run the scoring, report generation, etc. against it automatically.
 
 
-## STIGs and the STIG Viewer
+## STIGs and the NIWC STIGViewer
 There is a great Medium blog post by Tutela at <a href="https://medium.com/@dgould_43957/how-to-use-disa-stig-viewer-tool-907358d17cea" target="_blank">https://medium.com/@dgould_43957/how-to-use-disa-stig-viewer-tool-907358d17cea</a>. 

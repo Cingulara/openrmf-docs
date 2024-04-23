@@ -1,3 +1,9 @@
+---
+layout: default
+title: Install and Configure
+nav_order: 15
+---
+
 # Get OpenRMF<sup>&reg;</sup> OSS v1.9 or higher Running
 Please read the [Minimum Requirements](./minimim-requirements.md) for OpenRMF<sup>&reg;</sup> OSS before you get going.  Know that starting with v1.9 we are using `docker compose` versus `docker-compose` as the `docker` executable with the compose plugin can be used all-in-one. 
 
@@ -24,6 +30,7 @@ To run OpenRMF<sup>&reg;</sup> OSS you need to edit your `.grafana` file and rep
 ![Step 2 - setup your Grafana .grafana file](./img/install/step2-grafana.png?raw=true)
 
 ## Step 3 - Start the OpenRMF<sup>&reg;</sup> OSS Software Stack
+
 > if you are running `podman` versus `docker` run `sed -i "s|docker compose|podman-compose|g" *.sh` on the machine inside the `./` installation directory for the script to work correctly.
 
 Run `./start.sh` to start the software stack. If you do not have the images locally, it will pull from docker.io and download then spin up all the containers within the `docker-compose.yml` file.
@@ -37,6 +44,7 @@ When done it will tell you to go to the starting URL to use it as pictured in th
 But first, you must setup Keycloak for the AuthN/AuthZ of OpenRMF<sup>&reg;</sup> OSS. 
 
 ## Step 4 - Setup Keycloak 23.0.7
+
 > if you are running `podman` versus `docker` run `sed -i "s|docker |podman |g" *.sh` on the machine inside the `./keycloak/` directory for the script to work correctly. Or you can alias the `docker` command to `podman`. 
 
 From wherever your connecting into 

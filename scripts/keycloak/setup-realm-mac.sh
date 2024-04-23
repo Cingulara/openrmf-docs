@@ -40,6 +40,7 @@ docker exec -i $keycontainer /opt/keycloak/bin/kcadm.sh update realms/openrmf --
 docker exec -i $keycontainer /opt/keycloak/bin/kcadm.sh update realms/openrmf --set 'accountTheme=keycloak.v2'
 docker exec -i $keycontainer /opt/keycloak/bin/kcadm.sh update realms/master --set 'accountTheme=keycloak.v2'
 docker exec -i $keycontainer /opt/keycloak/bin/kcadm.sh update realms/openrmf --set 'adminTheme=keycloak.v2'
+docker exec -i $keycontainer /opt/keycloak/bin/kcadm.sh update realms/master --set 'adminTheme=keycloak.v2'
 docker exec -i $keycontainer /opt/keycloak/bin/kcadm.sh update realms/master --set 'loginTheme=openrmf'
 docker exec -i $keycontainer /opt/keycloak/bin/kcadm.sh update realms/master --set 'displayNameHtml=OpenRMF<sup>&reg;</sup> OSS User Administration'
 ##END Disable SSL Requirement

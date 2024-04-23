@@ -49,6 +49,8 @@ spec:
           value: {{.Values.identityProviderURL}}/realms/{{.Values.identityProviderRealm}}
         - name: JWTCLIENT
           value: {{.Values.identityProviderClientId}}
+        - name: JWTINTERNALAUTHORITY
+          value: {{.Values.identityProviderURL}}/
         resources:
           limits:
             memory: "750Mi"
