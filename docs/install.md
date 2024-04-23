@@ -20,14 +20,14 @@ To run OpenRMF<sup>&reg;</sup> OSS you need to edit your `.env` file and replace
 
 > *_DO NOT USE `localhost` or `127.0.0.1` because in containerland, that means "yourself"._*
 
-![Step 1 - setup your .env file](/assets/install/step1-env.png?raw=true)
+![Step 1 - setup your .env file](/assets/install/step1-env.png)
 
 ## Step 2 - Setup your .grafana file
 To run OpenRMF<sup>&reg;</sup> OSS you need to edit your `.grafana` file and replace the `xxx.xxx.xxx.xxx` with your IP address or DNS name of your host machine. Then save and exit. 
 
 > *_DO NOT USE `localhost` or `127.0.0.1` because in containerland, that means "yourself"._*
 
-![Step 2 - setup your Grafana .grafana file](/assets/install/step2-grafana.png?raw=true)
+![Step 2 - setup your Grafana .grafana file](/assets/install/step2-grafana.png)
 
 ## Step 3 - Start the OpenRMF<sup>&reg;</sup> OSS Software Stack
 
@@ -35,11 +35,11 @@ To run OpenRMF<sup>&reg;</sup> OSS you need to edit your `.grafana` file and rep
 
 Run `./start.sh` to start the software stack. If you do not have the images locally, it will pull from docker.io and download then spin up all the containers within the `docker-compose.yml` file.
 
-![Step 3 - start the software](/assets/install/step3-start.png?raw=true)
+![Step 3 - start the software](/assets/install/step3-start.png)
 
 When done it will tell you to go to the starting URL to use it as pictured in the screenshot below. 
 
-![Step 3 - let it finish standing up](/assets/install/step3-finishrunning.png?raw=true)
+![Step 3 - let it finish standing up](/assets/install/step3-finishrunning.png)
 
 But first, you must setup Keycloak for the AuthN/AuthZ of OpenRMF<sup>&reg;</sup> OSS. 
 
@@ -55,22 +55,22 @@ Run the `./setup-realm-linux.sh` or similar command for your OS and let it start
 * your DNS or IP address so enter it correctly
 * your initial username for the application administrator account (you will setup the password later)
 
-![Step 4 - setup Keycloak](/assets/install/step4-keycloaksetup.png?raw=true)
+![Step 4 - setup Keycloak](/assets/install/step4-keycloaksetup.png)
 
 Press enter after that and the script will update roles, client configuration, protocols, password policy and default information. When done it will look like the below and be ready for you to log into Keycloak to finish the configuration steps. 
 
-![Step 4 - finish Keycloak setup](/assets/install/step4-keycloakdone.png?raw=true)
+![Step 4 - finish Keycloak setup](/assets/install/step4-keycloakdone.png)
 
 ## Step 5 - Configure Keycloak 23.0.7
 > Note that now in OpenRMF<sup>&reg;</sup> OSS v1.9 or later, EVERYTHING RUNNING is under a single port and single YML file. 
 
 To connect to Keycloak, now you go to the http://&lt;ip-address-or-dns&gt;:8080/auth/ URL (port 8080 slash auth slash) and the screen below comes up. Click the Administration Console and then log in with the default `admin` login and PWD found in the YML file. 
 
-![Step 5 - Keycloak configuration](/assets/install/step5-keycloakconfig.png?raw=true)
+![Step 5 - Keycloak configuration](/assets/install/step5-keycloakconfig.png)
 
 Once here, click on the top left area where it has `master` for the realm and choose `openrmf` to let the screen go to our realm. 
 
-![Step 5 - Keycloak realm setup](/assets/install/step5-keycloakrealm.png?raw=true)
+![Step 5 - Keycloak realm setup](/assets/install/step5-keycloakrealm.png)
 
 From there, click the Clients menu on the left and then click `openrmf` in the list of clients to get to the below screen. From here, scroll down a bit and under the highlighted area show below for "Valid redirect URIs" and "Valid post logout redirect URIs" enter your URL http://&lt;ip-address-or-dns&gt;:8080/* and make sure it ends in the ` * `. 
 
@@ -78,27 +78,27 @@ That will say "this realm can be used by any application coming from this addres
 
 We tell folks to click the "+ Add valid redirect URIs" button underneath each so they are set correctly. Then scroll down to click the Save button and you are good here. 
 
-![Step 5 - Keycloak login logout URL](/assets/install/step5-keycloaklogouturl.png?raw=true)
+![Step 5 - Keycloak login logout URL](/assets/install/step5-keycloaklogouturl.png)
 
 Almost there...now on to setup that application administrator user password and get ready to log in.
 
 ## Step 6 - Configure Keycloak Users
 Click on the Users menu on the far left, and then find the user you made in Step 4 above. You should be able to see it in the listing. Click on that user (in the example below created a user ` openrmf-admin `) and then note you should enter the email, first name, and last name information and save it here. 
 
-![Step 6 - Keycloak configuration](/assets/install/step6-userconfig.png?raw=true)
+![Step 6 - Keycloak configuration](/assets/install/step6-userconfig.png)
 
 Then click on the Credentials tab and set your first password.  Make sure the "Temporary" slider is off or you will have to change it AGAIN when you first login. Save the password and now you are set to go.
 
 > The password policy is 2/2/2/2 and minimum 12 characters by default. The exercise to find that and update it we leave to you! Learning how Keycloak works is a great exercise. 
 
-![Step 6 - Keycloak configuration](/assets/install/step6-userpassword.png?raw=true)
+![Step 6 - Keycloak configuration](/assets/install/step6-userpassword.png)
 
 ## Step 7 - Login and Use!
 In a separate browser tab (you can leave the Keycloak one up and running to learn it) go to that URL you setup enter your URL http://&lt;ip-address-or-dns&gt;:8080/ and you should get the image below. 
 
 Log in with that initial application administrator login/pwd combination and you should see the main page of OpenRMF<sup>&reg;</sup> OSS ready for you! 
 
-![Step 7 - log into OpenRMF OSS](/assets/install/step7-login.png?raw=true)
+![Step 7 - log into OpenRMF OSS](/assets/install/step7-login.png)
 
 ## Step 8 - Use OpenRMF<sup>&reg;</sup> OSS
 From here, now you can create System Packages, upload checklist CKL files, upload raw SCAP XCCDF results .xml files and get organized around your RMF package. 
@@ -114,7 +114,7 @@ For the first setup:
 * go back to the System Packages
 * see results
 
-![Step 8 - use OpenRMF OSS](/assets/install/step8-useopenrmfoss.png?raw=true)
+![Step 8 - use OpenRMF OSS](/assets/install/step8-useopenrmfoss.png)
 
 ## A Note on OpenRMF<sup>&reg;</sup> Professional
 
