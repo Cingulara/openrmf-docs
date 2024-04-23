@@ -21,6 +21,7 @@ Version 1.11 has the following added features and fixes:
 * Removed build warnings on NLog and throwing extra exceptions
 * Sped up loading of report and template data
 * Latest DISA Templates as of April 18, 2024
+* Mounted the initial JS for database collections with `:Z` versus `:ro` to work in REL/podman
 
 ## Version 1.10 (Performance, Reports, Fixes and Updated Templates)
 Version 1.10 has the following added features and fixes:

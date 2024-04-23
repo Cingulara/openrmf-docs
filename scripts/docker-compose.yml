@@ -260,7 +260,7 @@ services:
       - MONGO_INITDB_DATABASE=openrmf
     volumes:
       - checklist-data-volume:/data/db
-      - ./initializeChecklist.js:/docker-entrypoint-initdb.d/initialize.js:ro
+      - ./initializeChecklist.js:/docker-entrypoint-initdb.d/initialize.js:Z
     networks:
       - openrmf
 
@@ -276,7 +276,7 @@ services:
       - MONGO_INITDB_DATABASE=openrmfscore
     volumes:
       - score-data-volume:/data/db
-      - ./initializeScore.js:/docker-entrypoint-initdb.d/initialize.js:ro
+      - ./initializeScore.js:/docker-entrypoint-initdb.d/initialize.js:Z
     networks:
       - openrmf
 
@@ -292,7 +292,7 @@ services:
       - MONGO_INITDB_DATABASE=openrmftemplate
     volumes:
       - template-data-volume:/data/db
-      - ./initializeTemplate.js:/docker-entrypoint-initdb.d/initialize.js:ro
+      - ./initializeTemplate.js:/docker-entrypoint-initdb.d/initialize.js:Z
     networks:
       - openrmf
 
@@ -308,7 +308,7 @@ services:
       - MONGO_INITDB_DATABASE=openrmfaudit
     volumes:
       - audit-data-volume:/data/db
-      - ./initializeAudit.js:/docker-entrypoint-initdb.d/initialize.js:ro
+      - ./initializeAudit.js:/docker-entrypoint-initdb.d/initialize.js:Z
     networks:
       - openrmf
 
@@ -324,7 +324,7 @@ services:
       - MONGO_INITDB_DATABASE=openrmfreport
     volumes:
       - report-data-volume:/data/db
-      - ./initializeReport.js:/docker-entrypoint-initdb.d/initialize.js:ro
+      - ./initializeReport.js:/docker-entrypoint-initdb.d/initialize.js:Z
     networks:
       - openrmf
 
@@ -391,7 +391,7 @@ services:
       - "9090"
     volumes:
       - openrmf-prometheus-data-volume:/prometheus # persist the data
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:Z
     networks:
       - openrmf
 
@@ -404,8 +404,8 @@ services:
       - "3000"
     volumes:
       - openrmf-grafana-data-volume:/var/lib/grafana # persist the data
-      - ./grafana/dashboards/:/etc/grafana/provisioning/dashboards/:ro
-      - ./grafana/datasources/:/etc/grafana/provisioning/datasources/:ro
+      - ./grafana/dashboards/:/etc/grafana/provisioning/dashboards/:Z
+      - ./grafana/datasources/:/etc/grafana/provisioning/datasources/:Z
     networks:
       - openrmf
 

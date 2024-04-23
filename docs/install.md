@@ -30,6 +30,9 @@ To run OpenRMF<sup>&reg;</sup> OSS you need to edit your `.grafana` file and rep
 ![Step 2 - setup your Grafana .grafana file](./img/install/step2-grafana.png?raw=true)
 
 ## Step 3 - Start the OpenRMF<sup>&reg;</sup> OSS Software Stack
+
+> if you are running `podman` versus `docker` run `sed -i "s|docker compose|podman-compose|g" *.sh` on the machine inside the `./` installation directory for the script to work correctly.
+
 Run `./start.sh` to start the software stack. If you do not have the images locally, it will pull from docker.io and download then spin up all the containers within the `docker-compose.yml` file.
 
 ![Step 3 - start the software](./img/install/step3-start.png?raw=true)
@@ -40,7 +43,10 @@ When done it will tell you to go to the starting URL to use it as pictured in th
 
 But first, you must setup Keycloak for the AuthN/AuthZ of OpenRMF<sup>&reg;</sup> OSS. 
 
-## Step 4 - Setup Keycloak 20
+## Step 4 - Setup Keycloak 23.0.7
+
+> if you are running `podman` versus `docker` run `sed -i "s|docker |podman |g" *.sh` on the machine inside the `./keycloak/` directory for the script to work correctly. Or you can alias the `docker` command to `podman`. 
+
 From wherever your connecting into 
 
 > Make sure port 8080 on your machine is allowed to run, it not running anything else, and is not blocked by firewall from any external machine that wants to use your OpenRMF<sup>&reg;</sup> OSS to connect.
@@ -55,7 +61,7 @@ Press enter after that and the script will update roles, client configuration, p
 
 ![Step 4 - finish Keycloak setup](./img/install/step4-keycloakdone.png?raw=true)
 
-## Step 5 - Configure Keycloak 20
+## Step 5 - Configure Keycloak 23.0.7
 > Note that now in OpenRMF<sup>&reg;</sup> OSS v1.9 or later, EVERYTHING RUNNING is under a single port and single YML file. 
 
 To connect to Keycloak, now you go to the http://&lt;ip-address-or-dns&gt;:8080/auth/ URL (port 8080 slash auth slash) and the screen below comes up. Click the Administration Console and then log in with the default `admin` login and PWD found in the YML file. 
