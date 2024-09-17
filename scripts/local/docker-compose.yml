@@ -2,7 +2,7 @@ version : '3.8'
  
 services:
   web:
-    image: nginxinc/nginx-unprivileged:1.25.4-alpine
+    image: docker.io/nginxinc/nginx-unprivileged:1.27.0-alpine
     container_name: openrmf-web
     command: [nginx-debug, '-g', 'daemon off;']
     restart: on-failure:10
@@ -16,7 +16,7 @@ services:
       - openrmf-local
 
   mongo:
-    image: cingulara/mongo:5.0.6-nonroot
+    image: docker.io/cingulara/mongo:5.0.28-nonroot
     container_name: mongodb
     restart: on-failure:10
     ports:
@@ -31,7 +31,7 @@ services:
       - openrmf-local
 
   nats: 
-    image: nats:2.10.12-alpine3.19
+    image: docker.io/nats:2.10.20-alpine3.20
     container_name: nats
     command: -m 8222
     restart: on-failure:10
@@ -43,7 +43,7 @@ services:
       - openrmf-local
 
   natspromexporter: 
-    image: natsio/prometheus-nats-exporter:0.14.0
+    image: docker.io/natsio/prometheus-nats-exporter:0.15.0
     container_name: nats-exporter-prometheus
     command: -varz -connz -subz http://nats:8222
     restart: on-failure:10
@@ -53,7 +53,7 @@ services:
       - openrmf-local
 
   nats-client-metrics: 
-    image: cingulara/nats-client-metrics:2.0.1
+    image: docker.io/cingulara/nats-client-metrics:2.0.2
     container_name: nats-client-metrics
     restart: on-failure:10
     ports:
@@ -66,7 +66,7 @@ services:
       - openrmf-local
 
   nginx-metrics: 
-    image: nginx/nginx-prometheus-exporter:1.1.0
+    image: docker.io/nginx/nginx-prometheus-exporter:1.3.0
     container_name: nginx-metrics
     restart: on-failure:1000
     command:
@@ -78,7 +78,7 @@ services:
       - openrmf-local
 
   prometheus:
-    image: prom/prometheus:v2.51.2
+    image: docker.io/prom/prometheus:v2.54.1
     container_name: prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
@@ -92,7 +92,7 @@ services:
       - openrmf-local
 
   grafana: 
-    image: grafana/grafana:9.5.18
+    image: docker.io/grafana/grafana:9.5.21
     container_name: grafana
     env_file: .grafana
     environment:
@@ -107,7 +107,7 @@ services:
       - openrmf-local
 
   mongo-express:
-    image: mongo-express:1.0.2-20-alpine3.19
+    image: docker.io/mongo-express:1.0.2-20-alpine3.19
     container_name: mongo-express
     restart: on-failure:10
     ports:
@@ -123,7 +123,7 @@ services:
 
   postgres:
     container_name: openrmf-postgres
-    image: postgres:11.22-alpine3.19
+    image: docker.io/postgres:11.22-alpine3.19
     restart: on-failure:10
     ports:
       - "5432"
@@ -138,10 +138,11 @@ services:
 
   keycloak: 
     container_name: openrmf-keycloak
-    image: cingulara/keycloak-openrmf:23.0.7
+    image: docker.io/cingulara/keycloak-openrmf:25.0.4
     restart: on-failure:10
     command:
       - start
+      - --optimized
       - --spi-theme-welcome-theme=openrmf
     ports:
       - "8080"
@@ -154,7 +155,7 @@ services:
       - KEYCLOAK_ADMIN_PASSWORD=admin
       - KC_HOSTNAME_STRICT=false
       - KC_HOSTNAME_STRICT_HTTPS=false
-      - KC_PROXY=edge
+      - KC_PROXY_HEADERS=xforwarded
       - KC_HTTP_RELATIVE_PATH=/auth
       - KC_HTTP_ENABLED=true
       - KC_HTTP_PORT=8080
