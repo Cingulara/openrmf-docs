@@ -25,7 +25,7 @@ services:
 
 ### 6 API Containers
   openrmfapi-scoring:
-    image: docker.io/cingulara/openrmf-api-scoring:1.12.00
+    image: docker.io/cingulara/openrmf-api-scoring:1.12.01
     container_name: openrmf-scoring-api
     restart: on-failure:5
     ports:
