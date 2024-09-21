@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
       - name: openrmf-audit
-        image: cingulara/openrmf-api-audit:{{.Values.auditImage}}
+        image: docker.io/cingulara/openrmf-api-audit:{{.Values.auditImage}}
         ports:
         - name: web-port
           containerPort: 8080

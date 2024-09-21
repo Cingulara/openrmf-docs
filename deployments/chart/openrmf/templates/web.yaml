@@ -68,7 +68,7 @@ spec:
     spec:
       containers:
       - name: openrmf-web
-        image: cingulara/openrmf-web:{{.Values.webuiImage | default "latest"}}
+        image: docker.io/cingulara/openrmf-web:{{.Values.webuiImage | default "latest"}}
         volumeMounts:
         - name: apiconfig-volume
           mountPath: /usr/share/nginx/html/js/apis.js

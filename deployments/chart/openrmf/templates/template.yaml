@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
       - name: openrmf-template
-        image: cingulara/openrmf-api-template:{{.Values.templateImage}}
+        image: docker.io/cingulara/openrmf-api-template:{{.Values.templateImage}}
         ports:
         - name: web-port
           containerPort: 8080

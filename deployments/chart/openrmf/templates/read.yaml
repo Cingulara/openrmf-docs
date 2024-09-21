@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
       - name: openrmf-read
-        image: cingulara/openrmf-api-read:{{.Values.readImage}}
+        image: docker.io/cingulara/openrmf-api-read:{{.Values.readImage}}
         ports:
         - name: web-port
           containerPort: 8080

@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
       - name: openrmf-controls
-        image: cingulara/openrmf-api-controls:{{.Values.controlImage}}
+        image: docker.io/cingulara/openrmf-api-controls:{{.Values.controlImage}}
         ports:
         - name: web-port
           containerPort: 8080

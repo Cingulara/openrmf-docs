@@ -26,22 +26,22 @@ installType: minikube
 
 # versions of container to adjust
 # examples: 0.8, 0.8.1, latest
-auditImage: 1.10.01
-auditmsgImage: 1.10.01
-compliancemsgImage: 1.10.01
-controlImage: 1.10.01
-controlmsgImage: 1.10.01
-readImage: 1.10.01
-scoremsgImage: 1.10.01
-scoringImage: 1.10.01
-templateImage: 1.10.01
-templatemsgImage: 1.10.01
-systemmsgImage: 1.10.01
-webuiImage: 1.010.01
-reportImage: 1.10.01
-reportmsgImage: 1.10.01
-mongoImage: 5.0.6-nonroot
-natsImage: 2.8.4-alpine3.15
+auditImage: 1.12.00
+auditmsgImage: 1.12.00
+compliancemsgImage: 1.12.00
+controlImage: 1.12.00
+controlmsgImage: 1.12.00
+readImage: 1.12.01
+scoremsgImage: 1.12.00
+scoringImage: 1.12.00
+templateImage: 1.12.00
+templatemsgImage: 1.12.00
+systemmsgImage: 1.12.00
+webuiImage: 1.12.00
+reportImage: 1.12.00
+reportmsgImage: 1.12.00
+mongoImage: 5.0.28-nonroot
+natsImage: 2.10.20-alpine3.20
 
 # storage class name for PVC
 # examples: standard, gp2, ebs-sc, efs-sc

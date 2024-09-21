@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
       - name: openrmf-msg-report
-        image: cingulara/openrmf-msg-reports:{{.Values.reportmsgImage}}
+        image: docker.io/cingulara/openrmf-msg-reports:{{.Values.reportmsgImage}}
         env:
         - name: NATSSERVERURL
           value: nats://natsserver:4222
