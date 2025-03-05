@@ -249,7 +249,7 @@ services:
 
 ### 5 MongoDB Containers
   checklistdb:
-    image: docker.io/cingulara/mongo:5.0.28-nonroot
+    image: docker.io/cingulara/mongo:6.0.20-nonroot
     container_name: mongodb-checklist
     restart: on-failure:5
     ports:
@@ -265,7 +265,7 @@ services:
       - openrmf
 
   scoredb:
-    image: docker.io/cingulara/mongo:5.0.28-nonroot
+    image: docker.io/cingulara/mongo:6.0.20-nonroot
     container_name: mongodb-score
     restart: on-failure:5
     ports:
@@ -281,7 +281,7 @@ services:
       - openrmf
 
   templatedb:
-    image: docker.io/cingulara/mongo:5.0.28-nonroot
+    image: docker.io/cingulara/mongo:6.0.20-nonroot
     container_name: mongodb-template
     restart: on-failure:5
     ports:
@@ -297,7 +297,7 @@ services:
       - openrmf
 
   auditdb:
-    image: docker.io/cingulara/mongo:5.0.28-nonroot
+    image: docker.io/cingulara/mongo:6.0.20-nonroot
     container_name: mongodb-audit
     restart: on-failure:5
     ports:
@@ -313,7 +313,7 @@ services:
       - openrmf
 
   reportdb:
-    image: docker.io/cingulara/mongo:5.0.28-nonroot
+    image: docker.io/cingulara/mongo:6.0.20-nonroot
     container_name: mongodb-report
     restart: on-failure:5
     ports:
@@ -330,7 +330,7 @@ services:
 
 ### NATS messaging container (internal)
   natsserver: 
-    image: docker.io/nats:2.10.20-alpine3.20
+    image: docker.io/nats:2.10.24-alpine3.21
     container_name: nats
     command: -m 8222
     restart: on-failure:5
@@ -343,7 +343,7 @@ services:
 
 ### Metrics
   natspromexporter: 
-    image: docker.io/natsio/prometheus-nats-exporter:0.15.0
+    image: docker.io/natsio/prometheus-nats-exporter:0.16.0
     container_name: nats-prometheus-exporter
     command: -varz -connz -subz http://natsserver:8222
     restart: on-failure:5
@@ -353,7 +353,7 @@ services:
       - openrmf
 
   nats-client-metrics: 
-    image: docker.io/cingulara/nats-client-metrics:2.0.2
+    image: docker.io/cingulara/nats-client-metrics:2.0.4
     container_name: nats-client-metrics
     restart: on-failure:5
     ports:
@@ -366,7 +366,7 @@ services:
       - openrmf
 
   nginx-metrics: 
-    image: docker.io/nginx/nginx-prometheus-exporter:1.3.0
+    image: docker.io/nginx/nginx-prometheus-exporter:1.4
     container_name: nginx-metrics
     restart: on-failure:1000
     command:
@@ -381,7 +381,7 @@ services:
       - openrmf
 
   prometheus:
-    image: docker.io/prom/prometheus:v2.54.1
+    image: docker.io/prom/prometheus:v2.55.1
     container_name: prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
@@ -396,7 +396,7 @@ services:
       - openrmf
 
   grafana: 
-    image: docker.io/grafana/grafana:9.5.21
+    image: docker.io/grafana/grafana:10.4.14
     container_name: grafana
     env_file: .grafana
     restart: on-failure:5

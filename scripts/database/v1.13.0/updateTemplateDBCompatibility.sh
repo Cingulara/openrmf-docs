@@ -1,0 +1,1 @@
+docker exec mongodb-template mongosh -u root -p $1 --eval 'db.adminCommand({setFeatureCompatibilityVersion: "6.0"})'
