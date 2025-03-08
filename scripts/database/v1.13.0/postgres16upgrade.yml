@@ -1,0 +1,25 @@
+version : '3.8'
+ 
+services:
+  postgres16:
+    image: docker.io/postgres:16.2-alpine
+    container_name: openrmf-postgres16
+    restart: on-failure:5
+    ports:
+      - "5432"
+    environment:
+      - POSTGRES_DB=openrmf-keycloak 
+      - POSTGRES_USER=openrmf-keycloak 
+      - POSTGRES_PASSWORD=p2sst1rn0g
+    networks:
+      - openrmf
+    volumes:
+      - keycloak-postgres16:/var/lib/postgresql/data
+
+### put all the OpenRMF OSS networks here ;  should only be 1
+networks:
+  openrmf:
+    external: true
+
+volumes:
+  keycloak-postgres16:
