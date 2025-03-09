@@ -13,6 +13,13 @@ FROM quay.io/keycloak/keycloak:25.0.4 as builder
 ENV KC_HEALTH_ENABLED=true
 ENV KC_METRICS_ENABLED=true
 
+# OpenRMF Professional configuration items
+ENV KC_HTTP_ENABLED=true
+ENV KC_HTTP_PORT=8080
+ENV KC_HOSTNAME_STRICT=false
+ENV PROXY_ADDRESS_FORWARDING=true
+ENV KC_HTTP_RELATIVE_PATH=/auth
+
 # Configure a database vendor
 ENV KC_DB=postgres
 
@@ -21,7 +28,7 @@ WORKDIR /opt/keycloak
 COPY ./themes/openrmf/ /opt/keycloak/themes/openrmf/
 RUN /opt/keycloak/bin/kc.sh build --spi-x509cert-lookup-provider=nginx
 
-FROM quay.io/keycloak/keycloak:25.0.4
+FROM quay.io/keycloak/keycloak:26.1.0
 COPY --from=builder /opt/keycloak/ /opt/keycloak/
 
 ENTRYPOINT ["/opt/keycloak/bin/kc.sh"]
@@ -30,7 +37,7 @@ ENTRYPOINT ["/opt/keycloak/bin/kc.sh"]
 ## Build the container
 
 ```
-docker build --no-cache -t cingulara/keycloak-openrmf:25.0.4 .
+docker build --no-cache -t cingulara/keycloak-openrmf:26.1.0 .
 ```
 
 ## OpenRMF<sup>&reg;</sup> Theme

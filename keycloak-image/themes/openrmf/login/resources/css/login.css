@@ -1,3 +1,10 @@
+:root {
+    --keycloak-logo-url: url('../img/keycloak-logo-text.png');
+    --keycloak-bg-logo-url: url("../img/keycloak-bg.png");
+    --keycloak-logo-height: 63px;
+    --keycloak-logo-width: 300px;
+}
+
 /* Patternfly CSS places a "bg-login.jpg" as the background on this ".login-pf" class.
    This clashes with the "keycloak-bg.png' background defined on the body below.
    Therefore the Patternfly background must be set to none. */
@@ -25,12 +32,13 @@ p.instruction {
 }
 
 .pf-c-button.pf-m-control {
-    border: solid var(--pf-global--BorderWidth--sm);
     border-color: rgba(230, 230, 230, 0.5);
 }
 
 h1#kc-page-title {
     margin-top: 10px;
+    font-size: 30px;
+    text-align: center;
 }
 
 #kc-locale ul {
@@ -101,13 +109,14 @@ div.kc-logo-text span {
 }
 
 #kc-header-wrapper {
-    font-size: 29px;
+    font-size: 40px;
     /* text-transform: uppercase; */
     letter-spacing: 3px;
     line-height: 1.2em;
     padding: 62px 10px 20px;
     white-space: normal;
-    color: black;
+    text-align: center;
+    color: 000000 !important;
 }
 
 #kc-content {
@@ -172,9 +181,10 @@ div.kc-logo-text span {
 }
 
 #kc-info-wrapper {
-    font-size: 13px;
+    font-size: 14px;
     padding: 15px 35px;
     background-color: #F0F0F0;
+    margin: 40px;
 }
 
 #kc-form-options span {
@@ -516,11 +526,13 @@ ul#kc-totp-supported-apps {
 
 .card-pf {
     margin: 0 auto;
-    box-shadow: var(--pf-global--BoxShadow--lg);
-    padding: 0 20px;
-    max-width: 500px;
+    /* box-shadow: 2px 2px #aaaaaa; */
+    box-shadow: 0 0 20px 15px #cccccc;
+    /* box-shadow: var(--pf-global--BoxShadow--lg); */
+    padding: 40px 20px 40px 20px;
+    max-width: 600px;
     border-top: 4px solid;
-    border-color: var(--pf-global--primary-color--100);
+    border-color: #1111c0;
 }
 
 /*phone*/
@@ -630,6 +642,7 @@ ul#kc-totp-supported-apps {
     overflow-wrap: break-word
 }
 /* End Recovery codes */
+
 
 .copyright {
     min-width: 320px;

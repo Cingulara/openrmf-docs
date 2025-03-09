@@ -1,6 +1,9 @@
 <#import "template.ftl" as layout>
 <#import "user-profile-commons.ftl" as userProfileCommons>
 <#import "register-commons.ftl" as registerCommons>
+<div>
+    <img class="logo" src="${url.resourcesPath}/img/logo.png" alt="OpenRMF OSS">
+</div>
 <@layout.registrationLayout displayMessage=messagesPerField.exists('global') displayRequiredFields=true; section>
     <#if section = "header">
         <#if messageHeader??>
