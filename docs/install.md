@@ -43,7 +43,7 @@ When done it will tell you to go to the starting URL to use it as pictured in th
 
 But first, you must setup Keycloak for the AuthN/AuthZ of OpenRMF<sup>&reg;</sup> OSS. 
 
-## Step 4 - Setup Keycloak 23.0.7
+## Step 4 - Setup Keycloak
 
 > if you are running `podman` versus `docker` run `sed -i "s|docker |podman |g" *.sh` on the machine inside the `./keycloak/` directory for the script to work correctly. Or you can alias the `docker` command to `podman`. 
 
@@ -61,7 +61,7 @@ Press enter after that and the script will update roles, client configuration, p
 
 ![Step 4 - finish Keycloak setup](/assets/install/step4-keycloakdone.png)
 
-## Step 5 - Configure Keycloak 23.0.7
+## Step 5 - Configure Keycloak
 > Note that now in OpenRMF<sup>&reg;</sup> OSS v1.9 or later, EVERYTHING RUNNING is under a single port and single YML file. 
 
 To connect to Keycloak, now you go to the http://&lt;ip-address-or-dns&gt;:8080/auth/ URL (port 8080 slash auth slash) and the screen below comes up. Click the Administration Console and then log in with the default `admin` login and PWD found in the YML file. 

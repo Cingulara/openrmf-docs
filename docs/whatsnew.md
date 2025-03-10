@@ -8,6 +8,34 @@ nav_order: 2
 
 Please refer to the <a href="https://github.com/Cingulara?tab=projects" target="_blank">OpenRMF Projects listing on GitHub</a> for more information on feature updates and timeline.
 
+## Version 1.13 (Security and Performance Update)
+Version 1.13 has the following added features and fixes:
+* Added the patch vulnerability numbers to the system package dashboard
+* Added a checklist dashboard report
+* Added a Missing Data report (checklist with Not a Finding or N/A, but no details or comments)
+* Added CCI and NIST 800-53 to checklist report results
+* Fixed parsing STIG Viewer v3 combined CKLs with their different field usage
+* Updated the Template xccdf parsing to use "info" as "low" for severity
+* Added a Postgres migration to 16.2-alpine
+* Added MongoDB 6 compatibility scripts
+* Updated 3rd party images including Keycloak
+* Update the CCI listing to the latest from DISA January 2025
+* Latest DISA Templates as of February 28, 2025
+* Migrated code to .NET 8 baseline
+* Added the OpenRMF OSS logo
+* Updated base images when compiling for cleaner vulnerability scans
+
+## Version 1.12 (Security and Performance Update)
+Version 1.12 has the following added features and fixes:
+* Add checklist uniqueness based on `system package`-`hostname`-`checklist type`-`web or database T/F`-`site`-`instance`
+* Fixed the Evaluate-STIG parsing bug
+* Fix a bug with podman on not specifying the full image path
+* Fix a bug with SCAP not finding the DISA template correctly
+* Update the CCI listing to the latest from DISA
+* Latest DISA Templates as of Sept 20, 2024
+* Updated Keycloak, MongoDB
+* Updated base images when compiling for cleaner vulnerability scans
+
 ## Version 1.11 (Security and Performance Update)
 Version 1.11 has the following added features and fixes:
 * Added MARKING, HOST IP, HOST MAC, Web or Database Fields for display and editing

@@ -25,28 +25,28 @@ Take all the image files from above and put onto a DVD / CD / USB (if allowed) a
 
 ## Application Container Images you will need to have
 For OpenRMF<sup>&reg;</sup> OSS (Please check the scripts/docker-compose.yml for the latest information.):
-* cingulara/openrmf-web:1.09.01
-* cingulara/openrmf-api-scoring:1.09.01
-* cingulara/openrmf-api-template:1.09.01
-* cingulara/openrmf-api-read:1.09.01
-* cingulara/openrmf-api-compliance:1.09.01
-* cingulara/openrmf-api-controls:1.09.01
-* cingulara/openrmf-api-audit:1.09.01
-* cingulara/openrmf-api-report:1.09.01
-* cingulara/openrmf-msg-score:1.09.01
-* cingulara/openrmf-msg-compliance:1.09.01
-* cingulara/openrmf-msg-controls:1.09.01
-* cingulara/openrmf-msg-template:1.09.01
-* cingulara/openrmf-msg-system:1.09.01
-* cingulara/openrmf-msg-audit:1.09.01
-* cingulara/openrmf-msg-report:1.09.01
-* cingulara/mongo:5.0.6-nonroot
-* nats:2.8.1-alpine3.15
-* synadia/prometheus-nats-exporter:0.6.2
-* cingulara/nats-client-metrics:1.0.1
-* prom/prometheus:v2.35.0
-* grafana/grafana:8.5.0
-* postgres:11.5
-* cingulara/keycloak-openrmf:20.0.3
+* cingulara/openrmf-web:1.13.00
+* cingulara/openrmf-api-scoring:1.13.00
+* cingulara/openrmf-api-template:1.13.00
+* cingulara/openrmf-api-read:1.13.00
+* cingulara/openrmf-api-compliance:1.13.00
+* cingulara/openrmf-api-controls:1.13.00
+* cingulara/openrmf-api-audit:1.13.00
+* cingulara/openrmf-api-report:1.13.00
+* cingulara/openrmf-msg-score:1.13.00
+* cingulara/openrmf-msg-compliance:1.13.00
+* cingulara/openrmf-msg-controls:1.13.00
+* cingulara/openrmf-msg-template:1.13.00
+* cingulara/openrmf-msg-system:1.13.00
+* cingulara/openrmf-msg-audit:1.13.00
+* cingulara/openrmf-msg-report:1.13.00
+* cingulara/mongo:6.0.20-nonroot
+* nats:2.10-24-alpine3.21
+* synadia/prometheus-nats-exporter:0.15.0
+* cingulara/nats-client-metrics:2.04
+* prom/prometheus:v2.55.0
+* grafana/grafana:10.4.14
+* postgres:16.2-alpine
+* cingulara/keycloak-openrmf:26.1.0
 
 > The `cingulara/xxx` OpenRMF<sup>&reg;</sup> OSS items have the current version. Yours may differ in the container "tag" but not the name. 
