@@ -16,7 +16,9 @@ An example of using these scans in a patch management process would involve "Pat
 The results of the scan will show you where you have critical, high, medium, and low risk patch issues and the overall risk and health status of those patches across your systems.
 
 ## Exporting Scan Results
-Not everyone will have access to the Nessus server, even at a read-only level.  To view the results, you can export a .nessus file from the scan and import into OpenRMF<sup>&reg;</sup> OSS through the Systems page. This will show your Nessus patch data updated on the Dashboard / homepage as well as within the Systems and Reports pages. You can export to MS Excel or run reports and search/view the results of the scans across your whole system or per machine.
+Not everyone will have access to the Nessus server, even at a read-only level.  To view the results, you can export a `.nessus` file from the scan and import into OpenRMF<sup>&reg;</sup> OSS through the Systems page. This will show your Nessus patch data updated on the Dashboard / homepage as well as within the Systems and Reports pages. You can export to MS Excel or run reports and search/view the results of the scans across your whole system or per machine.
+
+> Note: For OpenRMF<sup>&reg;</sup> OSS you must have a credentialed patch scan.
 
 ## More Information
 See the <a href="https://docs.tenable.com/nessus/Content/PatchManagement.htm">https://docs.tenable.com/nessus/Content/PatchManagement.htm</a> site for more information.

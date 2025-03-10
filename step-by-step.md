@@ -36,7 +36,7 @@ When done it will tell you to go to the starting URL to use it as pictured in th
 
 But first, you must setup Keycloak for the AuthN/AuthZ of OpenRMF<sup>&reg;</sup> OSS. 
 
-## Step 4 - Setup Keycloak 23.0.7
+## Step 4 - Setup Keycloak 26.1.0
 > if you are running `podman` versus `docker` run `sed -i "s|docker |podman |g" *.sh` on the machine inside the `./keycloak/` directory for the script to work correctly. Or you can alias the `docker` command to `podman`. 
 
 From wherever your connecting into 
@@ -47,13 +47,11 @@ Run the `./setup-realm-linux.sh` or similar command for your OS and let it start
 * your DNS or IP address so enter it correctly
 * your initial username for the application administrator account (you will setup the password later)
 
-![Step 4 - setup Keycloak](./img/install/step4-keycloaksetup.png?raw=true)
-
 Press enter after that and the script will update roles, client configuration, protocols, password policy and default information. When done it will look like the below and be ready for you to log into Keycloak to finish the configuration steps. 
 
 ![Step 4 - finish Keycloak setup](./img/install/step4-keycloakdone.png?raw=true)
 
-## Step 5 - Configure Keycloak 23.0.7
+## Step 5 - Configure Keycloak 26.1.0
 > Note that now in OpenRMF<sup>&reg;</sup> OSS v1.9 or later, EVERYTHING RUNNING is under a single port and single YML file. 
 
 To connect to Keycloak, now you go to the http://&lt;ip-address-or-dns&gt;:8080/auth/ URL (port 8080 slash auth slash) and the screen below comes up. Click the Administration Console and then log in with the default `admin` login and PWD found in the YML file. 
@@ -106,7 +104,7 @@ For the first setup:
 * go back to the System Packages
 * see results
 
-![Step 8 - use OpenRMF OSS](./img/install/step8-useopenrmfoss.png?raw=true)
+![Step 8 - use OpenRMF OSS](./img/UI-dashboard.png?raw=true)
 
 ## A Note on OpenRMF<sup>&reg;</sup> Professional
 

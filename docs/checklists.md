@@ -23,5 +23,5 @@ You can import this file into the NIWC STIGViewer (see the URL below on Tutela's
 If you are using a SCAP scan to create or update a checklist, all you have to do is Upload that XCCDF format scan result and the process of matching the SCAP scan results to the right checklist is done for you. OpenRMF<sup>&reg;</sup> OSS has 400+ checklist formats from DISA Public website in the tool to automatically match and create your checklist in seconds. Then put into your system and run the scoring, report generation, etc. against it automatically.
 
 
-## STIGs and the NIWC STIGViewer
+## STIGs and the DISA / NIWC STIG Viewer
 There is a great Medium blog post by Tutela at <a href="https://medium.com/@dgould_43957/how-to-use-disa-stig-viewer-tool-907358d17cea" target="_blank">https://medium.com/@dgould_43957/how-to-use-disa-stig-viewer-tool-907358d17cea</a>. 

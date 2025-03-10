@@ -1,2 +1,2 @@
-FROM mongo:5.0.28
+FROM mongo:6.0.20
 USER mongodb

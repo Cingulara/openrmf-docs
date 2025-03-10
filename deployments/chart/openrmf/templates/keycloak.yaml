@@ -48,22 +48,37 @@ spec:
       - name: {{.Values.imageRegistryCredential}}
       containers:
       - env:
-        - name: DB_PASSWORD
+        - name: KC_DB_PASSWORD
           value: 1qaz2WSX3edc4RFVcl0ak
-        - name: DB_USER
-          value: keycloak
+        - name: KC_DB_USERNAME
+          value: openrmf-keycloak
+        - name: KC_DB_URL
+          value: jdbc:postgresql://openrmf-postgres:5432/openrmf-keycloak
         - name: DB_VENDOR
           value: postgres
         - name: DB_ADDR
           value: openrmf-postgres # the name of the postgres deployment
-        - name: KEYCLOAK_PASSWORD
+        - name: KEYCLOAK_ADMIN_PASSWORD
           value: myl0ngPassw0rd
-        - name: KEYCLOAK_USER
+        - name: KEYCLOAK_ADMIN
           value: admin
-        - name: PROXY_ADDRESS_FORWARDING
-          value: "true" 
-        image: jboss/keycloak:12.0.3
+        - name: KC_PROXY_HEADERS
+          value: "xforwarded"
+        - name: KC_HTTP_ENABLED
+          value: "true"
+        - name: KC_HTTP_PORT
+          value: "8080"
+        - name: KC_HOSTNAME_STRICT
+          value: "false"
+        - name: KC_HTTP_RELATIVE_PATH
+          value: "/auth"
+        - name: KC_HEALTH_ENABLED
+          value: "true"
+        - name: KC_METRICS_ENABLED
+          value: "true"
+        image: docker.io/cingulara/keycloak-openrmf:26.1.0
         name: openrmf-keycloak
+        args: ["start", "--optimized", "--spi-theme-welcome-theme=openrmf"]
         readinessProbe:
           httpGet:
             path: /auth/realms/master
@@ -195,14 +210,14 @@ spec:
       containers:
       - env:
         - name: POSTGRES_DB
-          value: keycloak
+          value: openrmf-keycloak
         - name: POSTGRES_PASSWORD
           value: 1qaz2WSX3edc4RFVcl0ak
         - name: POSTGRES_USER
-          value: keycloak
+          value: openrmf-keycloak
         - name: PGDATA
           value: /var/lib/postgresql/data/dbfiles/
-        image: postgres:11.5
+        image: docker.io/postgres:16.2-alpine
         name: openrmf-postgres
         ports:
         - containerPort: 5432

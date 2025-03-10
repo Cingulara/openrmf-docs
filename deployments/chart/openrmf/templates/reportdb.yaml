@@ -77,7 +77,7 @@ spec:
     spec:
       containers:
       - name: openrmf-reportdb
-        image: cingulara/mongo:{{.Values.mongoImage}}
+        image: docker.io/cingulara/mongo:{{.Values.mongoImage}}
         ports:
         - containerPort: 27017
         env:

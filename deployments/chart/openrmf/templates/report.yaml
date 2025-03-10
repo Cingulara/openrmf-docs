@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
       - name: openrmf-report
-        image: cingulara/openrmf-api-report:{{.Values.reportImage}}
+        image: docker.io/cingulara/openrmf-api-report:{{.Values.reportImage}}
         ports:
         - name: web-port
           containerPort: 8080

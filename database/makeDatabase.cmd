@@ -1,1 +1,0 @@
-docker build -f ./Dockerfile.MongoDB -t mongo:5.0.28-nonroot .
