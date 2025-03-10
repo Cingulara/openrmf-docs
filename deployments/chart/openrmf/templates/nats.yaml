@@ -98,7 +98,7 @@ spec:
     spec:
       containers:
       - name: openrmf-natspromexporter
-        image: docker.io/synadia/prometheus-nats-exporter:0.15.0
+        image: docker.io/synadia/prometheus-nats-exporter:0.16.0
         args: ["-varz", "http://natsserver:8222"]
         ports:
         - containerPort: 7777
@@ -191,7 +191,7 @@ spec:
     spec:
       containers:
       - name: openrmf-natsclientpromexporter
-        image: docker.io/cingulara/nats-client-metrics:2.0.2
+        image: docker.io/cingulara/nats-client-metrics:2.0.4
         ports:
         - containerPort: 7777
           protocol: TCP

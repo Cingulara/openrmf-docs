@@ -51,9 +51,9 @@ spec:
         - name: KC_DB_PASSWORD
           value: 1qaz2WSX3edc4RFVcl0ak
         - name: KC_DB_USERNAME
-          value: keycloak
+          value: openrmf-keycloak
         - name: KC_DB_URL
-          value: jdbc:postgresql://openrmf-postgres:5432/keycloak
+          value: jdbc:postgresql://openrmf-postgres:5432/openrmf-keycloak
         - name: DB_VENDOR
           value: postgres
         - name: DB_ADDR
@@ -70,11 +70,13 @@ spec:
           value: "8080"
         - name: KC_HOSTNAME_STRICT
           value: "false"
-        - name: KC_HOSTNAME_STRICT_HTTPS
-          value: "false"
         - name: KC_HTTP_RELATIVE_PATH
           value: "/auth"
-        image: docker.io/cingulara/keycloak-openrmf:25.0.4
+        - name: KC_HEALTH_ENABLED
+          value: "true"
+        - name: KC_METRICS_ENABLED
+          value: "true"
+        image: docker.io/cingulara/keycloak-openrmf:26.1.0
         name: openrmf-keycloak
         args: ["start", "--optimized", "--spi-theme-welcome-theme=openrmf"]
         readinessProbe:
@@ -208,14 +210,14 @@ spec:
       containers:
       - env:
         - name: POSTGRES_DB
-          value: keycloak
+          value: openrmf-keycloak
         - name: POSTGRES_PASSWORD
           value: 1qaz2WSX3edc4RFVcl0ak
         - name: POSTGRES_USER
-          value: keycloak
+          value: openrmf-keycloak
         - name: PGDATA
           value: /var/lib/postgresql/data/dbfiles/
-        image: docker.io/postgres:11.22-alpine3.19
+        image: docker.io/postgres:16.2-alpine
         name: openrmf-postgres
         ports:
         - containerPort: 5432

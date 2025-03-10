@@ -25,23 +25,23 @@ namespace: openrmf
 installType: minikube
 
 # versions of container to adjust
-# examples: 0.8, 0.8.1, latest
-auditImage: 1.12.00
-auditmsgImage: 1.12.00
-compliancemsgImage: 1.12.00
-controlImage: 1.12.00
-controlmsgImage: 1.12.00
-readImage: 1.12.01
-scoremsgImage: 1.12.00
-scoringImage: 1.12.00
-templateImage: 1.12.00
-templatemsgImage: 1.12.00
-systemmsgImage: 1.12.00
-webuiImage: 1.12.00
-reportImage: 1.12.00
-reportmsgImage: 1.12.00
-mongoImage: 5.0.28-nonroot
-natsImage: 2.10.20-alpine3.20
+# examples: 1.12, 1.13, 1.13.02
+auditImage: 1.13.00
+auditmsgImage: 1.13.00
+compliancemsgImage: 1.13.00
+controlImage: 1.13.00
+controlmsgImage: 1.13.00
+readImage: 1.13.00
+scoremsgImage: 1.13.00
+scoringImage: 1.13.00
+templateImage: 1.13.00
+templatemsgImage: 1.13.00
+systemmsgImage: 1.13.00
+webuiImage: 1.13.00
+reportImage: 1.13.00
+reportmsgImage: 1.13.00
+mongoImage: 6.0.20-nonroot
+natsImage: 2.10.24-alpine3.21
 
 # storage class name for PVC
 # examples: standard, gp2, ebs-sc, efs-sc
