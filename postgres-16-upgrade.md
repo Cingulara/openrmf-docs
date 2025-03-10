@@ -49,6 +49,20 @@ Find this area in the `docker-compose.yml` file and uncomment it to make it acti
 
 Finally, jump down to the `volumes:` area and uncomment the `keycloak-postgres16:` line so we can use it for persitent storage. 
 
+```
+volumes:
+  template-data-volume:
+  checklist-data-volume:
+  score-data-volume:
+  audit-data-volume:
+  report-data-volume:
+  openrmf-prometheus-data-volume:
+  openrmf-grafana-data-volume:
+  keycloak-postgres:
+  keycloak-postgres16:
+```
+
+
 ## Step 3: Update the Postgres 16.2 instance
 With the stack running, run the `./database/v1.13.00/upgradepostgres16.sh` script. You should see some set, create, alter type statements. It should finish within one minute.
 
@@ -108,6 +122,19 @@ Now edit your `docker-compose.yml` file and comment out the regular postgres: se
 Also jump down to the `keycloak:` area and make sure the `KC_DB_URL` environment area for Keycloak points to `openrmf-postgres16` versus `openrmf-postgres` in the database connection URL.
 
 Finally, jump down to the `volumes:` area and comment out the `keycloak-postgres:` line as we do not need it any more.
+
+```
+volumes:
+  template-data-volume:
+  checklist-data-volume:
+  score-data-volume:
+  audit-data-volume:
+  report-data-volume:
+  openrmf-prometheus-data-volume:
+  openrmf-grafana-data-volume:
+  # keycloak-postgres:
+  keycloak-postgres16:
+```
 
 ## Step 6: Restart the stack and check that your Keycloak is working
 
