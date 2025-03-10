@@ -412,7 +412,6 @@ services:
   postgres:
     container_name: openrmf-postgres
     image: docker.io/postgres:11.22-alpine3.19
-    # image: docker.io/postgres:16.2-alpine
     restart: on-failure:10
     ports:
       - "5432"
