@@ -119,7 +119,7 @@ Now edit your `docker-compose.yml` file and comment out the regular postgres: se
   #     - keycloak-postgres:/var/lib/postgresql/data
 ```
 
-Also jump down to the `keycloak:` area and make sure the `KC_DB_URL` environment area for Keycloak points to `openrmf-postgres16` versus `openrmf-postgres` in the database connection URL. And the `depends_on:` also points to `postgres16`
+Also jump down to the `keycloak:` area and make sure the `KC_DB_URL` environment area for Keycloak points to `openrmf-postgres16` versus `openrmf-postgres` in the database connection URL. And the `depends_on:` also points to `postgres16`.
 
 ```
   keycloak: 
@@ -133,7 +133,7 @@ Also jump down to the `keycloak:` area and make sure the `KC_DB_URL` environment
       - "8080"
     environment:
       - KC_DB=postgres
-      - KC_DB_URL=jdbc:postgresql://openrmf-postgres:5432/openrmf-keycloak
+      - KC_DB_URL=jdbc:postgresql://openrmf-postgres16:5432/openrmf-keycloak
       - KC_DB_USERNAME=openrmf-keycloak
       - KC_DB_PASSWORD=xxxxxxxxxxxxxxxxx
       - KEYCLOAK_ADMIN=admin
@@ -147,7 +147,7 @@ Also jump down to the `keycloak:` area and make sure the `KC_DB_URL` environment
       - KC_METRICS_ENABLED=true
       # - KC_LOG_LEVEL=DEBUG
     depends_on:
-      - postgres
+      - postgres16
     networks:
       - openrmf
 ```
