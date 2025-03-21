@@ -1,6 +1,6 @@
-# Upgrade Postgres from 11.2 to 16.2 in OpenRMF<sup>&reg;<sup> OSS
+# Upgrade Postgres from 11.2 to 16.2 in OpenRMF<sup>&reg;</sup> OSS
 
-For OpenRMF<sup>&reg;<sup> OSS version 1.12.x and earlier the Postgres Database is version 11.x. That version is now in its end of life phase and must be updated. 
+For OpenRMF<sup>&reg;</sup> OSS version 1.12.x and earlier the Postgres Database is version 11.x. That version is now in its end of life phase and must be updated. 
 
 See the blog post https://medium.com/@dale-bingham-soteriasoftware/upgrade-postgres-in-a-docker-podman-container-network-b6c8756ad310 here on how this works. 
 
@@ -8,7 +8,7 @@ For OpenRMF® Professional v1.13 onward with new installations, this is already 
 
 The proper way to upgrade Postgres to a newer version in our software stack is to start the newer Postgres 16 running, connect to the container network we already have, copy all data to it, reset the password, then use the new database setting and path in your configuration. 
 
-To perform this we must perform the following steps: 
+To do this we must perform the following steps: 
 * backup the current database or virtual machine / server:
 * stop OpenRMF Professional v1.12 or earlier
 * copy over the `docker-compose.yml` from v1.13 or use it to edit your current YML, noting the postgres16 section
@@ -25,11 +25,11 @@ The rest of the document outlines this method to copy all data and settings, use
 ## Step 1: Download and unzip v1.13 of OpenRMF<sup>&reg;</sup> OSS
 Download version 1.13 or later of OpenRMF<sup>&reg;</sup> OSS. Then unzip the contents.
 
-Note the `docker-compose.yml` file in there with the changes on Postgres 16 commented like below. To d this 
+Note the `docker-compose.yml` file in there with the changes on Postgres 16 commented like below. To do this 
 
-## Step 2: Uncomment the line below in the docker-compose.yml file
+## Step 2: Uncomment the lines below in the docker-compose.yml file
 
-Find this area in the `docker-compose.yml` file and uncomment it to make it active. Stop and restart the stack so there are 2 Postgres running with different names.
+Find this area in the `docker-compose.yml` file and uncomment it to make it active. Stop and restart the stack so there are 2 Postgres containers running with different names.
 
 ```
   # postgres16:
