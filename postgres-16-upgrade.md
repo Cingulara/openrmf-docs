@@ -2,7 +2,7 @@
 
 For OpenRMF<sup>&reg;<sup> OSS version 1.12.x and earlier the Postgres Database is version 11.x. That version is now in its end of life phase and must be updated. 
 
-Se the blog post https://medium.com/@dale-bingham-soteriasoftware/upgrade-postgres-in-a-docker-podman-container-network-b6c8756ad310 here on how this works. 
+See the blog post https://medium.com/@dale-bingham-soteriasoftware/upgrade-postgres-in-a-docker-podman-container-network-b6c8756ad310 here on how this works. 
 
 For OpenRMF® Professional v1.13 onward with new installations, this is already done from the installation. So if this is the case, the rest of this document is not relevant to you. 
 
