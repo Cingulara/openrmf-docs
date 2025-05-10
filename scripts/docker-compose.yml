@@ -44,7 +44,7 @@ services:
       - openrmf
   
   openrmfapi-template:
-    image: docker.io/cingulara/openrmf-api-template:1.13.00
+    image: docker.io/cingulara/openrmf-api-template:1.13.01
     container_name: openrmf-template-api
     restart: on-failure:5
     ports:
