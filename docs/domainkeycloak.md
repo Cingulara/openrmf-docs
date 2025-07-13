@@ -11,17 +11,19 @@ If you follow these steps below you can make it use your existing Keycloak setup
 
 1. Log out of OpenRMF<sup>&reg;</sup> OSS in your web browser. 
 2. Power down the OpenRMF<sup>&reg;</sup> OSS stack with `stop.sh` or `stop.cmd` appropriately.
-3. Edit the .env file (it may be hidden) in the directory with the OpenRMF<sup>&reg;</sup> OSS docker files and use the correct URL and client links.
+3. Edit the .env file (it may be hidden) in the directory with the OpenRMF<sup>&reg;</sup> OSS docker files and use the correct URL and client links. The realm must be named `openrmf`.
 
 ```
 JWTAUTHORITY=https://mykeycloak.mydomain.com/auth/realms/openrmf
+# This URL is used for connecting from API backends to Keycloak
+JWTINTERNALAUTHORITY=https://mykeycloak.mydomain.com/auth/
 JWTCLIENT=openrmf
 ```
 
 4. Create a new auth.js file and place in the same directory as the OpenRMF<sup>&reg;</sup> OSS docker-compose file (see below) using your new URL base for Keycloak.
 
 ```
-var keycloak = Keycloak({
+var keycloak = new Keycloak({
     url: 'https://mykeycloak.mydomain.com/auth/',
     realm: 'openrmf',
     clientId: 'openrmf'
