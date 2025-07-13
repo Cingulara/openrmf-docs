@@ -49,4 +49,6 @@ var keycloak = new Keycloak({
 10. You should see it go to your new URL for login. 
 11. As long as you set it up manually correctly you should be able to login, get your roles, redirect back to OpenRMF<sup>&reg;</sup> OSS and continue on!
 
+OpenRMF expects a custom `roles` claim and specific role names. You can find details of that configuration in the `setup-realm-linux.sh` script.
+
 > Don't worry, if you mess it up just go back to the https://github.com/Cingulara/openrmf-web/blob/master/wwwroot/js/auth.js main file and copy/paste to start over. 
