@@ -7,6 +7,10 @@ nav_order: 1010
 # Setup Keycloak Using your Existing Keycloak Installation
 If you or your company has an existing Keycloak installation you want to use, you can do that as well. There are a few steps to follow to ensure it works correctly. We setup OpenRMF<sup>&reg;</sup> OSS with Keycloak for AuthN/AuthZ and assume it to be running locally along side the OpenRMF<sup>&reg;</sup> OSS stack on port 8080/auth/ as a default (as of v1.9). 
 
+> Instructions below describe how to replace the default, internal Keycloak instance.
+> If you want to use your existing SSO provider with OpenRMF it might be easier to connect the OpenRMF's Keycloak to that provider.
+> You can add SSO by logging into /auth/ and going to the "Identity providers" page.
+
 If you follow these steps below you can make it use your existing Keycloak setup. You also could modify the Keycloak ZIP you download with the OpenRMF<sup>&reg;</sup> OSS release and do something similar to this as well, changing names or ports to run locally instead of 9001.
 
 1. Log out of OpenRMF<sup>&reg;</sup> OSS in your web browser. 
