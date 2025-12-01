@@ -1,4 +1,4 @@
-FROM quay.io/keycloak/keycloak:26.1.0 AS builder
+FROM quay.io/keycloak/keycloak:26.4.4 AS builder
 
 # Enable health and metrics support
 ENV KC_HEALTH_ENABLED=true
@@ -19,7 +19,7 @@ WORKDIR /opt/keycloak
 COPY ./themes/openrmf/ /opt/keycloak/themes/openrmf/
 RUN /opt/keycloak/bin/kc.sh build --spi-x509cert-lookup-provider=nginx
 
-FROM quay.io/keycloak/keycloak:26.1.0
+FROM quay.io/keycloak/keycloak:26.4.4
 COPY --from=builder /opt/keycloak/ /opt/keycloak/
 
 ENTRYPOINT ["/opt/keycloak/bin/kc.sh"]

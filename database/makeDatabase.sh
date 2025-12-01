@@ -1,1 +1,1 @@
-docker build -f ./Dockerfile.MongoDB -t mongo:6.0.20-nonroot .
+docker build -f ./Dockerfile.MongoDB -t mongo:7.0.26-jammy-nonroot .

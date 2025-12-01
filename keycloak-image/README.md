@@ -7,7 +7,7 @@ We of course need to add in our theme and such.
 And according to this post https://keycloak.discourse.group/t/keycloak-postgres-in-docker-compose-what-volumes/17068 you have to include your DB type before building for some reason. So all this changed...
 
 ```
-FROM quay.io/keycloak/keycloak:25.0.4 as builder
+FROM quay.io/keycloak/keycloak:26.4.4 as builder
 
 # Enable health and metrics support
 ENV KC_HEALTH_ENABLED=true
@@ -28,7 +28,7 @@ WORKDIR /opt/keycloak
 COPY ./themes/openrmf/ /opt/keycloak/themes/openrmf/
 RUN /opt/keycloak/bin/kc.sh build --spi-x509cert-lookup-provider=nginx
 
-FROM quay.io/keycloak/keycloak:26.1.0
+FROM quay.io/keycloak/keycloak:26.4.4
 COPY --from=builder /opt/keycloak/ /opt/keycloak/
 
 ENTRYPOINT ["/opt/keycloak/bin/kc.sh"]
@@ -37,7 +37,7 @@ ENTRYPOINT ["/opt/keycloak/bin/kc.sh"]
 ## Build the container
 
 ```
-docker build --no-cache -t cingulara/keycloak-openrmf:26.1.0 .
+docker build --no-cache -t cingulara/keycloak-openrmf:26.4.4 .
 ```
 
 ## OpenRMF<sup>&reg;</sup> Theme
