@@ -25,7 +25,7 @@ services:
 
 ### 6 API Containers
   openrmfapi-scoring:
-    image: docker.io/cingulara/openrmf-api-scoring:1.14.00
+    image: docker.io/cingulara/openrmf-api-scoring:1.14.01
     container_name: openrmf-scoring-api
     restart: on-failure:5
     ports:
@@ -44,7 +44,7 @@ services:
       - openrmf
   
   openrmfapi-template:
-    image: docker.io/cingulara/openrmf-api-template:1.14.00
+    image: docker.io/cingulara/openrmf-api-template:1.14.01
     container_name: openrmf-template-api
     restart: on-failure:5
     ports:
@@ -64,7 +64,7 @@ services:
       - openrmf
 
   openrmfapi-read:
-    image: docker.io/cingulara/openrmf-api-read:1.14.00
+    image: docker.io/cingulara/openrmf-api-read:1.14.01
     container_name: openrmf-read-api
     restart: on-failure:5
     ports:
@@ -84,7 +84,7 @@ services:
       - openrmf
 
   openrmfapi-controls:
-    image: docker.io/cingulara/openrmf-api-controls:1.14.00
+    image: docker.io/cingulara/openrmf-api-controls:1.14.01
     container_name: openrmf-controls-api
     restart: on-failure:5
     ports:
@@ -99,7 +99,7 @@ services:
       - openrmf
 
   openrmfapi-audit:
-    image: docker.io/cingulara/openrmf-api-audit:1.14.00
+    image: docker.io/cingulara/openrmf-api-audit:1.14.01
     container_name: openrmf-audit-api
     restart: on-failure:5
     ports:
@@ -119,7 +119,7 @@ services:
       - openrmf
 
   openrmfapi-report:
-    image: docker.io/cingulara/openrmf-api-report:1.14.00
+    image: docker.io/cingulara/openrmf-api-report:1.14.01
     container_name: openrmf-report-api
     restart: on-failure:5
     ports:
