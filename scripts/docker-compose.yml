@@ -409,10 +409,10 @@ services:
     networks:
       - openrmf
 
-  postgres:
-    container_name: openrmf-postgres
-    image: docker.io/postgres:11.22-alpine3.19
-    restart: on-failure:10
+  postgres16:
+    image: docker.io/postgres:16.11-alpine3.22
+    container_name: openrmf-postgres16
+    restart: on-failure:5
     ports:
       - "5432"
     environment:
@@ -422,22 +422,7 @@ services:
     networks:
       - openrmf
     volumes:
-      - keycloak-postgres:/var/lib/postgresql/data
-
-  # postgres16:
-  #   image: docker.io/postgres:16.11-alpine3.22
-  #   container_name: openrmf-postgres16
-  #   restart: on-failure:5
-  #   ports:
-  #     - "5432"
-  #   environment:
-  #     - POSTGRES_DB=openrmf-keycloak 
-  #     - POSTGRES_USER=openrmf-keycloak 
-  #     - POSTGRES_PASSWORD=p2sst1rn0g
-  #   networks:
-  #     - openrmf
-  #   volumes:
-  #     - keycloak-postgres16:/var/lib/postgresql/data
+      - keycloak-postgres16:/var/lib/postgresql/data
 
   keycloak: 
     container_name: openrmf-keycloak
@@ -450,7 +435,7 @@ services:
       - "8080"
     environment:
       - KC_DB=postgres
-      - KC_DB_URL=jdbc:postgresql://openrmf-postgres:5432/openrmf-keycloak
+      - KC_DB_URL=jdbc:postgresql://openrmf-postgres16:5432/openrmf-keycloak
       - KC_DB_USERNAME=openrmf-keycloak
       - KC_DB_PASSWORD=p2sst1rn0g
       - KEYCLOAK_ADMIN=admin
@@ -464,7 +449,7 @@ services:
       - KC_METRICS_ENABLED=true
       # - KC_LOG_LEVEL=DEBUG
     depends_on:
-      - postgres
+      - postgres16
     networks:
       - openrmf
 
@@ -477,8 +462,7 @@ volumes:
   report-data-volume:
   openrmf-prometheus-data-volume:
   openrmf-grafana-data-volume:
-  keycloak-postgres:
-  # keycloak-postgres16:
+  keycloak-postgres16:
 
 ### put all the networks here
 networks:
