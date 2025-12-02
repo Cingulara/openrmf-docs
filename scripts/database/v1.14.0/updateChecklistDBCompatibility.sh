@@ -1,0 +1,1 @@
+docker exec mongodb-checklist mongosh -u root -p $1 --eval 'db.adminCommand({setFeatureCompatibilityVersion: "7.0", confirm: true})'
