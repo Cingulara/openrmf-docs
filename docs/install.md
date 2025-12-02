@@ -27,7 +27,13 @@ To run OpenRMF<sup>&reg;</sup> OSS you need to edit your `.grafana` file and rep
 
 > *_DO NOT USE `localhost` or `127.0.0.1` because in containerland, that means "yourself"._*
 
-![Step 2 - setup your Grafana .grafana file](/assets/install/step2-grafana.png)
+```
+GF_SERVER_DOMAIN=xxx.xxx.xxx.xxx
+GF_SERVER_ROOT_URL=%(protocol)s://%(domain)s:%(http_port)s/metrics/
+GF_SECURITY_ADMIN_PASSWORD=xxxxxxxxxxxxxxxxxxx
+GF_SERVER_HTTP_PORT=3000
+GF_SECURITY_LOGIN_REMEMBER_DAYS=0
+```
 
 ## Step 3 - Start the OpenRMF<sup>&reg;</sup> OSS Software Stack
 
