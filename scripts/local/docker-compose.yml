@@ -51,7 +51,7 @@ services:
       - openrmf-local
 
   nats-client-metrics: 
-    image: docker.io/cingulara/nats-client-metrics:2.0.4
+    image: docker.io/cingulara/nats-client-metrics:2.1.1
     container_name: nats-client-metrics
     restart: on-failure:10
     ports:
