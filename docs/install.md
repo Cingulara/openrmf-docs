@@ -4,7 +4,7 @@ title: Install and Configure
 nav_order: 15
 ---
 
-# Get OpenRMF<sup>&reg;</sup> OSS v1.9 or higher Running
+# Get OpenRMF<sup>&reg;</sup> OSS v1.13 or higher Running
 Please read the [Minimum Requirements](./minimim-requirements.md) for OpenRMF<sup>&reg;</sup> OSS before you get going.  Know that starting with v1.9 we are using `docker compose` versus `docker-compose` as the `docker` executable with the compose plugin can be used all-in-one. 
 
 And this version of OpenRMF<sup>&reg;</sup> OSS now supports `podman` and `podman-compose` as well by updating the YML and setup!
@@ -20,7 +20,11 @@ To run OpenRMF<sup>&reg;</sup> OSS you need to edit your `.env` file and replace
 
 > *_DO NOT USE `localhost` or `127.0.0.1` because in containerland, that means "yourself"._*
 
-![Step 1 - setup your .env file](/assets/install/step1-env.png)
+```
+COMPOSE_IGNORE_ORPHANS=True
+JWTAUTHORITY=http://xxx.xxx.xxx.xxx:8080/auth/realms/openrmf
+JWTCLIENT=openrmf
+```
 
 ## Step 2 - Setup your .grafana file
 To run OpenRMF<sup>&reg;</sup> OSS you need to edit your `.grafana` file and replace the `xxx.xxx.xxx.xxx` with your IP address or DNS name of your host machine. Then save and exit. 
@@ -74,7 +78,7 @@ To connect to Keycloak, now you go to the http://&lt;ip-address-or-dns&gt;:8080/
 
 ![Step 5 - Keycloak configuration](/assets/install/step5-keycloakconfig.png)
 
-Once here, click on the top left area where it has `master` for the realm and choose `openrmf` to let the screen go to our realm. 
+Once here, click on the top left area where it has `Manage Realms` and then in the listing choose `openrmf` to let the screen go to our realm. 
 
 ![Step 5 - Keycloak realm setup](/assets/install/step5-keycloakrealm.png)
 
@@ -128,6 +132,10 @@ OpenRMF<sup>&reg;</sup> OSS is free to use, reuse, install all over the place, e
 
 While using it, if you need more than the OSS version, check out <a target="_blank" href="https://www.soteriasoft.com/products/openrmf-professional.html">OpenRMF<sup>&reg;</sup> Professional</a>. 
 
+* automated install or OVA install
+* support, helpdesk, video on demand training platform
+* Track RMF, FedRAMP, CMMC, CSF, GovRAMP and other cyber compliance frameworks
+* more fidelity on security and permissions per system package
 * custom checklist templates
 * CIS scans
 * Parsing patch vulnerabilities for hardware, software, PPSM
