@@ -41,7 +41,7 @@ metadata:
     app.kubernetes.io/managed-by: helm
 data:
   auth.js: |
-    var keycloak = Keycloak({ url: '{{.Values.identityProviderURL}}', realm: '{{.Values.identityProviderRealm}}', clientId: '{{.Values.identityProviderClientId}}'});
+    var keycloak = new Keycloak({ url: '{{.Values.identityProviderURL}}', realm: '{{.Values.identityProviderRealm}}', clientId: '{{.Values.identityProviderClientId}}'});
 ---
 apiVersion: apps/v1
 kind: Deployment

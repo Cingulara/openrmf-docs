@@ -1,6 +1,6 @@
 services:
   web:
-    image: docker.io/nginxinc/nginx-unprivileged:1.27.0-alpine
+    image: docker.io/nginxinc/nginx-unprivileged:1.29.2-alpine3.22
     container_name: openrmf-web
     command: [nginx-debug, '-g', 'daemon off;']
     restart: on-failure:10
@@ -14,7 +14,7 @@ services:
       - openrmf-local
 
   mongo:
-    image: docker.io/cingulara/mongo:5.0.28-nonroot
+    image: docker.io/cingulara/mongo:7.0.26-jammy-nonroot
     container_name: mongodb
     restart: on-failure:10
     ports:
@@ -29,7 +29,7 @@ services:
       - openrmf-local
 
   nats: 
-    image: docker.io/nats:2.10.24-alpine3.21
+    image: docker.io/nats:2.11.11-alpine3.22
     container_name: nats
     command: -m 8222
     restart: on-failure:10
@@ -41,7 +41,7 @@ services:
       - openrmf-local
 
   natspromexporter: 
-    image: docker.io/natsio/prometheus-nats-exporter:0.16.0
+    image: docker.io/natsio/prometheus-nats-exporter:0.18.0
     container_name: nats-exporter-prometheus
     command: -varz -connz -subz http://nats:8222
     restart: on-failure:10
@@ -51,7 +51,7 @@ services:
       - openrmf-local
 
   nats-client-metrics: 
-    image: docker.io/cingulara/nats-client-metrics:2.0.4
+    image: docker.io/cingulara/nats-client-metrics:2.1.1
     container_name: nats-client-metrics
     restart: on-failure:10
     ports:
@@ -64,7 +64,7 @@ services:
       - openrmf-local
 
   nginx-metrics: 
-    image: docker.io/nginx/nginx-prometheus-exporter:1.4
+    image: docker.io/nginx/nginx-prometheus-exporter:1.5.1
     container_name: nginx-metrics
     restart: on-failure:1000
     command:
@@ -90,7 +90,7 @@ services:
       - openrmf-local
 
   grafana: 
-    image: docker.io/grafana/grafana:10.4.14
+    image: docker.io/grafana/grafana:11.6.8-ubuntu
     container_name: grafana
     env_file: .grafana
     environment:
@@ -135,7 +135,7 @@ services:
   #     - keycloak-postgres:/var/lib/postgresql/data
 
   postgres16:
-    image: docker.io/postgres:16.2-alpine
+    image: docker.io/postgres:16.11-alpine3.22
     container_name: openrmf-postgres16
     restart: on-failure:5
     ports:
@@ -151,7 +151,7 @@ services:
 
   keycloak: 
     container_name: openrmf-keycloak
-    image: docker.io/cingulara/keycloak-openrmf:26.1.0
+    image: docker.io/cingulara/keycloak-openrmf:26.4.4
     restart: on-failure:10
     command: start --optimized --spi-theme-welcome-theme=openrmf
     # command: start --optimized --spi-theme-welcome-theme=openrmf --spi-theme-static-max-age=-1 --spi-theme-cache-themes=false --spi-theme-cache-templates=false
