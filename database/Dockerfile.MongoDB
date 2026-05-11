@@ -1,2 +1,2 @@
-FROM mongo:7.0.31-jammy
+FROM mongo:7.0.32-jammy
 USER mongodb
