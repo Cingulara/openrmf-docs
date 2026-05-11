@@ -1,0 +1,34 @@
+/* Reset the vertical centering */
+.login-pf body, 
+#kc-container-wrapper {
+    display: flex !important;
+    flex-direction: column !important; /* Stack logo on top of form */
+    align-items: center !important; /* Pushes content to the top */
+    justify-content: flex-start !important; /* This keeps them at the top */ /* This pulls everything to the top */
+    padding-top: 0 !important;         /* Removes default top padding */
+    margin-top: 20px !important;       /* Use a small margin instead for control */
+}
+.openrmfoss-logo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+.pf-v5-c-login {
+    /* Targets the specific PF grid gap variables */
+    --pf-v5-c-login--PaddingTop: 0 !important;
+    --pf-v5-c-login--PaddingBlockStart: 0 !important;
+    
+    /* Removes the grid spacing entirely */
+    grid-template-rows: auto 1fr auto !important; 
+}
+.pf-v5-c-login__container {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+    align-self: start !important; /* Pushes the grid item to the top of its row */
+}
+.pf-v5-c-login__header {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+    height: auto !important;
+}

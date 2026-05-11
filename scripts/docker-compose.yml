@@ -426,7 +426,7 @@ services:
 
   keycloak: 
     container_name: openrmf-keycloak
-    image: docker.io/cingulara/keycloak-openrmf:26.4.4
+    image: docker.io/cingulara/keycloak-openrmf:26.5.7
     restart: on-failure:10
     command:
       - start

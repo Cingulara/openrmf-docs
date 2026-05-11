@@ -136,7 +136,7 @@ services:
 
   keycloak: 
     container_name: openrmf-keycloak
-    image: docker.io/cingulara/keycloak-openrmf:26.5.6
+    image: docker.io/cingulara/keycloak-openrmf:26.5.7
     restart: on-failure:10
     command: start --optimized --spi-theme-welcome-theme=openrmf
     # command: start --optimized --spi-theme-welcome-theme=openrmf --spi-theme-static-max-age=-1 --spi-theme-cache-themes=false --spi-theme-cache-templates=false

@@ -4,51 +4,57 @@
 	
 	<#list profile.attributes as attribute>
 
-		<#assign group = (attribute.group)!"">
-		<#if group != currentGroup>
-			<#assign currentGroup=group>
-			<#if currentGroup != "">
-				<div class="${properties.kcFormGroupClass!}"
-				<#list group.html5DataAnnotations as key, value>
-					data-${key}="${value}"
-				</#list>
-				>
+		<#if attribute.name=='locale' && realm.internationalizationEnabled && locale.currentLanguageTag?has_content>
+			<input type="hidden" id="${attribute.name}" name="${attribute.name}" value="${locale.currentLanguageTag}"/>
+		<#else>
 
-					<#assign groupDisplayHeader=group.displayHeader!"">
-					<#if groupDisplayHeader != "">
-						<#assign groupHeaderText=advancedMsg(groupDisplayHeader)!group>
-					<#else>
-						<#assign groupHeaderText=group.name!"">
-					</#if>
-					<div class="${properties.kcContentWrapperClass!}">
-						<label id="header-${attribute.group.name}" class="${kcFormGroupHeader!}">${groupHeaderText}</label>
-					</div>
+			<#assign group = (attribute.group)!"">
+			<#if group != currentGroup>
+				<#assign currentGroup=group>
+				<#if currentGroup != "">
+					<div class="${properties.kcFormGroupClass!}"
+					<#list group.html5DataAnnotations as key, value>
+						data-${key}="${value}"
+					</#list>
+					>
 
-					<#assign groupDisplayDescription=group.displayDescription!"">
-					<#if groupDisplayDescription != "">
-						<#assign groupDescriptionText=advancedMsg(groupDisplayDescription)!"">
-						<div class="${properties.kcLabelWrapperClass!}">
-							<label id="description-${group.name}" class="${properties.kcLabelClass!}">${groupDescriptionText}</label>
+						<#assign groupDisplayHeader=group.displayHeader!"">
+						<#if groupDisplayHeader != "">
+							<#assign groupHeaderText=advancedMsg(groupDisplayHeader)!group>
+						<#else>
+							<#assign groupHeaderText=group.name!"">
+						</#if>
+						<div class="${properties.kcContentWrapperClass!}">
+							<label id="header-${attribute.group.name}" class="${kcFormGroupHeader!}">${groupHeaderText}</label>
 						</div>
+
+						<#assign groupDisplayDescription=group.displayDescription!"">
+						<#if groupDisplayDescription != "">
+							<#assign groupDescriptionText=advancedMsg(groupDisplayDescription)!"">
+							<div class="${properties.kcLabelWrapperClass!}">
+								<label id="description-${group.name}" class="${properties.kcLabelClass!}">${groupDescriptionText}</label>
+							</div>
+						</#if>
+					</div>
+				</#if>
+			</#if>
+
+			<#nested "beforeField" attribute>
+
+			<@field.group name=attribute.name label=advancedMsg(attribute.displayName!'') error=messagesPerField.get('${attribute.name}') required=attribute.required>
+				<div class="${properties.kcInputWrapperClass!}">
+					<#if attribute.annotations.inputHelperTextBefore??>
+						<div class="${properties.kcInputHelperTextBeforeClass!}" id="form-help-text-before-${attribute.name}" aria-live="polite">${kcSanitize(advancedMsg(attribute.annotations.inputHelperTextBefore))?no_esc}</div>
+					</#if>
+					<@inputFieldByType attribute=attribute/>
+					<#if attribute.annotations.inputHelperTextAfter??>
+						<div class="${properties.kcInputHelperTextAfterClass!}" id="form-help-text-after-${attribute.name}" aria-live="polite">${kcSanitize(advancedMsg(attribute.annotations.inputHelperTextAfter))?no_esc}</div>
 					</#if>
 				</div>
-			</#if>
+			</@field.group>
+			<#nested "afterField" attribute>
+
 		</#if>
-
-		<#nested "beforeField" attribute>
-
-		<@field.group name=attribute.name label=advancedMsg(attribute.displayName!'') error=kcSanitize(messagesPerField.get('${attribute.name}'))?no_esc required=attribute.required>
-			<div class="${properties.kcInputWrapperClass!}">
-				<#if attribute.annotations.inputHelperTextBefore??>
-					<div class="${properties.kcInputHelperTextBeforeClass!}" id="form-help-text-before-${attribute.name}" aria-live="polite">${kcSanitize(advancedMsg(attribute.annotations.inputHelperTextBefore))?no_esc}</div>
-				</#if>
-				<@inputFieldByType attribute=attribute/>
-				<#if attribute.annotations.inputHelperTextAfter??>
-					<div class="${properties.kcInputHelperTextAfterClass!}" id="form-help-text-after-${attribute.name}" aria-live="polite">${kcSanitize(advancedMsg(attribute.annotations.inputHelperTextAfter))?no_esc}</div>
-				</#if>
-			</div>
-		</@field.group>
-		<#nested "afterField" attribute>
 	</#list>
 
 	<#list profile.html5DataAnnotations?keys as key>
@@ -75,7 +81,7 @@
 				<@inputTag attribute=attribute value=value!''/>
 			</#list>
 		<#else>
-			<@inputTag attribute=attribute value=attribute.value!''/>
+			<@inputTag attribute=attribute value=(attribute.value!attribute.defaultValue!'')/>
 		</#if>
 	</#switch>
 </#macro>
@@ -116,13 +122,15 @@
 </#macro>
 
 <#macro textareaTag attribute>
-	<textarea id="${attribute.name}" name="${attribute.name}" class="${properties.kcInputClass!}"
+	<span class="${properties.kcInputClass!}">
+	<textarea id="${attribute.name}" name="${attribute.name}"
 		aria-invalid="<#if messagesPerField.existsError('${attribute.name}')>true</#if>"
 		<#if attribute.readOnly>disabled</#if>
 		<#if attribute.annotations.inputTypeCols??>cols="${attribute.annotations.inputTypeCols}"</#if>
 		<#if attribute.annotations.inputTypeRows??>rows="${attribute.annotations.inputTypeRows}"</#if>
 		<#if attribute.annotations.inputTypeMaxlength??>maxlength="${attribute.annotations.inputTypeMaxlength}"</#if>
-	>${(attribute.value!'')}</textarea>
+	>${(attribute.value!attribute.defaultValue!'')}</textarea>
+	</span>
 </#macro>
 
 <#macro selectTag attribute>
@@ -145,8 +153,13 @@
 				<#assign options=[]>
 			</#if>
 
+			<#assign selectedValues = attribute.values![]>
+			<#if !selectedValues?has_content && (attribute.defaultValue??)>
+				<#assign selectedValues = [attribute.defaultValue]>
+			</#if>
+
 			<#list options as option>
-				<option value="${option}" <#if attribute.values?seq_contains(option)>selected</#if>><@selectOptionLabelText attribute=attribute option=option/></option>
+				<option value="${option}" <#if selectedValues?seq_contains(option)>selected</#if>><@selectOptionLabelText attribute=attribute option=option/></option>
 			</#list>
 		</select>
 		<span class="${properties.kcFormControlUtilClass}">
@@ -192,16 +205,21 @@
         <#assign options=[]>
     </#if>
 
-    <#list options as option>
-        <div class="${classDiv}">
-            <input type="${inputType}" id="${attribute.name}-${option}" name="${attribute.name}" value="${option}" class="${classInput}"
-                aria-invalid="<#if messagesPerField.existsError('${attribute.name}')>true</#if>"
-                <#if attribute.readOnly>disabled</#if>
-                <#if attribute.values?seq_contains(option)>checked</#if>
-            />
-            <label for="${attribute.name}-${option}" class="${classLabel}<#if attribute.readOnly> ${properties.kcInputClassRadioCheckboxLabelDisabled!}</#if>"><@selectOptionLabelText attribute=attribute option=option/></label>
-        </div>
-    </#list>
+	<#assign selectedValues = attribute.values![]>
+	<#if !selectedValues?has_content && (attribute.defaultValue??)>
+		<#assign selectedValues = [attribute.defaultValue]>
+	</#if>
+
+	<#list options as option>
+		<div class="${classDiv}">
+			<input type="${inputType}" id="${attribute.name}-${option}" name="${attribute.name}" value="${option}" class="${classInput}"
+				   aria-invalid="<#if messagesPerField.existsError('${attribute.name}')>true</#if>"
+				   <#if attribute.readOnly>disabled</#if>
+					<#if selectedValues?seq_contains(option)>checked</#if>
+			/>
+			<label for="${attribute.name}-${option}" class="${classLabel}<#if attribute.readOnly> ${properties.kcInputClassRadioCheckboxLabelDisabled!}</#if>"><@selectOptionLabelText attribute=attribute option=option/></label>
+		</div>
+	</#list>
 </#macro>
 
 <#macro selectOptionLabelText attribute option>
