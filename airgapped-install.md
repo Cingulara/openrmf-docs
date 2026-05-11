@@ -25,28 +25,28 @@ Take all the image files from above and put onto a DVD / CD / USB (if allowed) a
 
 ## Application Container Images you will need to have
 For OpenRMF<sup>&reg;</sup> OSS (Please check the scripts/docker-compose.yml for the latest information.):
-* cingulara/openrmf-web:1.13.00
-* cingulara/openrmf-api-scoring:1.13.00
-* cingulara/openrmf-api-template:1.13.00
-* cingulara/openrmf-api-read:1.13.00
-* cingulara/openrmf-api-compliance:1.13.00
-* cingulara/openrmf-api-controls:1.13.00
-* cingulara/openrmf-api-audit:1.13.00
-* cingulara/openrmf-api-report:1.13.00
-* cingulara/openrmf-msg-score:1.13.00
-* cingulara/openrmf-msg-compliance:1.13.00
-* cingulara/openrmf-msg-controls:1.13.00
-* cingulara/openrmf-msg-template:1.13.00
-* cingulara/openrmf-msg-system:1.13.00
-* cingulara/openrmf-msg-audit:1.13.00
-* cingulara/openrmf-msg-report:1.13.00
-* cingulara/mongo:6.0.20-nonroot
-* nats:2.10-24-alpine3.21
-* synadia/prometheus-nats-exporter:0.15.0
-* cingulara/nats-client-metrics:2.04
-* prom/prometheus:v2.55.0
-* grafana/grafana:10.4.14
-* postgres:16.2-alpine
-* cingulara/keycloak-openrmf:26.1.0
+* cingulara/openrmf-web:1.14.01
+* cingulara/openrmf-api-scoring:1.14.02
+* cingulara/openrmf-api-template:1.14.04
+* cingulara/openrmf-api-read:1.14.02
+* cingulara/openrmf-api-controls:1.14.02
+* cingulara/openrmf-api-audit:1.14.02
+* cingulara/openrmf-api-report:1.14.02
+* cingulara/openrmf-msg-score:1.14.01
+* cingulara/openrmf-msg-compliance:1.14.01
+* cingulara/openrmf-msg-controls:1.14.01
+* cingulara/openrmf-msg-template:1.14.01
+* cingulara/openrmf-msg-system:1.14.01
+* cingulara/openrmf-msg-audit:1.14.01
+* cingulara/openrmf-msg-report:1.14.01
+* cingulara/mongo:7.0.32-jammy-nonroot
+* nats:2.12.8-alpine3.22
+* natsio/prometheus-nats-exporter:0.19.2
+* cingulara/nats-client-metrics:2.1.3
+* nginx/nginx-prometheus-exporter:1.5.1
+* prom/prometheus:v3.10.0
+* grafana/grafana:11.6.13-ubuntu
+* postgres:16.13-alpine3.23
+* cingulara/keycloak-openrmf:26.5.7
 
 > The `cingulara/xxx` OpenRMF<sup>&reg;</sup> OSS items have the current version. Yours may differ in the container "tag" but not the name. 
