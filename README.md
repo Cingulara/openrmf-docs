@@ -1,7 +1,7 @@
 # OpenRMF<sup>&reg;</sup> OSS Documentation (v 1.14.01)
 OpenRMF<sup>&reg;</sup> OSS is an open source application for managing, viewing, and reporting of your DoD STIG checklists, SCAP Scans and Nessus Patch Scans in one web-based interface using your browser. It also generates a compliance listing of all your checklists across a whole system based on NIST 800-53 for your Risk Management Framework (RMF) documentation and process. This tool helps you manage multiple systems going through the RMF process and allows you to structure your data in a clean interface all in one location for your group or program. 
 
-You can export your checklists as CKL files and your test plan and POAM as MS Excel properly formatted files as well.
+You can export your checklists as CKL files and your test plan and Plan of Action and Milestones (POA&M) as MS Excel properly formatted files as well.
 
 If you need more than the OSS version, check out <a target="_blank" href="https://www.soteriasoft.com/products/openrmf-professional.html">OpenRMF<sup>&reg;</sup> Professional</a>. 
 
@@ -11,7 +11,7 @@ If you need more than the OSS version, check out <a target="_blank" href="https:
 * history and trends
 * deeper level of security on system packages
 * full text searching of all checklist content
-* live POAM
+* live POA&M
 * journal entries on changes
 * bulk editing and locking vulnerabilities and checklists
 * Compliance down to the subcontrol level, overlays, tailoring, compliance statements
@@ -146,3 +146,4 @@ Exporting the checklist to XLSX with color coding
 
 Reports to Run
 ![Image](./img/UI_reports.png?raw=true)
+
